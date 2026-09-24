@@ -1,0 +1,24 @@
+{
+  "model": "LightGBM",
+  "n_seeds": 20,
+  "n_original_predictors": 21,
+  "n_enhanced_predictors": 95,
+  "AP": {
+    "original_mean": 0.9143678953274648,
+    "enhanced_mean": 0.9230863512854839,
+    "delta_mean": 0.00871845595801889,
+    "delta_sd": 0.002593588117605205,
+    "delta_lo": 0.003553303011488218,
+    "delta_hi": 0.012527655176734756,
+    "seeds_enhanced_better": 20
+  },
+  "AUROC": {
+    "original_mean": 0.7733777908136437,
+    "enhanced_mean": 0.792440875081422,
+    "delta_mean": 0.019063084267778512,
+    "delta_sd": 0.003922625288213892,
+    "delta_lo": 0.011091743066927496,
+    "delta_hi": 0.0251511970828871,
+    "seeds_enhanced_better": 20
+  }
+}

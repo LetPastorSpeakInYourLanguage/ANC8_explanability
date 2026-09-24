@@ -1,0 +1,10 @@
+# Only app/ is deployed. Everything else is analysis: notebooks, the model
+# development pipeline, and the 156 MB DHS source file.
+*.ipynb
+*.dta
+*.pdf
+outputs/
+scripts/
+src/
+logs/
+.venv-serve/

@@ -1,0 +1,54 @@
+# ---------------------------------------------------------------------------
+# No training data in this repository.
+#
+# The DHS survey file, and anything derived from it row by row (one row per
+# woman), stays local. The DHS Program licenses recode files to named users and
+# does not permit redistribution. Obtain ETIR8AFL.DTA from dhsprogram.com.
+# Result tables (aggregates, curves, model parameters) are committed.
+# ---------------------------------------------------------------------------
+
+# the survey file
+*.dta
+*.DTA
+
+# derived analysis datasets and per-woman files
+*.pkl
+*.parquet
+*.npz
+*.npy
+*.csv.gz
+outputs/enhanced/*/development_index.csv
+outputs/enhanced/*/heldout_locked_predictions_v2.csv
+outputs/notebook3_explainability_handoff/*_locked_predictions.csv
+outputs/enhanced/selection_cache/
+
+# fitted pickled pipelines (large, regenerable, may embed training rows)
+*.joblib
+
+# the reproduction package is generated, and ships the derived dataset
+release/
+ANC8_reproduction_package.zip
+
+# third-party publications (copyrighted; cited in the docs)
+*.pdf
+
+# Environments and caches
+.venv/
+.venv-serve/
+.ruff_cache/
+__pycache__/
+*.pyc
+.claude/
+
+# Node / Next.js
+app/node_modules/
+app/.next/
+app/.next-build/
+app/.next-static/
+app/out/
+app/.vercel
+app/next-env.d.ts
+app/tsconfig.tsbuildinfo
+
+# Run logs
+logs/

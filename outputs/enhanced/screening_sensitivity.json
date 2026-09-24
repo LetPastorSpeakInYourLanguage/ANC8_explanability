@@ -1,0 +1,15 @@
+{
+  "admitted_variables": 61,
+  "rankable_full_cohort": 61,
+  "rankable_development_only": 61,
+  "admitted_lost_under_development_screening": [],
+  "top_n": 40,
+  "top_n_overlap": 37,
+  "in_full_top_n_only": [
+    "v130",
+    "v219",
+    "v220"
+  ],
+  "max_abs_auc_shift": 0.013233754218224258,
+  "mean_auc_shift": 0.0009944954776566223
+}

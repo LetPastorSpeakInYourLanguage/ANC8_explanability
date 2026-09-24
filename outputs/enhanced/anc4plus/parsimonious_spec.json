@@ -1,0 +1,27 @@
+{
+  "predictors": [
+    "v191",
+    "v012",
+    "v218",
+    "v715",
+    "v133",
+    "children_over_ideal",
+    "partner_occupation_group",
+    "s1101a"
+  ],
+  "base_model": "LightGBM",
+  "numeric": [
+    "v191",
+    "v012",
+    "v218",
+    "v715",
+    "v133",
+    "children_over_ideal"
+  ],
+  "categorical": [
+    "partner_occupation_group",
+    "s1101a"
+  ],
+  "development_AP": 0.7908093621091464,
+  "note": "Selected by forward selection on out-of-fold AP; the selector is a fast booster because the search costs ~950 out-of-fold fits."
+}

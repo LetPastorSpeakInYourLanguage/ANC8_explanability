@@ -1,0 +1,22 @@
+predictor,placement
+age_at_birth,not selected
+maternal_education,not selected
+maternal_current_union_status,not selected
+maternal_occupation_group,tier 2
+partner_education,not selected
+partner_occupation_group,not selected
+healthcare_decision_participation,not selected
+wealth_quintile,not selected
+residence,not selected
+region,tier 1
+household_size,not selected
+religion_group,not selected
+traditional_media_weekly_count,not selected
+internet_exposure,not selected
+health_insurance,not selected
+pregnancy_order_group,not selected
+preceding_pregnancy_interval_group,not selected
+pregnancy_intention,tier 2
+previous_pregnancy_history,not selected
+travel_time_min,not selected
+transport_mode_group,not selected

@@ -1,0 +1,123 @@
+{
+  "windows": [
+    {
+      "window": "tigray_war",
+      "regions": [
+        "Tigray"
+      ],
+      "start": 1451,
+      "end": 1475
+    },
+    {
+      "window": "northern_incursion",
+      "regions": [
+        "Afar",
+        "Amhara"
+      ],
+      "start": 1459,
+      "end": 1464
+    },
+    {
+      "window": "fano_insurgency",
+      "regions": [
+        "Amhara"
+      ],
+      "start": 1484,
+      "end": 1504
+    }
+  ],
+  "exposed_months": 3,
+  "tigray_did": [
+    {
+      "measure": "anc1plus",
+      "window_shift_months": 0,
+      "controls": "peaceful regions",
+      "did": 0.12971436124544355,
+      "lo": 0.06177383929581633,
+      "hi": 0.20314841710401135,
+      "tigray_during_n": 259,
+      "tigray_after_n": 323,
+      "tigray_during": 0.8047987233087037,
+      "tigray_after": 0.9225132500246505,
+      "control_change_within_region": -0.011999834529496947
+    },
+    {
+      "measure": "anc4plus",
+      "window_shift_months": 0,
+      "controls": "peaceful regions",
+      "did": 0.13628593863396293,
+      "lo": 0.05038606495973151,
+      "hi": 0.2284140432312629,
+      "tigray_during_n": 259,
+      "tigray_after_n": 323,
+      "tigray_during": 0.4557454884719877,
+      "tigray_after": 0.5926067799772183,
+      "control_change_within_region": 0.0005753528712675247
+    },
+    {
+      "measure": "anc8plus",
+      "window_shift_months": 0,
+      "controls": "peaceful regions",
+      "did": 0.019930637212163243,
+      "lo": -0.05114966461900377,
+      "hi": 0.08633886899157892,
+      "tigray_during_n": 259,
+      "tigray_after_n": 323,
+      "tigray_during": 0.09750891129248923,
+      "tigray_after": 0.12294145870534903,
+      "control_change_within_region": 0.00550191020069656
+    },
+    {
+      "measure": "never",
+      "window_shift_months": 0,
+      "controls": "peaceful regions",
+      "did": -0.1297143612454435,
+      "lo": -0.2031484171040112,
+      "hi": -0.061773839295816445,
+      "tigray_during_n": 259,
+      "tigray_after_n": 323,
+      "tigray_during": 0.1952012766912961,
+      "tigray_after": 0.07748674997534961,
+      "control_change_within_region": 0.011999834529496945
+    },
+    {
+      "measure": "start_lt4",
+      "window_shift_months": 0,
+      "controls": "peaceful regions",
+      "did": -0.006571577388519436,
+      "lo": -0.09680870209214128,
+      "hi": 0.08051643227924428,
+      "tigray_during_n": 259,
+      "tigray_after_n": 323,
+      "tigray_during": 0.349053234836716,
+      "tigray_after": 0.3299064700474322,
+      "control_change_within_region": -0.012575187400764463
+    },
+    {
+      "measure": "four_lt8",
+      "window_shift_months": 0,
+      "controls": "peaceful regions",
+      "did": 0.1163553014217997,
+      "lo": 0.029557811552939926,
+      "hi": 0.20161910816167183,
+      "tigray_during_n": 259,
+      "tigray_after_n": 323,
+      "tigray_during": 0.3582365771794985,
+      "tigray_after": 0.4696653212718692,
+      "control_change_within_region": -0.0049265573294290585
+    },
+    {
+      "measure": "eight_plus",
+      "window_shift_months": 0,
+      "controls": "peaceful regions",
+      "did": 0.019930637212163243,
+      "lo": -0.05114966461900377,
+      "hi": 0.08633886899157892,
+      "tigray_during_n": 259,
+      "tigray_after_n": 323,
+      "tigray_during": 0.09750891129248923,
+      "tigray_after": 0.12294145870534903,
+      "control_change_within_region": 0.00550191020069656
+    }
+  ]
+}

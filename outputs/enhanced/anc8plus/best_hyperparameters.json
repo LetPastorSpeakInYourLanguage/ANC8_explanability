@@ -1,0 +1,70 @@
+{
+  "Logistic regression": {
+    "C": 0.007618192955281762
+  },
+  "Elastic net logistic": {
+    "C": 0.032537407621859846,
+    "l1_ratio": 0.39730099348623427
+  },
+  "Spline logistic": {
+    "C": 0.001955720320860413
+  },
+  "Random Forest": {
+    "n_estimators": 900,
+    "max_depth": null,
+    "min_samples_split": 2,
+    "min_samples_leaf": 4,
+    "max_features": "sqrt"
+  },
+  "Extra Trees": {
+    "n_estimators": 600,
+    "max_depth": null,
+    "min_samples_split": 27,
+    "min_samples_leaf": 2,
+    "max_features": "sqrt"
+  },
+  "XGBoost": {
+    "n_estimators": 250,
+    "learning_rate": 0.016027899808742797,
+    "max_depth": 6,
+    "min_child_weight": 0.8425465411962727,
+    "subsample": 0.62329031731783,
+    "colsample_bytree": 0.9000699982808004,
+    "reg_lambda": 0.001610601754961677,
+    "reg_alpha": 0.9439344008422813,
+    "gamma": 0.0022423770639506
+  },
+  "LightGBM": {
+    "n_estimators": 900,
+    "learning_rate": 0.012746501831344233,
+    "num_leaves": 52,
+    "min_child_samples": 75,
+    "subsample": 0.7586827555677287,
+    "colsample_bytree": 0.8667532718580032,
+    "reg_lambda": 0.6820373504855411,
+    "reg_alpha": 2.8768520805499125
+  },
+  "CatBoost": {
+    "iterations": 1000,
+    "learning_rate": 0.011973034013272795,
+    "depth": 4,
+    "l2_leaf_reg": 26.29667776077872
+  },
+  "HistGradientBoosting": {
+    "max_iter": 500,
+    "learning_rate": 0.010880923041907617,
+    "max_leaf_nodes": 48,
+    "min_samples_leaf": 23,
+    "l2_regularization": 0.003333755476654509
+  },
+  "Explainable Boosting": {
+    "max_bins": 512,
+    "learning_rate": 0.010867611809964341,
+    "interactions": 0
+  },
+  "MLP": {
+    "hidden": "64",
+    "alpha": 3.1939918895148964e-05,
+    "learning_rate_init": 0.0009362942309891234
+  }
+}

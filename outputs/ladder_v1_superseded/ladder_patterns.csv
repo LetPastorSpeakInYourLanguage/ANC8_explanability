@@ -1,0 +1,33 @@
+predictor,domain,pattern,methods_agreeing,methods_total,mean_share_shift
+region,Geography and culture,engagement-limited,3,3,0.07563756508379542
+v191,Socioeconomic,engagement-limited,3,3,0.05771482701041177
+v743b,Agency and household,engagement-limited,3,3,0.025654383250831442
+v045c,Geography and culture,engagement-limited,3,3,0.02210966577219543
+ipv_justification_count,Agency and household,access-limited,3,3,-0.021976912215743924
+s1101b,Access and distance,engagement-limited,2,3,0.021311737743126752
+partner_occupation_group,Agency and household,access-limited,3,3,-0.021033094065363803
+maternal_occupation_group,Work,access-limited,2,3,-0.020853886652973268
+v151,Agency and household,access-limited,3,3,-0.020389616509263696
+v191a,Socioeconomic,engagement-limited,2,3,0.018921845539293145
+spousal_age_gap,Agency and household,access-limited,2,3,-0.018490662803535077
+spousal_education_gap,Agency and household,access-limited,2,3,-0.017698041846026923
+v155,Education and information,engagement-limited,2,3,0.01678028795463451
+wealth_quintile,Socioeconomic,access-limited,2,3,-0.016162296617314005
+v133,Education and information,access-limited,3,3,-0.016112252225937523
+v157,Education and information,access-limited,3,3,-0.015462882507757597
+v467c,Access and distance,access-limited,3,3,-0.014378279445584284
+pregnancy_intention,Reproductive history,engagement-limited,2,3,0.01342137521282156
+v730,Agency and household,access-limited,2,3,-0.012646745263611068
+v024,Geography and culture,access-limited,3,3,-0.011882128794957147
+v136,Socioeconomic,access-limited,2,3,-0.011879405997230894
+v025,Geography and culture,access-limited,2,3,-0.011579565632001961
+v113,Socioeconomic,access-limited,3,3,-0.010409492914602551
+television_weekly,Education and information,engagement-limited,2,3,0.010059975491537927
+residence,Geography and culture,access-limited,2,3,-0.009767616076137953
+s1101,Access and distance,engagement-limited,2,3,0.00926165694184342
+v218,Reproductive history,engagement-limited,2,3,0.009063572117136869
+v120,Socioeconomic,access-limited,3,3,-0.009012844501079071
+v744c,Agency and household,access-limited,2,3,-0.008679372437340111
+partner_education,Agency and household,access-limited,2,3,-0.008569357045545723
+previous_pregnancy_history,Reproductive history,access-limited,2,3,-0.008075564145218317
+v106,Education and information,access-limited,2,3,-0.007769086467099841

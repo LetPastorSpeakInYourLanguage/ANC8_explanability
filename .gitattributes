@@ -1,0 +1,9 @@
+# Notebooks are committed without outputs: see scripts/strip_notebook_outputs.py.
+*.ipynb filter=nbstrip
+
+# Keep line endings stable across Windows and Linux (GitHub Actions, Vercel).
+* text=auto
+*.png binary
+*.gz binary
+*.pptx binary
+*.docx binary

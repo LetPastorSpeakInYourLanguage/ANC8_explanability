@@ -1,0 +1,6 @@
+# Keep the serverless bundle minimal: it must stay under Vercel's 250 MB
+# unzipped limit, and everything here is either build output or local-only.
+__pycache__/
+*.pyc
+.next/
+node_modules/

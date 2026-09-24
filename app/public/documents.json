@@ -1,0 +1,318 @@
+{
+ "documents": [
+  {
+   "key": "brief",
+   "title": "Policy brief",
+   "audience": "Ministry of Health",
+   "blurb": "Findings and recommendations, in ten minutes",
+   "source": "docs/POLICY_BRIEF.md",
+   "file": "POLICY_BRIEF.md"
+  },
+  {
+   "key": "record",
+   "title": "Analysis record",
+   "audience": "Everyone",
+   "blurb": "Every analysis in order: the question, the test, the result",
+   "source": "docs/ANALYSIS_RECORD.md",
+   "file": "ANALYSIS_RECORD.md"
+  },
+  {
+   "key": "glossary",
+   "title": "Understanding the numbers",
+   "audience": "Everyone",
+   "blurb": "Every term, score and figure explained in plain language",
+   "source": "docs/GLOSSARY.md",
+   "file": "GLOSSARY.md"
+  },
+  {
+   "key": "insights",
+   "title": "Insights",
+   "audience": "General reader",
+   "blurb": "The findings in plain language",
+   "source": "INSIGHTS.md",
+   "file": "INSIGHTS.md"
+  },
+  {
+   "key": "findings",
+   "title": "Technical findings",
+   "audience": "Researchers",
+   "blurb": "The hub: what held up, what did not, and why",
+   "source": "FINDINGS.md",
+   "file": "FINDINGS.md"
+  },
+  {
+   "key": "predictors",
+   "title": "Predictor value",
+   "audience": "Researchers",
+   "blurb": "2 / 8 / 21 / 88, the drop study, why 21, across ANC1+/4+/8+",
+   "source": "docs/PREDICTOR_VALUE.md",
+   "file": "PREDICTOR_VALUE.md"
+  },
+  {
+   "key": "horizons",
+   "title": "Two prediction horizons",
+   "audience": "Researchers",
+   "blurb": "Before ANC starts vs at ANC entry, and what early ANC adds",
+   "source": "docs/HORIZONS.md",
+   "file": "HORIZONS.md"
+  },
+  {
+   "key": "wartime",
+   "title": "The Tigray war",
+   "audience": "Researchers",
+   "blurb": "Antenatal care during and after the conflict",
+   "source": "docs/WARTIME.md",
+   "file": "WARTIME.md"
+  },
+  {
+   "key": "data",
+   "title": "Data and cohort",
+   "audience": "Researchers",
+   "blurb": "The population, the official window, when predictors were measured",
+   "source": "docs/DATA_AND_COHORT.md",
+   "file": "DATA_AND_COHORT.md"
+  },
+  {
+   "key": "methods",
+   "title": "Methods",
+   "audience": "Researchers",
+   "blurb": "Design, splitting, models, metrics, supporting analyses, deployment",
+   "source": "docs/METHODS.md",
+   "file": "METHODS.md"
+  },
+  {
+   "key": "limitations",
+   "title": "Limitations",
+   "audience": "Everyone",
+   "blurb": "What this analysis cannot support",
+   "source": "docs/LIMITATIONS.md",
+   "file": "LIMITATIONS.md"
+  },
+  {
+   "key": "decisions",
+   "title": "Decision log",
+   "audience": "Reviewers",
+   "blurb": "Every significant decision and why it was made",
+   "source": "docs/DECISION_LOG.md",
+   "file": "DECISION_LOG.md"
+  }
+ ],
+ "figures": [
+  {
+   "figure": "fig01_cascade",
+   "title": "The national ANC cascade",
+   "caption": "Weighted attainment 77.6/52.4/19.2%; continuation 68% then 37%.",
+   "file": "/figures/fig01_cascade.png"
+  },
+  {
+   "figure": "fig02_regional_cascade",
+   "title": "Regional cascade decomposition",
+   "caption": "Regions with similar ANC8+ coverage lose women at opposite points.",
+   "file": "/figures/fig02_regional_cascade.png"
+  },
+  {
+   "figure": "fig03_continuation_equity",
+   "title": "Continuation from 4 to 8 by circumstance",
+   "caption": "All women shown have already attended four times, so this isolates the cost of repeat attendance from initial demand.",
+   "file": "/figures/fig03_continuation_equity.png"
+  },
+  {
+   "figure": "fig04_leaderboard_anc8plus",
+   "title": "Development vs held-out AP",
+   "caption": "Mean development-to-held-out drop +0.076 AP -- the signature of selection over the same folds, not of a better model.",
+   "file": "/figures/fig04_leaderboard_anc8plus.png"
+  },
+  {
+   "figure": "fig05_calibration",
+   "title": "Held-out calibration",
+   "caption": "Weighted decile means; the diagonal is perfect calibration.",
+   "file": "/figures/fig05_calibration.png"
+  },
+  {
+   "figure": "fig06_stability",
+   "title": "Repeated-split stability",
+   "caption": "Mean AP gain +0.0306 [+0.0179, +0.0434] over 20 independent splits.",
+   "file": "/figures/fig06_stability.png"
+  },
+  {
+   "figure": "fig07_bootstrap",
+   "title": "Paired stratified-PSU bootstrap",
+   "caption": "MLP (full pool) vs XGBoost (21 predictors); the AP interval includes zero, which is why the repeated-split evidence carries the claim.",
+   "file": "/figures/fig07_bootstrap.png"
+  },
+  {
+   "figure": "fig08_global_importance",
+   "title": "Global predictor importance",
+   "caption": "Exact additive attribution from the Explainable Boosting model; arrows give the direction of the dominant effect.",
+   "file": "/figures/fig08_global_importance.png"
+  },
+  {
+   "figure": "fig09_shape_functions",
+   "title": "Fitted shape functions",
+   "caption": "The exact learned curve for each top predictor, on the log-odds scale. Flat regions are values the model does not distinguish.",
+   "file": "/figures/fig09_shape_functions.png"
+  },
+  {
+   "figure": "fig10_decision_curve",
+   "title": "Decision-curve analysis",
+   "caption": "Net benefit across plausible thresholds; the useful range is where the model sits above both default strategies.",
+   "file": "/figures/fig10_decision_curve.png"
+  },
+  {
+   "figure": "fig11_subgroups",
+   "title": "Subgroup discrimination",
+   "caption": "Several regional subgroups sit at or below chance; a national AUROC hides that. Subgroup n is small, so these are indicative.",
+   "file": "/figures/fig11_subgroups.png"
+  },
+  {
+   "figure": "fig14_screening",
+   "title": "Systematic candidate screening",
+   "caption": "Every column of the Individual Recode screened on the development fold only; admission required the variable to be measured before or early in the pregnancy.",
+   "file": "/figures/fig14_screening.png"
+  },
+  {
+   "figure": "fig15_preprocessing",
+   "title": "Preprocessing ablation",
+   "caption": "The best variant buys +0.003 AP -- an order of magnitude less than the predictor set. Reported because a wins-only list would mislead.",
+   "file": "/figures/fig15_preprocessing.png"
+  },
+  {
+   "figure": "fig16_hyperparameters",
+   "title": "Hyperparameter sensitivity",
+   "caption": "Each bar moves one parameter away from the Optuna optimum with all others held; small bars mean the search bought little.",
+   "file": "/figures/fig16_hyperparameters.png"
+  },
+  {
+   "figure": "fig17_tuning_gain",
+   "title": "Tuning gain over library defaults",
+   "caption": "Read against the ~0.08 development-to-held-out optimism gap: a tuning gain smaller than that is not evidence of better generalisation.",
+   "file": "/figures/fig17_tuning_gain.png"
+  },
+  {
+   "figure": "fig18_ladder_performance",
+   "title": "Performance across the ladder",
+   "caption": "Development champion per rung, scored on held-out women. AP rises with prevalence and must never be compared across rungs; AUROC shows reaching care is easier to predict than completing it.",
+   "file": "/figures/fig18_ladder_performance.png"
+  },
+  {
+   "figure": "fig19_ladder_importance",
+   "title": "Importance shift across the ladder",
+   "caption": "Green links: predictors that matter more as the threshold rises (engagement-limited); red: less (access-limited). Shares averaged over three independent importance methods.",
+   "file": "/figures/fig19_ladder_importance.png"
+  },
+  {
+   "figure": "fig20_domain_rollup",
+   "title": "Domain roll-up across the ladder",
+   "caption": "Predictor importance aggregated into domains, normalised within rung, averaged over EBM, SHAP and drop-one.",
+   "file": "/figures/fig20_domain_rollup.png"
+  },
+  {
+   "figure": "fig21_regional_gap",
+   "title": "Regional performance against circumstance",
+   "caption": "Expected attainment predicted from wealth, education and household factors with region withheld; a positive gap means the region does better than its population profile implies.",
+   "file": "/figures/fig21_regional_gap.png"
+  },
+  {
+   "figure": "fig22_modifiable",
+   "title": "Modifiable versus fixed decomposition",
+   "caption": "Same folds, same model, three predictor subsets.",
+   "file": "/figures/fig22_modifiable.png"
+  },
+  {
+   "figure": "fig23_risk_bands",
+   "title": "Near-threshold risk bands",
+   "caption": "Women just below the operating threshold are the group a capacity-limited programme can realistically move.",
+   "file": "/figures/fig23_risk_bands.png"
+  },
+  {
+   "figure": "fig24_redundancy",
+   "title": "Importance before and after grouping duplicates",
+   "caption": "Travel time to hospital and residence are both present twice under different names, so per-column importance halves them.",
+   "file": "/figures/fig24_redundancy.png"
+  },
+  {
+   "figure": "fig25_set_comparison",
+   "title": "21-predictor set vs the full pool (85 distinct, 95 columns)",
+   "caption": "Paired repeated splits; each dot is one split, the bar its mean. Logistic regression has almost nothing to tune, so it cannot favour a set through its hyperparameters.",
+   "file": "/figures/fig25_set_comparison.png"
+  },
+  {
+   "figure": "fig26_add_one",
+   "title": "Each other candidate added, alone, to the 21-predictor set",
+   "caption": "Every bar is one of the 67 pool candidates outside the 21; teal bars clear +0.005 AP on at least 4 of 5 splits. Dashed line is the threshold.",
+   "file": "/figures/fig26_add_one.png"
+  },
+  {
+   "figure": "fig27_diminishing_returns",
+   "title": "Stacking the additions onto the 21: a few carry the gain",
+   "caption": "Development AP as the 67 candidates are added in order of their individual gain; dashed line is the 21-predictor set alone; band is one SD across split seeds.",
+   "file": "/figures/fig27_diminishing_returns.png"
+  },
+  {
+   "figure": "fig28_tier_ladders",
+   "title": "Forward selection: the tiers, step by step",
+   "caption": "Each row adds one variable. Dark teal = tier 1 (reaches 90% of the full model's lift), light = tier 2 (each adds >= 0.005), grey = the first step that failed. Dashed = the 21-predictor set; dotted = the full pool. A selected set's development score is optimistic -- fig30 has the held-out view.",
+   "file": "/figures/fig28_tier_ladders.png"
+  },
+  {
+   "figure": "fig29_selection_frequency",
+   "title": "Selection stability",
+   "caption": "Forward selection repeated on PSU-bootstrap resamples of the development set; below the dashed 70% line a variable's place is not reliable.",
+   "file": "/figures/fig29_selection_frequency.png"
+  },
+  {
+   "figure": "fig30_heldout_sets",
+   "title": "On the held-out women: compact sets against the 21 and the full pool",
+   "caption": "AP above prevalence; each set fitted on development and scored once on held-out; bracketed counts are predictors. Paired bootstrap intervals against the 21 are in heldout_bootstrap.json -- most overlap zero.",
+   "file": "/figures/fig30_heldout_sets.png"
+  },
+  {
+   "figure": "fig31_tigray_did",
+   "title": "Tigray wartime difference-in-differences",
+   "caption": "Peaceful regions absorb the national trend and the extra recall error of older births (their within-region change is near zero); the remainder is the change associated with the war. Stratified PSU bootstrap intervals; robust to +/-3-month shifts of the war window.",
+   "file": "/figures/fig31_tigray_did.png"
+  },
+  {
+   "figure": "fig32_regional_gap_cohort",
+   "title": "Regional gap, all births vs recent births",
+   "caption": "Expected attainment predicted with region withheld. The ranking is stable across the two windows, so it is not a period artefact.",
+   "file": "/figures/fig32_regional_gap_cohort.png"
+  },
+  {
+   "figure": "fig33_drop_within_21",
+   "title": "Drop-one within the 21-predictor set",
+   "caption": "Development AP lost when each member is removed from the 21 (fixed logistic regression at its own best regularisation, 5 split seeds). Grey = removing it costs nothing or helps. Ordered by ANC8+.",
+   "file": "/figures/fig33_drop_within_21.png"
+  },
+  {
+   "figure": "fig34_why21",
+   "title": "Value by set size, within the 21 and from the full pool",
+   "caption": "Development AP above prevalence as a share of what the full pool reaches. The greedy path within the 21 peaks well before 21 and then falls; the sets chosen from the full pool reach further with fewer. Development folds, so the chosen sets are optimistic -- fig30 has the held-out view.",
+   "file": "/figures/fig34_why21.png"
+  },
+  {
+   "figure": "fig35_predictor_rung_matrix",
+   "title": "Predictor value across the ANC ladder",
+   "caption": "Marginal value relative to the 21-predictor set (loss when dropped for members, marked [21]; gain when added for the rest), as a share of each rung's ceiling (full-pool AP minus prevalence). Sorted from most ANC1+-weighted to most ANC8+-weighted.",
+   "file": "/figures/fig35_predictor_rung_matrix.png"
+  },
+  {
+   "figure": "fig36_horizons",
+   "title": "The two prediction horizons on the same women",
+   "caption": "Held-out AUROC on the 984 ANC-entry women. Light = without early ANC, dark = with it, brown = the same sets fitted on the full cohort (before ANC). Paired intervals are in outputs/horizons/heldout_bootstrap.json.",
+   "file": "/figures/fig36_horizons.png"
+  },
+  {
+   "figure": "fig37_early_anc",
+   "title": "Value of early ANC initiation",
+   "caption": "Paired stratified-PSU bootstrap on the 984 held-out ANC-entry women.",
+   "file": "/figures/fig37_early_anc.png"
+  },
+  {
+   "figure": "fig38_tigray_regions_by_period",
+   "title": "Every region, wartime vs post-war period",
+   "caption": "Pregnancies with at least 3 months inside the Tigray war window vs those conceived after the ceasefire, in every region. Sorted by the ANC4+ change.",
+   "file": "/figures/fig38_tigray_regions_by_period.png"
+  }
+ ]
+}

@@ -1,0 +1,781 @@
+{
+  "cascade": {
+    "reach_any_ANC": 0.7759687244339528,
+    "reach_4plus": 0.5242642746640072,
+    "reach_8plus": 0.19161605020050537,
+    "never_start": 0.22403127556604718,
+    "start_but_not_4": 0.25170444976994566,
+    "reach_4_but_not_8": 0.3326482244635018,
+    "P_4_given_1": 0.6756255222096007,
+    "P_8_given_4": 0.3654951509394935
+  },
+  "regional_cascade": [
+    {
+      "region": "Somali",
+      "n": 669,
+      "anc1": 0.3372341466186921,
+      "anc4": 0.11394661365681598,
+      "anc8": 0.03809093907156879,
+      "never_start": 0.6627658533813079,
+      "start_not4": 0.22328753296187615,
+      "reach4_not8": 0.0758556745852472,
+      "continue_1_to_4": 0.3378857532646434,
+      "continue_4_to_8": 0.33428759178654444
+    },
+    {
+      "region": "South Ethiopia",
+      "n": 576,
+      "anc1": 0.749746537864258,
+      "anc4": 0.44589511418178696,
+      "anc8": 0.07759555098300153,
+      "never_start": 0.25025346213574196,
+      "start_not4": 0.3038514236824711,
+      "reach4_not8": 0.36829956319878543,
+      "continue_1_to_4": 0.5947278068825393,
+      "continue_4_to_8": 0.17402198076421757
+    },
+    {
+      "region": "Sidama",
+      "n": 464,
+      "anc1": 0.8466645634291321,
+      "anc4": 0.40705734713807074,
+      "anc8": 0.09444674782113639,
+      "never_start": 0.1533354365708679,
+      "start_not4": 0.43960721629106136,
+      "reach4_not8": 0.31261059931693436,
+      "continue_1_to_4": 0.4807775885758356,
+      "continue_4_to_8": 0.23202319890592904
+    },
+    {
+      "region": "Central Ethiopia",
+      "n": 486,
+      "anc1": 0.8596549922202851,
+      "anc4": 0.5835662035920508,
+      "anc8": 0.09993619134039033,
+      "never_start": 0.14034500777971493,
+      "start_not4": 0.27608878862823427,
+      "reach4_not8": 0.48363001225166047,
+      "continue_1_to_4": 0.678837683574474,
+      "continue_4_to_8": 0.17125082077277382
+    },
+    {
+      "region": "Gambella",
+      "n": 423,
+      "anc1": 0.7806456272700004,
+      "anc4": 0.4678957243102685,
+      "anc8": 0.10714805059731604,
+      "never_start": 0.21935437272999958,
+      "start_not4": 0.31274990295973193,
+      "reach4_not8": 0.36074767371295247,
+      "continue_1_to_4": 0.5993701981609105,
+      "continue_4_to_8": 0.2289998498175303
+    },
+    {
+      "region": "Tigray",
+      "n": 610,
+      "anc1": 0.873310778578309,
+      "anc4": 0.5355363341671876,
+      "anc8": 0.11557222978820135,
+      "never_start": 0.12668922142169103,
+      "start_not4": 0.33777444441112137,
+      "reach4_not8": 0.41996410437898624,
+      "continue_1_to_4": 0.6132253801321502,
+      "continue_4_to_8": 0.21580651473056014
+    },
+    {
+      "region": "Oromia",
+      "n": 699,
+      "anc1": 0.7107766863475187,
+      "anc4": 0.4865561468749444,
+      "anc8": 0.1537411792297881,
+      "never_start": 0.28922331365248133,
+      "start_not4": 0.22422053947257425,
+      "reach4_not8": 0.3328149676451563,
+      "continue_1_to_4": 0.6845415110267888,
+      "continue_4_to_8": 0.3159782898998149
+    },
+    {
+      "region": "South West Ethiopia",
+      "n": 454,
+      "anc1": 0.7220839093946448,
+      "anc4": 0.5064334865182938,
+      "anc8": 0.17271293607512878,
+      "never_start": 0.27791609060535516,
+      "start_not4": 0.21565042287635106,
+      "reach4_not8": 0.333720550443165,
+      "continue_1_to_4": 0.7013499122877002,
+      "continue_4_to_8": 0.3410377486341237
+    },
+    {
+      "region": "Benishangul-Gumuz",
+      "n": 438,
+      "anc1": 0.6940051046217474,
+      "anc4": 0.5731262149825829,
+      "anc8": 0.2035530633049863,
+      "never_start": 0.30599489537825264,
+      "start_not4": 0.12087888963916449,
+      "reach4_not8": 0.3695731516775966,
+      "continue_1_to_4": 0.8258242067181236,
+      "continue_4_to_8": 0.35516271631576335
+    },
+    {
+      "region": "Afar",
+      "n": 651,
+      "anc1": 0.6989726959298447,
+      "anc4": 0.4402923249764639,
+      "anc8": 0.238324357805455,
+      "never_start": 0.3010273040701553,
+      "start_not4": 0.25868037095338076,
+      "reach4_not8": 0.20196796717100893,
+      "continue_1_to_4": 0.6299134823725013,
+      "continue_4_to_8": 0.5412866504502316
+    },
+    {
+      "region": "Harari",
+      "n": 309,
+      "anc1": 0.7699977418430519,
+      "anc4": 0.4643074303122736,
+      "anc8": 0.25664406431382797,
+      "never_start": 0.23000225815694808,
+      "start_not4": 0.3056903115307783,
+      "reach4_not8": 0.20766336599844565,
+      "continue_1_to_4": 0.6029984311394423,
+      "continue_4_to_8": 0.5527459772530885
+    },
+    {
+      "region": "Amhara",
+      "n": 523,
+      "anc1": 0.8921555318259041,
+      "anc4": 0.6162478813471792,
+      "anc8": 0.2830750813165675,
+      "never_start": 0.10784446817409588,
+      "start_not4": 0.2759076504787249,
+      "reach4_not8": 0.3331728000306117,
+      "continue_1_to_4": 0.6907404139342761,
+      "continue_4_to_8": 0.45935262397614607
+    },
+    {
+      "region": "Dire Dawa",
+      "n": 294,
+      "anc1": 0.8524427677541112,
+      "anc4": 0.6800907901305857,
+      "anc8": 0.3871272305748944,
+      "never_start": 0.1475572322458888,
+      "start_not4": 0.1723519776235255,
+      "reach4_not8": 0.2929635595556913,
+      "continue_1_to_4": 0.7978140185556237,
+      "continue_4_to_8": 0.5692287503269399
+    },
+    {
+      "region": "Addis Ababa",
+      "n": 297,
+      "anc1": 0.985680864768071,
+      "anc4": 0.9406140273306629,
+      "anc8": 0.6610337426678037,
+      "never_start": 0.014319135231928959,
+      "start_not4": 0.045066837437408136,
+      "reach4_not8": 0.2795802846628592,
+      "continue_1_to_4": 0.9542784697884824,
+      "continue_4_to_8": 0.7027683230960623
+    }
+  ],
+  "regional": [
+    {
+      "region": "Addis Ababa",
+      "rung": "anc1plus",
+      "n": 297,
+      "actual": 0.985680864768071,
+      "expected_from_circumstances": 0.9781182960983275,
+      "gap": 0.007562568669743586
+    },
+    {
+      "region": "Afar",
+      "rung": "anc1plus",
+      "n": 651,
+      "actual": 0.6989726959298447,
+      "expected_from_circumstances": 0.6058626450700412,
+      "gap": 0.0931100508598035
+    },
+    {
+      "region": "Amhara",
+      "rung": "anc1plus",
+      "n": 523,
+      "actual": 0.8921555318259041,
+      "expected_from_circumstances": 0.9032995294887732,
+      "gap": -0.01114399766286911
+    },
+    {
+      "region": "Benishangul-Gumuz",
+      "rung": "anc1plus",
+      "n": 438,
+      "actual": 0.6940051046217474,
+      "expected_from_circumstances": 0.7848647661356773,
+      "gap": -0.09085966151392999
+    },
+    {
+      "region": "Central Ethiopia",
+      "rung": "anc1plus",
+      "n": 486,
+      "actual": 0.8596549922202851,
+      "expected_from_circumstances": 0.8426330044441347,
+      "gap": 0.017021987776150382
+    },
+    {
+      "region": "Dire Dawa",
+      "rung": "anc1plus",
+      "n": 294,
+      "actual": 0.8524427677541112,
+      "expected_from_circumstances": 0.8846412602130672,
+      "gap": -0.03219849245895601
+    },
+    {
+      "region": "Gambella",
+      "rung": "anc1plus",
+      "n": 423,
+      "actual": 0.7806456272700004,
+      "expected_from_circumstances": 0.7897409983420025,
+      "gap": -0.00909537107200209
+    },
+    {
+      "region": "Harari",
+      "rung": "anc1plus",
+      "n": 309,
+      "actual": 0.7699977418430519,
+      "expected_from_circumstances": 0.879574960771833,
+      "gap": -0.10957721892878103
+    },
+    {
+      "region": "Oromia",
+      "rung": "anc1plus",
+      "n": 699,
+      "actual": 0.7107766863475187,
+      "expected_from_circumstances": 0.7670909306708812,
+      "gap": -0.05631424432336252
+    },
+    {
+      "region": "Sidama",
+      "rung": "anc1plus",
+      "n": 464,
+      "actual": 0.8466645634291321,
+      "expected_from_circumstances": 0.8290929144521554,
+      "gap": 0.017571648976976717
+    },
+    {
+      "region": "Somali",
+      "rung": "anc1plus",
+      "n": 669,
+      "actual": 0.3372341466186921,
+      "expected_from_circumstances": 0.4425177136128269,
+      "gap": -0.10528356699413477
+    },
+    {
+      "region": "South Ethiopia",
+      "rung": "anc1plus",
+      "n": 576,
+      "actual": 0.749746537864258,
+      "expected_from_circumstances": 0.7682751707128003,
+      "gap": -0.018528632848542226
+    },
+    {
+      "region": "South West Ethiopia",
+      "rung": "anc1plus",
+      "n": 454,
+      "actual": 0.7220839093946448,
+      "expected_from_circumstances": 0.7219645262051195,
+      "gap": 0.0001193831895253128
+    },
+    {
+      "region": "Tigray",
+      "rung": "anc1plus",
+      "n": 610,
+      "actual": 0.873310778578309,
+      "expected_from_circumstances": 0.8518456321711066,
+      "gap": 0.021465146407202318
+    },
+    {
+      "region": "Addis Ababa",
+      "rung": "anc4plus",
+      "n": 297,
+      "actual": 0.9406140273306629,
+      "expected_from_circumstances": 0.9084380005569791,
+      "gap": 0.03217602677368381
+    },
+    {
+      "region": "Afar",
+      "rung": "anc4plus",
+      "n": 651,
+      "actual": 0.4402923249764639,
+      "expected_from_circumstances": 0.2994956823913001,
+      "gap": 0.14079664258516383
+    },
+    {
+      "region": "Amhara",
+      "rung": "anc4plus",
+      "n": 523,
+      "actual": 0.6162478813471792,
+      "expected_from_circumstances": 0.6412253712204827,
+      "gap": -0.024977489873303504
+    },
+    {
+      "region": "Benishangul-Gumuz",
+      "rung": "anc4plus",
+      "n": 438,
+      "actual": 0.5731262149825829,
+      "expected_from_circumstances": 0.5198146260505753,
+      "gap": 0.0533115889320076
+    },
+    {
+      "region": "Central Ethiopia",
+      "rung": "anc4plus",
+      "n": 486,
+      "actual": 0.5835662035920508,
+      "expected_from_circumstances": 0.5373361685651676,
+      "gap": 0.046230035026883165
+    },
+    {
+      "region": "Dire Dawa",
+      "rung": "anc4plus",
+      "n": 294,
+      "actual": 0.6800907901305857,
+      "expected_from_circumstances": 0.6501064254192156,
+      "gap": 0.029984364711370115
+    },
+    {
+      "region": "Gambella",
+      "rung": "anc4plus",
+      "n": 423,
+      "actual": 0.4678957243102685,
+      "expected_from_circumstances": 0.5158007467419504,
+      "gap": -0.04790502243168193
+    },
+    {
+      "region": "Harari",
+      "rung": "anc4plus",
+      "n": 309,
+      "actual": 0.4643074303122736,
+      "expected_from_circumstances": 0.6401027319937446,
+      "gap": -0.17579530168147095
+    },
+    {
+      "region": "Oromia",
+      "rung": "anc4plus",
+      "n": 699,
+      "actual": 0.4865561468749444,
+      "expected_from_circumstances": 0.49875777322623077,
+      "gap": -0.012201626351286354
+    },
+    {
+      "region": "Sidama",
+      "rung": "anc4plus",
+      "n": 464,
+      "actual": 0.40705734713807074,
+      "expected_from_circumstances": 0.4793711800699314,
+      "gap": -0.07231383293186067
+    },
+    {
+      "region": "Somali",
+      "rung": "anc4plus",
+      "n": 669,
+      "actual": 0.11394661365681598,
+      "expected_from_circumstances": 0.21737588523270268,
+      "gap": -0.1034292715758867
+    },
+    {
+      "region": "South Ethiopia",
+      "rung": "anc4plus",
+      "n": 576,
+      "actual": 0.44589511418178696,
+      "expected_from_circumstances": 0.4566728925092693,
+      "gap": -0.010777778327482335
+    },
+    {
+      "region": "South West Ethiopia",
+      "rung": "anc4plus",
+      "n": 454,
+      "actual": 0.5064334865182938,
+      "expected_from_circumstances": 0.44264793471881553,
+      "gap": 0.06378555179947826
+    },
+    {
+      "region": "Tigray",
+      "rung": "anc4plus",
+      "n": 610,
+      "actual": 0.5355363341671876,
+      "expected_from_circumstances": 0.5136809670512534,
+      "gap": 0.021855367115934166
+    },
+    {
+      "region": "Addis Ababa",
+      "rung": "anc8plus",
+      "n": 297,
+      "actual": 0.6610337426678037,
+      "expected_from_circumstances": 0.541509414904434,
+      "gap": 0.11952432776336963
+    },
+    {
+      "region": "Afar",
+      "rung": "anc8plus",
+      "n": 651,
+      "actual": 0.238324357805455,
+      "expected_from_circumstances": 0.08793374884468833,
+      "gap": 0.15039060896076667
+    },
+    {
+      "region": "Amhara",
+      "rung": "anc8plus",
+      "n": 523,
+      "actual": 0.2830750813165675,
+      "expected_from_circumstances": 0.2408267674531879,
+      "gap": 0.0422483138633796
+    },
+    {
+      "region": "Benishangul-Gumuz",
+      "rung": "anc8plus",
+      "n": 438,
+      "actual": 0.2035530633049863,
+      "expected_from_circumstances": 0.17122729591548452,
+      "gap": 0.03232576738950177
+    },
+    {
+      "region": "Central Ethiopia",
+      "rung": "anc8plus",
+      "n": 486,
+      "actual": 0.09993619134039033,
+      "expected_from_circumstances": 0.12123469199173341,
+      "gap": -0.021298500651343075
+    },
+    {
+      "region": "Dire Dawa",
+      "rung": "anc8plus",
+      "n": 294,
+      "actual": 0.3871272305748944,
+      "expected_from_circumstances": 0.28863584299876993,
+      "gap": 0.09849138757612447
+    },
+    {
+      "region": "Gambella",
+      "rung": "anc8plus",
+      "n": 423,
+      "actual": 0.10714805059731604,
+      "expected_from_circumstances": 0.13974901801936526,
+      "gap": -0.032600967422049223
+    },
+    {
+      "region": "Harari",
+      "rung": "anc8plus",
+      "n": 309,
+      "actual": 0.25664406431382797,
+      "expected_from_circumstances": 0.22884798247899785,
+      "gap": 0.027796081834830122
+    },
+    {
+      "region": "Oromia",
+      "rung": "anc8plus",
+      "n": 699,
+      "actual": 0.1537411792297881,
+      "expected_from_circumstances": 0.13822438779842197,
+      "gap": 0.01551679143136614
+    },
+    {
+      "region": "Sidama",
+      "rung": "anc8plus",
+      "n": 464,
+      "actual": 0.09444674782113639,
+      "expected_from_circumstances": 0.11485404540183296,
+      "gap": -0.020407297580696565
+    },
+    {
+      "region": "Somali",
+      "rung": "anc8plus",
+      "n": 669,
+      "actual": 0.03809093907156879,
+      "expected_from_circumstances": 0.060350726136211376,
+      "gap": -0.022259787064642586
+    },
+    {
+      "region": "South Ethiopia",
+      "rung": "anc8plus",
+      "n": 576,
+      "actual": 0.07759555098300153,
+      "expected_from_circumstances": 0.09255025103309383,
+      "gap": -0.014954700050092307
+    },
+    {
+      "region": "South West Ethiopia",
+      "rung": "anc8plus",
+      "n": 454,
+      "actual": 0.17271293607512878,
+      "expected_from_circumstances": 0.1039259968144597,
+      "gap": 0.06878693926066907
+    },
+    {
+      "region": "Tigray",
+      "rung": "anc8plus",
+      "n": 610,
+      "actual": 0.11557222978820135,
+      "expected_from_circumstances": 0.15660812165588314,
+      "gap": -0.04103589186768179
+    }
+  ],
+  "modifiable": [
+    {
+      "rung": "ANC1+",
+      "outcome": "anc1plus",
+      "all_predictors": 0.7962570705847531,
+      "modifiable_only": 0.7429157584523282,
+      "fixed_only": 0.7787801180200618
+    },
+    {
+      "rung": "ANC4+",
+      "outcome": "anc4plus",
+      "all_predictors": 0.7778508732686287,
+      "modifiable_only": 0.7270257833040733,
+      "fixed_only": 0.773586506548738
+    },
+    {
+      "rung": "ANC8+",
+      "outcome": "anc8plus",
+      "all_predictors": 0.7753742703552461,
+      "modifiable_only": 0.7100681458061049,
+      "fixed_only": 0.7738290411050581
+    }
+  ],
+  "continuation": [
+    {
+      "variable": "region",
+      "level": "Addis Ababa",
+      "n": 284,
+      "continue_to_8": 0.7027683230960624
+    },
+    {
+      "variable": "region",
+      "level": "Afar",
+      "n": 256,
+      "continue_to_8": 0.5412866504502317
+    },
+    {
+      "variable": "region",
+      "level": "Amhara",
+      "n": 320,
+      "continue_to_8": 0.4593526239761462
+    },
+    {
+      "variable": "region",
+      "level": "Benishangul-Gumuz",
+      "n": 231,
+      "continue_to_8": 0.35516271631576346
+    },
+    {
+      "variable": "region",
+      "level": "Central Ethiopia",
+      "n": 291,
+      "continue_to_8": 0.17125082077277384
+    },
+    {
+      "variable": "region",
+      "level": "Dire Dawa",
+      "n": 194,
+      "continue_to_8": 0.5692287503269398
+    },
+    {
+      "variable": "region",
+      "level": "Gambella",
+      "n": 192,
+      "continue_to_8": 0.22899984981753027
+    },
+    {
+      "variable": "region",
+      "level": "Harari",
+      "n": 132,
+      "continue_to_8": 0.5527459772530887
+    },
+    {
+      "variable": "region",
+      "level": "Oromia",
+      "n": 327,
+      "continue_to_8": 0.31597828989981486
+    },
+    {
+      "variable": "region",
+      "level": "Sidama",
+      "n": 171,
+      "continue_to_8": 0.2320231989059291
+    },
+    {
+      "variable": "region",
+      "level": "Somali",
+      "n": 53,
+      "continue_to_8": 0.3342875917865444
+    },
+    {
+      "variable": "region",
+      "level": "South Ethiopia",
+      "n": 243,
+      "continue_to_8": 0.17402198076421757
+    },
+    {
+      "variable": "region",
+      "level": "South West Ethiopia",
+      "n": 223,
+      "continue_to_8": 0.34103774863412367
+    },
+    {
+      "variable": "region",
+      "level": "Tigray",
+      "n": 317,
+      "continue_to_8": 0.21580651473056012
+    },
+    {
+      "variable": "wealth_quintile",
+      "level": "Middle",
+      "n": 471,
+      "continue_to_8": 0.30484527762868635
+    },
+    {
+      "variable": "wealth_quintile",
+      "level": "Poorer",
+      "n": 516,
+      "continue_to_8": 0.19471708675143096
+    },
+    {
+      "variable": "wealth_quintile",
+      "level": "Poorest",
+      "n": 596,
+      "continue_to_8": 0.1993205102267816
+    },
+    {
+      "variable": "wealth_quintile",
+      "level": "Richer",
+      "n": 556,
+      "continue_to_8": 0.3751272849266699
+    },
+    {
+      "variable": "wealth_quintile",
+      "level": "Richest",
+      "n": 1095,
+      "continue_to_8": 0.5168046071726792
+    },
+    {
+      "variable": "residence",
+      "level": "Rural",
+      "n": 1812,
+      "continue_to_8": 0.30334812840582925
+    },
+    {
+      "variable": "residence",
+      "level": "Urban",
+      "n": 1422,
+      "continue_to_8": 0.4517901675721109
+    },
+    {
+      "variable": "maternal_education",
+      "level": "Higher",
+      "n": 548,
+      "continue_to_8": 0.550768236562972
+    },
+    {
+      "variable": "maternal_education",
+      "level": "No education",
+      "n": 770,
+      "continue_to_8": 0.321586177302779
+    },
+    {
+      "variable": "maternal_education",
+      "level": "Primary",
+      "n": 1280,
+      "continue_to_8": 0.3206445985906632
+    },
+    {
+      "variable": "maternal_education",
+      "level": "Secondary",
+      "n": 636,
+      "continue_to_8": 0.36217568987307835
+    },
+    {
+      "variable": "transport_mode_group",
+      "level": "Motorcycle/bajaj/taxi/minibus",
+      "n": 839,
+      "continue_to_8": 0.4090082804382957
+    },
+    {
+      "variable": "transport_mode_group",
+      "level": "Other motorized",
+      "n": 198,
+      "continue_to_8": 0.45755262026615123
+    },
+    {
+      "variable": "transport_mode_group",
+      "level": "Walking",
+      "n": 2167,
+      "continue_to_8": 0.33563440195599686
+    },
+    {
+      "variable": "internet_exposure",
+      "level": "Never used",
+      "n": 2480,
+      "continue_to_8": 0.3243184025263294
+    },
+    {
+      "variable": "internet_exposure",
+      "level": "Used before last 12 months",
+      "n": 110,
+      "continue_to_8": 0.38483281471329006
+    },
+    {
+      "variable": "internet_exposure",
+      "level": "Used in last 12 months",
+      "n": 644,
+      "continue_to_8": 0.5678662949070187
+    },
+    {
+      "variable": "health_insurance",
+      "level": "No",
+      "n": 2084,
+      "continue_to_8": 0.3846938532198984
+    },
+    {
+      "variable": "health_insurance",
+      "level": "Yes",
+      "n": 1150,
+      "continue_to_8": 0.3420147320324978
+    }
+  ],
+  "risk_bands": [
+    {
+      "band": "0%-5%",
+      "n": 2967,
+      "population_share": 0.384425837071482,
+      "actual_rate": 0.058468670402889625
+    },
+    {
+      "band": "5%-10%",
+      "n": 1263,
+      "population_share": 0.16343192106409038,
+      "actual_rate": 0.11885258315985188
+    },
+    {
+      "band": "10%-20%",
+      "n": 1080,
+      "population_share": 0.17243337489199384,
+      "actual_rate": 0.20700388170904768
+    },
+    {
+      "band": "20%-35%",
+      "n": 657,
+      "population_share": 0.11661744935197792,
+      "actual_rate": 0.2980554767414761
+    },
+    {
+      "band": "35%-60%",
+      "n": 519,
+      "population_share": 0.09944463989553576,
+      "actual_rate": 0.37156059359627974
+    },
+    {
+      "band": "60%-101%",
+      "n": 407,
+      "population_share": 0.06364677772492006,
+      "actual_rate": 0.6647990885050026
+    }
+  ]
+}

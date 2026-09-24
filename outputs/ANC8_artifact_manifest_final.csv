@@ -1,0 +1,8 @@
+artifact,filename,purpose,rows,columns,exists,sha256
+Frozen analytic dataset,ANC8_analysis_frozen.pkl,Authoritative Notebook-2 modelling input,6916.0,27.0,True,036ee8783922be4da8f719848928be22a70e1d70766746880fd9de4a3fdc425e
+Final predictor register,ANC8_predictor_register_final.csv,Documents the exact 21 frozen predictors,21.0,,True,579dab2e351f17ee52064f4ef9dd20e03327b28ebdbf157bdbd67413de2abafa
+Final outcome register,ANC8_outcome_register_final.csv,Documents ANC4+ and ANC8+ outcome definitions and accounting,2.0,,True,fa359a0468026d5072ad81fd79ee6c50b3c443e05761d5b4d33dc8af5d16d3c9
+ANC contact descriptive summary,ANC_contact_count_descriptive_summary.csv,Summary statistics for number of ANC contacts,1.0,,True,4c14a06eefdef76e509083f83e5a258afe33b0ce22b51bb1429ac8997451cc1a
+ANC contact weighted distribution,ANC_contact_count_weighted_distribution.csv,Survey-weighted exact ANC contact-count distribution,,,True,1b4817044f2a522b870ea060634b5b81da7fde0091420ebf73baf9ece1f9676b
+ANC contact distribution figure,Figure_ANC_contact_count_weighted_distribution.png,High-level survey-weighted ANC contact-count visual,,,True,1f03a2fe6900a60af2a3bee657e3e4164b4e4e57f617a9c9a7831df4f09754cc
+ANC8 Table 1,Table_1_ANC8_Characteristics.docx,Publication-ready descriptive characteristics table,,,True,009c3105a3f81755949e9c6f574753eea58c3e00d842a5a60332f810ed2e22dc

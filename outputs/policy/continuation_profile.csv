@@ -1,0 +1,34 @@
+variable,level,n,continue_to_8
+region,Addis Ababa,284,0.7027683230960624
+region,Afar,256,0.5412866504502317
+region,Amhara,320,0.4593526239761462
+region,Benishangul-Gumuz,231,0.35516271631576346
+region,Central Ethiopia,291,0.17125082077277384
+region,Dire Dawa,194,0.5692287503269398
+region,Gambella,192,0.22899984981753027
+region,Harari,132,0.5527459772530887
+region,Oromia,327,0.31597828989981486
+region,Sidama,171,0.2320231989059291
+region,Somali,53,0.3342875917865444
+region,South Ethiopia,243,0.17402198076421757
+region,South West Ethiopia,223,0.34103774863412367
+region,Tigray,317,0.21580651473056012
+wealth_quintile,Middle,471,0.30484527762868635
+wealth_quintile,Poorer,516,0.19471708675143096
+wealth_quintile,Poorest,596,0.1993205102267816
+wealth_quintile,Richer,556,0.3751272849266699
+wealth_quintile,Richest,1095,0.5168046071726792
+residence,Rural,1812,0.30334812840582925
+residence,Urban,1422,0.4517901675721109
+maternal_education,Higher,548,0.550768236562972
+maternal_education,No education,770,0.321586177302779
+maternal_education,Primary,1280,0.3206445985906632
+maternal_education,Secondary,636,0.36217568987307835
+transport_mode_group,Motorcycle/bajaj/taxi/minibus,839,0.4090082804382957
+transport_mode_group,Other motorized,198,0.45755262026615123
+transport_mode_group,Walking,2167,0.33563440195599686
+internet_exposure,Never used,2480,0.3243184025263294
+internet_exposure,Used before last 12 months,110,0.38483281471329006
+internet_exposure,Used in last 12 months,644,0.5678662949070187
+health_insurance,No,2084,0.3846938532198984
+health_insurance,Yes,1150,0.3420147320324978

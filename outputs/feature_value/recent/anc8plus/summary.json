@@ -1,0 +1,30 @@
+{
+  "cohort": "recent",
+  "outcome": "anc8plus",
+  "anchors": {
+    "prevalence": 0.2041734508700947,
+    "original21": 0.4535137240094348,
+    "original21_C": 0.01,
+    "all88": 0.48154951674515295,
+    "all88_C": 0.003
+  },
+  "threshold": 0.005,
+  "min_seeds_positive": 4,
+  "n_development": 4040,
+  "n_total": 5037,
+  "stage1": {
+    "n_new": 67,
+    "n_clear": 6,
+    "median_gain": -0.000386622620207544,
+    "total_gain_all_additions": 0.028035792735718157
+  },
+  "tier1": [
+    "v191"
+  ],
+  "tier2": [
+    "region",
+    "v133",
+    "pregnancy_intention"
+  ],
+  "minutes": 125.09762499729793
+}

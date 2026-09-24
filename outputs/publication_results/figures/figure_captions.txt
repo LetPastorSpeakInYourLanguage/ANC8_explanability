@@ -1,0 +1,19 @@
+Figure 1. Held-out calibration of the full-cohort ANC8 prediction models.
+Curves show survey-weighted spline-smoothed observed versus predicted
+probabilities for Logistic regression, Random Forest, and XGBoost. Points
+represent survey-weighted empirical observed risk within groups of predicted
+probability. The diagonal line indicates perfect calibration.
+
+Figure 2. Held-out calibration at the ANC-entry prediction horizon.
+Panels compare the baseline 21-predictor model with the extended model
+including early ANC initiation for Logistic regression (A), Random Forest (B),
+and XGBoost (C). Curves show survey-weighted spline-smoothed calibration and
+points represent survey-weighted empirical observed risk within groups of
+predicted probability. The diagonal line indicates perfect calibration.
+
+Figure 3. Incremental predictive value of early ANC initiation in the held-out
+ANC-entry population. Points show paired differences between extended and
+baseline models for Average Precision (A), AUROC (B), and Brier score
+improvement (C). Error bars show empirical 95% percentile confidence intervals
+from 2,000 paired stratified-PSU bootstrap replicates. Positive values favor
+the extended model. All confidence intervals included zero.

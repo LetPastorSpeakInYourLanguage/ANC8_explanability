@@ -1,0 +1,3 @@
+outcome_id,outcome,source_variable,final_variable,definition,analytic_denominator,resolved_n,unresolved_n,unresolved_rule,zero_ANC_rule,unweighted_positive_n,unweighted_prevalence_percent,survey_weighted_prevalence_percent,status
+1,ANC4+ attainment,m14_1,anc4plus,1 = four or more ANC contacts; 0 = fewer than four ANC contacts,6916,6893,23,m14_1 = 98 (don't know) retained as missing,0 ANC contacts retained as outcome = 0,3234,46.92,52.43,Finalized
+2,ANC8+ attainment,m14_1,anc8plus,1 = eight or more ANC contacts; 0 = fewer than eight ANC contacts,6916,6893,23,m14_1 = 98 (don't know) retained as missing,0 ANC contacts retained as outcome = 0,1173,17.02,19.16,Finalized

@@ -1,0 +1,20 @@
+predictor,selected_share,tier
+v191,1.0,tier 1
+early_anc,1.0,tier 1
+region,0.6,tier 2
+maternal_occupation_group,0.5,tier 2
+pregnancy_intention,0.5,tier 2
+v113,0.4,
+partner_education,0.3,
+spousal_age_gap,0.3,
+v743b,0.3,tier 2
+travel_healthpost_is_zero,0.2,tier 2
+v155,0.2,
+v201,0.1,
+v212,0.1,
+residence,0.1,
+v744e,0.1,
+asset_index,0.1,
+v467b,0.1,
+v716,0.1,
+v511,0.1,

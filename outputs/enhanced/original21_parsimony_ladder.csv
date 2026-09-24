@@ -1,0 +1,7 @@
+specification,n_predictors,AP,AUROC,pct_of_full_AP
+"Original 21, as published",21,0.4478711264709251,0.7572977421999971,100.0
+Original minus 5 non-contributing,16,0.4630649117739554,0.7631939357231097,103.4
+wealth_quintile,1,0.3628121955951444,0.7307495438452695,81.0
+wealth_quintile + region,2,0.4234615107361629,0.7474777251672052,94.5
+wealth_quintile + region + maternal_education,3,0.4620383050115773,0.7517522021044778,103.2
+wealth_quintile + region + maternal_education + internet_exposure,4,0.47794636006730473,0.7671195983779766,106.7

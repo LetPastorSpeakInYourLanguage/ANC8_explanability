@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fbfaf8;
+  --fg: #12161c;
+  --muted: #5d6673;
+  --line: #e3e0da;
+  --card: #ffffff;
+  --set21: #7c6f9c;
+  --accent: #2f7d70;
+  --warn: #b4552d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161c;
+    --fg: #eef1f5;
+    --muted: #9aa4b2;
+    --line: #2a313b;
+    --card: #1a1f27;
+    --set21: #a99bd0;
+    --accent: #5cbfad;
+    --warn: #e08a5f;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #12161c;
+  --fg: #eef1f5;
+  --muted: #9aa4b2;
+  --line: #2a313b;
+  --card: #1a1f27;
+  --set21: #a99bd0;
+  --accent: #5cbfad;
+  --warn: #e08a5f;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+input,
+select {
+  background: var(--card);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+button {
+  font: inherit;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------ rendered reports (Reports) */
+.doc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  max-width: 52rem;
+  overflow-wrap: anywhere;
+}
+.doc h1 { font-size: 1.6rem; font-weight: 650; line-height: 1.25; margin: 0 0 1rem; }
+.doc h2 {
+  font-size: 1.2rem; font-weight: 650; margin: 2.2rem 0 0.75rem;
+  padding-top: 1rem; border-top: 1px solid var(--line);
+}
+.doc h3 { font-size: 1.02rem; font-weight: 650; margin: 1.6rem 0 0.5rem; }
+.doc p { margin: 0.7rem 0; }
+.doc ul, .doc ol { margin: 0.6rem 0 0.9rem; padding-left: 1.4rem; }
+.doc ul { list-style: disc; }
+.doc ol { list-style: decimal; }
+.doc li { margin: 0.25rem 0; }
+.doc strong { font-weight: 650; }
+.doc a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.doc a.docref code { color: var(--accent); }
+.doc hr { border: 0; border-top: 1px solid var(--line); margin: 1.8rem 0; }
+.doc code {
+  font-size: 0.84em;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+}
+.doc pre {
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+  padding: 0.8rem 1rem; overflow-x: auto; margin: 0.9rem 0; font-size: 0.82rem;
+}
+.doc pre code { border: 0; padding: 0; background: none; }
+.doc blockquote {
+  border-left: 3px solid var(--accent); margin: 1rem 0; padding: 0.2rem 0 0.2rem 1rem;
+  color: var(--muted);
+}
+/* Tables scroll sideways on a phone instead of widening the page. */
+.doc table {
+  display: block; overflow-x: auto; max-width: 100%;
+  border-collapse: collapse; margin: 1rem 0; font-size: 0.83rem;
+}
+.doc th, .doc td {
+  border-bottom: 1px solid var(--line); padding: 0.4rem 0.75rem 0.4rem 0;
+  text-align: left; vertical-align: top;
+}
+.doc th { color: var(--muted); font-weight: 500; white-space: nowrap; }
+.doc td { font-variant-numeric: tabular-nums; }
+
+/* -------------------------------------- compact markdown (How we tested tab) */
+.doc.doc-compact { font-size: 0.9rem; line-height: 1.55; max-width: none; }
+.doc.doc-compact p { margin: 0.3rem 0; }
+.doc.doc-compact p:first-child { margin-top: 0; }
+.doc.doc-compact p:last-child { margin-bottom: 0; }
+.doc.doc-compact ul, .doc.doc-compact ol { margin: 0.3rem 0 0.4rem; }
+.doc.doc-compact li { margin: 0.12rem 0; }
+.doc.doc-compact table { margin: 0.5rem 0; }
+.doc.doc-compact blockquote { margin: 0.6rem 0; }
+.doc.label { color: var(--muted); }
+
+/* A term or figure the address points to glows briefly. */
+.flash { animation: flash 1.8s ease-out; }
+@keyframes flash {
+  0%, 30% { box-shadow: 0 0 0 3px var(--accent); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}

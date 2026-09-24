@@ -1,0 +1,11 @@
+a,b,association,strongest_direction,measure,exact_recoding
+s1101,travel_hospital_log,1.0,1.0,spearman,True
+s1101b,travel_healthpost_log,1.0,1.0,spearman,True
+v190,wealth_quintile,1.0,1.0,theil_u,True
+v106,maternal_education,1.0,1.0,theil_u,True
+v481,health_insurance,1.0,1.0,theil_u,True
+v171a,internet_exposure,0.9999999999999998,0.9999999999999999,theil_u,True
+v025,residence,0.9999999999999998,0.9999999999999998,theil_u,True
+v024,region,0.9999999999999998,1.0,theil_u,True
+v201,v218,0.9772542399660534,0.9772542399660534,spearman,False
+v130,religion_group,0.9739265096790648,1.0000000000000002,theil_u,False

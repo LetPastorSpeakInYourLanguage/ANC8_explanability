@@ -1,0 +1,53 @@
+{
+  "cohort": "entry",
+  "outcome": "anc8plus",
+  "anchors": {
+    "prevalence": 0.25544183200164483,
+    "original21": 0.4942499675124382,
+    "original21_C": 0.1,
+    "all88": 0.5836531377019638,
+    "all88_C": 0.01
+  },
+  "threshold": 0.005,
+  "min_seeds_positive": 4,
+  "n_development": 4017,
+  "n_total": 5001,
+  "n_candidates": 89,
+  "stage0": {
+    "n_non_contributors": 12,
+    "non_contributors": [
+      "maternal_current_union_status",
+      "traditional_media_weekly_count",
+      "health_insurance",
+      "age_at_birth",
+      "previous_pregnancy_history",
+      "internet_exposure",
+      "household_size",
+      "residence",
+      "preceding_pregnancy_interval_group",
+      "partner_occupation_group",
+      "religion_group",
+      "transport_mode_group"
+    ],
+    "AP_21_minus_non_contributors": 0.529745356352618,
+    "best_k_within_21": 9,
+    "best_AP_within_21": 0.5304735619964073
+  },
+  "stage1": {
+    "n_new": 68,
+    "n_clear": 5,
+    "median_gain": -0.0005951613136422395,
+    "total_gain_all_additions": 0.0894031701895256
+  },
+  "tier1": [
+    "v191",
+    "early_anc"
+  ],
+  "tier2": [
+    "maternal_occupation_group",
+    "region",
+    "v743b",
+    "pregnancy_intention",
+    "travel_healthpost_is_zero"
+  ]
+}

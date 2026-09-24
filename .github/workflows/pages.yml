@@ -1,0 +1,62 @@
+# Publish the web app as a static site on GitHub Pages.
+#
+# Enable once in the repository: Settings -> Pages -> Source: GitHub Actions.
+# The site is served at https://<owner>.github.io/<repository>/.
+#
+# A static host has no Python, so the Predict tab calls the prediction service
+# of the Vercel deployment when the repository variable PREDICT_API is set
+# (Settings -> Secrets and variables -> Actions -> Variables), e.g.
+#   https://<project>.vercel.app/api/predict
+# Without it, Predict explains that scoring is unavailable; every other tab,
+# including What if, runs entirely in the browser.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - name: Build the static site
+        run: npm run build
+        env:
+          STATIC_EXPORT: "1"
+          BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_PREDICT_API: ${{ vars.PREDICT_API }}
+      - run: touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

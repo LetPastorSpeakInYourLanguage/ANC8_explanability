@@ -1,0 +1,3484 @@
+{
+ "v1": {
+  "title": "21-predictor models, before ANC",
+  "subtitle": "logistic regression, random forest, XGBoost",
+  "fields": [
+   {
+    "name": "healthcare_decision_participation",
+    "label": "Healthcare decision-making participation",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Does not participate",
+      "label": "Does not participate"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Participates",
+      "label": "Participates"
+     }
+    ],
+    "default": "Participates"
+   },
+   {
+    "name": "maternal_current_union_status",
+    "label": "Maternal current union status",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Not currently in union",
+      "label": "Not currently in union"
+     },
+     {
+      "value": "Currently in union",
+      "label": "Currently in union"
+     }
+    ],
+    "default": "Not currently in union"
+   },
+   {
+    "name": "maternal_education",
+    "label": "Maternal educational attainment",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Higher",
+      "label": "Higher"
+     },
+     {
+      "value": "No education",
+      "label": "No education"
+     },
+     {
+      "value": "Primary",
+      "label": "Primary"
+     },
+     {
+      "value": "Secondary",
+      "label": "Secondary"
+     }
+    ],
+    "default": "No education"
+   },
+   {
+    "name": "maternal_occupation_group",
+    "label": "Maternal occupation",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Agriculture",
+      "label": "Agriculture"
+     },
+     {
+      "value": "Manual/domestic",
+      "label": "Manual/domestic"
+     },
+     {
+      "value": "Not working",
+      "label": "Not working"
+     },
+     {
+      "value": "Professional/clerical",
+      "label": "Professional/clerical"
+     },
+     {
+      "value": "Sales/services",
+      "label": "Sales/services"
+     }
+    ],
+    "default": "Not working"
+   },
+   {
+    "name": "v012",
+    "label": "Mother's age",
+    "help": "Age in completed years at interview",
+    "unit": "years",
+    "domain": "Maternal and sociodemographic",
+    "type": "number",
+    "default": 28.0
+   },
+   {
+    "name": "partner_education",
+    "label": "Partner education",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Higher",
+      "label": "Higher"
+     },
+     {
+      "value": "No education",
+      "label": "No education"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Primary",
+      "label": "Primary"
+     },
+     {
+      "value": "Secondary",
+      "label": "Secondary"
+     },
+     {
+      "value": "Unknown",
+      "label": "Unknown"
+     }
+    ],
+    "default": "Primary"
+   },
+   {
+    "name": "partner_occupation_group",
+    "label": "Partner occupation",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Agriculture",
+      "label": "Agriculture"
+     },
+     {
+      "value": "Did not work",
+      "label": "Did not work"
+     },
+     {
+      "value": "Manual/domestic",
+      "label": "Manual/domestic"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Professional/clerical",
+      "label": "Professional/clerical"
+     },
+     {
+      "value": "Sales/services",
+      "label": "Sales/services"
+     },
+     {
+      "value": "Unknown",
+      "label": "Unknown"
+     }
+    ],
+    "default": "Agriculture"
+   },
+   {
+    "name": "health_insurance",
+    "label": "Health insurance coverage",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "No",
+      "label": "No"
+     },
+     {
+      "value": "Yes",
+      "label": "Yes"
+     }
+    ],
+    "default": "No"
+   },
+   {
+    "name": "household_size",
+    "label": "Household size",
+    "help": "Number of people living in the household",
+    "unit": "people",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 5.0
+   },
+   {
+    "name": "wealth_quintile",
+    "label": "Household wealth quintile",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Middle",
+      "label": "Middle"
+     },
+     {
+      "value": "Poorer",
+      "label": "Poorer"
+     },
+     {
+      "value": "Poorest",
+      "label": "Poorest"
+     },
+     {
+      "value": "Richer",
+      "label": "Richer"
+     },
+     {
+      "value": "Richest",
+      "label": "Richest"
+     }
+    ],
+    "default": "Poorest"
+   },
+   {
+    "name": "internet_exposure",
+    "label": "Internet exposure",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Never used",
+      "label": "Never used"
+     },
+     {
+      "value": "Used before last 12 months",
+      "label": "Used before last 12 months"
+     },
+     {
+      "value": "Used in last 12 months",
+      "label": "Used in last 12 months"
+     }
+    ],
+    "default": "Never used"
+   },
+   {
+    "name": "residence",
+    "label": "Place of residence",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Rural",
+      "label": "Rural"
+     },
+     {
+      "value": "Urban",
+      "label": "Urban"
+     }
+    ],
+    "default": "Rural"
+   },
+   {
+    "name": "region",
+    "label": "Region",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Addis Ababa",
+      "label": "Addis Ababa"
+     },
+     {
+      "value": "Afar",
+      "label": "Afar"
+     },
+     {
+      "value": "Amhara",
+      "label": "Amhara"
+     },
+     {
+      "value": "Benishangul-Gumuz",
+      "label": "Benishangul-Gumuz"
+     },
+     {
+      "value": "Central Ethiopia",
+      "label": "Central Ethiopia"
+     },
+     {
+      "value": "Dire Dawa",
+      "label": "Dire Dawa"
+     },
+     {
+      "value": "Gambella",
+      "label": "Gambella"
+     },
+     {
+      "value": "Harari",
+      "label": "Harari"
+     },
+     {
+      "value": "Oromia",
+      "label": "Oromia"
+     },
+     {
+      "value": "Sidama",
+      "label": "Sidama"
+     },
+     {
+      "value": "Somali",
+      "label": "Somali"
+     },
+     {
+      "value": "South Ethiopia",
+      "label": "South Ethiopia"
+     },
+     {
+      "value": "South West Ethiopia",
+      "label": "South West Ethiopia"
+     },
+     {
+      "value": "Tigray",
+      "label": "Tigray"
+     }
+    ],
+    "default": "Oromia"
+   },
+   {
+    "name": "religion_group",
+    "label": "Religion",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Muslim",
+      "label": "Muslim"
+     },
+     {
+      "value": "Orthodox",
+      "label": "Orthodox"
+     },
+     {
+      "value": "Other religion",
+      "label": "Other religion"
+     },
+     {
+      "value": "Protestant",
+      "label": "Protestant"
+     }
+    ],
+    "default": "Muslim"
+   },
+   {
+    "name": "traditional_media_weekly_count",
+    "label": "Traditional media accessed weekly",
+    "help": "Count of newspaper, radio and television accessed at least weekly (0-3)",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 0.0
+   },
+   {
+    "name": "preceding_pregnancy_interval_group",
+    "label": "Preceding pregnancy interval",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "24-35 months",
+      "label": "24-35 months"
+     },
+     {
+      "value": "36-59 months",
+      "label": "36-59 months"
+     },
+     {
+      "value": "60+ months",
+      "label": "60+ months"
+     },
+     {
+      "value": "<24 months",
+      "label": "<24 months"
+     },
+     {
+      "value": "First pregnancy",
+      "label": "First pregnancy"
+     },
+     {
+      "value": "Unknown / missing",
+      "label": "Unknown / missing"
+     }
+    ],
+    "default": "36-59 months"
+   },
+   {
+    "name": "pregnancy_intention",
+    "label": "Pregnancy intention",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "Wanted later",
+      "label": "Wanted later"
+     },
+     {
+      "value": "Wanted no more",
+      "label": "Wanted no more"
+     },
+     {
+      "value": "Wanted then",
+      "label": "Wanted then"
+     }
+    ],
+    "default": "Wanted then"
+   },
+   {
+    "name": "pregnancy_order_group",
+    "label": "Pregnancy order",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "First pregnancy",
+      "label": "First pregnancy"
+     },
+     {
+      "value": "Pregnancy order 2-3",
+      "label": "Pregnancy order 2-3"
+     },
+     {
+      "value": "Pregnancy order 4-5",
+      "label": "Pregnancy order 4-5"
+     },
+     {
+      "value": "Pregnancy order 6+",
+      "label": "Pregnancy order 6+"
+     }
+    ],
+    "default": "Pregnancy order 2-3"
+   },
+   {
+    "name": "previous_pregnancy_history",
+    "label": "Previous pregnancy outcome history",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "At least one previous adverse outcome",
+      "label": "At least one previous adverse outcome"
+     },
+     {
+      "value": "No previous pregnancy",
+      "label": "No previous pregnancy"
+     },
+     {
+      "value": "Previous pregnancy, no adverse outcome",
+      "label": "Previous pregnancy, no adverse outcome"
+     }
+    ],
+    "default": "Previous pregnancy, no adverse outcome"
+   },
+   {
+    "name": "transport_mode_group",
+    "label": "Transport mode to nearest hospital or health center",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "Motorcycle/bajaj/taxi/minibus",
+      "label": "Motorcycle/bajaj/taxi/minibus"
+     },
+     {
+      "value": "Other motorized",
+      "label": "Other motorized"
+     },
+     {
+      "value": "Other non-motorized",
+      "label": "Other non-motorized"
+     },
+     {
+      "value": "Walking",
+      "label": "Walking"
+     }
+    ],
+    "default": "Walking"
+   },
+   {
+    "name": "travel_time_min",
+    "label": "Travel time to hospital / health centre",
+    "help": "One-way travel time",
+    "unit": "minutes",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 40.0
+   }
+  ],
+  "models": [
+   "Logistic regression",
+   "Random Forest",
+   "XGBoost"
+  ]
+ },
+ "v1_anc_entry": {
+  "title": "21-predictor models, at ANC entry",
+  "subtitle": "for women who have already started ANC",
+  "fields": [
+   {
+    "name": "healthcare_decision_participation",
+    "label": "Healthcare decision-making participation",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Does not participate",
+      "label": "Does not participate"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Participates",
+      "label": "Participates"
+     }
+    ],
+    "default": "Participates"
+   },
+   {
+    "name": "maternal_current_union_status",
+    "label": "Maternal current union status",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Not currently in union",
+      "label": "Not currently in union"
+     },
+     {
+      "value": "Currently in union",
+      "label": "Currently in union"
+     }
+    ],
+    "default": "Not currently in union"
+   },
+   {
+    "name": "maternal_education",
+    "label": "Maternal educational attainment",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Higher",
+      "label": "Higher"
+     },
+     {
+      "value": "No education",
+      "label": "No education"
+     },
+     {
+      "value": "Primary",
+      "label": "Primary"
+     },
+     {
+      "value": "Secondary",
+      "label": "Secondary"
+     }
+    ],
+    "default": "Primary"
+   },
+   {
+    "name": "maternal_occupation_group",
+    "label": "Maternal occupation",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Agriculture",
+      "label": "Agriculture"
+     },
+     {
+      "value": "Manual/domestic",
+      "label": "Manual/domestic"
+     },
+     {
+      "value": "Not working",
+      "label": "Not working"
+     },
+     {
+      "value": "Professional/clerical",
+      "label": "Professional/clerical"
+     },
+     {
+      "value": "Sales/services",
+      "label": "Sales/services"
+     }
+    ],
+    "default": "Not working"
+   },
+   {
+    "name": "v012",
+    "label": "Mother's age",
+    "help": "Age in completed years at interview",
+    "unit": "years",
+    "domain": "Maternal and sociodemographic",
+    "type": "number",
+    "default": 28.0
+   },
+   {
+    "name": "partner_education",
+    "label": "Partner education",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Higher",
+      "label": "Higher"
+     },
+     {
+      "value": "No education",
+      "label": "No education"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Primary",
+      "label": "Primary"
+     },
+     {
+      "value": "Secondary",
+      "label": "Secondary"
+     },
+     {
+      "value": "Unknown",
+      "label": "Unknown"
+     }
+    ],
+    "default": "Primary"
+   },
+   {
+    "name": "partner_occupation_group",
+    "label": "Partner occupation",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Agriculture",
+      "label": "Agriculture"
+     },
+     {
+      "value": "Did not work",
+      "label": "Did not work"
+     },
+     {
+      "value": "Manual/domestic",
+      "label": "Manual/domestic"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Professional/clerical",
+      "label": "Professional/clerical"
+     },
+     {
+      "value": "Sales/services",
+      "label": "Sales/services"
+     },
+     {
+      "value": "Unknown",
+      "label": "Unknown"
+     }
+    ],
+    "default": "Agriculture"
+   },
+   {
+    "name": "health_insurance",
+    "label": "Health insurance coverage",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "No",
+      "label": "No"
+     },
+     {
+      "value": "Yes",
+      "label": "Yes"
+     }
+    ],
+    "default": "No"
+   },
+   {
+    "name": "household_size",
+    "label": "Household size",
+    "help": "Number of people living in the household",
+    "unit": "people",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 5.0
+   },
+   {
+    "name": "wealth_quintile",
+    "label": "Household wealth quintile",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Middle",
+      "label": "Middle"
+     },
+     {
+      "value": "Poorer",
+      "label": "Poorer"
+     },
+     {
+      "value": "Poorest",
+      "label": "Poorest"
+     },
+     {
+      "value": "Richer",
+      "label": "Richer"
+     },
+     {
+      "value": "Richest",
+      "label": "Richest"
+     }
+    ],
+    "default": "Richest"
+   },
+   {
+    "name": "internet_exposure",
+    "label": "Internet exposure",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Never used",
+      "label": "Never used"
+     },
+     {
+      "value": "Used before last 12 months",
+      "label": "Used before last 12 months"
+     },
+     {
+      "value": "Used in last 12 months",
+      "label": "Used in last 12 months"
+     }
+    ],
+    "default": "Never used"
+   },
+   {
+    "name": "residence",
+    "label": "Place of residence",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Rural",
+      "label": "Rural"
+     },
+     {
+      "value": "Urban",
+      "label": "Urban"
+     }
+    ],
+    "default": "Rural"
+   },
+   {
+    "name": "region",
+    "label": "Region",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Addis Ababa",
+      "label": "Addis Ababa"
+     },
+     {
+      "value": "Afar",
+      "label": "Afar"
+     },
+     {
+      "value": "Amhara",
+      "label": "Amhara"
+     },
+     {
+      "value": "Benishangul-Gumuz",
+      "label": "Benishangul-Gumuz"
+     },
+     {
+      "value": "Central Ethiopia",
+      "label": "Central Ethiopia"
+     },
+     {
+      "value": "Dire Dawa",
+      "label": "Dire Dawa"
+     },
+     {
+      "value": "Gambella",
+      "label": "Gambella"
+     },
+     {
+      "value": "Harari",
+      "label": "Harari"
+     },
+     {
+      "value": "Oromia",
+      "label": "Oromia"
+     },
+     {
+      "value": "Sidama",
+      "label": "Sidama"
+     },
+     {
+      "value": "Somali",
+      "label": "Somali"
+     },
+     {
+      "value": "South Ethiopia",
+      "label": "South Ethiopia"
+     },
+     {
+      "value": "South West Ethiopia",
+      "label": "South West Ethiopia"
+     },
+     {
+      "value": "Tigray",
+      "label": "Tigray"
+     }
+    ],
+    "default": "Tigray"
+   },
+   {
+    "name": "religion_group",
+    "label": "Religion",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Muslim",
+      "label": "Muslim"
+     },
+     {
+      "value": "Orthodox",
+      "label": "Orthodox"
+     },
+     {
+      "value": "Other religion",
+      "label": "Other religion"
+     },
+     {
+      "value": "Protestant",
+      "label": "Protestant"
+     }
+    ],
+    "default": "Orthodox"
+   },
+   {
+    "name": "traditional_media_weekly_count",
+    "label": "Traditional media accessed weekly",
+    "help": "Count of newspaper, radio and television accessed at least weekly (0-3)",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 0.0
+   },
+   {
+    "name": "preceding_pregnancy_interval_group",
+    "label": "Preceding pregnancy interval",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "24-35 months",
+      "label": "24-35 months"
+     },
+     {
+      "value": "36-59 months",
+      "label": "36-59 months"
+     },
+     {
+      "value": "60+ months",
+      "label": "60+ months"
+     },
+     {
+      "value": "<24 months",
+      "label": "<24 months"
+     },
+     {
+      "value": "First pregnancy",
+      "label": "First pregnancy"
+     },
+     {
+      "value": "Unknown / missing",
+      "label": "Unknown / missing"
+     }
+    ],
+    "default": "36-59 months"
+   },
+   {
+    "name": "pregnancy_intention",
+    "label": "Pregnancy intention",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "Wanted later",
+      "label": "Wanted later"
+     },
+     {
+      "value": "Wanted no more",
+      "label": "Wanted no more"
+     },
+     {
+      "value": "Wanted then",
+      "label": "Wanted then"
+     }
+    ],
+    "default": "Wanted then"
+   },
+   {
+    "name": "pregnancy_order_group",
+    "label": "Pregnancy order",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "First pregnancy",
+      "label": "First pregnancy"
+     },
+     {
+      "value": "Pregnancy order 2-3",
+      "label": "Pregnancy order 2-3"
+     },
+     {
+      "value": "Pregnancy order 4-5",
+      "label": "Pregnancy order 4-5"
+     },
+     {
+      "value": "Pregnancy order 6+",
+      "label": "Pregnancy order 6+"
+     }
+    ],
+    "default": "Pregnancy order 2-3"
+   },
+   {
+    "name": "previous_pregnancy_history",
+    "label": "Previous pregnancy outcome history",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "At least one previous adverse outcome",
+      "label": "At least one previous adverse outcome"
+     },
+     {
+      "value": "No previous pregnancy",
+      "label": "No previous pregnancy"
+     },
+     {
+      "value": "Previous pregnancy, no adverse outcome",
+      "label": "Previous pregnancy, no adverse outcome"
+     }
+    ],
+    "default": "Previous pregnancy, no adverse outcome"
+   },
+   {
+    "name": "early_anc",
+    "label": "First ANC contact in the first trimester",
+    "help": "1 if the first antenatal contact was at or before 12 weeks / 3 months",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No -- first contact after 12 weeks"
+     },
+     {
+      "value": "1",
+      "label": "Yes -- first contact at or before 12 weeks"
+     }
+    ],
+    "default": null
+   },
+   {
+    "name": "transport_mode_group",
+    "label": "Transport mode to nearest hospital or health center",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "Motorcycle/bajaj/taxi/minibus",
+      "label": "Motorcycle/bajaj/taxi/minibus"
+     },
+     {
+      "value": "Other motorized",
+      "label": "Other motorized"
+     },
+     {
+      "value": "Other non-motorized",
+      "label": "Other non-motorized"
+     },
+     {
+      "value": "Walking",
+      "label": "Walking"
+     }
+    ],
+    "default": "Walking"
+   },
+   {
+    "name": "travel_time_min",
+    "label": "Travel time to hospital / health centre",
+    "help": "One-way travel time",
+    "unit": "minutes",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 30.0
+   }
+  ],
+  "models": [
+   "Logistic regression (Baseline)",
+   "Logistic regression (Extended)",
+   "Random Forest (Baseline)",
+   "Random Forest (Extended)",
+   "XGBoost (Baseline)",
+   "XGBoost (Extended)"
+  ],
+  "gating_field": "early_anc"
+ },
+ "v2": {
+  "title": "Full-pool model",
+  "subtitle": "95 predictors",
+  "fields": [
+   {
+    "name": "v149",
+    "label": "Educational attainment (detailed)",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "0"
+     },
+     {
+      "value": "1",
+      "label": "1"
+     },
+     {
+      "value": "2",
+      "label": "2"
+     },
+     {
+      "value": "3",
+      "label": "3"
+     },
+     {
+      "value": "4",
+      "label": "4"
+     },
+     {
+      "value": "5",
+      "label": "5"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v171a",
+    "label": "Internet use recency",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "Never used"
+     },
+     {
+      "value": "1",
+      "label": "Used in last 12 months"
+     },
+     {
+      "value": "2",
+      "label": "Used before last 12 months"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v155",
+    "label": "Literacy",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "Cannot read at all"
+     },
+     {
+      "value": "1",
+      "label": "Able to read only parts of sentence"
+     },
+     {
+      "value": "2",
+      "label": "Able to read whole sentence"
+     },
+     {
+      "value": "3",
+      "label": "No card with required language"
+     },
+     {
+      "value": "4",
+      "label": "Blind / visually impaired"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v106",
+    "label": "Maternal education level",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No education"
+     },
+     {
+      "value": "1",
+      "label": "Primary"
+     },
+     {
+      "value": "2",
+      "label": "Secondary"
+     },
+     {
+      "value": "3",
+      "label": "Higher"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v716",
+    "label": "Maternal occupation (detailed)",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "0"
+     },
+     {
+      "value": "12",
+      "label": "12"
+     },
+     {
+      "value": "13",
+      "label": "13"
+     },
+     {
+      "value": "21",
+      "label": "21"
+     },
+     {
+      "value": "22",
+      "label": "22"
+     },
+     {
+      "value": "23",
+      "label": "23"
+     },
+     {
+      "value": "24",
+      "label": "24"
+     },
+     {
+      "value": "25",
+      "label": "25"
+     },
+     {
+      "value": "26",
+      "label": "26"
+     },
+     {
+      "value": "3",
+      "label": "3"
+     },
+     {
+      "value": "31",
+      "label": "31"
+     },
+     {
+      "value": "32",
+      "label": "32"
+     },
+     {
+      "value": "33",
+      "label": "33"
+     },
+     {
+      "value": "34",
+      "label": "34"
+     },
+     {
+      "value": "35",
+      "label": "35"
+     },
+     {
+      "value": "41",
+      "label": "41"
+     },
+     {
+      "value": "42",
+      "label": "42"
+     },
+     {
+      "value": "43",
+      "label": "43"
+     },
+     {
+      "value": "44",
+      "label": "44"
+     },
+     {
+      "value": "51",
+      "label": "51"
+     },
+     {
+      "value": "52",
+      "label": "52"
+     },
+     {
+      "value": "54",
+      "label": "54"
+     },
+     {
+      "value": "61",
+      "label": "61"
+     },
+     {
+      "value": "62",
+      "label": "62"
+     },
+     {
+      "value": "63",
+      "label": "63"
+     },
+     {
+      "value": "71",
+      "label": "71"
+     },
+     {
+      "value": "72",
+      "label": "72"
+     },
+     {
+      "value": "73",
+      "label": "73"
+     },
+     {
+      "value": "74",
+      "label": "74"
+     },
+     {
+      "value": "75",
+      "label": "75"
+     },
+     {
+      "value": "83",
+      "label": "83"
+     },
+     {
+      "value": "91",
+      "label": "91"
+     },
+     {
+      "value": "92",
+      "label": "92"
+     },
+     {
+      "value": "93",
+      "label": "93"
+     },
+     {
+      "value": "95",
+      "label": "95"
+     },
+     {
+      "value": "96",
+      "label": "96"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v012",
+    "label": "Mother's age",
+    "help": "Age in completed years at interview",
+    "unit": "years",
+    "domain": "Maternal and sociodemographic",
+    "type": "number",
+    "default": 28.0,
+    "core": false
+   },
+   {
+    "name": "v133",
+    "label": "Mother's years of education",
+    "help": "Total completed years of schooling",
+    "unit": "years",
+    "domain": "Maternal and sociodemographic",
+    "type": "number",
+    "default": 3.0,
+    "core": true
+   },
+   {
+    "name": "v045c",
+    "label": "Native language of respondent",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "1"
+     },
+     {
+      "value": "2",
+      "label": "2"
+     },
+     {
+      "value": "3",
+      "label": "3"
+     },
+     {
+      "value": "4",
+      "label": "4"
+     },
+     {
+      "value": "5",
+      "label": "5"
+     },
+     {
+      "value": "6",
+      "label": "6"
+     },
+     {
+      "value": "7",
+      "label": "7"
+     },
+     {
+      "value": "96",
+      "label": "96"
+     }
+    ],
+    "default": "2",
+    "core": false
+   },
+   {
+    "name": "v157",
+    "label": "Newspaper reading frequency",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "Not at all"
+     },
+     {
+      "value": "1",
+      "label": "Less than once a week"
+     },
+     {
+      "value": "2",
+      "label": "At least once a week"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v158",
+    "label": "Radio listening frequency",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "Not at all"
+     },
+     {
+      "value": "1",
+      "label": "Less than once a week"
+     },
+     {
+      "value": "2",
+      "label": "At least once a week"
+     }
+    ],
+    "default": "0",
+    "core": true
+   },
+   {
+    "name": "v130",
+    "label": "Religion",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Orthodox"
+     },
+     {
+      "value": "2",
+      "label": "Catholic"
+     },
+     {
+      "value": "3",
+      "label": "Protestant"
+     },
+     {
+      "value": "4",
+      "label": "Muslim"
+     },
+     {
+      "value": "5",
+      "label": "Traditional"
+     },
+     {
+      "value": "96",
+      "label": "Other"
+     }
+    ],
+    "default": "4",
+    "core": false
+   },
+   {
+    "name": "v159",
+    "label": "Television watching frequency",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "Not at all"
+     },
+     {
+      "value": "1",
+      "label": "Less than once a week"
+     },
+     {
+      "value": "2",
+      "label": "At least once a week"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v731",
+    "label": "Worked in last 12 months",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "2",
+      "label": "2"
+     },
+     {
+      "value": "3",
+      "label": "3"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "internet_exposure",
+    "label": "internet_exposure",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Never used",
+      "label": "Never used"
+     },
+     {
+      "value": "Used before last 12 months",
+      "label": "Used before last 12 months"
+     },
+     {
+      "value": "Used in last 12 months",
+      "label": "Used in last 12 months"
+     }
+    ],
+    "default": "Never used",
+    "core": false
+   },
+   {
+    "name": "maternal_education",
+    "label": "maternal_education",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Higher",
+      "label": "Higher"
+     },
+     {
+      "value": "No education",
+      "label": "No education"
+     },
+     {
+      "value": "Primary",
+      "label": "Primary"
+     },
+     {
+      "value": "Secondary",
+      "label": "Secondary"
+     }
+    ],
+    "default": "No education",
+    "core": false
+   },
+   {
+    "name": "maternal_occupation_group",
+    "label": "maternal_occupation_group",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Agriculture",
+      "label": "Agriculture"
+     },
+     {
+      "value": "Manual/domestic",
+      "label": "Manual/domestic"
+     },
+     {
+      "value": "Not working",
+      "label": "Not working"
+     },
+     {
+      "value": "Professional/clerical",
+      "label": "Professional/clerical"
+     },
+     {
+      "value": "Sales/services",
+      "label": "Sales/services"
+     }
+    ],
+    "default": "Not working",
+    "core": false
+   },
+   {
+    "name": "newspaper_weekly",
+    "label": "newspaper_weekly",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   },
+   {
+    "name": "radio_weekly",
+    "label": "radio_weekly",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   },
+   {
+    "name": "religion_group",
+    "label": "religion_group",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Muslim",
+      "label": "Muslim"
+     },
+     {
+      "value": "Orthodox",
+      "label": "Orthodox"
+     },
+     {
+      "value": "Other religion",
+      "label": "Other religion"
+     },
+     {
+      "value": "Protestant",
+      "label": "Protestant"
+     }
+    ],
+    "default": "Muslim",
+    "core": false
+   },
+   {
+    "name": "television_weekly",
+    "label": "television_weekly",
+    "help": "",
+    "unit": "",
+    "domain": "Maternal and sociodemographic",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   },
+   {
+    "name": "v152",
+    "label": "Age of household head",
+    "help": "",
+    "unit": "years",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 36.0,
+    "core": false
+   },
+   {
+    "name": "v137",
+    "label": "Children under 5 in household",
+    "help": "",
+    "unit": "children",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 2.0,
+    "core": false
+   },
+   {
+    "name": "v138",
+    "label": "Eligible women in household",
+    "help": "",
+    "unit": "women",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 1.0,
+    "core": false
+   },
+   {
+    "name": "v170",
+    "label": "Has a bank/financial account",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v123",
+    "label": "Household has bicycle",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "7",
+      "label": "7"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v119",
+    "label": "Household has electricity",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "7",
+      "label": "7"
+     }
+    ],
+    "default": "1",
+    "core": false
+   },
+   {
+    "name": "v120",
+    "label": "Household has radio",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "7",
+      "label": "7"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v121",
+    "label": "Household has television",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "7",
+      "label": "7"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v136",
+    "label": "Household size",
+    "help": "Number of people listed in the household",
+    "unit": "people",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 5.0,
+    "core": false
+   },
+   {
+    "name": "v191",
+    "label": "Household wealth score",
+    "help": "DHS wealth index factor score",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": -42124.5,
+    "core": true
+   },
+   {
+    "name": "v191a",
+    "label": "Household wealth score (urban/rural)",
+    "help": "Urban/rural-specific wealth score",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": -11891.5,
+    "core": false
+   },
+   {
+    "name": "v127",
+    "label": "Main floor material",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "11",
+      "label": "11"
+     },
+     {
+      "value": "12",
+      "label": "12"
+     },
+     {
+      "value": "21",
+      "label": "21"
+     },
+     {
+      "value": "22",
+      "label": "22"
+     },
+     {
+      "value": "31",
+      "label": "31"
+     },
+     {
+      "value": "33",
+      "label": "33"
+     },
+     {
+      "value": "34",
+      "label": "34"
+     },
+     {
+      "value": "35",
+      "label": "35"
+     },
+     {
+      "value": "96",
+      "label": "96"
+     },
+     {
+      "value": "97",
+      "label": "97"
+     }
+    ],
+    "default": "11",
+    "core": false
+   },
+   {
+    "name": "v169a",
+    "label": "Owns a mobile telephone",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v025",
+    "label": "Place of residence",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Urban"
+     },
+     {
+      "value": "2",
+      "label": "Rural"
+     }
+    ],
+    "default": "2",
+    "core": false
+   },
+   {
+    "name": "v151",
+    "label": "Sex of household head",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Male"
+     },
+     {
+      "value": "2",
+      "label": "Female"
+     }
+    ],
+    "default": "1",
+    "core": false
+   },
+   {
+    "name": "v113",
+    "label": "Source of drinking water",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "11",
+      "label": "11"
+     },
+     {
+      "value": "12",
+      "label": "12"
+     },
+     {
+      "value": "13",
+      "label": "13"
+     },
+     {
+      "value": "14",
+      "label": "14"
+     },
+     {
+      "value": "21",
+      "label": "21"
+     },
+     {
+      "value": "31",
+      "label": "31"
+     },
+     {
+      "value": "32",
+      "label": "32"
+     },
+     {
+      "value": "41",
+      "label": "41"
+     },
+     {
+      "value": "42",
+      "label": "42"
+     },
+     {
+      "value": "43",
+      "label": "43"
+     },
+     {
+      "value": "51",
+      "label": "51"
+     },
+     {
+      "value": "61",
+      "label": "61"
+     },
+     {
+      "value": "62",
+      "label": "62"
+     },
+     {
+      "value": "71",
+      "label": "71"
+     },
+     {
+      "value": "72",
+      "label": "72"
+     },
+     {
+      "value": "96",
+      "label": "96"
+     },
+     {
+      "value": "97",
+      "label": "97"
+     }
+    ],
+    "default": "14",
+    "core": false
+   },
+   {
+    "name": "v115",
+    "label": "Time to water source",
+    "help": "One-way travel time",
+    "unit": "minutes",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 50.0,
+    "core": false
+   },
+   {
+    "name": "v116",
+    "label": "Type of toilet facility",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "11",
+      "label": "11"
+     },
+     {
+      "value": "12",
+      "label": "12"
+     },
+     {
+      "value": "13",
+      "label": "13"
+     },
+     {
+      "value": "14",
+      "label": "14"
+     },
+     {
+      "value": "15",
+      "label": "15"
+     },
+     {
+      "value": "21",
+      "label": "21"
+     },
+     {
+      "value": "22",
+      "label": "22"
+     },
+     {
+      "value": "23",
+      "label": "23"
+     },
+     {
+      "value": "31",
+      "label": "31"
+     },
+     {
+      "value": "41",
+      "label": "41"
+     },
+     {
+      "value": "42",
+      "label": "42"
+     },
+     {
+      "value": "43",
+      "label": "43"
+     },
+     {
+      "value": "96",
+      "label": "96"
+     },
+     {
+      "value": "97",
+      "label": "97"
+     }
+    ],
+    "default": "31",
+    "core": false
+   },
+   {
+    "name": "v190",
+    "label": "Wealth quintile",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Poorest"
+     },
+     {
+      "value": "2",
+      "label": "Poorer"
+     },
+     {
+      "value": "3",
+      "label": "Middle"
+     },
+     {
+      "value": "4",
+      "label": "Richer"
+     },
+     {
+      "value": "5",
+      "label": "Richest"
+     }
+    ],
+    "default": "1",
+    "core": false
+   },
+   {
+    "name": "v190a",
+    "label": "Wealth quintile, urban/rural specific",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Poorest"
+     },
+     {
+      "value": "2",
+      "label": "Poorer"
+     },
+     {
+      "value": "3",
+      "label": "Middle"
+     },
+     {
+      "value": "4",
+      "label": "Richer"
+     },
+     {
+      "value": "5",
+      "label": "Richest"
+     }
+    ],
+    "default": "1",
+    "core": false
+   },
+   {
+    "name": "asset_index",
+    "label": "asset_index",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "number",
+    "default": 1.0,
+    "core": false
+   },
+   {
+    "name": "residence",
+    "label": "residence",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Rural",
+      "label": "Rural"
+     },
+     {
+      "value": "Urban",
+      "label": "Urban"
+     }
+    ],
+    "default": "Rural",
+    "core": false
+   },
+   {
+    "name": "wealth_quintile",
+    "label": "wealth_quintile",
+    "help": "",
+    "unit": "",
+    "domain": "Household and socioeconomic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Middle",
+      "label": "Middle"
+     },
+     {
+      "value": "Poorer",
+      "label": "Poorer"
+     },
+     {
+      "value": "Poorest",
+      "label": "Poorest"
+     },
+     {
+      "value": "Richer",
+      "label": "Richer"
+     },
+     {
+      "value": "Richest",
+      "label": "Richest"
+     }
+    ],
+    "default": "Poorest",
+    "core": false
+   },
+   {
+    "name": "v024",
+    "label": "Region",
+    "help": "",
+    "unit": "",
+    "domain": "Geographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Tigray"
+     },
+     {
+      "value": "10",
+      "label": "South Ethiopia"
+     },
+     {
+      "value": "12",
+      "label": "Gambella"
+     },
+     {
+      "value": "13",
+      "label": "Harari"
+     },
+     {
+      "value": "14",
+      "label": "Addis Ababa"
+     },
+     {
+      "value": "15",
+      "label": "Dire Dawa"
+     },
+     {
+      "value": "2",
+      "label": "Afar"
+     },
+     {
+      "value": "3",
+      "label": "Amhara"
+     },
+     {
+      "value": "4",
+      "label": "Oromia"
+     },
+     {
+      "value": "5",
+      "label": "Somali"
+     },
+     {
+      "value": "6",
+      "label": "Benishangul-Gumuz"
+     },
+     {
+      "value": "7",
+      "label": "Central Ethiopia"
+     },
+     {
+      "value": "8",
+      "label": "Sidama"
+     },
+     {
+      "value": "9",
+      "label": "South West Ethiopia"
+     }
+    ],
+    "default": "4",
+    "core": true
+   },
+   {
+    "name": "region",
+    "label": "region",
+    "help": "",
+    "unit": "",
+    "domain": "Geographic",
+    "type": "select",
+    "options": [
+     {
+      "value": "Addis Ababa",
+      "label": "Addis Ababa"
+     },
+     {
+      "value": "Afar",
+      "label": "Afar"
+     },
+     {
+      "value": "Amhara",
+      "label": "Amhara"
+     },
+     {
+      "value": "Benishangul-Gumuz",
+      "label": "Benishangul-Gumuz"
+     },
+     {
+      "value": "Central Ethiopia",
+      "label": "Central Ethiopia"
+     },
+     {
+      "value": "Dire Dawa",
+      "label": "Dire Dawa"
+     },
+     {
+      "value": "Gambella",
+      "label": "Gambella"
+     },
+     {
+      "value": "Harari",
+      "label": "Harari"
+     },
+     {
+      "value": "Oromia",
+      "label": "Oromia"
+     },
+     {
+      "value": "Sidama",
+      "label": "Sidama"
+     },
+     {
+      "value": "Somali",
+      "label": "Somali"
+     },
+     {
+      "value": "South Ethiopia",
+      "label": "South Ethiopia"
+     },
+     {
+      "value": "South West Ethiopia",
+      "label": "South West Ethiopia"
+     },
+     {
+      "value": "Tigray",
+      "label": "Tigray"
+     }
+    ],
+    "default": "Oromia",
+    "core": false
+   },
+   {
+    "name": "v511",
+    "label": "Age at first marriage/union",
+    "help": "",
+    "unit": "years",
+    "domain": "Partner and empowerment",
+    "type": "number",
+    "default": 17.0,
+    "core": false
+   },
+   {
+    "name": "v743b",
+    "label": "Decides: large household purchases",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "1.0",
+      "label": "1.0"
+     },
+     {
+      "value": "2.0",
+      "label": "2.0"
+     },
+     {
+      "value": "4.0",
+      "label": "4.0"
+     },
+     {
+      "value": "5.0",
+      "label": "5.0"
+     },
+     {
+      "value": "6.0",
+      "label": "6.0"
+     }
+    ],
+    "default": "2.0",
+    "core": true
+   },
+   {
+    "name": "v743f",
+    "label": "Decides: use of partner earnings",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "1.0",
+      "label": "1.0"
+     },
+     {
+      "value": "2.0",
+      "label": "2.0"
+     },
+     {
+      "value": "4.0",
+      "label": "4.0"
+     },
+     {
+      "value": "6.0",
+      "label": "6.0"
+     },
+     {
+      "value": "7.0",
+      "label": "7.0"
+     }
+    ],
+    "default": "2.0",
+    "core": false
+   },
+   {
+    "name": "v743d",
+    "label": "Decides: visits to family",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "1.0",
+      "label": "1.0"
+     },
+     {
+      "value": "2.0",
+      "label": "2.0"
+     },
+     {
+      "value": "4.0",
+      "label": "4.0"
+     },
+     {
+      "value": "5.0",
+      "label": "5.0"
+     },
+     {
+      "value": "6.0",
+      "label": "6.0"
+     }
+    ],
+    "default": "2.0",
+    "core": false
+   },
+   {
+    "name": "v744c",
+    "label": "IPV attitude: argues",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "8",
+      "label": "Don't know"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v744e",
+    "label": "IPV attitude: burns food",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "8",
+      "label": "Don't know"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v744a",
+    "label": "IPV attitude: goes out without telling",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "8",
+      "label": "Don't know"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v744b",
+    "label": "IPV attitude: neglects children",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "8",
+      "label": "Don't know"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v744d",
+    "label": "IPV attitude: refuses sex",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     },
+     {
+      "value": "8",
+      "label": "Don't know"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v745a",
+    "label": "Owns a house",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "Does not own"
+     },
+     {
+      "value": "1",
+      "label": "Alone only"
+     },
+     {
+      "value": "2",
+      "label": "Jointly only"
+     },
+     {
+      "value": "3",
+      "label": "Both alone and jointly"
+     },
+     {
+      "value": "4",
+      "label": "4"
+     },
+     {
+      "value": "5",
+      "label": "5"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v745b",
+    "label": "Owns land",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "Does not own"
+     },
+     {
+      "value": "1",
+      "label": "Alone only"
+     },
+     {
+      "value": "2",
+      "label": "Jointly only"
+     },
+     {
+      "value": "3",
+      "label": "Both alone and jointly"
+     },
+     {
+      "value": "4",
+      "label": "4"
+     },
+     {
+      "value": "5",
+      "label": "5"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "v729",
+    "label": "Partner educational attainment",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "0.0",
+      "label": "0.0"
+     },
+     {
+      "value": "1.0",
+      "label": "1.0"
+     },
+     {
+      "value": "2.0",
+      "label": "2.0"
+     },
+     {
+      "value": "3.0",
+      "label": "3.0"
+     },
+     {
+      "value": "4.0",
+      "label": "4.0"
+     },
+     {
+      "value": "5.0",
+      "label": "5.0"
+     },
+     {
+      "value": "8.0",
+      "label": "8.0"
+     }
+    ],
+    "default": "0.0",
+    "core": false
+   },
+   {
+    "name": "v730",
+    "label": "Partner's age",
+    "help": "Age in completed years",
+    "unit": "years",
+    "domain": "Partner and empowerment",
+    "type": "number",
+    "default": 35.0,
+    "core": false
+   },
+   {
+    "name": "v715",
+    "label": "Partner's years of education",
+    "help": "Total completed years of schooling",
+    "unit": "years",
+    "domain": "Partner and empowerment",
+    "type": "number",
+    "default": 5.0,
+    "core": false
+   },
+   {
+    "name": "decision_participation_count",
+    "label": "decision_participation_count",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "number",
+    "default": 4.0,
+    "core": false
+   },
+   {
+    "name": "healthcare_decision_participation",
+    "label": "healthcare_decision_participation",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "Does not participate",
+      "label": "Does not participate"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Participates",
+      "label": "Participates"
+     }
+    ],
+    "default": "Participates",
+    "core": false
+   },
+   {
+    "name": "ipv_justification_count",
+    "label": "ipv_justification_count",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "number",
+    "default": 1.0,
+    "core": false
+   },
+   {
+    "name": "maternal_current_union_status",
+    "label": "maternal_current_union_status",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "Currently in union",
+      "label": "Currently in union"
+     },
+     {
+      "value": "Not currently in union",
+      "label": "Not currently in union"
+     }
+    ],
+    "default": "Currently in union",
+    "core": false
+   },
+   {
+    "name": "partner_education",
+    "label": "partner_education",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "Higher",
+      "label": "Higher"
+     },
+     {
+      "value": "No education",
+      "label": "No education"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Primary",
+      "label": "Primary"
+     },
+     {
+      "value": "Secondary",
+      "label": "Secondary"
+     },
+     {
+      "value": "Unknown",
+      "label": "Unknown"
+     }
+    ],
+    "default": "Primary",
+    "core": false
+   },
+   {
+    "name": "partner_occupation_group",
+    "label": "partner_occupation_group",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "select",
+    "options": [
+     {
+      "value": "Agriculture",
+      "label": "Agriculture"
+     },
+     {
+      "value": "Did not work",
+      "label": "Did not work"
+     },
+     {
+      "value": "Manual/domestic",
+      "label": "Manual/domestic"
+     },
+     {
+      "value": "Not applicable",
+      "label": "Not applicable"
+     },
+     {
+      "value": "Professional/clerical",
+      "label": "Professional/clerical"
+     },
+     {
+      "value": "Sales/services",
+      "label": "Sales/services"
+     },
+     {
+      "value": "Unknown",
+      "label": "Unknown"
+     }
+    ],
+    "default": "Agriculture",
+    "core": true
+   },
+   {
+    "name": "spousal_age_gap",
+    "label": "spousal_age_gap",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "number",
+    "default": 6.0,
+    "core": true
+   },
+   {
+    "name": "spousal_education_gap",
+    "label": "spousal_education_gap",
+    "help": "",
+    "unit": "",
+    "domain": "Partner and empowerment",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   },
+   {
+    "name": "v212",
+    "label": "Age at first birth",
+    "help": "",
+    "unit": "years",
+    "domain": "Pregnancy and obstetric",
+    "type": "number",
+    "default": 20.0,
+    "core": false
+   },
+   {
+    "name": "v613",
+    "label": "Ideal number of children",
+    "help": "Number the respondent considers ideal",
+    "unit": "children",
+    "domain": "Pregnancy and obstetric",
+    "type": "number",
+    "default": 6.0,
+    "core": false
+   },
+   {
+    "name": "v218",
+    "label": "Number of living children",
+    "help": "",
+    "unit": "children",
+    "domain": "Pregnancy and obstetric",
+    "type": "number",
+    "default": 3.0,
+    "core": false
+   },
+   {
+    "name": "v201",
+    "label": "Total children ever born",
+    "help": "",
+    "unit": "children",
+    "domain": "Pregnancy and obstetric",
+    "type": "number",
+    "default": 3.0,
+    "core": false
+   },
+   {
+    "name": "children_over_ideal",
+    "label": "children_over_ideal",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "number",
+    "default": -3.0,
+    "core": false
+   },
+   {
+    "name": "preceding_pregnancy_interval_group",
+    "label": "preceding_pregnancy_interval_group",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "24-35 months",
+      "label": "24-35 months"
+     },
+     {
+      "value": "36-59 months",
+      "label": "36-59 months"
+     },
+     {
+      "value": "60+ months",
+      "label": "60+ months"
+     },
+     {
+      "value": "<24 months",
+      "label": "<24 months"
+     },
+     {
+      "value": "First pregnancy",
+      "label": "First pregnancy"
+     },
+     {
+      "value": "Unknown / missing",
+      "label": "Unknown / missing"
+     }
+    ],
+    "default": "36-59 months",
+    "core": false
+   },
+   {
+    "name": "pregnancy_intention",
+    "label": "pregnancy_intention",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "Wanted later",
+      "label": "Wanted later"
+     },
+     {
+      "value": "Wanted no more",
+      "label": "Wanted no more"
+     },
+     {
+      "value": "Wanted then",
+      "label": "Wanted then"
+     }
+    ],
+    "default": "Wanted then",
+    "core": true
+   },
+   {
+    "name": "pregnancy_order_group",
+    "label": "pregnancy_order_group",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "First pregnancy",
+      "label": "First pregnancy"
+     },
+     {
+      "value": "Pregnancy order 2-3",
+      "label": "Pregnancy order 2-3"
+     },
+     {
+      "value": "Pregnancy order 4-5",
+      "label": "Pregnancy order 4-5"
+     },
+     {
+      "value": "Pregnancy order 6+",
+      "label": "Pregnancy order 6+"
+     }
+    ],
+    "default": "Pregnancy order 2-3",
+    "core": false
+   },
+   {
+    "name": "previous_pregnancy_history",
+    "label": "previous_pregnancy_history",
+    "help": "",
+    "unit": "",
+    "domain": "Pregnancy and obstetric",
+    "type": "select",
+    "options": [
+     {
+      "value": "At least one previous adverse outcome",
+      "label": "At least one previous adverse outcome"
+     },
+     {
+      "value": "No previous pregnancy",
+      "label": "No previous pregnancy"
+     },
+     {
+      "value": "Previous pregnancy, no adverse outcome",
+      "label": "Previous pregnancy, no adverse outcome"
+     }
+    ],
+    "default": "Previous pregnancy, no adverse outcome",
+    "core": true
+   },
+   {
+    "name": "v467d",
+    "label": "Barrier to care: distance to facility",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Big problem"
+     },
+     {
+      "value": "2",
+      "label": "Not a big problem"
+     }
+    ],
+    "default": "2",
+    "core": false
+   },
+   {
+    "name": "v467c",
+    "label": "Barrier to care: getting money",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Big problem"
+     },
+     {
+      "value": "2",
+      "label": "Not a big problem"
+     }
+    ],
+    "default": "1",
+    "core": false
+   },
+   {
+    "name": "v467b",
+    "label": "Barrier to care: getting permission",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Big problem"
+     },
+     {
+      "value": "2",
+      "label": "Not a big problem"
+     }
+    ],
+    "default": "2",
+    "core": false
+   },
+   {
+    "name": "v467f",
+    "label": "Barrier to care: not wanting to go alone",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "1",
+      "label": "Big problem"
+     },
+     {
+      "value": "2",
+      "label": "Not a big problem"
+     }
+    ],
+    "default": "2",
+    "core": false
+   },
+   {
+    "name": "v481",
+    "label": "Covered by health insurance",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "0",
+      "label": "No"
+     },
+     {
+      "value": "1",
+      "label": "Yes"
+     }
+    ],
+    "default": "0",
+    "core": false
+   },
+   {
+    "name": "s1102",
+    "label": "Transport mode to health post",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "11.0",
+      "label": "11.0"
+     },
+     {
+      "value": "12.0",
+      "label": "12.0"
+     },
+     {
+      "value": "13.0",
+      "label": "13.0"
+     },
+     {
+      "value": "14.0",
+      "label": "14.0"
+     },
+     {
+      "value": "23.0",
+      "label": "23.0"
+     },
+     {
+      "value": "24.0",
+      "label": "24.0"
+     },
+     {
+      "value": "25.0",
+      "label": "25.0"
+     },
+     {
+      "value": "96.0",
+      "label": "96.0"
+     }
+    ],
+    "default": "24.0",
+    "core": false
+   },
+   {
+    "name": "s1101a",
+    "label": "Transport mode to hospital/health centre",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "11",
+      "label": "11"
+     },
+     {
+      "value": "12",
+      "label": "12"
+     },
+     {
+      "value": "13",
+      "label": "13"
+     },
+     {
+      "value": "14",
+      "label": "14"
+     },
+     {
+      "value": "21",
+      "label": "21"
+     },
+     {
+      "value": "22",
+      "label": "22"
+     },
+     {
+      "value": "23",
+      "label": "23"
+     },
+     {
+      "value": "24",
+      "label": "24"
+     },
+     {
+      "value": "25",
+      "label": "25"
+     }
+    ],
+    "default": "24",
+    "core": false
+   },
+   {
+    "name": "s1101",
+    "label": "Travel time to hospital / health centre",
+    "help": "One-way travel time",
+    "unit": "minutes",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 40.0,
+    "core": false
+   },
+   {
+    "name": "s1101b",
+    "label": "Travel time to nearest health post",
+    "help": "Leave blank if there is none nearby",
+    "unit": "minutes",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 30.0,
+    "core": false
+   },
+   {
+    "name": "access_barrier_count",
+    "label": "access_barrier_count",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 1.0,
+    "core": false
+   },
+   {
+    "name": "health_insurance",
+    "label": "health_insurance",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "No",
+      "label": "No"
+     },
+     {
+      "value": "Yes",
+      "label": "Yes"
+     }
+    ],
+    "default": "No",
+    "core": false
+   },
+   {
+    "name": "healthpost_time_missing",
+    "label": "healthpost_time_missing",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   },
+   {
+    "name": "transport_mode_group",
+    "label": "transport_mode_group",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "select",
+    "options": [
+     {
+      "value": "Motorcycle/bajaj/taxi/minibus",
+      "label": "Motorcycle/bajaj/taxi/minibus"
+     },
+     {
+      "value": "Other motorized",
+      "label": "Other motorized"
+     },
+     {
+      "value": "Other non-motorized",
+      "label": "Other non-motorized"
+     },
+     {
+      "value": "Walking",
+      "label": "Walking"
+     }
+    ],
+    "default": "Walking",
+    "core": true
+   },
+   {
+    "name": "travel_healthpost_is_zero",
+    "label": "travel_healthpost_is_zero",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   },
+   {
+    "name": "travel_healthpost_log",
+    "label": "travel_healthpost_log",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 3.4339872044851463,
+    "core": false
+   },
+   {
+    "name": "travel_healthpost_topcoded",
+    "label": "travel_healthpost_topcoded",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   },
+   {
+    "name": "travel_hospital_is_zero",
+    "label": "travel_hospital_is_zero",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   },
+   {
+    "name": "travel_hospital_log",
+    "label": "travel_hospital_log",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 3.7135720252990723,
+    "core": false
+   },
+   {
+    "name": "travel_hospital_topcoded",
+    "label": "travel_hospital_topcoded",
+    "help": "",
+    "unit": "",
+    "domain": "Health service and access",
+    "type": "number",
+    "default": 0.0,
+    "core": false
+   }
+  ],
+  "models": [
+   "XGBoost",
+   "Explainable Boosting",
+   "Random Forest",
+   "Elastic net logistic",
+   "Logistic regression",
+   "Extra Trees",
+   "LightGBM",
+   "Parsimonious"
+  ],
+  "champion": "XGBoost",
+  "core_predictors": [
+   "v191",
+   "spousal_age_gap",
+   "v743b",
+   "v024",
+   "v133",
+   "pregnancy_intention",
+   "transport_mode_group",
+   "partner_occupation_group",
+   "v158",
+   "previous_pregnancy_history"
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+final_variable,domain,description,final_type,provenance,in_original_21,missing_pct,n_unique
+region,Geographic,region,categorical,Inherited from Notebook 1 construct,True,0.0,14
+v024,Geographic,Region,categorical,Newly admitted EDHS source variable,False,0.0,14
+access_barrier_count,Health service and access,access_barrier_count,numeric,Derived in Notebook 3,False,0.0,5
+health_insurance,Health service and access,health_insurance,categorical,Inherited from Notebook 1 construct,True,0.0,2
+healthpost_time_missing,Health service and access,healthpost_time_missing,numeric,Derived in Notebook 3,False,0.0,2
+s1101,Health service and access,Travel time to nearest hospital/health centre (minutes),numeric,Newly admitted EDHS source variable,False,0.0,86
+s1101a,Health service and access,Transport mode to hospital/health centre,categorical,Newly admitted EDHS source variable,False,0.0,9
+s1101b,Health service and access,Travel time to nearest health post (minutes),numeric,Newly admitted EDHS source variable,False,23.357,73
+s1102,Health service and access,Transport mode to health post,categorical,Newly admitted EDHS source variable,False,23.357,9
+transport_mode_group,Health service and access,transport_mode_group,categorical,Inherited from Notebook 1 construct,True,0.0,4
+travel_healthpost_is_zero,Health service and access,travel_healthpost_is_zero,numeric,Derived in Notebook 3,False,0.0,2
+travel_healthpost_log,Health service and access,travel_healthpost_log,numeric,Derived in Notebook 3,False,23.357,73
+travel_healthpost_topcoded,Health service and access,travel_healthpost_topcoded,numeric,Derived in Notebook 3,False,0.0,2
+travel_hospital_is_zero,Health service and access,travel_hospital_is_zero,numeric,Derived in Notebook 3,False,0.0,2
+travel_hospital_log,Health service and access,travel_hospital_log,numeric,Derived in Notebook 3,False,0.0,86
+travel_hospital_topcoded,Health service and access,travel_hospital_topcoded,numeric,Derived in Notebook 3,False,0.0,2
+v467b,Health service and access,Barrier to care: getting permission,categorical,Newly admitted EDHS source variable,False,0.0,2
+v467c,Health service and access,Barrier to care: getting money,categorical,Newly admitted EDHS source variable,False,0.0,2
+v467d,Health service and access,Barrier to care: distance to facility,categorical,Newly admitted EDHS source variable,False,0.0,2
+v467f,Health service and access,Barrier to care: not wanting to go alone,categorical,Newly admitted EDHS source variable,False,0.0,2
+v481,Health service and access,Covered by health insurance,categorical,Newly admitted EDHS source variable,False,0.0,2
+asset_index,Household and socioeconomic,asset_index,numeric,Derived in Notebook 3,False,0.0,7
+residence,Household and socioeconomic,residence,categorical,Inherited from Notebook 1 construct,True,0.0,2
+v025,Household and socioeconomic,Place of residence,categorical,Newly admitted EDHS source variable,False,0.0,2
+v113,Household and socioeconomic,Source of drinking water,categorical,Newly admitted EDHS source variable,False,0.0,17
+v115,Household and socioeconomic,Time to water source (minutes),numeric,Newly admitted EDHS source variable,False,0.0,95
+v116,Household and socioeconomic,Type of toilet facility,categorical,Newly admitted EDHS source variable,False,0.0,14
+v119,Household and socioeconomic,Household has electricity,categorical,Newly admitted EDHS source variable,False,0.0,3
+v120,Household and socioeconomic,Household has radio,categorical,Newly admitted EDHS source variable,False,0.0,3
+v121,Household and socioeconomic,Household has television,categorical,Newly admitted EDHS source variable,False,0.0,3
+v123,Household and socioeconomic,Household has bicycle,categorical,Newly admitted EDHS source variable,False,0.0,3
+v127,Household and socioeconomic,Main floor material,categorical,Newly admitted EDHS source variable,False,0.0,10
+v136,Household and socioeconomic,Household size,numeric,Newly admitted EDHS source variable,False,0.0,21
+v137,Household and socioeconomic,Children aged 5 and under in household,numeric,Newly admitted EDHS source variable,False,0.0,8
+v138,Household and socioeconomic,Eligible women in household,numeric,Newly admitted EDHS source variable,False,0.0,8
+v151,Household and socioeconomic,Sex of household head,categorical,Newly admitted EDHS source variable,False,0.0,2
+v152,Household and socioeconomic,Age of household head,numeric,Newly admitted EDHS source variable,False,0.0,76
+v169a,Household and socioeconomic,Owns a mobile telephone,categorical,Newly admitted EDHS source variable,False,0.0,2
+v170,Household and socioeconomic,Has a bank/financial account,categorical,Newly admitted EDHS source variable,False,0.0,2
+v190,Household and socioeconomic,Wealth quintile,categorical,Newly admitted EDHS source variable,False,0.0,5
+v190a,Household and socioeconomic,"Wealth quintile, urban/rural specific",categorical,Newly admitted EDHS source variable,False,0.0,5
+v191,Household and socioeconomic,Wealth index factor score (continuous),numeric,Newly admitted EDHS source variable,False,0.0,6681
+v191a,Household and socioeconomic,"Wealth index factor score, urban/rural specific",numeric,Newly admitted EDHS source variable,False,0.0,6701
+wealth_quintile,Household and socioeconomic,wealth_quintile,categorical,Inherited from Notebook 1 construct,True,0.0,5
+internet_exposure,Maternal and sociodemographic,internet_exposure,categorical,Inherited from Notebook 1 construct,True,0.0,3
+maternal_education,Maternal and sociodemographic,maternal_education,categorical,Inherited from Notebook 1 construct,True,0.0,4
+maternal_occupation_group,Maternal and sociodemographic,maternal_occupation_group,categorical,Inherited from Notebook 1 construct,True,0.0,5
+newspaper_weekly,Maternal and sociodemographic,newspaper_weekly,numeric,Derived in Notebook 3,False,0.0,2
+radio_weekly,Maternal and sociodemographic,radio_weekly,numeric,Derived in Notebook 3,False,0.0,2
+religion_group,Maternal and sociodemographic,religion_group,categorical,Inherited from Notebook 1 construct,True,0.0,4
+television_weekly,Maternal and sociodemographic,television_weekly,numeric,Derived in Notebook 3,False,0.0,2
+v012,Maternal and sociodemographic,Maternal age at interview (years),numeric,Newly admitted EDHS source variable,True,0.0,35
+v045c,Maternal and sociodemographic,Native language of respondent,categorical,Newly admitted EDHS source variable,False,0.0,8
+v106,Maternal and sociodemographic,Maternal education level,categorical,Newly admitted EDHS source variable,False,0.0,4
+v130,Maternal and sociodemographic,Religion,categorical,Newly admitted EDHS source variable,False,0.0,6
+v133,Maternal and sociodemographic,"Maternal education, single years",numeric,Newly admitted EDHS source variable,False,0.0,20
+v149,Maternal and sociodemographic,Educational attainment (detailed),categorical,Newly admitted EDHS source variable,False,0.0,6
+v155,Maternal and sociodemographic,Literacy,categorical,Newly admitted EDHS source variable,False,0.0,5
+v157,Maternal and sociodemographic,Newspaper reading frequency,categorical,Newly admitted EDHS source variable,False,0.0,3
+v158,Maternal and sociodemographic,Radio listening frequency,categorical,Newly admitted EDHS source variable,False,0.0,3
+v159,Maternal and sociodemographic,Television watching frequency,categorical,Newly admitted EDHS source variable,False,0.0,3
+v171a,Maternal and sociodemographic,Internet use recency,categorical,Newly admitted EDHS source variable,False,0.0,3
+v716,Maternal and sociodemographic,Maternal occupation (detailed),categorical,Newly admitted EDHS source variable,False,0.0,38
+v731,Maternal and sociodemographic,Worked in last 12 months,categorical,Newly admitted EDHS source variable,False,0.0,4
+decision_participation_count,Partner and empowerment,decision_participation_count,numeric,Derived in Notebook 3,False,0.0,5
+healthcare_decision_participation,Partner and empowerment,healthcare_decision_participation,categorical,Inherited from Notebook 1 construct,True,0.015,3
+ipv_justification_count,Partner and empowerment,ipv_justification_count,numeric,Derived in Notebook 3,False,0.0,6
+maternal_current_union_status,Partner and empowerment,maternal_current_union_status,categorical,Inherited from Notebook 1 construct,True,0.0,2
+partner_education,Partner and empowerment,partner_education,categorical,Inherited from Notebook 1 construct,True,0.0,6
+partner_occupation_group,Partner and empowerment,partner_occupation_group,categorical,Inherited from Notebook 1 construct,True,0.0,7
+spousal_age_gap,Partner and empowerment,spousal_age_gap,numeric,Derived in Notebook 3,False,5.977,71
+spousal_education_gap,Partner and empowerment,spousal_education_gap,numeric,Derived in Notebook 3,False,5.977,46
+v511,Partner and empowerment,Age at first cohabitation,numeric,Newly admitted EDHS source variable,False,1.146,33
+v715,Partner and empowerment,"Partner education, total years",numeric,Newly admitted EDHS source variable,False,5.977,21
+v729,Partner and empowerment,Partner educational attainment,categorical,Newly admitted EDHS source variable,False,5.977,7
+v730,Partner and empowerment,Partner age (years),numeric,Newly admitted EDHS source variable,False,5.977,64
+v743b,Partner and empowerment,Decides: large household purchases,categorical,Newly admitted EDHS source variable,False,5.992,5
+v743d,Partner and empowerment,Decides: visits to family,categorical,Newly admitted EDHS source variable,False,5.992,5
+v743f,Partner and empowerment,Decides: use of partner earnings,categorical,Newly admitted EDHS source variable,False,7.892,5
+v744a,Partner and empowerment,IPV attitude: goes out without telling,categorical,Newly admitted EDHS source variable,False,0.0,3
+v744b,Partner and empowerment,IPV attitude: neglects children,categorical,Newly admitted EDHS source variable,False,0.0,3
+v744c,Partner and empowerment,IPV attitude: argues,categorical,Newly admitted EDHS source variable,False,0.0,3
+v744d,Partner and empowerment,IPV attitude: refuses sex,categorical,Newly admitted EDHS source variable,False,0.0,3
+v744e,Partner and empowerment,IPV attitude: burns food,categorical,Newly admitted EDHS source variable,False,0.0,3
+v745a,Partner and empowerment,Owns a house,categorical,Newly admitted EDHS source variable,False,0.0,6
+v745b,Partner and empowerment,Owns land,categorical,Newly admitted EDHS source variable,False,0.0,6
+children_over_ideal,Pregnancy and obstetric,children_over_ideal,numeric,Derived in Notebook 3,False,4.962,32
+preceding_pregnancy_interval_group,Pregnancy and obstetric,preceding_pregnancy_interval_group,categorical,Inherited from Notebook 1 construct,True,0.0,6
+pregnancy_intention,Pregnancy and obstetric,pregnancy_intention,categorical,Inherited from Notebook 1 construct,True,0.0,3
+pregnancy_order_group,Pregnancy and obstetric,pregnancy_order_group,categorical,Inherited from Notebook 1 construct,True,0.0,4
+previous_pregnancy_history,Pregnancy and obstetric,previous_pregnancy_history,categorical,Inherited from Notebook 1 construct,True,0.0,3
+v201,Pregnancy and obstetric,Total children ever born,numeric,Newly admitted EDHS source variable,False,0.0,16
+v212,Pregnancy and obstetric,Age at first birth,numeric,Newly admitted EDHS source variable,False,0.174,33
+v218,Pregnancy and obstetric,Number of living children,numeric,Newly admitted EDHS source variable,False,0.0,16
+v613,Pregnancy and obstetric,Ideal number of children,numeric,Newly admitted EDHS source variable,False,0.0,23

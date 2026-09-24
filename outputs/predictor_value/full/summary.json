@@ -1,0 +1,33 @@
+{
+  "cohort": "full",
+  "rungs": [
+    "anc1plus",
+    "anc4plus",
+    "anc8plus"
+  ],
+  "n_predictors": 88,
+  "rises_toward_anc8": {
+    "region": 0.0599,
+    "v191": 0.0513,
+    "v190a": 0.0454,
+    "v743b": 0.0288,
+    "v113": 0.0272,
+    "v191a": 0.0217,
+    "travel_healthpost_is_zero": 0.0196,
+    "v730": 0.0166,
+    "pregnancy_intention": 0.0147,
+    "spousal_age_gap": 0.0129
+  },
+  "falls_toward_anc8": {
+    "preceding_pregnancy_interval_group": -0.0259,
+    "residence": -0.0244,
+    "v151": -0.0156,
+    "religion_group": -0.0147,
+    "v745b": -0.0145,
+    "v744b": -0.0136,
+    "maternal_education": -0.013,
+    "v744a": -0.0105,
+    "s1102": -0.0103,
+    "healthpost_time_missing": -0.0102
+  }
+}

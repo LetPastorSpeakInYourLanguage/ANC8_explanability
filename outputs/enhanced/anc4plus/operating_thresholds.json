@@ -1,0 +1,17 @@
+{
+  "HistGradientBoosting": 0.5172244672192805,
+  "XGBoost": 0.5287473201751709,
+  "LightGBM": 0.6233728575399042,
+  "Extra Trees": 0.5145723908402327,
+  "Random Forest": 0.5392605489129583,
+  "Explainable Boosting": 0.5563554256752614,
+  "MLP": 0.5659353792117128,
+  "Logistic regression": 0.5056817098838787,
+  "Elastic net logistic": 0.5683702600879461,
+  "Spline logistic": 0.4902649391465239,
+  "Stacked ensemble": 0.5557241847767571,
+  "Cumulative-link ensemble": 0.528807379347756,
+  "HistGradientBoosting (isotonic calibrated)": 0.5365839405932694,
+  "HistGradientBoosting (platt calibrated)": 0.5125557286539957,
+  "Parsimonious": 0.5603165921475407
+}

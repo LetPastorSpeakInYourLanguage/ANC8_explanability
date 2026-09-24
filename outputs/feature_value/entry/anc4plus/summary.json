@@ -1,0 +1,44 @@
+{
+  "cohort": "entry",
+  "outcome": "anc4plus",
+  "anchors": {
+    "prevalence": 0.6751716756208049,
+    "original21": 0.8436136714001801,
+    "original21_C": 0.01,
+    "all88": 0.8717277933548833,
+    "all88_C": 0.01
+  },
+  "threshold": 0.005,
+  "min_seeds_positive": 4,
+  "n_development": 4017,
+  "n_total": 5001,
+  "n_candidates": 89,
+  "stage0": {
+    "n_non_contributors": 7,
+    "non_contributors": [
+      "residence",
+      "previous_pregnancy_history",
+      "maternal_current_union_status",
+      "healthcare_decision_participation",
+      "partner_occupation_group",
+      "maternal_occupation_group",
+      "transport_mode_group"
+    ],
+    "AP_21_minus_non_contributors": 0.8492294082354752,
+    "best_k_within_21": 11,
+    "best_AP_within_21": 0.8518466131044946
+  },
+  "stage1": {
+    "n_new": 68,
+    "n_clear": 1,
+    "median_gain": -0.00017724913570857926,
+    "total_gain_all_additions": 0.028114121954703197
+  },
+  "tier1": [
+    "v191",
+    "early_anc"
+  ],
+  "tier2": [
+    "v155"
+  ]
+}

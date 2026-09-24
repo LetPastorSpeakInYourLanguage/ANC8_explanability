@@ -1,0 +1,4 @@
+window,regions,start,end,note,source
+tigray_war,Tigray,2020-11,2022-11,"War from 3 Nov 2020; Pretoria cessation of hostilities signed 2 Nov 2022, effective 3 Nov",https://en.wikipedia.org/wiki/Tigray_war ; https://en.wikipedia.org/wiki/Ethiopia%E2%80%93Tigray_peace_agreement
+northern_incursion,Afar|Amhara,2021-07,2021-12,"Tigrayan forces entered Afar and Amhara from July 2021; the federal National Unity Offensive (26 Nov - 23 Dec 2021) forced the withdrawal",https://en.wikipedia.org/wiki/Timeline_of_the_Tigray_war_(July_2021%E2%80%93November_2022) ; https://en.wikipedia.org/wiki/ENDF_National_Unity_Offensive
+fano_insurgency,Amhara,2023-08,2025-04,"Sporadic clashes from April 2023, full-scale by August; state of emergency declared 4 Aug 2023; ongoing through the survey fieldwork (ended 14 Apr 2025). Sensitivity run starts the window in April 2023.",https://en.wikipedia.org/wiki/Fano_insurgency ; https://en.wikipedia.org/wiki/2023_Ethiopian_state_of_emergency

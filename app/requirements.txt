@@ -1,0 +1,9 @@
+# Serving dependencies for the Python serverless function.
+#
+# numpy ONLY, by necessity. Loading the fitted scikit-learn / XGBoost pickles
+# would require scipy (118 MB) + xgboost (88 MB) + numpy (58 MB) + pandas
+# (43 MB) + scikit-learn (33 MB) = 341 MB unzipped, against Vercel's 250 MB
+# serverless limit. The models are therefore exported to plain arrays by
+# scripts/export_serving.py and evaluated by app/api/_lib/scorer.py, which is
+# verified against the original fitted pipelines before any bundle is written.
+numpy==2.3.5

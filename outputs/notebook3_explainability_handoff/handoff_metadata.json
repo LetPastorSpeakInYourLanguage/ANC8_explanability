@@ -1,0 +1,28 @@
+{
+  "handoff_name": "ANC8 Notebook 2 to Notebook 3 explainability handoff",
+  "primary_outcome": "anc8plus",
+  "outcome_definition": "Attainment of 8 or more ANC contacts",
+  "full_cohort": {
+    "development_n": 5518,
+    "heldout_n": 1375,
+    "original_predictors": 21,
+    "transformed_features": 78,
+    "prediction_horizon": "Background/baseline prediction before ANC-process information"
+  },
+  "anc_entry": {
+    "development_n": 4017,
+    "heldout_n": 984,
+    "baseline_original_predictors": 21,
+    "extended_original_predictors": 22,
+    "extended_transformed_features": 79,
+    "additional_predictor": "early_anc",
+    "early_anc_definition": "1 = first ANC at <=12 weeks or <=3 months; 0 = later initiation",
+    "prediction_horizon": "Prediction after ANC initiation with first-contact timing available"
+  },
+  "survey_design": {
+    "weight": "v005",
+    "PSU": "v021",
+    "stratum": "v022"
+  },
+  "explainability_rule": "Interpret fitted prediction models only. Do not infer causal effects from explanation measures."
+}

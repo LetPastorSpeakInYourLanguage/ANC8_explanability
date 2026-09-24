@@ -1,0 +1,78 @@
+{
+  "outcome": "anc1plus",
+  "n_seeds": 10,
+  "prevalence": 0.776,
+  "minutes": 11.271505598227183,
+  "models": {
+    "Logistic regression": {
+      "original 21": {
+        "n_predictors": 21,
+        "AP_mean": 0.9122444900029058,
+        "AUROC_mean": 0.7680205691826191
+      },
+      "deduplicated 85": {
+        "n_predictors": 85,
+        "AP_mean": 0.9200526292199896,
+        "AP_gain_vs_21": 0.007808139217083776,
+        "AP_gain_lo": 0.005236794699627859,
+        "AP_gain_hi": 0.008950995601872746,
+        "AP_seeds_better": 10,
+        "AUROC_mean": 0.7825524773992019,
+        "AUROC_gain_vs_21": 0.014531908216582812,
+        "AUROC_gain_lo": 0.010483633873330966,
+        "AUROC_gain_hi": 0.018067432958714845,
+        "AUROC_seeds_better": 10
+      },
+      "enhanced 95": {
+        "n_predictors": 95,
+        "AP_mean": 0.9203118368253985,
+        "AP_gain_vs_21": 0.008067346822492782,
+        "AP_gain_lo": 0.005696598824707716,
+        "AP_gain_hi": 0.009337757569909247,
+        "AP_seeds_better": 10,
+        "AUROC_mean": 0.7837447905304378,
+        "AUROC_gain_vs_21": 0.0157242213478188,
+        "AUROC_gain_lo": 0.011602984061299022,
+        "AUROC_gain_hi": 0.018927335607735622,
+        "AUROC_seeds_better": 10
+      },
+      "95_minus_85_AP": 0.00025920760540900647,
+      "95_minus_85_seeds_better": 9
+    },
+    "LightGBM": {
+      "original 21": {
+        "n_predictors": 21,
+        "AP_mean": 0.9146342251862694,
+        "AUROC_mean": 0.7736640178628212
+      },
+      "deduplicated 85": {
+        "n_predictors": 85,
+        "AP_mean": 0.9243267163752344,
+        "AP_gain_vs_21": 0.009692491188965157,
+        "AP_gain_lo": 0.006414762479445437,
+        "AP_gain_hi": 0.013074671426943293,
+        "AP_seeds_better": 10,
+        "AUROC_mean": 0.7932245312515986,
+        "AUROC_gain_vs_21": 0.019560513388777356,
+        "AUROC_gain_lo": 0.014849004697567022,
+        "AUROC_gain_hi": 0.02533489039846583,
+        "AUROC_seeds_better": 10
+      },
+      "enhanced 95": {
+        "n_predictors": 95,
+        "AP_mean": 0.92442221228546,
+        "AP_gain_vs_21": 0.009787987099190699,
+        "AP_gain_lo": 0.0063667070615126995,
+        "AP_gain_hi": 0.01296387173546209,
+        "AP_seeds_better": 10,
+        "AUROC_mean": 0.7939589405878374,
+        "AUROC_gain_vs_21": 0.020294922725016075,
+        "AUROC_gain_lo": 0.014929330746024613,
+        "AUROC_gain_hi": 0.025858524857653727,
+        "AUROC_seeds_better": 10
+      },
+      "95_minus_85_AP": 9.549591022554039e-05,
+      "95_minus_85_seeds_better": 6
+    }
+  }
+}

@@ -1,0 +1,1565 @@
+{
+ "intro": "Every analysis in this study, in reading order. Each entry says what we\nwanted to know, what we did, how we tested it, what came out, and what\nfollowed from it.\n\nEvery technical term used below, such as AP, AUROC, held-out, bootstrap or\ntier, is explained in plain language in `docs/GLOSSARY.md`, which also\nexplains how to read each figure.",
+ "phases": [
+  {
+   "id": "p1",
+   "title": "Data and cohorts",
+   "intro": "Who the study is about, what is predicted, and how every result is tested\nfairly.",
+   "entries": [
+    {
+     "id": "p1-1",
+     "title": "The outcome and the cohort",
+     "kind": "step",
+     "figures": [
+      "fig01_cascade",
+      "fig02_regional_cascade"
+     ],
+     "terms": [
+      "anc-rungs",
+      "cohort",
+      "weight",
+      "cascade"
+     ],
+     "question": "What exactly is predicted, and for whom?",
+     "did": "- Took the 2024-25 Ethiopia DHS women's file and kept the **6,893 women**\n  whose most recent pregnancy has a recorded number of antenatal contacts.\n- Defined three nested outcomes on that count: ANC1+, ANC4+ and ANC8+.",
+     "tested": "The code asserts, woman by woman, that ANC8+ implies\nANC4+ implies ANC1+. All figures are survey-weighted.",
+     "found": "77.6% of women reach ANC1+, 52.4% ANC4+ and 19.2%\nANC8+. The biggest loss is between the fourth and eighth contacts: only 37%\nof women who reach four go on to eight.",
+     "changed": "ANC8+ is the main outcome; ANC1+ and ANC4+ are studied as\nthe earlier rungs of the same ladder.",
+     "source": "`docs/DATA_AND_COHORT.md`"
+    },
+    {
+     "id": "p1-2",
+     "title": "One held-out set, for everything",
+     "kind": "step",
+     "figures": [],
+     "terms": [
+      "heldout",
+      "cluster",
+      "stratum",
+      "cv"
+     ],
+     "question": "How do we test a model fairly?",
+     "did": "Split the women once, by survey cluster within stratum\n(seed 2026):\n- **5,518 for development**, to build, compare and tune;\n- **1,375 held out**, scored only at the end.\n\nThe same split, restricted to their women, serves the ANC-entry cohort\n(4,017 / 984) and the 24-month window (4,040 / 997).",
+     "tested": "The test suite checks that no cluster spans two folds,\nand that the ANC-entry partition matches the full split woman for woman.",
+     "found": "The held-out set contains only 229 women who\nreached ANC8+, so comparisons on it carry wide uncertainty.",
+     "changed": "Every result in the study is scored on these same women,\nand every held-out comparison carries a paired bootstrap interval.",
+     "source": "`src/anc8/design.py`, `src/anc8/cohorts.py`"
+    },
+    {
+     "id": "p1-3",
+     "title": "Checked against the official report",
+     "kind": "step",
+     "figures": [],
+     "terms": [
+      "window24",
+      "dhs"
+     ],
+     "question": "Is the outcome defined the way the official survey defines it?",
+     "did": "- Read the *Guide to DHS Statistics* (DHS-8) and the 2024-25 EDHS key\n  indicators report.\n- Recomputed the report's regional ANC4+ table on its own 24-month window,\n  with pregnancy timing taken from the pregnancy history so that stillbirths\n  are kept.",
+     "tested": "Our figure against the report's, region by region.",
+     "found": "National ANC4+ **53.0% against 53.0%**; 13 of 14 regions\nwithin 0.8 points.",
+     "changed": "This validates the outcome, weights and region coding. The\n24-month window (5,037 women) is kept as a sensitivity check on every result.",
+     "source": "`docs/DATA_AND_COHORT.md`"
+    }
+   ]
+  },
+  {
+   "id": "p2",
+   "title": "The candidate pool",
+   "intro": "Before asking which predictors matter, decide which could legitimately be\npredictors at all.",
+   "entries": [
+    {
+     "id": "p2-1",
+     "title": "Screening every survey column",
+     "kind": "step",
+     "figures": [
+      "fig14_screening"
+     ],
+     "terms": [
+      "screening",
+      "univariate-auc",
+      "temporality"
+     ],
+     "question": "Which of the survey's 6,648 columns could predict antenatal\ncare?",
+     "did": "- Excluded, automatically, columns not collected in this round (1,719),\n  entirely missing (808), measured at or after the delivery (2,296), observed\n  for under half the cohort (1,208) or administrative (28).\n- Scored the remaining **577** on their own, on development women only, and\n  reviewed each for timing and relevance.",
+     "tested": "The screening was rerun on development women alone and\ncompared with the whole-cohort run.",
+     "found": "- **61 survey variables admitted**; 507 not admitted, with a median\n  univariate AUC of 0.518 (almost no signal), mostly from post-birth modules.\n- The strongest legitimate predictor is the **continuous wealth score**\n  (univariate AUC 0.755).\n- All 61 survive development-only screening; the largest AUC shift is 0.013.",
+     "changed": "A full candidate pool of 95 columns: the 61, the 21-set\nconstructs and derived measures such as log travel times and separate media\nchannels.",
+     "source": "`outputs/enhanced/candidate_screening.csv`, `docs/PREDICTOR_VALUE.md` \u00a71"
+    },
+    {
+     "id": "p2-2",
+     "title": "Refusing the variables that record the care itself",
+     "kind": "step",
+     "figures": [],
+     "terms": [
+      "leakage"
+     ],
+     "question": "Which strong candidates must not be used?",
+     "did": "Checked the strongest candidates against when they were\nmeasured.",
+     "tested": "For \"visited a health facility in the last 12\nmonths\", compared attenders and non-attenders by how recent the birth was.",
+     "found": "Among women whose birth was within 12 months, 67% of ANC\nattenders report a facility visit against 28% of non-attenders, a gap that\nnarrows once the birth falls outside the recall window: the outcome being\nre-reported. HIV testing, contraception at interview and first-contact\ntiming are refused for the same reason.",
+     "changed": "Nine strong candidates refused with written reasons;\nfirst-contact timing admitted only at the ANC-entry horizon.",
+     "source": "`src/anc8/features.py`"
+    },
+    {
+     "id": "p2-3",
+     "title": "Merging copies of the same variable",
+     "kind": "step",
+     "figures": [
+      "fig24_redundancy"
+     ],
+     "terms": [
+      "duplicate",
+      "importance"
+     ],
+     "question": "Is any variable in the pool twice?",
+     "did": "Searched for pairs carrying the same information, using\nTheil's U in both directions, which separates true copies from structurally\nmissing categories (for example \"not applicable\" for unmarried women).",
+     "tested": "Refitting without the copies, and restating importance\nper variable.",
+     "found": "**10 of the 95 columns are copies: 85 distinct\nvariables.** Removing them changes AP by 0.002, but importance had been split\nbetween copies: travel time to hospital rises from rank 10 to rank 2 once its\ncopy is counted.",
+     "changed": "The predictor-value study uses 88 candidates: the 85 plus\nthe three constructs only the 21-predictor set has. Importance is always\nreported with copies merged.",
+     "source": "`outputs/enhanced/redundancy/`"
+    }
+   ]
+  },
+  {
+   "id": "p3",
+   "title": "Predictor value",
+   "intro": "The central analysis: which predictors carry the prediction of each rung,\nand how many are needed.",
+   "entries": [
+    {
+     "id": "p3-1",
+     "title": "A fair way to compare predictor sets",
+     "kind": "step",
+     "figures": [],
+     "terms": [
+      "logistic",
+      "bar",
+      "repeated"
+     ],
+     "question": "How do we compare *variables* without the model or its\nsettings tipping the scales?",
+     "did": "- **Fixed model:** logistic regression, scored on 5 repeated\n  cluster-grouped splits of the development women.\n- **Per-set regularisation** from a common grid, because a single setting\n  favours small or large sets (the 88 score 0.478 at a light setting and 0.508\n  at their own best).\n- **The bar**, fixed before any selection result: a variable counts only if\n  it changes AP by at least 0.005 on average and on 4 of 5 splits.",
+     "tested": "The fast scorer against the full scikit-learn pipeline:\nidentical AP.",
+     "found": "Nothing yet; this entry is about the method.",
+     "changed": "Every predictor comparison below uses this setup.",
+     "source": "`src/anc8/selection.py`"
+    },
+    {
+     "id": "p3-2",
+     "title": "Dropping each of the 21",
+     "kind": "step",
+     "figures": [
+      "fig33_drop_within_21"
+     ],
+     "terms": [
+      "drop-one",
+      "versions"
+     ],
+     "question": "Does every member of the 21-predictor set earn its place, at\neach rung?",
+     "did": "Removed each of the 21 in turn and rescored the rest, for\nANC1+, ANC4+ and ANC8+.",
+     "tested": "AP lost on each of 5 splits.",
+     "found": "- Region, pregnancy intention and wealth carry the 21 at every rung.\n- Members that add nothing: **8 of 21 for ANC1+, 10 for ANC4+, 14 for\n  ANC8+**. Health insurance, household size, religion, the weekly media count,\n  internet use and transport mode add nothing to any rung.",
+     "changed": "Motivated the question of how many of the 21 are needed.",
+     "source": "`outputs/feature_value/full/<outcome>/drop_one_within_21.csv`"
+    },
+    {
+     "id": "p3-3",
+     "title": "How many of the 21 are needed",
+     "kind": "step",
+     "figures": [
+      "fig34_why21"
+     ],
+     "terms": [
+      "forward-selection",
+      "lift"
+     ],
+     "question": "What is the smallest subset of the 21 that does as well as all\n21?",
+     "did": "Greedy forward selection within the 21, run all the way to\n21, and the 21 without all its non-contributors at once.",
+     "tested": "Development AP as a share of the full pool's lift over\nprevalence.",
+     "found": "- **ANC8+:** the path peaks at **7 predictors**, reaching the full pool's\n  development AP (0.509), and every further member lowers it; all 21 reach\n  0.469.\n- **ANC1+ and ANC4+:** the path is flat after about 8-11 predictors; the 21\n  are about as good as their best subset.",
+     "changed": "The reduced sets were taken to the held-out test, because\nthey were chosen on the same folds they were scored on.",
+     "source": "`outputs/feature_value/full/<outcome>/forward_within_21.csv`"
+    },
+    {
+     "id": "p3-4",
+     "title": "What the rest of the pool adds",
+     "kind": "step",
+     "figures": [
+      "fig26_add_one",
+      "fig27_diminishing_returns"
+     ],
+     "terms": [
+      "add-one",
+      "remove-one",
+      "bar"
+     ],
+     "question": "Of the 67 pool candidates outside the 21, how many add value?",
+     "did": "- Added each **alone** to the 21;\n- stacked them all in order of gain;\n- removed each one from the full pool.",
+     "tested": "Development AP, gain on each of 5 splits, the +0.005\nbar.",
+     "found": "- **ANC1+ and ANC4+:** none clears the bar alone.\n- **ANC8+:** 8 of 67 do; the wealth score gains most (+0.017).\n- Stacking on ANC8+: the best 5 carry 88% of the gain.",
+     "changed": "Individually, almost none of the 67 matter; the collective\nvalue is judged on held-out women.",
+     "source": "`outputs/feature_value/full/<outcome>/add_one_to_21.csv`"
+    },
+    {
+     "id": "p3-5",
+     "title": "Building from nothing: the tiers",
+     "kind": "step",
+     "figures": [
+      "fig28_tier_ladders",
+      "fig29_selection_frequency"
+     ],
+     "terms": [
+      "tier",
+      "selection-frequency"
+     ],
+     "question": "Starting from zero, which variables would the data choose?",
+     "did": "- Forward selection over all 88, stopping at the first step that fails the\n  bar. Tier 1 runs to 90% of the full pool's lift; tier 2 is the rest that\n  pass.\n- For ANC8+, the selection repeated on 10 bootstrap resamples.",
+     "tested": "Gain per step on 5 splits, and how often each variable\nwas chosen again.",
+     "found": "- The **wealth score is chosen first in every run** and **region** in every\n  run; **pregnancy intention** enters for ANC4+ and ANC8+ but not ANC1+.\n- Sets of **2 (ANC1+), 4 (ANC4+) and 8 (ANC8+)** predictors.\n- Stability for ANC8+: wealth 100%, intention 90%, region 80%, health-post\n  access 60%; most other places rotate.",
+     "changed": "The compact candidate sets for the held-out test.",
+     "source": "`outputs/feature_value/full/<outcome>/forward_steps.csv`"
+    },
+    {
+     "id": "p3-6",
+     "title": "Every set, on the held-out women",
+     "kind": "step",
+     "figures": [
+      "fig30_heldout_sets"
+     ],
+     "terms": [
+      "heldout",
+      "paired",
+      "spans-zero",
+      "ablation"
+     ],
+     "question": "Which number of predictors holds up on women who played no\npart in choosing it?",
+     "did": "Fitted every set on development women and scored it once on\nthe held-out women: tier 1, tier 1+2, the best k of the 21, the 21 without\nits non-contributors, all 21 and the full pool, with paired bootstrap\nintervals against the 21. The tiers were also refitted with LightGBM.",
+     "tested": "Held-out AP and AUROC, paired stratified-PSU\nbootstrap.",
+     "found": "- **ANC8+:** 7 of the 21 (0.440), the 8 selected from the pool (0.425), all\n  21 (0.428) and the full pool (0.435) cannot be separated: every interval\n  includes zero. **7 to 8 predictors are enough.**\n- **ANC4+ and ANC1+:** the full pool beats the 21 (+0.023 and +0.014 AP,\n  intervals excluding zero); compact sets fall slightly short.",
+     "changed": "The selection result is stated per rung: a short set for\ncompleting care, the full pool for reaching it.",
+     "source": "`outputs/feature_value/full/<outcome>/why21_heldout.csv`, `docs/PREDICTOR_VALUE.md` \u00a72"
+    }
+   ]
+  },
+  {
+   "id": "p4",
+   "title": "Across the ladder",
+   "intro": "The same women, predictors and folds at three rungs: what changes from\nreaching care to completing it.",
+   "entries": [
+    {
+     "id": "p4-1",
+     "title": "How predictable each rung is",
+     "kind": "step",
+     "figures": [
+      "fig18_ladder_performance"
+     ],
+     "terms": [
+      "anc-rungs",
+      "prevalence",
+      "auroc",
+      "lift",
+      "champion"
+     ],
+     "question": "Is completing care harder to predict than reaching it?",
+     "did": "Built ten model families for ANC1+, ANC4+ and ANC8+ on the\nfull pool, and scored each rung's development champion on held-out women.",
+     "tested": "Held-out AUROC and lift, because raw AP cannot be\ncompared across outcomes with different prevalences.",
+     "found": "AUROC falls **0.83 \u2192 0.79 \u2192 0.76** from ANC1+ to ANC8+.\nCompleting care is genuinely harder to predict.",
+     "changed": "Every cross-rung comparison uses AUROC, lift, or a share of\neach rung's ceiling.",
+     "source": "`outputs/ladder/ladder_performance.csv`"
+    },
+    {
+     "id": "p4-2",
+     "title": "Each predictor's value at each rung",
+     "kind": "step",
+     "figures": [
+      "fig35_predictor_rung_matrix"
+     ],
+     "terms": [
+      "add-one",
+      "drop-one",
+      "lift"
+     ],
+     "question": "Which predictors gain or lose value from ANC1+ to ANC8+?",
+     "did": "Put every predictor's marginal value relative to the 21 (AP\nlost when dropped, or gained when added) on one scale: a share of each rung's\nceiling above prevalence.",
+     "tested": "The same development splits for all three rungs.",
+     "found": "- **Region** is worth 2.7% of the ANC1+ ceiling and 8.7% of the ANC8+\n  ceiling; the **wealth score** 0.3% and 5.4%.\n- Say in large purchases, water source and living at a health post matter\n  only for completing the schedule.\n- Residence, the gap since the previous pregnancy and sex of the household\n  head matter only for reaching care.",
+     "changed": "The ladder finding stated per predictor, not only by\ndomain.",
+     "source": "`outputs/predictor_value/full/matrix.csv`"
+    },
+    {
+     "id": "p4-3",
+     "title": "Importance, three ways",
+     "kind": "step",
+     "figures": [
+      "fig19_ladder_importance",
+      "fig20_domain_rollup"
+     ],
+     "terms": [
+      "importance",
+      "ebm",
+      "shap",
+      "drop-one",
+      "agreement",
+      "domain"
+     ],
+     "question": "Do independent importance methods show the same shift?",
+     "did": "Measured each predictor's importance at each rung with\nexact EBM contributions, SHAP on XGBoost and drop-one, normalised to a share\nwithin the rung, with copies merged. A pattern counts only if two methods\nagree. SHAP uses XGBoost at every rung because its tree explainer mishandles\nHistGradientBoosting's categorical splits.",
+     "tested": "Rank agreement between methods.",
+     "found": "- Agency and household factors carry the most for reaching care (28%) and\n  the least for completing it (19%); socioeconomic factors (20% \u2192 26%),\n  pregnancy intention and access rise.\n- EBM and SHAP agree well (0.58 to 0.76); drop-one agrees weakly.",
+     "changed": "Household position gets women through the door; money,\ndistance and wanting the pregnancy keep them coming back.",
+     "source": "`outputs/ladder/domain_rollup.csv`, `outputs/ladder/ladder_patterns.csv`"
+    }
+   ]
+  },
+  {
+   "id": "p5h",
+   "title": "Two prediction horizons",
+   "intro": "Before ANC starts, and at ANC entry, when the timing of the first contact is\nknown.",
+   "entries": [
+    {
+     "id": "p5h-1",
+     "title": "The ANC-entry cohort",
+     "kind": "step",
+     "figures": [],
+     "terms": [
+      "horizon",
+      "early-anc",
+      "heldout"
+     ],
+     "question": "Who can be predicted at ANC entry, and on which split?",
+     "did": "Took the 5,001 women who started ANC and know when their\nfirst contact was, with early ANC (first contact by 12 weeks or 3 months;\n2,130 women), and restricted the full-cohort split to them.",
+     "tested": "The code asserts that the entry partition matches the\nfull split woman for woman (4,017 / 984).",
+     "found": "Every woman at this horizon has ANC1+, so only ANC4+ and\nANC8+ are predicted.",
+     "changed": "The whole predictor-value study was repeated at this\nhorizon, with early ANC as an 89th candidate.",
+     "source": "`src/anc8/cohorts.py`"
+    },
+    {
+     "id": "p5h-2",
+     "title": "What early initiation adds",
+     "kind": "step",
+     "figures": [
+      "fig36_horizons",
+      "fig37_early_anc"
+     ],
+     "terms": [
+      "early-anc",
+      "add-one",
+      "paired",
+      "spans-zero"
+     ],
+     "question": "How much does knowing that the first contact was early add?",
+     "did": "Added early ANC to the 21, to the entry selected set and to\nthe full pool; ran forward selection and bootstrap re-selection at entry; and\nscored every set once on the 984 held-out entry women.",
+     "tested": "Development gain on 5 splits, then paired bootstrap on\nheld-out women.",
+     "found": "- Early ANC is the strongest single addition at both rungs (+0.032 AP for\n  ANC4+, +0.077 for ANC8+) and is selected second, after the wealth score;\n  for ANC8+ in 10 of 10 resamples.\n- **ANC4+:** wealth score and early ANC (2 predictors) beat all 21 on\n  held-out women (AP 0.880 against 0.848, interval excluding zero).\n- **ANC8+:** about 7 predictors; early ANC's held-out gain over the 21\n  (+0.027 AP) cannot be confirmed on 984 women.",
+     "changed": "At ANC entry the recommended set is 2-3 predictors for\nANC4+ and about 7 for ANC8+, each led by wealth and early initiation.",
+     "source": "`outputs/feature_value/entry/`, `outputs/horizons/`"
+    },
+    {
+     "id": "p5h-3",
+     "title": "One model or two",
+     "kind": "step",
+     "figures": [
+      "fig36_horizons"
+     ],
+     "terms": [
+      "horizon",
+      "paired"
+     ],
+     "question": "Is a model fitted on the ANC-entry women better for them than\none fitted on everyone?",
+     "did": "Fitted the 21 and the full pool on all development women and\non the entry development women, and scored both on the same held-out entry\nwomen, without early ANC.",
+     "tested": "Paired bootstrap of the AUROC difference.",
+     "found": "No measurable difference (+0.004 to +0.014 AUROC, every\ninterval including zero).",
+     "changed": "What matters at entry is adding the timing of the first\ncontact, not refitting on the entry population.",
+     "source": "`outputs/horizons/cross_horizon.csv`"
+    }
+   ]
+  },
+  {
+   "id": "p6",
+   "title": "The Tigray war",
+   "intro": "Pregnancies during and after the war, against every other region. The survey\nrecords ANC only for births from about mid-2021, so no pre-war pregnancy is\nobserved.",
+   "entries": [
+    {
+     "id": "p6-1",
+     "title": "Wartime against post-war, net of other regions",
+     "kind": "step",
+     "figures": [
+      "fig31_tigray_did"
+     ],
+     "terms": [
+      "did",
+      "comparison-regions",
+      "simpsons",
+      "biases"
+     ],
+     "question": "What did the war do to antenatal care in Tigray?",
+     "did": "- A pregnancy is \"wartime\" if at least 3 of its 9 months fell inside the war\n  (3 Nov 2020 \u2013 2 Nov 2022, cited in `docs/conflict_windows.csv`), and\n  \"post-war\" if conceived after the ceasefire.\n- Difference-in-differences against regions without major conflict, with the\n  comparison change averaged **within** each region (pooling produces a\n  spurious 5-point fall, a Simpson's paradox).",
+     "tested": "Stratified cluster bootstrap; the war window shifted\n\u00b13 months; Oromia and Benishangul-Gumuz added to the comparison group.",
+     "found": "Tigray wartime pregnancies (n = 259) against post-war\n(n = 323):\n- **no ANC at all: 19.5% \u2192 7.7%**, 13 points beyond other regions\n  [\u221220.3, \u22126.2];\n- ANC4+ +13.6 points; ANC8+ no clear change (+2.0).\n\nThe ANC4+ result stays between +11 and +14 under every robustness check.",
+     "changed": "The war's damage was at the door: access recovered,\ncompletion did not.",
+     "source": "`outputs/wartime/tigray_difference_in_differences.csv`"
+    },
+    {
+     "id": "p6-2",
+     "title": "Tigray against every region",
+     "kind": "step",
+     "figures": [
+      "fig38_tigray_regions_by_period"
+     ],
+     "terms": [
+      "comparison-regions"
+     ],
+     "question": "How does Tigray's change compare with every other region over\nthe same calendar periods?",
+     "did": "Computed ANC levels in every region for pregnancies in the\nwar window and pregnancies conceived after the ceasefire.",
+     "tested": "Survey-weighted levels, region by region.",
+     "found": "Tigray's change in reaching care is the largest of any\nregion (no-ANC \u221212 points, ANC4+ +14); most regions move a few points. Its\nANC8+ barely moves.",
+     "changed": "The difference-in-differences is shown against the levels\nbehind it.",
+     "source": "`outputs/wartime/region_by_war_period.csv`"
+    },
+    {
+     "id": "p6-3",
+     "title": "Tigray against its own circumstances",
+     "kind": "step",
+     "figures": [
+      "fig21_regional_gap",
+      "fig32_regional_gap_cohort"
+     ],
+     "terms": [
+      "regional-gap",
+      "window24"
+     ],
+     "question": "Tigray sits about 4 points below expectation on ANC8+. Is that\nonly the war?",
+     "did": "Compared each region's attainment with what its population\nprofile predicts (region withheld), on all births, on post-war pregnancies\nonly, and in the 24-month window.",
+     "tested": "The same model in each cohort.",
+     "found": "Post-war, Tigray is **above** expectation for reaching\ncare (ANC1+ +6.3, ANC4+ +7.4 points) and still **below** it for completing\ncare (ANC8+ \u22122.8). The regional ranking is stable across windows.",
+     "changed": "Tigray's completion shortfall is not only a war artefact.",
+     "source": "`outputs/wartime/regional_gap_by_cohort.csv`"
+    }
+   ]
+  },
+  {
+   "id": "p7",
+   "title": "Supporting analyses",
+   "intro": "Could the results be an artefact of the modelling? Each of these asks one\nversion of that question.",
+   "entries": [
+    {
+     "id": "p7-1",
+     "title": "Ten model families, tuned on the same folds",
+     "kind": "step",
+     "figures": [
+      "fig04_leaderboard_anc8plus"
+     ],
+     "terms": [
+      "tuning",
+      "trees",
+      "ebm",
+      "mlp",
+      "logistic",
+      "overfitting",
+      "champion"
+     ],
+     "question": "With the full pool, does the choice of algorithm matter?",
+     "did": "Tuned ten families with Optuna on identical folds and the\nsame objective (weighted AP), choosing the champion on development folds.",
+     "tested": "Development out-of-fold AP, then held-out AP.",
+     "found": "Development AP ranged only from 0.501 to 0.518; every\nmodel dropped about **0.08 AP** on held-out women, more than the gap between\nmodels.",
+     "changed": "The algorithm is not the constraint; the predictors are.",
+     "source": "`outputs/enhanced/anc8plus/development_oof_performance.csv`"
+    },
+    {
+     "id": "p7-2",
+     "title": "Calibration, and an additive model",
+     "kind": "step",
+     "figures": [
+      "fig05_calibration",
+      "fig08_global_importance",
+      "fig09_shape_functions"
+     ],
+     "terms": [
+      "platt",
+      "calibration-slope",
+      "ebm",
+      "shape-function"
+     ],
+     "question": "Can the predicted probabilities be read as honest rates?",
+     "did": "Added Platt or isotonic calibration, fitted on inner folds.",
+     "tested": "Calibration slope and AP cost.",
+     "found": "- Platt moved the slope from 0.62 to **0.99** at a cost of 0.005 AP;\n  isotonic cost 0.023.\n- The Explainable Boosting Machine, offered ten interactions, **chose none**\n  and matched XGBoost on AUROC (0.789 against 0.788): ANC8+ attainment\n  behaves additively.",
+     "changed": "The EBM is the model the app explains, with exact\nper-predictor contributions.",
+     "source": "`docs/METHODS.md` \u00a77"
+    },
+    {
+     "id": "p7-3",
+     "title": "Modelling the whole count",
+     "kind": "step",
+     "figures": [],
+     "terms": [
+      "ordinal",
+      "overfitting"
+     ],
+     "question": "Does modelling the contact count, not just \"8 or more\", help?",
+     "did": "A cumulative-link model of the count, reading off \"at least\n8\".",
+     "tested": "Development and held-out AP against the plain yes/no\nmodel.",
+     "found": "Better in development (0.500 against 0.494), **worse on\nheld-out women (0.402 against 0.427)**.",
+     "changed": "Reported, not used.",
+     "source": "`docs/METHODS.md` \u00a77"
+    },
+    {
+     "id": "p7-4",
+     "title": "What tuning and preprocessing bought",
+     "kind": "step",
+     "figures": [
+      "fig15_preprocessing",
+      "fig16_hyperparameters",
+      "fig17_tuning_gain"
+     ],
+     "terms": [
+      "tuning",
+      "ablation",
+      "overfitting"
+     ],
+     "question": "How much of the accuracy comes from tuning and data\npreparation?",
+     "did": "Refitted each tuned model at library defaults, moved each\nsetting one step with the others fixed, and tried four preprocessing\nvariants with everything else fixed.",
+     "tested": "Development AP against the tuned optimum.",
+     "found": "Tuning bought +0.02 to +0.04 AP, less than the 0.08\noptimism gap; preprocessing at most +0.003.",
+     "changed": "Neither is a lever; the choice of predictors is.",
+     "source": "`outputs/enhanced/anc8plus/hyperparameter_ablation.csv`, `outputs/enhanced/preprocessing_ablation.csv`"
+    },
+    {
+     "id": "p7-5",
+     "title": "The full pool against the 21, on repeated splits",
+     "kind": "step",
+     "figures": [
+      "fig06_stability",
+      "fig07_bootstrap",
+      "fig10_decision_curve",
+      "fig11_subgroups",
+      "fig25_set_comparison"
+     ],
+     "terms": [
+      "repeated",
+      "bootstrap",
+      "spans-zero",
+      "paired",
+      "net-benefit"
+     ],
+     "question": "Is the difference between the full pool and the 21 real, on\nevidence that would convince a sceptic?",
+     "did": "20 fresh random splits of all women, each refit from\nscratch with the model fixed and only the predictors changed; and a paired\nbootstrap on the held-out women.",
+     "tested": "AP differences with 95% intervals, and splits won.",
+     "found": "- Repeated splits: **+0.031 AP, better in 20 of 20**.\n- Held-out: +0.021 AP [\u22120.036, +0.075]; one set of 1,375 women cannot\n  resolve a gain this size.\n- Within most regions the models rank women much less well than nationally.",
+     "changed": "Set comparisons rest on repeated splits, with the held-out\ninterval always reported next to them.",
+     "source": "`outputs/enhanced/anc8plus/stability_summary.json`, `outputs/enhanced/set_comparison/`"
+    },
+    {
+     "id": "p7-6",
+     "title": "The 24-month window",
+     "kind": "step",
+     "figures": [],
+     "terms": [
+      "window24"
+     ],
+     "question": "Do the predictor results hold on the official 24-month window?",
+     "did": "Repeated the predictor-value study on the 5,037 women with a\nbirth in the last 24 months.",
+     "tested": "The same stages and held-out test.",
+     "found": "The same leaders: the wealth score first in every run,\nregion in every run, pregnancy intention for ANC4+ and ANC8+; years of\nschooling also enters.",
+     "changed": "The main results do not depend on including older births.",
+     "source": "`outputs/feature_value/recent/`"
+    }
+   ]
+  }
+ ],
+ "glossary": {
+  "start": "Imagine 100 women who gave birth recently. **19 of them completed eight or\nmore antenatal care contacts (ANC8+)** and 81 did not. That is close to the\nreal national figure of 19.2%.\n\nA model looks at facts about each woman (her household's wealth, her region,\nwhether she wanted the pregnancy, and so on) and gives her a score between 0\nand 1: its estimate of how likely she is to reach eight contacts.\n\n**Why we don't report \"accuracy\".** Accuracy is the share of women the model\nlabels correctly. A \"model\" that ignores every fact and says *no woman will\nreach eight contacts* is right about the 81 who did not. Its accuracy is 81%,\nand it is completely useless. When one outcome is much rarer than the other,\naccuracy rewards ignoring the rare one. So this analysis uses measures that\ncannot be gamed this way.\n\n**Ranking, not labelling.** Sort the 100 women from highest score to lowest.\nA good model puts most of the 19 near the top. Every measure below is a way\nof asking *how near the top?*\n\n**Precision and recall.** Suppose a programme can visit the 20 women with the\nhighest scores. If 10 of those 20 actually reached eight contacts:\n\n- **precision** is 10 out of 20 = 50%: of the women we picked, how many were\n  right;\n- **recall** is 10 out of 19 = 53%: of all the women who really reached eight\n  contacts, how many we found.\n\nVisiting more women raises recall and usually lowers precision.\n\n**Average precision (AP).** Walk down the sorted list and record the\nprecision each time you reach another woman who really attained the outcome.\nAP is the average of those precisions. It is 1.0 if all 19 are at the very\ntop. If the model ranks at random, AP is about **0.19**: the share of women\nwho attain the outcome, because a random pick is right 19% of the time. So:\n\n> **AP always has to be read against the prevalence.** An AP of 0.43 on\n> ANC8+ (prevalence 0.19) is a real signal. An AP of 0.43 on ANC1+\n> (prevalence 0.78) would be worse than guessing.\n\n**AUROC (also written AUC).** Pick one woman who reached eight contacts and\none who did not, at random. AUROC is the chance that the model gave the first\nwoman the higher score. A coin flip gives **0.5**, perfect ranking gives\n**1.0**. Our models score about **0.76 to 0.83**: they put the right woman of\nthe pair higher about three times in four. AUROC does not depend on how\ncommon the outcome is. That is why it is the measure used to compare ANC1+,\nANC4+ and ANC8+ with each other.\n\n**Lift.** AP minus the prevalence: how much better than a blind guess. On\nANC8+, AP 0.427 minus 0.192 = lift **+0.236**.\n\n**Calibration.** Take all the women the model gave a score of about 30%. If\nabout 30 in 100 of them really reached eight contacts, the model is **well\ncalibrated**: its scores can be read as rates. A model can rank well and\nstill be badly calibrated, for example by saying 60% where the true rate is\n40%.\n\n**The size of differences in this analysis.** Most comparisons here are\nchanges in AP of **0.005 to 0.04**, which is half a point to four points out\nof 100. When one set of predictors \"adds +0.03 AP\", the model's ranking of\nwomen improved by about three points on that 0-to-1 scale.",
+  "groups": [
+   {
+    "title": "The outcomes",
+    "intro": "",
+    "terms": [
+     {
+      "id": "anc",
+      "name": "Antenatal care (ANC)",
+      "aka": [
+       "ANC contact",
+       "antenatal visit"
+      ],
+      "plain": "Health checks during pregnancy with a doctor, nurse,\nmidwife or health officer. Each check is a \"contact\".",
+      "here": "The number of contacts a woman reported for her most\nrecent pregnancy, taken from the survey."
+     },
+     {
+      "id": "anc-rungs",
+      "name": "ANC1+, ANC4+ and ANC8+",
+      "aka": [
+       "ANC1+",
+       "ANC4+",
+       "ANC8+",
+       "rung",
+       "ladder"
+      ],
+      "plain": "At least one, at least four, and at least eight\ncontacts. Eight is the World Health Organization's recommendation (2016);\nfour was the earlier standard.",
+      "here": "Nationally 77.6%, 52.4% and 19.2% of women reach each\nlevel (survey-weighted, all 6,893 women). We call the three levels the\n\"ladder\", and each level a \"rung\"."
+     },
+     {
+      "id": "cascade",
+      "name": "Cascade",
+      "aka": [
+       "drop-off",
+       "where women are lost"
+      ],
+      "plain": "The ladder read as a sequence of losses: women who never\nstart, who start but stop before four, who reach four but stop before eight,\nand who reach eight.",
+      "here": "Counted directly from the survey, with no model\ninvolved. This makes it the sturdiest evidence in the analysis."
+     },
+     {
+      "id": "continuation",
+      "name": "Continuation",
+      "aka": [
+       "retention",
+       "continue 4 to 8"
+      ],
+      "plain": "Of the women who reached one rung, the share who went on\nto the next.",
+      "here": "68% of women who start go on to four contacts. Only\n37% of those who reach four go on to eight."
+     },
+     {
+      "id": "prevalence",
+      "name": "Prevalence",
+      "aka": [
+       "base rate",
+       "attainment rate",
+       "no-information AP"
+      ],
+      "plain": "How common the outcome is: the share of women who\nattained it.",
+      "here": "0.776 for ANC1+, 0.524 for ANC4+ and 0.192 for ANC8+.\nIt is also the AP a model with no information would get, so it is the floor\nevery AP must be read against."
+     }
+    ]
+   },
+   {
+    "title": "The data",
+    "intro": "",
+    "terms": [
+     {
+      "id": "dhs",
+      "name": "DHS (Demographic and Health Survey)",
+      "aka": [
+       "EDHS",
+       "EDHS 2024-25",
+       "Individual Recode",
+       "IR file"
+      ],
+      "plain": "A large national household survey, run in many countries\nwith the same questions, so results can be compared.",
+      "here": "The 2024-25 Ethiopia DHS women's file (the\n\"Individual Recode\"). It has 6,648 columns, one row per woman interviewed."
+     },
+     {
+      "id": "cohort",
+      "name": "Cohort",
+      "aka": [
+       "study population",
+       "analytic cohort",
+       "6",
+       "893 women"
+      ],
+      "plain": "The group of women an analysis is about.",
+      "here": "Three groups:\n- the **6,893 women** whose most recent pregnancy has a recorded ANC count\n  (the main analysis, and the first prediction horizon);\n- the **5,001 women** among them who started ANC and know when their first\n  contact was (the second prediction horizon);\n- the **5,037 women** who gave birth in the 24 months before interview (a\n  sensitivity check)."
+     },
+     {
+      "id": "window24",
+      "name": "24-month window",
+      "aka": [
+       "recent births",
+       "DHS-8 window",
+       "last 24 months",
+       "recent cohort"
+      ],
+      "plain": "The official survey definition only counts births in the\ntwo years before the interview. Older births are recalled less reliably.",
+      "here": "5,037 women. With this window, our numbers reproduce\nthe official EDHS report's national ANC4+ figure exactly (53.0% against\n53.0%). About 28% of the 6,893 women gave birth 2-3 years before\ninterview. Used as a sensitivity check on the main results."
+     },
+     {
+      "id": "weight",
+      "name": "Survey weight",
+      "aka": [
+       "weighted",
+       "survey-weighted",
+       "v005"
+      ],
+      "plain": "The survey deliberately samples some areas more heavily\nthan others. Each woman carries a weight so that the results represent the\nwhole country, not just the sample.",
+      "here": "Every percentage and every accuracy score is weighted."
+     },
+     {
+      "id": "cluster",
+      "name": "Cluster (PSU)",
+      "aka": [
+       "PSU",
+       "primary sampling unit",
+       "enumeration area",
+       "v021"
+      ],
+      "plain": "The survey visits small areas (villages or city blocks)\nand interviews several women in each. Women in the same area resemble each\nother.",
+      "here": "A cluster is never split between training and testing.\nIf it were, the model would be tested partly on the neighbours of women it\nlearned from, which flatters it."
+     },
+     {
+      "id": "stratum",
+      "name": "Stratum",
+      "aka": [
+       "strata",
+       "v022"
+      ],
+      "plain": "The survey divides the country into groups (region \u00d7\nurban/rural) and samples inside each group separately.",
+      "here": "There are 27 strata. Test sets and bootstrap resamples\nkeep every stratum represented."
+     },
+     {
+      "id": "predictor",
+      "name": "Predictor",
+      "aka": [
+       "feature",
+       "variable",
+       "characteristic",
+       "input"
+      ],
+      "plain": "One fact about a woman that the model uses: her region,\nher household's wealth, whether she wanted the pregnancy, and so on.",
+      "here": "Two sets are compared throughout. The\n**21-predictor set** is the study's pre-specified set of constructs across\nfour domains. The **full candidate pool** comes from screening all 6,648\nsurvey columns: 95 columns, which are 85 distinct variables because 10 were\ncopies of each other. The predictor-value study uses 88: the 85 plus 3\nconstructs that exist only in the 21-predictor set."
+     },
+     {
+      "id": "temporality",
+      "name": "Temporality",
+      "aka": [
+       "before the pregnancy",
+       "measured at interview"
+      ],
+      "plain": "A predictor must describe something known *before or\nearly in* the pregnancy. Otherwise the model would be \"predicting\" care from\nfacts that come after it.",
+      "here": "Predictors measured at interview (for example \"worked\nin the last year\") are marked \u2691. They may partly describe life after the\nbirth."
+     },
+     {
+      "id": "leakage",
+      "name": "Leakage",
+      "aka": [
+       "leak",
+       "leaky variable"
+      ],
+      "plain": "A predictor that secretly contains the answer. For\nexample, \"visited a health facility in the last 12 months\" is partly the ANC\nvisits themselves. A model using it looks excellent and is useless.",
+      "here": "Excluded, each with a stated reason:\n- timing of the first ANC visit;\n- place of delivery;\n- tetanus doses;\n- HIV testing (routine at ANC);\n- contraception measured at interview;\n- number of living children (it falls if the baby died)."
+     }
+    ]
+   },
+   {
+    "title": "How models are tested",
+    "intro": "",
+    "terms": [
+     {
+      "id": "heldout",
+      "name": "Development set and held-out set",
+      "aka": [
+       "held-out",
+       "locked held-out",
+       "test set",
+       "development set",
+       "training",
+       "1",
+       "375 women"
+      ],
+      "plain": "The women are split once:\n- the **development set** (5,518 women) is used to build, compare and tune\n  models;\n- the **held-out set** (1,375 women) is locked away and used only at the\n  end, to see how a finished model does on women it has never seen.\n\nThis is the only fair test.",
+      "here": "One split, drawn once by survey cluster and used for\nevery analysis, outcome and horizon, so every result is scored on the same\nwomen. The held-out set has only 229 women who reached ANC8+, so its\nverdicts come with wide uncertainty. At the ANC-entry horizon the split is\nthe same one, restricted to the 5,001 women who started ANC (4,017\ndevelopment, 984 held out)."
+     },
+     {
+      "id": "cv",
+      "name": "Cross-validation and folds",
+      "aka": [
+       "cross-validation",
+       "fold",
+       "out-of-fold",
+       "OOF",
+       "development AP"
+      ],
+      "plain": "A way to test inside the development set without\ntouching the held-out women:\n1. cut the development women into 5 groups (\"folds\");\n2. train on 4 of them and score the 5th;\n3. repeat until every group has been scored once.\n\nThe resulting \"out-of-fold\" score uses every development woman exactly once\nas a test case.",
+      "here": "Folds are cut by cluster and balanced by stratum.\n\"Development AP\" always means this out-of-fold AP."
+     },
+     {
+      "id": "repeated",
+      "name": "Repeated splits and seeds",
+      "aka": [
+       "repeated splits",
+       "seed",
+       "20 splits",
+       "20/20",
+       "10/10"
+      ],
+      "plain": "One split into groups can be lucky or unlucky, so the\nwhole comparison is repeated with different random splits. The \"seed\" is the\nnumber that fixes one random split, so it can be reproduced exactly.",
+      "here": "\"Better in 20 of 20 splits\" means the comparison was\nrun on 20 different random splits and one side won every time. That is\nstrong evidence even when each individual gain is small."
+     },
+     {
+      "id": "overfitting",
+      "name": "Overfitting and optimism",
+      "aka": [
+       "optimism",
+       "optimistic",
+       "development-to-held-out drop"
+      ],
+      "plain": "A model or a choice fitted too closely to the data it was\nbuilt on does better there than on new data. Any choice made by comparing\nscores on the same folds (which model, which settings, which predictors)\nmakes those folds' scores optimistic.",
+      "here": "Every model's development AP ran about **0.08 higher**\nthan its held-out AP. So a development gain smaller than 0.08 is not, on its\nown, proof of a better model."
+     },
+     {
+      "id": "champion",
+      "name": "Champion",
+      "aka": [
+       "best model",
+       "development champion"
+      ],
+      "plain": "The model chosen as the best.",
+      "here": "The champion is always chosen on **development**\nscores and only then scored on held-out women. Choosing it by the held-out\nscore would make that score optimistic. That mistake was made once and\ncorrected."
+     },
+     {
+      "id": "paired",
+      "name": "Paired comparison",
+      "aka": [
+       "paired",
+       "head-to-head"
+      ],
+      "plain": "Two models scored on exactly the same women, so the\ndifference reflects the models and not which women happened to be tested.",
+      "here": "Every \"A vs B\" difference is paired."
+     }
+    ]
+   },
+   {
+    "title": "Accuracy measures",
+    "intro": "",
+    "terms": [
+     {
+      "id": "accuracy",
+      "name": "Accuracy",
+      "aka": [
+       "percent correct"
+      ],
+      "plain": "The share of women labelled correctly.",
+      "here": "Not used. With 19% prevalence, labelling everyone \"no\"\nscores 81% (see \"Start here\")."
+     },
+     {
+      "id": "precision-recall",
+      "name": "Precision and recall",
+      "aka": [
+       "precision",
+       "recall",
+       "sensitivity",
+       "PPV",
+       "specificity"
+      ],
+      "plain": "- **Precision:** of the women the model flags, the share who really attain\n  the outcome.\n- **Recall** (also called sensitivity): of the women who really attain it,\n  the share the model flags.\n- **Specificity** is recall for the other group.",
+      "here": "They depend on where you draw the line (the\nthreshold), so they are reported only at stated thresholds. AP summarises\nthem across all thresholds."
+     },
+     {
+      "id": "ap",
+      "name": "Average precision (AP)",
+      "aka": [
+       "AP",
+       "average precision",
+       "PR-AUC"
+      ],
+      "plain": "How well the model packs the women who attain the\noutcome at the top of its ranking, averaged over the whole list. It runs\nfrom the prevalence (random) to 1.0 (perfect).",
+      "here": "The headline measure *within* one outcome, because it\nfocuses on the rarer group. Never compare raw AP across ANC1+, ANC4+ and\nANC8+: their floors are 0.78, 0.52 and 0.19.",
+      "good": "Clearly above the prevalence. On ANC8+ the\nmodels reach 0.40 to 0.46 on held-out women, against a floor of 0.19."
+     },
+     {
+      "id": "auroc",
+      "name": "AUROC (AUC)",
+      "aka": [
+       "AUC",
+       "AUROC",
+       "ROC",
+       "C-statistic",
+       "discrimination"
+      ],
+      "plain": "Take one woman who attained the outcome and one who did\nnot. AUROC is the chance the model scored the first one higher. 0.5 is a\ncoin flip, 1.0 is perfect.",
+      "here": "The measure used to compare rungs, because it ignores\nprevalence. The champions score 0.826 (ANC1+), 0.789 (ANC4+) and 0.759\n(ANC8+) on held-out women: completing care is harder to predict than\nreaching it.",
+      "good": "0.7 to 0.8 is typical and useful for\npopulation health. Above 0.9 is rare for survey data, and suspicious if seen\n(check for leakage)."
+     },
+     {
+      "id": "lift",
+      "name": "Lift",
+      "aka": [
+       "AP lift",
+       "lift over prevalence",
+       "above prevalence",
+       "share of possible lift"
+      ],
+      "plain": "AP minus the prevalence: the improvement over a blind\nguess. \"Share of possible lift\" divides it by the most it could be\n(1 \u2212 prevalence).",
+      "here": "Used alongside AUROC for fair cross-rung comparisons."
+     },
+     {
+      "id": "univariate-auc",
+      "name": "Univariate AUC",
+      "aka": [
+       "single-variable AUC",
+       "screening AUC"
+      ],
+      "plain": "The AUROC of one variable on its own: how well that\nsingle fact ranks women.",
+      "here": "The continuous wealth score alone reaches 0.755,\nnearly as high as the whole 21-predictor XGBoost model (0.761)."
+     },
+     {
+      "id": "calibration",
+      "name": "Calibration",
+      "aka": [
+       "calibrated",
+       "calibration curve",
+       "reliability"
+      ],
+      "plain": "Whether the scores can be read as rates. Among women\ngiven 30%, do about 30% attain the outcome?",
+      "here": "Checked on held-out women. A calibration map (Platt\nscaling) was added because the raw scores were too extreme."
+     },
+     {
+      "id": "calibration-slope",
+      "name": "Calibration slope",
+      "aka": [
+       "slope",
+       "CITL",
+       "calibration-in-the-large"
+      ],
+      "plain": "- **Slope 1.0** is ideal.\n- **Below 1** means the scores are too spread out: too confident at both\n  ends, the usual sign of overfitting.\n- **Above 1** means they are too timid.\n\n\"Calibration-in-the-large\" (CITL) asks whether the average score matches the\naverage outcome. 0 is ideal.",
+      "here": "The 21-predictor models had slopes of 0.78 to 0.86.\nAfter Platt scaling the full-pool model's slope is 0.99."
+     },
+     {
+      "id": "brier",
+      "name": "Brier score",
+      "aka": [],
+      "plain": "The average squared gap between the score and what\nhappened (1 or 0). Lower is better. It rewards both ranking and calibration.",
+      "here": "Reported in the tables, for example 0.113 for the\n21-predictor XGBoost. It is not a headline measure."
+     },
+     {
+      "id": "net-benefit",
+      "name": "Net benefit and decision curves",
+      "aka": [
+       "decision curve",
+       "decision-curve analysis",
+       "treat all",
+       "treat none"
+      ],
+      "plain": "Would using the model to decide whom to act on beat the\nsimple alternatives of acting on everyone or on no one? Net benefit counts\ncorrect actions and subtracts wrong ones, weighted by how costly a wrong\naction is judged to be (the threshold).",
+      "here": "The models beat both defaults across the useful range\nof thresholds, but the 21-predictor and full-pool models are nearly\nidentical on this measure."
+     },
+     {
+      "id": "operating-threshold",
+      "name": "Threshold (operating point)",
+      "aka": [
+       "operating threshold",
+       "cut-off",
+       "risk band"
+      ],
+      "plain": "The score above which a woman is flagged. Changing it\ntrades precision against recall.",
+      "here": "Thresholds were set on development data, never on\nheld-out women. \"Risk bands\" group women by their predicted probability."
+     }
+    ]
+   },
+   {
+    "title": "Uncertainty",
+    "intro": "",
+    "terms": [
+     {
+      "id": "bootstrap",
+      "name": "Bootstrap",
+      "aka": [
+       "resample",
+       "stratified PSU bootstrap",
+       "cluster bootstrap"
+      ],
+      "plain": "A way to see how much a result could have varied with a\ndifferent sample:\n1. redraw the sample many times from itself, with replacement;\n2. recompute the result each time;\n3. read the spread of those results.",
+      "here": "Clusters are redrawn whole and each stratum is kept,\nmatching how the survey was designed. That makes the intervals honest rather\nthan too narrow."
+     },
+     {
+      "id": "ci",
+      "name": "Confidence interval",
+      "aka": [
+       "CI",
+       "95% interval",
+       "interval",
+       "[low",
+       "high]"
+      ],
+      "plain": "A range, written like [\u22120.036, +0.075], that the true\nvalue very probably lies in. A narrow range means a precise estimate; a wide\nrange means we don't know the value well.",
+      "here": "95% intervals from the bootstrap, written in square\nbrackets after the estimate."
+     },
+     {
+      "id": "spans-zero",
+      "name": "\"The interval includes zero\"",
+      "aka": [
+       "includes zero",
+       "spans zero",
+       "cannot tell apart",
+       "not significant"
+      ],
+      "plain": "If the range for a *difference* runs from negative to\npositive, the data cannot tell whether A or B is really better. That is not\nproof they are equal, only that this sample is too small to separate them.",
+      "here": "The full-pool model's held-out advantage over the\n21-predictor XGBoost (+0.021 AP) has an interval of [\u22120.036, +0.075], so this\nheld-out set alone cannot confirm it. The claim therefore rests on repeated\nsplits (20 of 20)."
+     },
+     {
+      "id": "significance",
+      "name": "Significance",
+      "aka": [
+       "significant",
+       "significantly better"
+      ],
+      "plain": "A shorthand for \"the interval for the difference\nexcludes zero\".",
+      "here": "With the 21 predictors, XGBoost was *not*\nsignificantly better than logistic regression on any measure."
+     }
+    ]
+   },
+   {
+    "title": "Models",
+    "intro": "",
+    "terms": [
+     {
+      "id": "logistic",
+      "name": "Logistic regression",
+      "aka": [
+       "LR",
+       "logistic",
+       "regularisation",
+       "C"
+      ],
+      "plain": "The classic statistical model. Each predictor adds or\nsubtracts a fixed amount from a woman's log-odds (see \"Log-odds\"), and the\ntotal becomes a probability. \"Regularisation\" shrinks the effects so the\nmodel doesn't chase noise. Its strength is called C.",
+      "here": "Used as the fixed model when comparing predictor sets,\nbecause it has almost nothing to tune and so cannot favour one set through\nits settings."
+     },
+     {
+      "id": "trees",
+      "name": "Tree ensembles",
+      "aka": [
+       "random forest",
+       "extra trees",
+       "XGBoost",
+       "LightGBM",
+       "HistGradientBoosting",
+       "CatBoost",
+       "gradient boosting",
+       "booster"
+      ],
+      "plain": "Models built from hundreds of simple yes/no decision\ntrees:\n- **random forest** and **extra trees** average many trees grown\n  independently;\n- **gradient boosting** (XGBoost, LightGBM, HistGradientBoosting, CatBoost)\n  grows trees one after another, each correcting the previous ones.\n\nThey capture interactions automatically.",
+      "here": "All were tried. None beat the others by a meaningful\nmargin: the spread across ten families was about 0.02 development AP."
+     },
+     {
+      "id": "ebm",
+      "name": "Explainable Boosting Machine (EBM)",
+      "aka": [
+       "EBM",
+       "Explainable Boosting",
+       "glass-box",
+       "additive model",
+       "GAM"
+      ],
+      "plain": "A model that learns one curve per predictor and adds\nthem up. Every prediction can be read exactly as the sum of its parts.",
+      "here": "It matched the best tree ensemble on AUROC and is the\nmodel behind the What-if tab. Offered up to ten interactions between\npredictors, it chose none: ANC8+ attainment behaves additively."
+     },
+     {
+      "id": "mlp",
+      "name": "Neural network (MLP)",
+      "aka": [
+       "MLP",
+       "multilayer perceptron",
+       "neural network"
+      ],
+      "plain": "Layers of simple arithmetic units trained together, the\nsame family as modern AI, here very small.",
+      "here": "One of the ten families. It had the best held-out AP\non ANC8+ (0.463), but it was not the development champion. Picking it\nbecause of its held-out score would be the selection mistake described under\n\"Champion\"."
+     },
+     {
+      "id": "ordinal",
+      "name": "Ordinal (cumulative-link) model",
+      "aka": [
+       "cumulative link",
+       "ordinal arm",
+       "contact count model"
+      ],
+      "plain": "Instead of a yes/no outcome, it models the contact count\nitself (at least 1, at least 2, ...) and reads off \"at least 8\".",
+      "here": "Better in development (0.500 against 0.494 AP), worse\non held-out women (0.402 against 0.427). Reported, not used."
+     },
+     {
+      "id": "tuning",
+      "name": "Hyperparameters and tuning",
+      "aka": [
+       "hyperparameter",
+       "tuning",
+       "Optuna",
+       "trials",
+       "search",
+       "library defaults",
+       "ablation of parameters"
+      ],
+      "plain": "Settings chosen before training, such as how deep a tree\nmay grow or how strongly to regularise. **Tuning** tries many combinations\nand keeps the best. **Optuna** is the tool that runs this search.\n**Library defaults** are the settings a model ships with.",
+      "here": "Tuning raised development AP by +0.02 to +0.04 over\nlibrary defaults. That is less than the 0.08 optimism gap, so it is not\nevidence that tuned models generalise better."
+     },
+     {
+      "id": "platt",
+      "name": "Platt scaling",
+      "aka": [
+       "Platt",
+       "isotonic",
+       "calibration map",
+       "calibrator"
+      ],
+      "plain": "A small correction applied after the model, fitted on\nseparate data, that turns over- or under-confident scores into honest rates.\n**Isotonic** is a more flexible alternative.",
+      "here": "Platt raised the calibration slope from 0.62 to 0.99\nat almost no cost in ranking (\u22120.005 AP). It is the calibration that ships."
+     },
+     {
+      "id": "versions",
+      "name": "The 21-predictor set and the full pool",
+      "aka": [
+       "21-predictor set",
+       "the 21",
+       "full pool",
+       "full candidate pool",
+       "88",
+       "95"
+      ],
+      "plain": "The two predictor sets every comparison is built around.\n- **The 21-predictor set:** 21 constructs chosen in advance from the\n  literature, in four domains (maternal, household, pregnancy, access),\n  modelled with logistic regression, random forest and XGBoost.\n- **The full candidate pool:** everything that survived screening the whole\n  survey file for timing and leakage, modelled with ten model families.",
+      "here": "The question is not which set \"wins\" but which of their\nmembers carry the prediction: how few are needed, which of the 21 add\nnothing, and what the rest of the pool adds."
+     },
+     {
+      "id": "horizon",
+      "name": "Prediction horizon",
+      "aka": [
+       "horizon",
+       "before ANC",
+       "at ANC entry",
+       "ANC-entry",
+       "full cohort"
+      ],
+      "plain": "The moment a prediction is made, which decides what can\nbe known.\n- **Before ANC starts:** only who the woman is, her household and where she\n  lives.\n- **At ANC entry:** the same, plus when her first contact happened.",
+      "here": "The predictor-value study is run at both horizons. At\nANC entry every woman has at least one contact, so only ANC4+ and ANC8+ can\nbe predicted."
+     },
+     {
+      "id": "early-anc",
+      "name": "Early ANC",
+      "aka": [
+       "early_anc",
+       "early initiation",
+       "first contact by 3 months"
+      ],
+      "plain": "Whether the first antenatal contact came in the first\ntrimester (by 12 weeks or 3 months).",
+      "here": "Admissible only at the ANC-entry horizon: before a\nwoman starts care it is not yet known, and using it there would be leakage."
+     }
+    ]
+   },
+   {
+    "title": "Explaining models",
+    "intro": "",
+    "terms": [
+     {
+      "id": "importance",
+      "name": "Feature importance",
+      "aka": [
+       "importance",
+       "driver",
+       "share of importance",
+       "global importance"
+      ],
+      "plain": "How much the model relies on each predictor. It says\nnothing about cause.",
+      "here": "Measured three independent ways (EBM, SHAP and\ndrop-one). Each is turned into a share of the total within each rung, so the\nrungs can be compared."
+     },
+     {
+      "id": "log-odds",
+      "name": "Log-odds",
+      "aka": [
+       "logit",
+       "log-odds scale",
+       "contribution to the log-odds"
+      ],
+      "plain": "A way of writing a probability that makes effects\nadd up:\n- **0** is 50%;\n- **+1** raises the odds about 2.7 times;\n- **\u22121** lowers them by the same factor.\n\nSmall values such as \u00b10.1 mean small nudges.",
+      "here": "Importance and shape-function charts use this scale."
+     },
+     {
+      "id": "shap",
+      "name": "SHAP",
+      "aka": [
+       "SHAP",
+       "Shapley values"
+      ],
+      "plain": "A method that splits one prediction into\ncontributions from each predictor, borrowed from game theory (\"how much did\neach player contribute to the team's score?\").",
+      "here": "Computed on XGBoost for every rung. An earlier run\ncomputed ANC4+ SHAP on a model type the method mishandles. That was caught\nand corrected."
+     },
+     {
+      "id": "drop-one",
+      "name": "Drop-one importance",
+      "aka": [
+       "drop-one",
+       "leave-one-out",
+       "remove one",
+       "AP lost when removed"
+      ],
+      "plain": "Refit the model without one predictor and see how much\nAP falls. A negative value means the model is *better* without it.",
+      "here": "Removing members of the 21 one at a time, 8 add\nnothing for ANC1+, 10 for ANC4+ and 14 for ANC8+. Drop-one understates\npredictors that have a close substitute, because the substitute compensates,\nso it is treated as the weakest of the three importance methods."
+     },
+     {
+      "id": "shape-function",
+      "name": "Shape function",
+      "aka": [
+       "shape function",
+       "learned curve",
+       "partial effect"
+      ],
+      "plain": "The EBM's learned curve for one predictor: how a\nwoman's score moves as that one fact changes, with everything else held\nfixed. Above the zero line raises the chance; below lowers it.",
+      "here": "Shown in the What drives it and What if tabs. For\ncategories such as region, each level gets its own bar."
+     },
+     {
+      "id": "agreement",
+      "name": "Two methods must agree",
+      "aka": [
+       "method agreement",
+       "corroborated",
+       "rank agreement"
+      ],
+      "plain": "Each importance method has quirks, so a pattern is\nreported only when at least two of the three methods show it. \"Rank\nagreement\" is a correlation between two methods' rankings: 1 means the same\norder, 0 means unrelated.",
+      "here": "EBM and SHAP agree well (0.58 to 0.76). Drop-one\nagrees weakly."
+     },
+     {
+      "id": "domain",
+      "name": "Domain",
+      "aka": [
+       "domains",
+       "domain roll-up"
+      ],
+      "plain": "A group of related predictors:\n- socioeconomic;\n- agency and household;\n- reproductive history;\n- access and distance;\n- geography and culture;\n- education and information;\n- work.",
+      "here": "Importance summed by domain shows the balance\nshifting from household power (reaching care) to money, distance and\npregnancy intention (completing care)."
+     }
+    ]
+   },
+   {
+    "title": "Choosing predictors",
+    "intro": "",
+    "terms": [
+     {
+      "id": "screening",
+      "name": "Screening",
+      "aka": [
+       "candidate screening",
+       "systematic screening"
+      ],
+      "plain": "Scoring every available column on its own to find\ncandidates worth reviewing. Each candidate was then checked for timing\n(temporality) and leakage.",
+      "here": "All 6,648 columns were screened, and 61 new variables\nwere admitted. Rerunning the screening on development women only admits the\nsame 61."
+     },
+     {
+      "id": "duplicate",
+      "name": "Duplicates",
+      "aka": [
+       "duplicate",
+       "redundancy",
+       "Theil's U",
+       "copies"
+      ],
+      "plain": "The same information present twice under two names\n(for example `region` and `v024`). Duplicates split importance between the\ncopies, so each looks half as important as it is. **Theil's U** measures how\nmuch knowing one variable tells you about another. Checking both directions\nseparates true copies from variables that merely nest inside each other.",
+      "here": "10 of the 95 were copies, leaving 85 distinct.\nRemoving them changes accuracy by 0.002 AP."
+     },
+     {
+      "id": "ablation",
+      "name": "Ablation",
+      "aka": [
+       "ablation",
+       "ablation study"
+      ],
+      "plain": "Removing or changing one part of an analysis to see\nwhat it was contributing.",
+      "here": "Done for:\n- predictors (removing and adding);\n- preprocessing;\n- hyperparameters."
+     },
+     {
+      "id": "add-one",
+      "name": "Add-one test",
+      "aka": [
+       "add-one",
+       "increase",
+       "adding to the 21"
+      ],
+      "plain": "Start from the 21-predictor set and add one other\ncandidate at a time, measuring the gain.",
+      "here": "None of the 67 candidates clears the bar alone for\nANC1+ or ANC4+. Six to eight do for ANC8+."
+     },
+     {
+      "id": "remove-one",
+      "name": "Remove-one test",
+      "aka": [
+       "remove-one",
+       "reduce",
+       "removing from the 88"
+      ],
+      "plain": "Start from everything and remove one predictor at a\ntime.",
+      "here": "Almost every removal costs nothing, because\ncorrelated predictors stand in for each other."
+     },
+     {
+      "id": "forward-selection",
+      "name": "Forward selection",
+      "aka": [
+       "forward selection",
+       "greedy",
+       "stepwise",
+       "building from nothing"
+      ],
+      "plain": "Build a set from nothing. At each step, add whichever\npredictor helps most. Stop when nothing helps enough.",
+      "here": "Run on the 88 candidates for three outcomes, and\nagain within the 21 alone to find how many of them are needed. Repeated at\nthe ANC-entry horizon and in the 24-month window."
+     },
+     {
+      "id": "bar",
+      "name": "The +0.005 bar",
+      "aka": [
+       "threshold",
+       "+0.005 AP",
+       "4 of 5 splits",
+       "clears the bar"
+      ],
+      "plain": "A variable \"pays its way\" only if adding it raises AP by\nat least 0.005 on average **and** it helps on at least 4 of 5 repeated\nsplits.",
+      "here": "Fixed before any selection result was seen, so the\nrule could not be bent to fit the results."
+     },
+     {
+      "id": "tier",
+      "name": "Tiers",
+      "aka": [
+       "tier 1",
+       "tier 2",
+       "core",
+       "valuable bump"
+      ],
+      "plain": "- **Tier 1 (core):** the first variables chosen, up to the point where the\n  set reaches 90% of what all 88 achieve above prevalence.\n- **Tier 2 (\"valuable bump\"):** further variables that still clear the bar.",
+      "here": "Tier 1 is 1 or 2 variables and tier 1+2 is 2 to 8,\ndepending on the outcome."
+     },
+     {
+      "id": "selection-frequency",
+      "name": "Selection frequency",
+      "aka": [
+       "re-selected",
+       "stability",
+       "bootstrap re-selection"
+      ],
+      "plain": "Forward selection is repeated on resampled data. A\nvariable chosen in most resamples is reliable; one chosen in 20% of them\ncould easily have been another.",
+      "here": "For ANC8+:\n- wealth 100%;\n- pregnancy intention 90%;\n- region 80%;\n- health-post access 60%;\n- the rest 10-40%."
+     }
+    ]
+   },
+   {
+    "title": "Analysing the war",
+    "intro": "",
+    "terms": [
+     {
+      "id": "did",
+      "name": "Difference-in-differences",
+      "aka": [
+       "DiD",
+       "difference-in-differences",
+       "change beyond"
+      ],
+      "plain": "Compare the change over time in one place with the\nchange over the same time elsewhere. Anything that affected everyone (the\nnational trend, women forgetting older births) cancels out. What remains is\nthe change specific to that place.",
+      "here": "Tigray, wartime pregnancies against post-war ones,\nminus the change in other regions over the same calendar periods. Result: 13\npoints fewer women with no ANC at all after the war. The survey records ANC\nonly for births from about mid-2021, so there are no pre-war pregnancies to\ncompare with."
+     },
+     {
+      "id": "comparison-regions",
+      "name": "Comparison regions",
+      "aka": [
+       "control regions",
+       "peaceful regions"
+      ],
+      "plain": "The places used as the \"elsewhere\" in a\ndifference-in-differences.",
+      "here": "Regions without major conflict. Their own change was\nnear zero (\u22121.2 to +1.2 points)."
+     },
+     {
+      "id": "simpsons",
+      "name": "Simpson's paradox",
+      "aka": [
+       "Simpson's paradox",
+       "pooling"
+      ],
+      "plain": "A group average can move one way while every subgroup\nmoves the other way, because the mix of subgroups changed.",
+      "here": "Pooled together, the comparison regions seem to fall\n5 points between the periods while each region is flat or rising, because\nthe mix of regions differs between the periods. The estimate therefore\naverages the change within each region."
+     },
+     {
+      "id": "biases",
+      "name": "Recall bias and survivorship",
+      "aka": [
+       "recall bias",
+       "survivorship",
+       "displacement"
+      ],
+      "plain": "- **Recall bias:** women remember older pregnancies less accurately.\n- **Survivorship:** women who died, or fled the area, are never\n  interviewed.",
+      "here": "Both would make the war look *less* damaging than it\nwas, so the estimates are more likely too small than too large."
+     },
+     {
+      "id": "regional-gap",
+      "name": "Regions against their circumstances",
+      "aka": [
+       "regional gap",
+       "expected attainment",
+       "beat their circumstances"
+      ],
+      "plain": "Predict each region's attainment from its women's\nwealth, education and household profile, leaving region out. Then compare\nwith what actually happened. A positive gap means the region does better\nthan its population would suggest.",
+      "here": "Afar is about 15 points above expectation for ANC8+.\nTigray is about 4 below."
+     }
+    ]
+   }
+  ]
+ },
+ "figures": {
+  "fig01_cascade": {
+   "shows": "How far women get on the antenatal care ladder.",
+   "read": "The left panel has one bar per rung. Taller means more\nwomen reached it. The right panel shows, of the women who reached one rung,\nthe share who went on (dark) or were lost (grey).",
+   "takeaway": "78% start and only 19% finish. The biggest loss is between the\nfourth and eighth contacts: 63% of women at four go no further."
+  },
+  "fig02_regional_cascade": {
+   "shows": "Where each region loses its women.",
+   "read": "Each row is a region, split into four colours that add\nup to 100%:\n- red: never start;\n- orange: stop before four;\n- light green: stop between four and eight;\n- dark green: reach eight.\n\nThe widest non-green block is that region's biggest problem.",
+   "takeaway": "Somali loses two-thirds at the door (red). Central Ethiopia\nloses almost half between four and eight (light green). Regions with similar\nANC8+ need opposite programmes."
+  },
+  "fig03_continuation_equity": {
+   "shows": "Among women who **already** reached four contacts, the\nshare who went on to eight, by wealth, residence and education.",
+   "read": "Longer bars mean more of these women continued. Because\neveryone shown has already attended four times, differences reflect the\ncost of returning rather than interest in care.",
+   "takeaway": "The richest fifth continue 52% of the time and the poorest\nfifth 20%."
+  },
+  "fig04_leaderboard_anc8plus": {
+   "shows": "Each of the ten model families' AP in development (grey\ndot) and on held-out women (teal dot).",
+   "read": "Further right is better. The grey line is the drop from\ndevelopment to held-out. Look at how long the lines are compared with how\nfar apart the models are.",
+   "takeaway": "Every model drops about 0.08 on new women, which is larger\nthan the differences between models. The choice of algorithm was never what\nlimited accuracy."
+  },
+  "fig05_calibration": {
+   "shows": "Whether predicted probabilities match reality, on\nheld-out women.",
+   "read": "Women are grouped into ten bins by predicted\nprobability. Each dot plots the bin's average prediction (across) against\nthe share who actually reached ANC8+ (up). The dashed diagonal is perfect\ncalibration. Dots below it mean the model over-predicts; dots above it mean\nit under-predicts.",
+   "takeaway": "All models follow the diagonal reasonably well. The zig-zag at\nlow probabilities is noise from small bins."
+  },
+  "fig06_stability": {
+   "shows": "The 21-predictor set against the full pool (95 columns),\ncompared on 20 different random splits.",
+   "read": "In the left panel each row is one split: an orange dot\n(21 predictors) joined to a teal dot (95). Teal to the right means the 95\nwon. The right panel collects the 20 gains. The red line at zero is \"no\ndifference\".",
+   "takeaway": "The full pool wins on all 20 splits, by +0.031 AP on\naverage."
+  },
+  "fig07_bootstrap": {
+   "shows": "How certain the held-out comparison between the full-pool\nmodel and the 21-predictor XGBoost is.",
+   "read": "Each histogram shows 2,000 bootstrap re-draws of the\nheld-out difference. The shaded band is the 95% interval, the dashed line\nthe estimate, and the red line zero. If the band covers zero, the data\ncannot tell the two models apart.",
+   "takeaway": "Both intervals include zero. One held-out set of 1,375 women\nis too small to confirm a gain this size, which is why fig06 carries the\nclaim."
+  },
+  "fig08_global_importance": {
+   "shows": "How much the explainable model relies on each\npredictor.",
+   "read": "A longer bar means a larger average push on women's\nscores, in either direction. The colour gives the domain. Names such as\n`v191` are survey codes (v191 is the wealth score; v045c is first\nlanguage).",
+   "takeaway": "Region, pregnancy intention, first language and the wealth\nmeasures lead. Note that several wealth columns appear separately, so each\nlooks smaller than wealth really is (see fig24)."
+  },
+  "fig09_shape_functions": {
+   "shows": "The explainable model's learned effect of each top\npredictor.",
+   "read": "Green bars or curve above zero raise a woman's chance of\nANC8+; red below zero lowers it, on the log-odds scale. For continuous\npredictors (such as the wealth score v191), follow the curve from left to\nright. For categories, compare the bars.",
+   "takeaway": "\"Wanted later\" pregnancies and the poorest quintiles pull\nscores down most. Addis Ababa and Afar pull them up."
+  },
+  "fig10_decision_curve": {
+   "shows": "Whether acting on the model's predictions beats acting\non everyone or no one.",
+   "read": "Across the bottom is the risk threshold at which you\nwould act; up the side is net benefit. The model is useful where its line\nsits above both \"treat all\" (grey curve) and \"treat none\" (flat dotted line\nat zero).",
+   "takeaway": "Both models beat the defaults across most thresholds, and the\n21-predictor and full-pool models are almost indistinguishable."
+  },
+  "fig11_subgroups": {
+   "shows": "AUROC within each region, wealth group, education level\nand residence, for the 21-predictor model (orange) and the full-pool model\n(teal).",
+   "read": "Further right is better. The dotted red line at 0.5 is a\ncoin flip. Subgroups are small, so single dots are noisy.",
+   "takeaway": "The national AUROC hides regions where the model barely ranks\nwomen at all (Gambella, Central Ethiopia, South West Ethiopia). Within most\nregions, the model ranks women less well than it does nationally."
+  },
+  "fig14_screening": {
+   "shows": "The strongest single columns in the whole survey file\n(left) and how the screening sorted all columns (right).",
+   "read": "In the left panel, bar length is each column's\nunivariate AUC. Grey bars were excluded, nearly all because they record\nthings after or during care (leakage). Teal bars were admitted.",
+   "takeaway": "The strongest columns in the survey are leaks. The strongest\nlegitimate one is the continuous wealth score (v191, 0.755); the\n21-predictor set uses its five-group version."
+  },
+  "fig15_preprocessing": {
+   "shows": "How much AP changes under different ways of preparing\nthe data (filling gaps, encoding categories).",
+   "read": "Bars to the right of zero improved AP; bars to the left\nreduced it. Note the tiny scale: the axis spans less than 0.01.",
+   "takeaway": "Preprocessing barely matters: +0.003 at best, an order of\nmagnitude less than changing the predictors."
+  },
+  "fig16_hyperparameters": {
+   "shows": "For each tuned setting, the worst AP loss from moving it\naway from the tuned value while holding the others fixed.",
+   "read": "A long bar means the setting matters; a short bar means\nthe search bought little for it.",
+   "takeaway": "Most settings matter little. The exceptions are the share of\ndata and columns each tree sees (XGBoost), whether the EBM may use\ninteractions, and the regularisation strength C (logistic regression)."
+  },
+  "fig17_tuning_gain": {
+   "shows": "How much the whole tuning search improved each model\nover its library defaults.",
+   "read": "A longer bar means tuning helped more. Read it against\nthe roughly 0.08 drop every model suffers on new women (fig04).",
+   "takeaway": "Tuning bought 0.00 to 0.04 AP, which is less than the\noptimism gap, so it is not evidence that tuned models generalise better."
+  },
+  "fig18_ladder_performance": {
+   "shows": "Performance on the three rungs, measured three ways.",
+   "read": "- **Left:** prevalence, which is what a blind guess scores in AP.\n- **Middle:** raw AP, with the dashed box marking that floor. The\n  comparable part is the height *above* the box.\n- **Right:** AUROC, which does not depend on prevalence (0.5 is chance).",
+   "takeaway": "Raw AP makes ANC1+ look easiest only because its floor is\nhighest. AUROC shows the real ordering: reaching care (0.83) is easier to\npredict than completing it (0.76)."
+  },
+  "fig19_ladder_importance": {
+   "shows": "Each predictor's share of importance at ANC1+ (light),\nANC4+ (mid) and ANC8+ (dark).",
+   "read": "Follow each row from light to dark dot.\n- **Green connecting line:** the predictor matters more as the bar rises\n  (completion-limited).\n- **Red line:** it matters less (access-limited).",
+   "takeaway": "Wealth, pregnancy intention and travel time to a health post\ngrow in importance for completion. Household headship and attitudes to\npartner violence matter mostly for reaching care at all."
+  },
+  "fig20_domain_rollup": {
+   "shows": "The same importance, summed into seven domains, across\nthe three rungs.",
+   "read": "A line rising from left to right means that domain\nmatters more for completing care than for reaching it.",
+   "takeaway": "Agency and household falls (28% \u2192 19%), while socioeconomic\n(20% \u2192 26%), reproductive history and access rise."
+  },
+  "fig21_regional_gap": {
+   "shows": "Each region's actual ANC8+ minus what its population\nprofile predicts.",
+   "read": "A green bar to the right means the region does better\nthan its circumstances; a red bar to the left means worse. Units are\npercentage points.",
+   "takeaway": "Afar (+15), Addis Ababa and Dire Dawa outperform. Tigray,\nGambella and Somali fall short of what their circumstances predict."
+  },
+  "fig22_modifiable": {
+   "shows": "AUROC using everything, using only things a health\nservice can change (access, services), or using only fixed circumstances.",
+   "read": "Compare the bar heights within each rung. The dotted\nline at 0.5 is chance.",
+   "takeaway": "Fixed circumstances alone nearly match the full model. The\nservice-related factors carry less predictive signal, though that does not\nmean they matter less for policy."
+  },
+  "fig23_risk_bands": {
+   "shows": "Women grouped by predicted chance of ANC8+.",
+   "read": "- **Bars (left axis):** the share in each band who actually reached eight\n  contacts.\n- **Line (right axis):** the share of all women in that band.",
+   "takeaway": "Actual attainment rises steadily with the prediction, so the\nranking works. Most women sit in the low bands."
+  },
+  "fig24_redundancy": {
+   "shows": "Importance before and after counting duplicate columns\nas one variable.",
+   "read": "The teal part is what one column received; the grey\nextension is what its copies added. The note gives the rank now and before.",
+   "takeaway": "Travel time to hospital rises from rank 10 to rank 2 once its\ncopy is counted. Duplicates made important variables look minor."
+  },
+  "fig25_set_comparison": {
+   "shows": "The gain in AP from using the full pool, 85 distinct\nvariables or 95 columns, instead of the 21-predictor set, on every repeated\nsplit.",
+   "read": "Each dot is one split; the black bar is the mean. The\nred line at zero is no gain. Dots all above zero means a consistent gain.",
+   "takeaway": "Small for ANC1+ (+0.008) and ANC4+ (+0.013), larger for ANC8+\n(+0.042). The 10 duplicates add nothing (85 \u2248 95)."
+  },
+  "fig26_add_one": {
+   "shows": "Each of the 67 pool candidates outside the 21 added\n**alone** to the 21, sorted by gain. Top row: all births (the main\nanalysis); bottom row: the 24-month window (sensitivity).",
+   "read": "Each thin bar is one candidate. The dashed red line is\nthe +0.005 bar. Teal bars clear it consistently.",
+   "takeaway": "For ANC1+ and ANC4+ no candidate clears the bar. For ANC8+, 6\nto 8 do. Most candidates sit at zero."
+  },
+  "fig27_diminishing_returns": {
+   "shows": "Development AP as the 67 candidates are stacked onto the\n21, best first.",
+   "read": "- A curve that rises and then flattens or falls means a few additions carry\n  the gain and the rest add nothing or add noise.\n- The dashed line is the 21 alone.\n- The shaded band shows variation across splits.",
+   "takeaway": "On ANC8+ the first handful give most of the gain. Beyond the\npeak, extra variables make development scores worse. The held-out test\n(fig30) tells a different story for ANC1+ and ANC4+."
+  },
+  "fig28_tier_ladders": {
+   "shows": "Forward selection from nothing: which variable was chosen\nat each step, and how much it lifted AP above prevalence.",
+   "read": "- Rows go top to bottom in the order chosen. Bar length is AP above\n  prevalence after adding that variable.\n- Dark teal is tier 1, light teal tier 2, grey the first step that failed\n  the bar.\n- The dashed line is the 21-predictor set and the dotted line is the full\n  pool.",
+   "takeaway": "The household wealth score is chosen first in every run.\nTwo to eight variables reach roughly the level of the 21."
+  },
+  "fig29_selection_frequency": {
+   "shows": "How often each variable was chosen again when selection\nwas re-run on ten resamples (ANC8+).",
+   "read": "Longer means more reliably chosen. Below the dashed 70%\nline, a variable's place is not dependable: another similar variable could\ntake it.",
+   "takeaway": "Wealth, region and pregnancy intention are reliable. Most\ntier-2 places rotate."
+  },
+  "fig30_heldout_sets": {
+   "shows": "The fair test. Each predictor set was fitted on\ndevelopment women and scored once on held-out women, by outcome (top row: all\nbirths; bottom row: 24-month sensitivity window).",
+   "read": "Bar height is AP above prevalence (higher is better),\nwith dark bars for logistic regression and light bars for LightGBM. The\nnumber under each set is how many predictors it uses.",
+   "takeaway": "The full pool does best for ANC1+ and ANC4+. Compact sets roughly match\nthe 21 for ANC1+ and ANC8+ and fall short for ANC4+. Most ANC8+ differences\nare within the uncertainty."
+  },
+  "fig33_drop_within_21": {
+   "shows": "Each member of the 21-predictor set removed from it in\nturn, at each rung, and the AP lost.",
+   "read": "A green bar to the right means the set needs that\npredictor. A grey bar at or left of zero means the set does as well or\nbetter without it. Rows are ordered by ANC8+.",
+   "takeaway": "Region, pregnancy intention and wealth carry the 21 at every\nrung. The number that add nothing grows up the ladder: 8 of 21 for ANC1+, 10\nfor ANC4+, 14 for ANC8+."
+  },
+  "fig34_why21": {
+   "shows": "How much of the full pool's lift over prevalence a set\nreaches, by how many predictors it has: taking the best of the 21 one at a\ntime (orange), and selecting from the whole pool (teal).",
+   "read": "100% is what the full pool reaches. The dashed line is\nall 21 together. An orange point above the dashed line is a smaller subset of\nthe 21 that does better than all 21. These are development scores, so the\nchosen sets are optimistic.",
+   "takeaway": "For ANC8+ the best 7 of the 21 already reach the full pool,\nand adding the other 14 lowers the score. For ANC1+ and ANC4+ the curve is\nflat: the 21 are about as good as their best subset. The held-out check is\nin PREDICTOR_VALUE.md."
+  },
+  "fig35_predictor_rung_matrix": {
+   "shows": "Each predictor's value relative to the 21-predictor set at\nANC1+, ANC4+ and ANC8+, on one comparable scale.",
+   "read": "For members of the 21 (marked [21]) the number is the AP\nlost when dropped; for the rest, the AP gained when added. Both are shown as\na percentage of each rung's ceiling (full-pool AP minus prevalence). Green is\nvalue, brown is harm. Rows run from most ANC1+-weighted (top) to most\nANC8+-weighted (bottom).",
+   "takeaway": "Region and the wealth measures become far more valuable at\nANC8+. Residence, education level and the gap since the previous pregnancy\nmatter for reaching care and not for completing it."
+  },
+  "fig31_tigray_did": {
+   "shows": "Antenatal care in Tigray for pregnancies during and after\nthe war (left), and the change beyond what other regions saw over the same\ncalendar periods (right).",
+   "read": "- **Left:** a red dot for wartime, a teal dot for post-war. The gap is the\n  raw change.\n- **Right:** the difference-in-differences. A bar right of zero means more\n  after the war. The whiskers are the 95% interval; a whisker crossing zero\n  means no clear change.",
+   "takeaway": "The war mainly stopped women reaching any care: no-ANC fell\n13 points after it. ANC4+ recovered, but ANC8+ did not clearly change."
+  },
+  "fig32_regional_gap_cohort": {
+   "shows": "The regions-against-circumstances gap (fig21), computed\nseparately for all births (orange) and for births in the last 24 months\n(teal).",
+   "read": "Where the two dots sit close together, the result does\nnot depend on which window is used.",
+   "takeaway": "The ranking is stable. Tigray's shortfall is not just an\nartefact of older, wartime births."
+  },
+  "fig36_horizons": {
+   "shows": "Held-out AUROC for predictor sets at the ANC-entry\nhorizon, with and without early ANC, and the same sets fitted before ANC,\nall scored on the same 984 women who started ANC.",
+   "read": "Light bars are without early ANC, dark bars with it,\nbrown bars the sets fitted on all women before ANC. Longer is better; 0.5 is\nchance.",
+   "takeaway": "Adding early ANC lengthens every bar, most clearly for ANC4+.\nFitting on the entry women instead of all women barely changes anything."
+  },
+  "fig37_early_anc": {
+   "shows": "How much held-out AUROC early ANC adds to each predictor\nset, with a 95% interval.",
+   "read": "Each dot is the gain from adding early ANC; the line is\nits interval. An interval entirely right of the red zero line is a confirmed\ngain.",
+   "takeaway": "For ANC4+ the gain is confirmed whatever it is added to. For\nANC8+ it is positive but confirmed only when added to the full pool."
+  },
+  "fig38_tigray_regions_by_period": {
+   "shows": "Every region's antenatal care over the same two calendar\nperiods: pregnancies during the Tigray war window, and pregnancies conceived\nafter the ceasefire.",
+   "read": "A red dot for the wartime period, a teal dot for the\npost-war period; a longer grey line is a larger change. Tigray is\nhighlighted.",
+   "takeaway": "Tigray has the largest change of any region in reaching care:\nno-ANC falls from 20% to 8% and ANC4+ rises from 46% to 59%, while most\nregions move a few points. Its ANC8+ barely moves (10% to 12%)."
+  }
+ }
+}

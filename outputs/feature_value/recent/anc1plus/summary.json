@@ -1,0 +1,27 @@
+{
+  "cohort": "recent",
+  "outcome": "anc1plus",
+  "anchors": {
+    "prevalence": 0.7828711671667302,
+    "original21": 0.9169224750594532,
+    "original21_C": 0.1,
+    "all88": 0.9201325580132828,
+    "all88_C": 0.01
+  },
+  "threshold": 0.005,
+  "min_seeds_positive": 4,
+  "n_development": 4040,
+  "n_total": 5037,
+  "stage1": {
+    "n_new": 67,
+    "n_clear": 0,
+    "median_gain": -0.00011554593906568656,
+    "total_gain_all_additions": 0.0032100829538295184
+  },
+  "tier1": [
+    "v191",
+    "region"
+  ],
+  "tier2": [],
+  "minutes": 9.355992877483368
+}

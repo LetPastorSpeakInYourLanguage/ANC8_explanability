@@ -1,0 +1,51 @@
+{
+  "rungs": [
+    "anc1plus",
+    "anc4plus",
+    "anc8plus"
+  ],
+  "methods": [
+    "EBM",
+    "SHAP",
+    "drop-one"
+  ],
+  "n_corroborated_patterns": 32,
+  "domain_rollup": {
+    "anc1plus": {
+      "Socioeconomic": 0.22048444148290267,
+      "Geography and culture": 0.11375423705150316,
+      "Agency and household": 0.25245897333153794,
+      "Access and distance": 0.13088692462202456,
+      "Reproductive history": 0.13790544140363187,
+      "Education and information": 0.09690975050526969,
+      "Work": 0.047600244020764425
+    },
+    "anc4plus": {
+      "Socioeconomic": 0.1939432774581448,
+      "Geography and culture": 0.06838653128604168,
+      "Agency and household": 0.2649736816852191,
+      "Access and distance": 0.13226694109512988,
+      "Reproductive history": 0.20305548584587083,
+      "Education and information": 0.10530009043680133,
+      "Work": 0.0320739921927923
+    },
+    "anc8plus": {
+      "Socioeconomic": 0.3186587793010035,
+      "Geography and culture": 0.17073826009850546,
+      "Agency and household": 0.1462498443933977,
+      "Access and distance": 0.12519342270866848,
+      "Reproductive history": 0.12424814775016042,
+      "Education and information": 0.08802076846479841,
+      "Work": 0.02689081577813236
+    },
+    "shift": {
+      "Socioeconomic": 0.09817433781810084,
+      "Geography and culture": 0.0569840230470023,
+      "Agency and household": -0.10620912893814025,
+      "Access and distance": -0.005693501913356075,
+      "Reproductive history": -0.013657293653471445,
+      "Education and information": -0.008888982040471283,
+      "Work": -0.020709428242632066
+    }
+  }
+}

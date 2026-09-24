@@ -1,0 +1,5 @@
+variant,AP,AUROC,AP_vs_original
+median impute + missingness indicators,0.4864318409473282,0.7753370098308604,0.0029
+no numeric imputation (NaN to the model),0.48435499868894505,0.7713912743677676,0.0008
+one-hot categoricals (original recipe),0.48351744259450363,0.7709702988936007,0.0
+native categorical codes,0.475804377322115,0.7729558585812926,-0.0077

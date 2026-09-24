@@ -1,0 +1,27 @@
+predictor,selected_share,tier
+v191,1.0,tier 1
+region,0.9,tier 2
+pregnancy_intention,0.5,tier 2
+spousal_age_gap,0.4,
+children_over_ideal,0.3,
+v113,0.2,
+v730,0.2,
+v155,0.2,
+v170,0.2,
+v745a,0.2,
+v157,0.2,
+v045c,0.2,
+v731,0.1,
+v133,0.1,tier 2
+v743d,0.1,
+v729,0.1,
+v716,0.1,
+travel_time_min,0.1,
+v137,0.1,
+healthpost_time_missing,0.1,
+v511,0.1,
+v201,0.1,
+age_at_birth,0.1,
+maternal_occupation_group,0.1,
+partner_education,0.1,
+s1102,0.1,
