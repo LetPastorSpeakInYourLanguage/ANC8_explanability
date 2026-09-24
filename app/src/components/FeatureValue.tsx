@@ -283,14 +283,23 @@ function Tiers({ e }: { e: FeatureValueEntry }) {
   );
 }
 
+const FAMILIES = ["Logistic regression", "Random Forest", "XGBoost"];
+
 function HeldOut({ e }: { e: FeatureValueEntry }) {
-  const h = e.heldout ?? [];
-  if (!h.length) return null;
+  const all = e.heldout ?? [];
+  if (!all.length) return null;
   const boot = e.heldout_bootstrap ?? {};
   const order = ["tier 1", "tier 1+2", "original 21", "21 + early ANC", "all 88"];
+  // The set comparison uses logistic regression and LightGBM; random forest
+  // and XGBoost were fitted on the 21 only and get their own table below.
+  const h = all.filter((r) => r.model === "Logistic regression" || r.model === "LightGBM");
   const rows = [...h].sort((a, b) =>
     a.model.localeCompare(b.model) || order.indexOf(a.set) - order.indexOf(b.set));
+  const fam = FAMILIES
+    .map((m) => all.find((r) => r.model === m && r.set === "original 21"))
+    .filter((r): r is NonNullable<typeof r> => !!r);
   return (
+    <div className="space-y-6">
     <div>
       <h3 className="text-sm font-medium mb-1">One look at the held-out women</h3>
       <p className="label mb-3 leading-relaxed">
@@ -311,6 +320,34 @@ function HeldOut({ e }: { e: FeatureValueEntry }) {
           ];
         })}
       />
+    </div>
+    {fam.length > 1 && (
+      <div>
+        <h3 className="text-sm font-medium mb-1">The 21 under three model families</h3>
+        <p className="label mb-3 leading-relaxed">
+          The same 21 predictors with logistic regression, random forest and
+          XGBoost, each fitted on the development women (the two tree models
+          tuned on development folds) and scored once on the held-out women.
+          {e.best_21_model && <> Best of the three: <strong>{e.best_21_model}</strong>.</>}
+        </p>
+        <Table
+          head={["", "model", "AP", "AUROC", "calibration slope", "AP vs logistic (95% interval)"]}
+          rows={fam.map((r) => {
+            const b = boot[`${r.model} | original 21 vs original 21`];
+            return [
+              r.model === e.best_21_model ? <span key="s" style={{ color: "var(--accent)" }}>★</span> : "",
+              r.model,
+              num(r.AP),
+              num(r.AUROC),
+              num(r.Calibration_slope, 2),
+              r.model === "Logistic regression" ? "reference"
+                : b ? `${signed(b.d_AP)} [${signed(b.d_AP_lo)}, ${signed(b.d_AP_hi)}]` : "—",
+            ];
+          })}
+          note="An interval containing 0 means the held-out women cannot tell that model from logistic regression on the same 21 predictors."
+        />
+      </div>
+    )}
     </div>
   );
 }

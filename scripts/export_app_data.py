@@ -295,6 +295,19 @@ def feature_value_block():
                 if r is not None:
                     entry[key] = r
             entry["heldout_bootstrap"] = blob(rung_dir / "heldout_bootstrap.json")
+            # The 21 under random forest and XGBoost as well as logistic
+            # regression (scripts/run_21_models_heldout.py). The logistic row
+            # is already in heldout.csv, so only the other two are added.
+            fam = rows(rung_dir / "heldout_21_models.csv")
+            if fam:
+                entry["heldout"] = (entry.get("heldout") or []) + [
+                    {k: v for k, v in r.items() if k not in ("params", "best_of_three")}
+                    for r in fam if r["model"] != "Logistic regression"]
+                entry["best_21_model"] = next(
+                    (r["model"] for r in fam if r.get("best_of_three")), None)
+                entry["heldout_bootstrap"] = {
+                    **(entry["heldout_bootstrap"] or {}),
+                    **(blob(rung_dir / "heldout_21_models_bootstrap.json") or {})}
             out.setdefault(cohort_dir.name, {})[rung_dir.name] = entry
     return out or None
 

@@ -174,6 +174,30 @@ def t_sets_heldout(cohort):
         "cannot tell the two apart.")
 
 
+def t_models_21(cohort):
+    """The 21 under logistic regression, random forest and XGBoost, held out."""
+    rows = []
+    for r in RUNGS:
+        h = csv(cohort, r, "heldout_21_models.csv")
+        if h is None:
+            continue
+        bp = FV / cohort / r / "heldout_21_models_bootstrap.json"
+        boot = json.loads(bp.read_text()) if bp.exists() else {}
+        for x in h.itertuples():
+            b = boot.get(f"{x.model} | original 21 vs original 21")
+            rows.append([RUNG[r], x.model, f"{x.AP:.3f}", f"{x.AUROC:.3f}",
+                         ci(b) if b else "reference",
+                         f"{x.Calibration_slope:.2f}", "best" if x.best_of_three else ""])
+    if not rows:
+        return PENDING
+    return md_table(["Outcome", "Model", "AP", "AUROC", "AP vs logistic (95% interval)",
+                     "Calibration slope", "Best of three"], rows) + (
+        "\n\nThe 21-predictor set under three model families, each fitted on the development "
+        "women (random forest and XGBoost tuned on development folds, 20 trials) and scored "
+        "once on the held-out women. \"Best of three\" is the highest held-out AP; the "
+        "interval says whether the held-out women can tell it from logistic regression.")
+
+
 def t_tiers(cohort):
     blocks = []
     for r, js in runs(cohort):
@@ -784,6 +808,7 @@ TABLES = {
 }
 for _c, _sfx in (("full", ""), ("entry", "_entry"), ("recent", "_recent")):
     for _name, _fn in (("sets_dev", t_sets_dev), ("sets_heldout", t_sets_heldout),
+                       ("models_21", t_models_21),
                        ("tiers", t_tiers), ("add_one", t_add_one),
                        ("top_additions", t_top_additions), ("placement", t_placement)):
         TABLES[_name + _sfx] = (lambda f=_fn, c=_c: f(c))

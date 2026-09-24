@@ -441,6 +441,24 @@ and scored on held-out women:
 Held-out AP, each set fitted on development women and scored once on women it never saw. In brackets: the difference from the 21-predictor set and its 95% paired stratified-PSU bootstrap interval. An interval containing 0 means the held-out set cannot tell the two apart.
 <!-- /AUTO:sets_heldout -->
 
+**The 21 under three model families.** Logistic regression, random forest and XGBoost on the same 21 predictors, on the held-out women:
+
+<!-- AUTO:models_21 -->
+| Outcome | Model | AP | AUROC | AP vs logistic (95% interval) | Calibration slope | Best of three |
+|---|---|---|---|---|---|---|
+| ANC1+ | Logistic regression | 0.913 | 0.784 | reference | 0.92 | best |
+| ANC1+ | Random Forest | 0.909 | 0.788 | -0.005 [-0.017, +0.005] | 1.25 |  |
+| ANC1+ | XGBoost | 0.908 | 0.783 | -0.005 [-0.012, +0.002] | 1.08 |  |
+| ANC4+ | Logistic regression | 0.782 | 0.769 | reference | 1.08 |  |
+| ANC4+ | Random Forest | 0.788 | 0.774 | +0.006 [-0.007, +0.020] | 1.28 |  |
+| ANC4+ | XGBoost | 0.797 | 0.779 | +0.014 [-0.005, +0.036] | 0.84 | best |
+| ANC8+ | Logistic regression | 0.428 | 0.762 | reference | 0.78 | best |
+| ANC8+ | Random Forest | 0.412 | 0.769 | -0.014 [-0.042, +0.010] | 1.01 |  |
+| ANC8+ | XGBoost | 0.414 | 0.771 | -0.014 [-0.051, +0.020] | 0.90 |  |
+
+The 21-predictor set under three model families, each fitted on the development women (random forest and XGBoost tuned on development folds, 20 trials) and scored once on the held-out women. "Best of three" is the highest held-out AP; the interval says whether the held-out women can tell it from logistic regression.
+<!-- /AUTO:models_21 -->
+
 The ordering holds for ANC8+. For ANC4+ LightGBM makes the compact sets'
 shortfall larger (up to −0.04 AP), which confirms that reaching four contacts
 needs more than a few variables.
@@ -583,6 +601,24 @@ count) also enters for ANC4+ and ANC8+.
 
 Held-out AP, each set fitted on development women and scored once on women it never saw. In brackets: the difference from the 21-predictor set and its 95% paired stratified-PSU bootstrap interval. An interval containing 0 means the held-out set cannot tell the two apart.
 <!-- /AUTO:sets_heldout_recent -->
+
+The 21 under three model families, 24-month window:
+
+<!-- AUTO:models_21_recent -->
+| Outcome | Model | AP | AUROC | AP vs logistic (95% interval) | Calibration slope | Best of three |
+|---|---|---|---|---|---|---|
+| ANC1+ | Logistic regression | 0.921 | 0.777 | reference | 0.86 |  |
+| ANC1+ | Random Forest | 0.924 | 0.780 | +0.002 [-0.010, +0.012] | 1.05 | best |
+| ANC1+ | XGBoost | 0.914 | 0.768 | -0.007 [-0.020, +0.003] | 0.76 |  |
+| ANC4+ | Logistic regression | 0.815 | 0.778 | reference | 1.13 |  |
+| ANC4+ | Random Forest | 0.826 | 0.790 | +0.010 [-0.008, +0.027] | 1.19 | best |
+| ANC4+ | XGBoost | 0.825 | 0.791 | +0.009 [-0.007, +0.026] | 1.06 |  |
+| ANC8+ | Logistic regression | 0.415 | 0.763 | reference | 1.04 |  |
+| ANC8+ | Random Forest | 0.451 | 0.783 | +0.034 [-0.021, +0.092] | 1.18 |  |
+| ANC8+ | XGBoost | 0.475 | 0.781 | +0.057 [-0.008, +0.118] | 1.14 | best |
+
+The 21-predictor set under three model families, each fitted on the development women (random forest and XGBoost tuned on development folds, 20 trials) and scored once on the held-out women. "Best of three" is the highest held-out AP; the interval says whether the held-out women can tell it from logistic regression.
+<!-- /AUTO:models_21_recent -->
 
 <!-- AUTO:tiers_recent -->
 **ANC1+**

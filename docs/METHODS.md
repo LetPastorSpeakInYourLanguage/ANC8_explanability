@@ -160,6 +160,10 @@ result was seen.
 
 `scripts/run_why21_heldout.py` adds the held-out test of the reduced 21
 (best k of the 21, the 21 without its non-contributors) found in stage 0.
+`scripts/run_21_models_heldout.py` scores the 21 under three model families
+-- logistic regression, random forest and XGBoost, the two tree models tuned
+on development folds (20 trials) -- for every cohort and rung, with a paired
+bootstrap against logistic regression (`heldout_21_models.csv`).
 
 **Comparing rungs.** AP has a floor at the prevalence, so AP differences are
 not comparable across ANC1+, ANC4+ and ANC8+. Every predictor's value is

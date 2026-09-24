@@ -83,6 +83,7 @@ python scripts/run_pipeline.py --outcome anc8plus        # and anc1plus, anc4plu
 # 1. Predictor value
 python scripts/run_feature_value.py --cohort full --outcome anc8plus   # and the other rungs
 python scripts/run_why21_heldout.py
+python scripts/run_21_models_heldout.py      # the 21 under logistic, random forest, XGBoost
 python scripts/run_predictor_matrix.py
 python scripts/run_ladder_analysis.py
 

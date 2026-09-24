@@ -318,6 +318,9 @@ export type FeatureValueEntry = {
   heldout?: { model: string; set: string; n_predictors: number; AP: number;
               AUROC: number; Calibration_slope: number; AP_lift: number;
               prevalence: number }[];
+  /** Which of logistic regression, random forest and XGBoost on the 21 has
+   *  the highest held-out AP. */
+  best_21_model?: string | null;
   heldout_bootstrap?: Record<string, { d_AP: number; d_AP_lo: number; d_AP_hi: number;
                                         d_AUROC: number; d_AUROC_lo: number;
                                         d_AUROC_hi: number }> | null;
