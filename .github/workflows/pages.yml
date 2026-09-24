@@ -3,6 +3,10 @@
 # Enable once in the repository: Settings -> Pages -> Source: GitHub Actions.
 # The site is served at https://<owner>.github.io/<repository>/.
 #
+# Runs only when started by hand (Actions -> Deploy to GitHub Pages -> Run
+# workflow): Pages needs a public repository on a free GitHub plan, and this
+# repository is private. The app is deployed on Vercel instead.
+#
 # A static host has no Python, so the Predict tab calls the prediction service
 # of the Vercel deployment when the repository variable PREDICT_API is set
 # (Settings -> Secrets and variables -> Actions -> Variables), e.g.
@@ -13,8 +17,6 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
