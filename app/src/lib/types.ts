@@ -84,20 +84,34 @@ export type Field = {
   core?: boolean;
 };
 
-export type Generation = {
-  title: string;
-  subtitle: string;
-  fields: Field[];
-  models: string[];
-  champion?: string;
-  core_predictors?: string[];
-  gating_field?: string;
+/** One deployed model, as listed in form_schema.json. */
+export type CatalogModel = {
+  id: string;
+  bundle: string;
+  model: string;
+  outcome: "anc1plus" | "anc4plus" | "anc8plus";
+  horizon: "before" | "entry";
+  set: string;
+  algorithm: string;
+  n_predictors: number;
+  fields: string[];
+  heldout_AP: number | null;
+  heldout_AUROC: number | null;
+  threshold?: number | null;
+  browser: boolean;
+  recommended: boolean;
+  headline: boolean;
+  note?: string;
 };
 
 export type Schema = {
-  v1: Generation;
-  v1_anc_entry?: Generation;
-  v2?: Generation;
+  outcomes: Record<string, string>;
+  horizons: Record<string, string>;
+  /** keyed "outcome|horizon" */
+  prevalence: Record<string, number>;
+  fields: Field[];
+  models: CatalogModel[];
+  not_deployed?: Record<string, Record<string, string>>;
 };
 
 export type ModelResult = {

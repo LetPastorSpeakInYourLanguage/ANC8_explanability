@@ -333,7 +333,7 @@ def test_app_payload():
     if base is None:
         skip("app payload", "not present")
         return
-    for name in ("insights.json", "ebm_bundle.json", "form_schema.json",
+    for name in ("insights.json", "ebm_bundle.json", "form_schema.json", "browser_models.json",
                  "model_performance.json"):
         p = base / name
         if not p.exists():

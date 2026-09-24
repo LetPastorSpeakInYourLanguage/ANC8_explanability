@@ -54,6 +54,12 @@ TOLERANCE = {"logistic": 1e-9, "forest": 1e-9, "xgboost": 1e-6,
 # preprocessing or the tree walk moves most rows, while a tie moves a handful.
 MAX_OUTLIER_SHARE = 0.002
 
+# The serving function parses a whole bundle into memory (1 GB on Vercel). A
+# forest of deep trees can export to tens of MB of JSON, several hundred MB
+# once parsed, so any single model over this size is left out of the bundle
+# and listed under "not_deployed" instead.
+MAX_MODEL_MB = 30
+
 
 # ---------------------------------------------------------------------------
 # PREPROCESSOR EXTRACTION
@@ -97,6 +103,10 @@ def extract_preprocessor(ct, numeric=None, binary=None, categorical=None):
         if trans == "drop" or name == "remainder":
             continue
         cols = list(cols)
+        if not cols:
+            # An empty block (a small set with no numeric predictors, say) is
+            # never fitted and emits nothing.
+            continue
 
         if name == "numeric":
             spec["numeric"] = cols
@@ -345,11 +355,229 @@ def verify(bundle, name, pipeline, frame, rows, published=None):
         ok &= pok
     return ok, worst
 
+def export_pool(outcome):
+    """The full-candidate-pool models of one outcome.
+
+    ANC8+ keeps its original file name (v2_bundle); the other rungs are written
+    as pool_<outcome>_bundle.
+    """
+    gen = "v2" if outcome == "anc8plus" else f"pool_{outcome}"
+    spec = json.load(open(ENHANCED / "feature_spec_v2.json"))
+    blob = joblib.load(ENHANCED / outcome / "enhanced_models.joblib")
+    df = pd.read_pickle(ENHANCED / "ANC8_analysis_frozen_v2.pkl")
+    perf = pd.read_csv(ENHANCED / outcome / "heldout_performance.csv")
+
+    from anc8 import design
+    _, test_psus = design.make_psu_holdout(df)
+    held = df[df.v021.isin(test_psus)].reset_index(drop=True)
+
+    numeric, categorical = spec["numeric_predictors"], spec["categorical_predictors"]
+    X = held[numeric + categorical].copy()
+    for c in categorical:
+        X[c] = X[c].astype(str)
+    rows = X.astype(object).where(pd.notna(X), None).to_dict("records")
+
+    thresholds = json.load(open(ENHANCED / outcome / "operating_thresholds.json"))
+    bundle = {"generation": gen, "outcome": outcome,
+              "predictors": numeric + categorical,
+              "preprocessors": {}, "models": {}}
+
+    print(f"exporting the full-pool models, {outcome}")
+    all_ok = True
+    skipped = []
+
+    for name, pipe in blob["models"].items():
+        if not hasattr(pipe, "named_steps"):
+            # Composite arms (stacked ensemble, cumulative-link) are made of
+            # several fitted models plus a calibrator; they are reported in
+            # the notebook but are not single-pipeline exportable.
+            skipped.append((name, "composite arm, not a single pipeline"))
+            continue
+        try:
+            # Both the estimator and its preprocessor can be unexportable
+            # -- a spline basis expands the numeric block in a way the
+            # serving scorer does not reproduce -- so both are attempted
+            # together and a refusal from either skips the model cleanly.
+            entry = export_estimator(pipe.named_steps["model"])
+            pre = extract_preprocessor(pipe.named_steps["pre"])
+        except TypeError as exc:
+            skipped.append((name, str(exc)))
+            continue
+
+        size_mb = len(json.dumps(entry)) / 1e6
+        if size_mb > MAX_MODEL_MB:
+            skipped.append((name, f"{size_mb:.0f} MB exported, over the "
+                                  f"{MAX_MODEL_MB} MB serving limit"))
+            continue
+
+        key = f"{name}::pre"
+        bundle["preprocessors"][key] = pre
+        entry["preprocessor"] = key
+        if name in thresholds:
+            entry["threshold"] = float(thresholds[name])
+        bundle["models"][name] = entry
+
+        ok, _ = verify(bundle, name, pipe, X, rows)
+        all_ok &= ok
+
+    if not all_ok:
+        print("\nFIDELITY GATE FAILED -- bundle not written")
+        raise SystemExit(1)
+
+    # The deployed champion is the best model that can actually ship. If the
+    # overall best cannot, say so rather than quietly serving a weaker model
+    # under the same name.
+    # Rank on DEVELOPMENT out-of-fold AP, not held-out. Choosing which
+    # model to deploy by its held-out score is selection on the test set,
+    # and it would make the deployed model's reported performance
+    # optimistic by construction.
+    dev_perf = pd.read_csv(ENHANCED / outcome / "development_oof_performance.csv")
+    dev_order = (dev_perf[dev_perf.AP.notna()]
+                 .sort_values("AP", ascending=False).model.tolist())
+    perf_v2 = perf[perf.generation == "V2 (enhanced)"].set_index("model")
+    ranked = pd.DataFrame([
+        {"model": m, "AP": perf_v2.loc[m, "AP"] if m in perf_v2.index else np.nan}
+        for m in dev_order
+    ])
+    best_overall = ranked.iloc[0]
+    shippable = ranked[ranked.model.isin(bundle["models"])]
+
+    if len(shippable) == 0:
+        print("\nNo V2 model could be exported for serving.")
+        raise SystemExit(1)
+
+    champion = shippable.iloc[0]
+    bundle["champion"] = champion.model
+    bundle["champion_heldout_AP"] = float(champion.AP)
+    bundle["best_overall_model"] = best_overall.model
+    bundle["best_overall_heldout_AP"] = float(best_overall.AP)
+    bundle["champion_gap_AP"] = float(best_overall.AP - champion.AP)
+
+    if skipped:
+        print("\nnot exportable for serving:")
+        for n, why in skipped:
+            print(f"    {n:32s} {why}")
+
+    if best_overall.model != champion.model:
+        print(f"\nNOTE: the best V2 model overall is {best_overall.model} "
+              f"(held-out AP {best_overall.AP:.4f}), which cannot be exported.")
+        print(f"      Deploying {champion.model} (AP {champion.AP:.4f}) instead, "
+              f"a gap of {best_overall.AP - champion.AP:.4f} AP.")
+    else:
+        print(f"\ndeployed champion: {champion.model} (held-out AP {champion.AP:.4f})")
+
+    out = DEST / f"{gen}_bundle.json.gz"
+    with gzip.open(out, "wt", encoding="utf-8") as fh:
+        json.dump(bundle, fh)
+    print(f"wrote {out} ({out.stat().st_size / 1e6:.1f} MB)")
+
+
+
+FV = ROOT / "outputs" / "feature_value"
+
+
+def small_sets():
+    """The study's best small predictor sets, one per outcome and horizon.
+
+    Before ANC: the best k of the 21 (the peak of the greedy path within the
+    21, stage 0 of run_feature_value.py). At ANC entry: tiers 1 and 2 selected
+    from the full pool, which there includes early_anc.
+    """
+    out = []
+    for outcome in ("anc1plus", "anc4plus", "anc8plus"):
+        why = pd.read_csv(FV / "full" / outcome / "why21_heldout.csv")
+        row = why[why.set.str.startswith("best ")].iloc[0]
+        out.append(("full", "before", outcome, row.set,
+                    str(row.predictors).split("|")))
+    for outcome in ("anc4plus", "anc8plus"):
+        js = json.loads((FV / "entry" / outcome / "summary.json").read_text())
+        cols = js["tier1"] + js["tier2"]
+        out.append(("entry", "entry", outcome,
+                    f"{len(cols)} selected from the pool", cols))
+    return out
+
+
+def export_small():
+    """Fit, verify and export the logistic models of the best small sets.
+
+    The same fixed model as the predictor-value study: logistic regression at
+    the regularisation each set earned on development folds, fitted on the
+    development women and checked here on the held-out women.
+    """
+    import shutil
+
+    from anc8 import cohorts, metrics, selection as sel, tuning
+    from anc8 import models as zoo
+
+    bundle = {"generation": "small", "predictors": [], "preprocessors": {},
+              "models": {}, "catalog": []}
+    all_ok = True
+    frames = {}
+    for cohort, horizon, outcome, set_name, cols in small_sets():
+        if cohort not in frames:
+            df, pool = sel.build_pool(cohorts.load(cohort))
+            frames[cohort] = (df, pool)
+        df, pool = frames[cohort]
+        dev, held = cohorts.development(df), cohorts.heldout(df)
+
+        scorer = sel.Scorer(dev, outcome, pool)
+        try:
+            scorer.seeds(cols)
+            C = scorer.last_C
+        finally:
+            sel.shutdown(scorer)
+            shutil.rmtree(sel.CACHE / scorer.cache_key, ignore_errors=True)
+
+        num, cat = pool.split(cols)
+        pipe = zoo.build("Logistic regression", {"C": C}, num, cat)
+        y_d = dev[outcome].astype(int).to_numpy()
+        w_d = (dev.v005 / 1e6).to_numpy()
+        tuning._fit(pipe, dev[num + cat], y_d, w_d / w_d.mean())
+
+        name = f"{outcome} · {horizon} · {set_name}"
+        key = f"{name}::pre"
+        entry = export_estimator(pipe.named_steps["model"])
+        pre = extract_preprocessor(pipe.named_steps["pre"])
+        bundle["preprocessors"][key] = pre
+        entry["preprocessor"] = key
+        bundle["models"][name] = entry
+
+        X = held[num + cat].copy()
+        for c in cat:
+            X[c] = X[c].astype(str)
+        rows = X.astype(object).where(pd.notna(X), None).to_dict("records")
+        ok, _ = verify(bundle, name, pipe, held[num + cat], rows)
+        all_ok &= ok
+
+        y = held[outcome].astype(int).to_numpy()
+        w = (held.v005 / 1e6).to_numpy()
+        m = metrics.probability_metrics(y, pipe.predict_proba(held[num + cat])[:, 1], w)
+        bundle["catalog"].append({
+            "model": name, "outcome": outcome, "horizon": horizon,
+            "set": set_name, "predictors": cols, "C": float(C),
+            "heldout_AP": float(m["AP"]), "heldout_AUROC": float(m["AUROC"]),
+            "prevalence": float(np.average(y, weights=w)),
+        })
+        bundle["predictors"] = sorted(set(bundle["predictors"]) | set(cols))
+        print(f"    {name:48s} C={C:<6g} held-out AP {m['AP']:.3f}  AUROC {m['AUROC']:.3f}")
+
+    if not all_ok:
+        print("\nFIDELITY GATE FAILED -- bundle not written")
+        raise SystemExit(1)
+    out = DEST / "small_bundle.json.gz"
+    with gzip.open(out, "wt", encoding="utf-8") as fh:
+        json.dump(bundle, fh)
+    print(f"wrote {out} ({out.stat().st_size / 1e6:.2f} MB)")
+
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--v1", action="store_true")
     ap.add_argument("--v2", action="store_true")
+    ap.add_argument("--pool", nargs="*", choices=["anc1plus", "anc4plus", "anc8plus"],
+                    help="full-pool models of these outcomes")
+    ap.add_argument("--small", action="store_true",
+                    help="the best small predictor sets of the predictor-value study")
     args = ap.parse_args()
 
     DEST.mkdir(parents=True, exist_ok=True)
@@ -472,108 +700,12 @@ def main():
         print(f"wrote {out_e} ({out_e.stat().st_size / 1e6:.1f} MB)")
 
 
+    for outcome in args.pool or []:
+        export_pool(outcome)
     if args.v2:
-        spec = json.load(open(ENHANCED / "feature_spec_v2.json"))
-        blob = joblib.load(ENHANCED / "anc8plus" / "enhanced_models.joblib")
-        df = pd.read_pickle(ENHANCED / "ANC8_analysis_frozen_v2.pkl")
-        perf = pd.read_csv(ENHANCED / "anc8plus" / "heldout_performance.csv")
-
-        from anc8 import design
-        _, test_psus = design.make_psu_holdout(df)
-        held = df[df.v021.isin(test_psus)].reset_index(drop=True)
-
-        numeric, categorical = spec["numeric_predictors"], spec["categorical_predictors"]
-        X = held[numeric + categorical].copy()
-        for c in categorical:
-            X[c] = X[c].astype(str)
-        rows = X.astype(object).where(pd.notna(X), None).to_dict("records")
-
-        thresholds = json.load(open(ENHANCED / "anc8plus" / "operating_thresholds.json"))
-        bundle = {"generation": "v2", "predictors": numeric + categorical,
-                  "preprocessors": {}, "models": {}}
-
-        print("exporting V2 (enhanced)")
-        all_ok = True
-        skipped = []
-
-        for name, pipe in blob["models"].items():
-            if not hasattr(pipe, "named_steps"):
-                # Composite arms (stacked ensemble, cumulative-link) are made of
-                # several fitted models plus a calibrator; they are reported in
-                # the notebook but are not single-pipeline exportable.
-                skipped.append((name, "composite arm, not a single pipeline"))
-                continue
-            try:
-                # Both the estimator and its preprocessor can be unexportable
-                # -- a spline basis expands the numeric block in a way the
-                # serving scorer does not reproduce -- so both are attempted
-                # together and a refusal from either skips the model cleanly.
-                entry = export_estimator(pipe.named_steps["model"])
-                pre = extract_preprocessor(pipe.named_steps["pre"])
-            except TypeError as exc:
-                skipped.append((name, str(exc)))
-                continue
-
-            key = f"{name}::pre"
-            bundle["preprocessors"][key] = pre
-            entry["preprocessor"] = key
-            if name in thresholds:
-                entry["threshold"] = float(thresholds[name])
-            bundle["models"][name] = entry
-
-            ok, _ = verify(bundle, name, pipe, X, rows)
-            all_ok &= ok
-
-        if not all_ok:
-            print("\nFIDELITY GATE FAILED -- bundle not written")
-            sys.exit(1)
-
-        # The deployed champion is the best model that can actually ship. If the
-        # overall best cannot, say so rather than quietly serving a weaker model
-        # under the same name.
-        # Rank on DEVELOPMENT out-of-fold AP, not held-out. Choosing which
-        # model to deploy by its held-out score is selection on the test set,
-        # and it would make the deployed model's reported performance
-        # optimistic by construction.
-        dev_perf = pd.read_csv(ENHANCED / "anc8plus" / "development_oof_performance.csv")
-        dev_order = (dev_perf[dev_perf.AP.notna()]
-                     .sort_values("AP", ascending=False).model.tolist())
-        perf_v2 = perf[perf.generation == "V2 (enhanced)"].set_index("model")
-        ranked = pd.DataFrame([
-            {"model": m, "AP": perf_v2.loc[m, "AP"] if m in perf_v2.index else np.nan}
-            for m in dev_order
-        ])
-        best_overall = ranked.iloc[0]
-        shippable = ranked[ranked.model.isin(bundle["models"])]
-
-        if len(shippable) == 0:
-            print("\nNo V2 model could be exported for serving.")
-            sys.exit(1)
-
-        champion = shippable.iloc[0]
-        bundle["champion"] = champion.model
-        bundle["champion_heldout_AP"] = float(champion.AP)
-        bundle["best_overall_model"] = best_overall.model
-        bundle["best_overall_heldout_AP"] = float(best_overall.AP)
-        bundle["champion_gap_AP"] = float(best_overall.AP - champion.AP)
-
-        if skipped:
-            print("\nnot exportable for serving:")
-            for n, why in skipped:
-                print(f"    {n:32s} {why}")
-
-        if best_overall.model != champion.model:
-            print(f"\nNOTE: the best V2 model overall is {best_overall.model} "
-                  f"(held-out AP {best_overall.AP:.4f}), which cannot be exported.")
-            print(f"      Deploying {champion.model} (AP {champion.AP:.4f}) instead, "
-                  f"a gap of {best_overall.AP - champion.AP:.4f} AP.")
-        else:
-            print(f"\ndeployed champion: {champion.model} (held-out AP {champion.AP:.4f})")
-
-        out = DEST / "v2_bundle.json.gz"
-        with gzip.open(out, "wt", encoding="utf-8") as fh:
-            json.dump(bundle, fh)
-        print(f"wrote {out} ({out.stat().st_size / 1e6:.1f} MB)")
+        export_pool("anc8plus")
+    if args.small:
+        export_small()
 
 
 if __name__ == "__main__":

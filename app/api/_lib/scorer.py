@@ -172,12 +172,18 @@ def _walk_xgb(tree: dict, x: np.ndarray, zero_is_missing: bool = False) -> float
         if left == -1:
             return tree["leaf_value"][node]
         f = tree["split_feature"][node]
-        v = x[f]
+        # XGBoost holds both the input and its split points as float32 and
+        # compares them in float32. The JSON dump prints each split point in
+        # its shortest float32 form, which read back as float64 is not the
+        # same number, so both sides are rounded to float32 before comparing;
+        # otherwise a value that falls between the two takes the wrong branch.
+        v = np.float32(x[f])
         missing = (not np.isfinite(v)) or (zero_is_missing and v == 0.0)
         if missing:
             node = left if tree["default_left"][node] else tree["right"][node]
         else:
-            node = left if v < tree["split_condition"][node] else tree["right"][node]
+            node = (left if v < np.float32(tree["split_condition"][node])
+                    else tree["right"][node])
 
 
 def score_xgboost(model: dict, x: np.ndarray) -> float:
@@ -300,13 +306,16 @@ def predict(bundle: dict, model_name: str, row: dict) -> dict:
         p = _apply_isotonic(entry["calibrator"], p)
 
     threshold = entry.get("threshold")
+    outcome = {"anc1plus": "ANC1+", "anc4plus": "ANC4+"}.get(
+        bundle.get("outcome", "anc8plus"), "ANC8+")
     out = {
         "model": model_name,
         "probability": p,
         "threshold": threshold,
         "classification": (
             None if threshold is None
-            else ("likely to attain ANC8+" if p >= threshold else "unlikely to attain ANC8+")
+            else (f"likely to attain {outcome}" if p >= threshold
+                  else f"unlikely to attain {outcome}")
         ),
     }
 

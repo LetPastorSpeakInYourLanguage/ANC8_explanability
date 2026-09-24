@@ -1038,7 +1038,7 @@
        "GAM"
       ],
       "plain": "A model that learns one curve per predictor and adds\nthem up. Every prediction can be read exactly as the sum of its parts.",
-      "here": "It matched the best tree ensemble on AUROC and is the\nmodel behind the What-if tab. Offered up to ten interactions between\npredictors, it chose none: ANC8+ attainment behaves additively."
+      "here": "It matched the best tree ensemble on AUROC and is the\nmodel behind the explanation bars in the Predict tab. Offered up to ten interactions between\npredictors, it chose none: ANC8+ attainment behaves additively."
      },
      {
       "id": "mlp",
@@ -1187,7 +1187,7 @@
        "partial effect"
       ],
       "plain": "The EBM's learned curve for one predictor: how a\nwoman's score moves as that one fact changes, with everything else held\nfixed. Above the zero line raises the chance; below lowers it.",
-      "here": "Shown in the What drives it and What if tabs. For\ncategories such as region, each level gets its own bar."
+      "here": "Shown in the Predictors and Predict tabs. For\ncategories such as region, each level gets its own bar."
      },
      {
       "id": "agreement",

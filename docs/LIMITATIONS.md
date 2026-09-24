@@ -12,8 +12,8 @@ happen if a woman's circumstances changed. Wealth, education and language are
 not things a health programme hands out, and a wealthier woman differs from a
 poorer one in many ways the survey does not record.
 
-This matters most for the what-if surface in the web app. Moving the wealth
-control shows what the model predicts **for women who have that wealth level**.
+This matters most for the Predict tab in the web app, where the answers can
+be changed and the prediction follows. Moving the wealth control shows what the model predicts **for women who have that wealth level**.
 It does not estimate the effect of making someone wealthier. The interface
 says so where the controls are, not in a footnote, because the control itself
 is what invites the causal reading.

@@ -3,12 +3,22 @@
 POST /api/predict
     {"answers": {...}, "generations": ["v1", "v1_anc_entry", "v2"]}
 
+    {"answers": {...}, "models": {"pool_anc4plus": ["XGBoost"]}}   one model
+
 Bundles (the keys are file identifiers):
-    v1            the 21-predictor models before ANC starts (logistic
-                  regression, random forest, XGBoost)
-    v1_anc_entry  the 21-predictor models at ANC entry -- six models for women
-                  who have already started ANC, with and without early_anc
-    v2            the full-candidate-pool model
+    v1             the 21-predictor models of ANC8+ before ANC starts
+                   (logistic regression, random forest, XGBoost)
+    v1_anc_entry   the 21-predictor models of ANC8+ at ANC entry -- six models
+                   for women who have already started ANC, with and without
+                   early_anc
+    v2             the full-candidate-pool models of ANC8+
+    pool_anc1plus  the full-candidate-pool models of ANC1+
+    pool_anc4plus  the full-candidate-pool models of ANC4+
+    small          the study's best small predictor sets, one logistic model
+                   per outcome and horizon
+
+`models` limits scoring to the named models of each bundle; without it every
+model of every bundle in `generations` is scored.
 
 Returns every model's probability, its operating threshold, the resulting
 classification, and -- when both predictor sets ran -- whether they disagree.
@@ -39,9 +49,14 @@ ENABLE_HEAVY = os.environ.get("ENABLE_HEAVY_MODELS", "0") == "1"
 
 _CACHE: dict = {}
 
+# Only these files are ever opened: the bundle key arrives in the request.
+BUNDLES = ("v1", "v1_anc_entry", "v2", "pool_anc1plus", "pool_anc4plus", "small")
+
 
 def load_bundle(generation: str):
     """Load and cache a model bundle across warm invocations."""
+    if generation not in BUNDLES:
+        return None
     if generation in _CACHE:
         return _CACHE[generation]
     path = MODELS / f"{generation}_bundle.json.gz"
@@ -52,17 +67,26 @@ def load_bundle(generation: str):
     return _CACHE[generation]
 
 
-def score_generation(generation: str, answers: dict) -> dict:
+def score_generation(generation: str, answers: dict, only=None) -> dict:
     bundle = load_bundle(generation)
     if bundle is None:
         return {"available": False, "reason": f"{generation} bundle not deployed"}
 
-    expected = set(bundle["predictors"])
+    names = [n for n in bundle["models"] if only is None or n in only]
+    if only is not None:
+        # The questions the chosen models ask, not the whole bundle's.
+        expected = set()
+        for n in names:
+            pre = bundle["preprocessors"][bundle["models"][n]["preprocessor"]]
+            expected |= set(pre["numeric"] + pre.get("binary", [])
+                            + pre["categorical"] + pre.get("extra", []))
+    else:
+        expected = set(bundle["predictors"])
     supplied = {k for k, v in answers.items() if v not in (None, "")}
     imputed = sorted(expected - supplied)
 
     results = []
-    for name in bundle["models"]:
+    for name in names:
         try:
             results.append(scorer.predict(bundle, name, answers))
         except Exception as exc:  # one bad model must not sink the response
@@ -83,9 +107,11 @@ def score_generation(generation: str, answers: dict) -> dict:
 
 def build_response(payload: dict) -> dict:
     answers = payload.get("answers", {}) or {}
-    generations = payload.get("generations") or ["v1", "v1_anc_entry", "v2"]
+    only = payload.get("models") or {}
+    generations = (payload.get("generations") or list(only)
+                   or ["v1", "v1_anc_entry", "v2"])
 
-    out = {gen: score_generation(gen, answers) for gen in generations}
+    out = {gen: score_generation(gen, answers, only.get(gen)) for gen in generations}
 
     # Do the two predictor sets disagree about this woman? Saying so is more
     # honest than quietly showing whichever model looks better.
@@ -139,7 +165,7 @@ class handler(BaseHTTPRequestHandler):
             "status": "ok",
             "bundles": {
                 g: (MODELS / f"{g}_bundle.json.gz").exists()
-                for g in ("v1", "v1_anc_entry", "v2")
+                for g in BUNDLES
             },
             "heavy_models_enabled": ENABLE_HEAVY,
         })

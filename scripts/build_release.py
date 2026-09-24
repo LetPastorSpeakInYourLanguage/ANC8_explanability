@@ -207,10 +207,11 @@ def main():
     log("fitted models")
     n = 0
     for name in ("v1_bundle.json.gz", "v1_anc_entry_bundle.json.gz",
-                 "v2_bundle.json.gz"):
+                 "v2_bundle.json.gz", "pool_anc1plus_bundle.json.gz",
+                 "pool_anc4plus_bundle.json.gz", "small_bundle.json.gz"):
         n += copy_file(ROOT / "app" / "models" / name, REL / "models" / name)
-    n += copy_file(ROOT / "app" / "public" / "ebm_bundle.json",
-                   REL / "models" / "ebm_bundle.json")
+    for name in ("ebm_bundle.json", "browser_models.json"):
+        n += copy_file(ROOT / "app" / "public" / name, REL / "models" / name)
     for rung in ("anc1plus", "anc4plus", "anc8plus"):
         src = ENHANCED / rung / "enhanced_models.joblib"
         if src.exists():

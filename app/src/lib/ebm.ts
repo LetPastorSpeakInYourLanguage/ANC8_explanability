@@ -1,9 +1,10 @@
 /**
- * Browser-side scoring for the Explainable Boosting model.
+ * Browser-side scoring for the additive models: explainable boosting and
+ * logistic regression.
  *
  * WHY THIS EXISTS
  * ---------------
- * The what-if view needs a probability on every slider move. A round trip to
+ * The Predict tab needs a probability on every change of an answer. A round trip to
  * the Python function costs 100-300ms and can stall entirely on a cold start,
  * which makes exploration feel broken.
  *
@@ -55,12 +56,20 @@ export type Preprocessor = {
   encoding: "onehot" | "ordinal";
 };
 
+export type LogisticModel = {
+  kind: "logistic";
+  coef: number[];
+  intercept: number;
+  preprocessor: string;
+  threshold?: number | null;
+};
+
 export type Bundle = {
-  generation: string;
-  predictors: string[];
+  generation?: string;
+  predictors?: string[];
   champion?: string;
   preprocessors: Record<string, Preprocessor>;
-  models: Record<string, EbmModel>;
+  models: Record<string, EbmModel | LogisticModel>;
 };
 
 export type Answers = Record<string, string | number | null | undefined>;
@@ -151,6 +160,17 @@ export function applyPreprocessor(spec: Preprocessor, row: Answers): number[] {
   return out;
 }
 
+/** The predictor behind each column of applyPreprocessor's output. */
+export function encodedNames(spec: Preprocessor): string[] {
+  const out: string[] = [...spec.numeric, ...(spec.binary ?? [])];
+  for (const col of spec.categorical) {
+    const width = spec.encoding === "onehot" ? (spec.categories[col] ?? []).length : 1;
+    for (let i = 0; i < width; i++) out.push(col);
+  }
+  out.push(...(spec.extra ?? []));
+  return out;
+}
+
 /**
  * The log-odds contribution of one additive term.
  *
@@ -195,29 +215,40 @@ function termContribution(term: EbmTerm, x: number[]): number {
 export function score(bundle: Bundle, modelName: string, row: Answers): Scored {
   const model = bundle.models[modelName];
   if (!model) throw new Error(`model not in bundle: ${modelName}`);
-  if (model.kind !== "ebm") {
-    throw new Error(`browser scoring supports additive models only, not ${model.kind}`);
-  }
 
   const spec = bundle.preprocessors[model.preprocessor];
   const x = applyPreprocessor(spec, row);
-  const names = [
-    ...spec.numeric,
-    ...(spec.binary ?? []),
-    ...spec.categorical,
-    ...(spec.extra ?? []),
-  ];
-
   const contributions: Contribution[] = [];
   let total = model.intercept;
 
-  for (const term of model.terms) {
-    const c = termContribution(term, x);
-    total += c;
-    contributions.push({
-      predictor: names[term.feature] ?? `feature_${term.feature}`,
-      contribution: c,
+  if (model.kind === "logistic") {
+    // Also additive: coefficient times encoded value, summed back to the
+    // predictor each encoded column came from (all of a one-hot block).
+    const source = encodedNames(spec);
+    const by = new Map<string, number>();
+    model.coef.forEach((c, i) => {
+      const v = c * x[i];
+      total += v;
+      by.set(source[i], (by.get(source[i]) ?? 0) + v);
     });
+    by.forEach((contribution, predictor) => contributions.push({ predictor, contribution }));
+  } else if (model.kind === "ebm") {
+    const names = [
+      ...spec.numeric,
+      ...(spec.binary ?? []),
+      ...spec.categorical,
+      ...(spec.extra ?? []),
+    ];
+    for (const term of model.terms) {
+      const c = termContribution(term, x);
+      total += c;
+      contributions.push({
+        predictor: names[term.feature] ?? `feature_${term.feature}`,
+        contribution: c,
+      });
+    }
+  } else {
+    throw new Error("browser scoring supports additive models only");
   }
 
   contributions.sort((a, b) => Math.abs(b.contribution) - Math.abs(a.contribution));
@@ -244,6 +275,7 @@ export function shapeFunction(
   predictor: string
 ): { values: (number | string)[]; scores: number[]; kind: string } | null {
   const model = bundle.models[modelName];
+  if (!model || model.kind !== "ebm") return null;
   const spec = bundle.preprocessors[model.preprocessor];
   const names = [
     ...spec.numeric,

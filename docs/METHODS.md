@@ -273,8 +273,24 @@ places where it would be marked down are stated in `docs/LIMITATIONS.md`.
 
 ## Appendix: deployment
 
-The web app scores the 21-predictor models at both horizons and the
-full-pool model from one form.
+The web app's Predict tab offers every deployed model. The user chooses the
+outcome (ANC1+, ANC4+ or ANC8+), the horizon (before ANC starts, or at the
+first visit) and a model, and sees each model's held-out AP and AUROC. The
+study's recommended model is marked and chosen by default:
+
+| Outcome | Before ANC starts | At the first ANC visit |
+|---|---|---|
+| ANC1+ | full pool, XGBoost | (every woman there has ANC1+) |
+| ANC4+ | full pool, XGBoost | 3 predictors selected from the pool, logistic regression |
+| ANC8+ | best 7 of the 21, logistic regression | 7 predictors selected from the pool, logistic regression |
+
+Deployed: the 21-predictor models of ANC8+ at both horizons, the full-pool
+models of all three outcomes, and one logistic model per best small set of
+the predictor-value study, fitted on the development women at the
+regularisation it earned there (`scripts/export_serving.py --small`). Two
+full-pool models are not deployed: the ANC4+ explainable boosting model, which
+learned interaction terms the serving scorer does not support, and the ANC4+
+Extra Trees, whose 63 MB export is over the per-model serving limit.
 
 **Why the models are exported.** Vercel's serverless functions cap at 250 MB
 unzipped; loading the fitted pipelines needs scipy, xgboost, numpy, pandas
@@ -294,9 +310,17 @@ matrix, and XGBoost treats an unstored entry — any exact zero — as missing.
 Scoring densely moved one held-out prediction from 0.159 to 0.577, so the
 scorer reproduces sparse semantics (`zero_is_missing`).
 
-**In the browser.** The EBM is ported to TypeScript (`app/src/lib/ebm.ts`) so
-the what-if controls respond instantly, and is checked against the Python
-scorer on all 1,375 held-out women (agreement 3.3e-16).
+**XGBoost and float32.** XGBoost compares inputs to split points in float32,
+and its JSON dump prints each split point in its shortest float32 form, which
+read back as float64 is a slightly different number. The scorer rounds both
+sides to float32; without that, 4% of held-out women took a different branch
+in the ANC1+ model (differences up to 0.03).
+
+**In the browser.** The additive models (explainable boosting, logistic
+regression; 16 of the deployed models) are ported to TypeScript
+(`app/src/lib/ebm.ts`), so they respond as answers change and show exactly
+what each answer adds. `scripts/check_ts_parity.py` checks every one against
+the Python scorer on all 1,375 held-out women (agreement within 1e-15).
 
 **Reproducibility.** Logistic regression and LightGBM give identical results
 on any thread count. XGBoost is deterministic at a fixed thread count but

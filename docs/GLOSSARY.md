@@ -486,7 +486,7 @@ margin: the spread across ten families was about 0.02 development AP.
 them up. Every prediction can be read exactly as the sum of its parts.
 
 **In this analysis.** It matched the best tree ensemble on AUROC and is the
-model behind the What-if tab. Offered up to ten interactions between
+model behind the explanation bars in the Predict tab. Offered up to ten interactions between
 predictors, it chose none: ANC8+ attainment behaves additively.
 
 ### Neural network (MLP)
@@ -611,7 +611,7 @@ so it is treated as the weakest of the three importance methods.
 woman's score moves as that one fact changes, with everything else held
 fixed. Above the zero line raises the chance; below lowers it.
 
-**In this analysis.** Shown in the What drives it and What if tabs. For
+**In this analysis.** Shown in the Predictors and Predict tabs. For
 categories such as region, each level gets its own bar.
 
 ### Two methods must agree

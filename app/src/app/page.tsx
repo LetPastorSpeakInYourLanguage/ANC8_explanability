@@ -12,7 +12,6 @@ import Evidence from "@/components/Evidence";
 import FeatureValueView from "@/components/FeatureValue";
 import HorizonsView from "@/components/Horizons";
 import WartimeView from "@/components/Wartime";
-import WhatIf from "@/components/WhatIf";
 import Predict from "@/components/Predict";
 import type { Bundle, Answers } from "@/lib/ebm";
 import type { Insights, Schema, Example } from "@/lib/types";
@@ -20,30 +19,34 @@ import type { Analysis, Policy } from "@/lib/analysis";
 import { asset } from "@/lib/paths";
 
 type Tab =
-  | "brief" | "findings" | "predictors" | "ladder" | "horizons" | "wartime" | "whatif"
-  | "predict" | "evidence" | "record" | "reports";
+  | "reports" | "brief" | "findings" | "predictors" | "ladder" | "horizons"
+  | "wartime" | "predict" | "evidence" | "record";
 
-const TABS: { id: Tab; title: string; blurb: string }[] = [
+// The reports, the brief and the findings first; the technical detail after.
+const TABS: { id: Tab; title: string; blurb: string; technical?: boolean }[] = [
+  { id: "reports", title: "Reports", blurb: "Every document and figure, in full" },
   { id: "brief", title: "Brief", blurb: "The policy brief for the Ministry of Health" },
   { id: "findings", title: "Findings", blurb: "Where women are lost along the antenatal care cascade" },
-  { id: "predictors", title: "Predictors", blurb: "Which predictors carry the prediction: 2, 8, 21 or the full pool" },
-  { id: "ladder", title: "The ladder", blurb: "How predictor value changes from ANC1+ to ANC4+ to ANC8+" },
-  { id: "horizons", title: "Horizons", blurb: "Before ANC starts vs at ANC entry" },
-  { id: "wartime", title: "Tigray war", blurb: "Antenatal care during and after the war, against other regions" },
-  { id: "whatif", title: "What if", blurb: "Move a factor, watch the prediction respond" },
-  { id: "predict", title: "Predict", blurb: "Score one woman across every model" },
-  { id: "evidence", title: "Evidence", blurb: "Models, tuning, uncertainty, and how much to believe" },
-  { id: "record", title: "Analysis record", blurb: "Every analysis, and what every term and chart means" },
-  { id: "reports", title: "Reports", blurb: "Every document and figure, in full" },
+  { id: "predictors", title: "Predictors", blurb: "Which predictors carry the prediction: 2, 8, 21 or the full pool", technical: true },
+  { id: "ladder", title: "The ladder", blurb: "How predictor value changes from ANC1+ to ANC4+ to ANC8+", technical: true },
+  { id: "horizons", title: "Horizons", blurb: "Before ANC starts vs at the first ANC visit", technical: true },
+  { id: "wartime", title: "Tigray war", blurb: "Antenatal care during and after the war, against other regions", technical: true },
+  { id: "predict", title: "Predict", blurb: "Choose an outcome and a model, change the answers, watch the prediction respond", technical: true },
+  { id: "evidence", title: "Evidence", blurb: "Models, tuning, uncertainty, and how much to believe", technical: true },
+  { id: "record", title: "Analysis record", blurb: "Every analysis, and what every term and chart means", technical: true },
 ];
 
+const HOME: Tab = "reports";
 const TAB_IDS = new Set(TABS.map((t) => t.id));
+// What if is now part of Predict; old links still land there.
+const ALIASES: Record<string, Tab> = { whatif: "predict" };
 
-/** "#reports/predictors" -> ["reports", "predictors"]; unknown -> brief. */
+/** "#reports/predictors" -> ["reports", "predictors"]; unknown -> the home tab. */
 function readHash(): [Tab, string | undefined] {
-  if (typeof window === "undefined") return ["brief", undefined];
-  const [t, d] = window.location.hash.replace(/^#/, "").split("/");
-  return [TAB_IDS.has(t as Tab) ? (t as Tab) : "brief", d || undefined];
+  if (typeof window === "undefined") return [HOME, undefined];
+  const [raw, d] = window.location.hash.replace(/^#/, "").split("/");
+  const t = ALIASES[raw] ?? raw;
+  return [TAB_IDS.has(t as Tab) ? (t as Tab) : HOME, d || undefined];
 }
 
 async function loadJSON<T>(path: string, fallback: T | null = null): Promise<T | null> {
@@ -57,7 +60,7 @@ async function loadJSON<T>(path: string, fallback: T | null = null): Promise<T |
 }
 
 export default function Page() {
-  const [tab, setTabState] = useState<Tab>("brief");
+  const [tab, setTabState] = useState<Tab>(HOME);
   const [doc, setDoc] = useState<string | undefined>(undefined);
   const [documents, setDocuments] = useState<Documents | null>(null);
   const [journey, setJourney] = useState<JourneyData | null>(null);
@@ -65,7 +68,7 @@ export default function Page() {
   // The address bar follows the view, so a tab or a report can be bookmarked
   // or sent to someone.
   const navigate = (t: string, d?: string) => {
-    const next = (TAB_IDS.has(t as Tab) ? t : "brief") as Tab;
+    const next = (TAB_IDS.has(t as Tab) ? t : HOME) as Tab;
     setTabState(next);
     setDoc(d);
     const hash = d ? `#${next}/${d}` : `#${next}`;
@@ -103,7 +106,7 @@ export default function Page() {
   useEffect(() => {
     Promise.all([
       fetch(asset("/insights.json")).then((r) => r.json()),
-      fetch(asset("/ebm_bundle.json")).then((r) => r.json()),
+      loadJSON<Bundle>("/browser_models.json"),
       loadJSON<Schema>("/form_schema.json"),
       loadJSON<Example[]>("/examples.json", []),
       loadJSON<Analysis>("/analysis.json"),
@@ -145,7 +148,7 @@ export default function Page() {
     );
   }
 
-  if (!insights || !bundle) {
+  if (!insights) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-12">
         <p className="label">Loading…</p>
@@ -192,8 +195,9 @@ export default function Page() {
         className="flex gap-1 overflow-x-auto mb-6 pb-px"
         style={{ borderBottom: "1px solid var(--line)" }}
       >
-        {visible.map((t) => {
+        {visible.map((t, i) => {
           const on = active === t.id;
+          const divider = t.technical && !visible[i - 1]?.technical && i > 0;
           return (
             <button
               key={t.id}
@@ -201,6 +205,8 @@ export default function Page() {
               className="px-3 py-2 text-sm whitespace-nowrap"
               style={{
                 borderBottom: on ? "2px solid var(--accent)" : "2px solid transparent",
+                ...(divider ? { marginLeft: "0.75rem", borderLeft: "1px solid var(--line)",
+                                paddingLeft: "1.1rem" } : {}),
                 color: on ? "var(--fg)" : "var(--muted)",
                 fontWeight: on ? 600 : 400,
               }}
@@ -232,16 +238,15 @@ export default function Page() {
         <HorizonsView data={analysis.horizons} />
       )}
       {active === "wartime" && policy?.wartime && <WartimeView data={policy.wartime} />}
-      {active === "whatif" && (
-        <WhatIf bundle={bundle} insights={insights} initial={startingPoint} />
-      )}
       {active === "evidence" && analysis && (
         <div className="space-y-6">
           <Models analysis={analysis} />
           <Evidence analysis={analysis} />
         </div>
       )}
-      {active === "predict" && schema && <Predict schema={schema} />}
+      {active === "predict" && schema && (
+        <Predict schema={schema} browser={bundle} insights={insights} initial={startingPoint} />
+      )}
       {active === "reports" && documents && (
         <Reports data={documents} initialDoc={doc} />
       )}

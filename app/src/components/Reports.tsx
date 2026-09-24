@@ -128,6 +128,9 @@ export default function Reports({
   const [error, setError] = useState<string | null>(null);
   const [fig, setFig] = useState<FigureEntry | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  // Reports is the home page: on arrival stay at the top, where the tabs are,
+  // unless the address asked for a particular document.
+  const stayOnTop = useRef<string | null>(initialDoc ? null : active);
 
   useEffect(() => {
     if (initialDoc) setActive(initialDoc);
@@ -135,12 +138,15 @@ export default function Reports({
 
   useEffect(() => {
     if (active === "figures") return;
+    if (active !== stayOnTop.current) stayOnTop.current = null;
     setError(null);
     fetch(asset(`/docs/${active}.md`))
       .then((r) => (r.ok ? r.text() : Promise.reject(r.status)))
       .then((t) => {
         setText(t);
-        ref.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+        if (stayOnTop.current !== active) {
+          ref.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+        }
       })
       .catch((e) => setError(String(e)));
   }, [active]);

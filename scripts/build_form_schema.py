@@ -4,8 +4,13 @@ The form is derived from what the models actually expect rather than hand-writte
 so a field cannot silently drift away from the feature it feeds. Option lists come
 straight from the fitted encoders' category lists.
 
-Run after both bundles exist:
+Run after the bundles exist:
     python scripts/build_form_schema.py
+
+Writes app/public/form_schema.json -- every deployed model with the outcome and
+horizon it predicts, its held-out AP and AUROC and the questions it asks -- and
+app/public/browser_models.json, the additive models (explainable boosting and
+logistic regression) that the Predict tab scores in the browser.
 """
 
 from __future__ import annotations
@@ -150,106 +155,164 @@ def field_for(name, spec, register_row):
     return field
 
 
+OUTCOMES = {"anc1plus": "ANC1+", "anc4plus": "ANC4+", "anc8plus": "ANC8+"}
+HORIZONS = {"before": "Before ANC starts", "entry": "At the first ANC visit"}
+
+# Which model the study points to for each outcome and horizon (FINDINGS.md,
+# docs/PREDICTOR_VALUE.md, docs/HORIZONS.md). For ANC8+, and for both rungs
+# at ANC entry, a small set does as well as the larger ones, so the small
+# logistic model is the recommendation; for ANC1+ and ANC4+ before ANC the
+# full pool beats the 21, so the full pool's headline model is.
+RECOMMENDED = {
+    ("anc1plus", "before"): ("pool_anc1plus", None),
+    ("anc4plus", "before"): ("pool_anc4plus", None),
+    ("anc8plus", "before"): ("small", "anc8plus · before · "),
+    ("anc4plus", "entry"): ("small", "anc4plus · entry · "),
+    ("anc8plus", "entry"): ("small", "anc8plus · entry · "),
+}
+
+# Additive models are scored in the browser, so they respond as answers change
+# and their contributions are exact; everything else goes to the service.
+BROWSER_KINDS = {"ebm", "logistic"}
+
+
+def bundle_fields(pre):
+    return (pre["numeric"] + pre.get("binary", []) + pre["categorical"]
+            + pre.get("extra", []))
+
+
 def main():
-    v1 = load(MODELS / "v1_bundle.json.gz")
-    v1_pre = v1["preprocessors"][v1["models"]["XGBoost"]["preprocessor"]]
-
     reg1 = pd.read_csv(ROOT / "outputs" / "ANC8_predictor_register_final.csv")
-    reg1_map = {r.final_variable: {"domain": r.domain, "description": r.construct}
-                for r in reg1.itertuples()}
+    reg2 = pd.read_csv(ENHANCED / "predictor_register_v2.csv")
+    register = {r.final_variable: {"domain": r.domain, "description": r.description}
+                for r in reg2.itertuples()}
+    register.update({r.final_variable: {"domain": r.domain, "description": r.construct}
+                     for r in reg1.itertuples()})
 
-    v1_fields = [
-        field_for(n, v1_pre, reg1_map.get(n))
-        for n in v1_pre["numeric"] + v1_pre.get("binary", []) + v1_pre["categorical"]
-    ]
+    held = {o: pd.read_csv(ENHANCED / o / "heldout_performance.csv") for o in OUTCOMES}
+    t1 = pd.read_csv(ROOT / "outputs/publication_results/main_tables"
+                            "/Table_1_full_cohort_heldout_performance.csv").set_index("Model")
+    t2 = pd.read_csv(ROOT / "outputs/publication_results/main_tables"
+                            "/Table_2_anc_entry_probability_performance.csv").set_index("Algorithm")
+    insights = json.loads((ROOT / "app" / "public" / "insights.json").read_text(encoding="utf-8"))
+
+    fields, models = {}, []
+    browser = {"preprocessors": {}, "models": {}}
+    prevalence = {(o, "before"): insights["outcomes"][o]["weighted_prevalence"]
+                  for o in OUTCOMES if o in insights.get("outcomes", {})}
+
+    def add(bundle_key, bundle, name, *, outcome, horizon, set_label, algorithm,
+            ap, auroc, predictors=None, note=""):
+        m = bundle["models"][name]
+        pre = bundle["preprocessors"][m["preprocessor"]]
+        asked = bundle_fields(pre)
+        for n in asked:
+            if n not in fields:
+                f = field_for(n, pre, register.get(n))
+                if n == "early_anc":
+                    f["type"] = "select"
+                    f["options"] = [
+                        {"value": "0", "label": "No -- first contact after 12 weeks"},
+                        {"value": "1", "label": "Yes -- first contact at or before 12 weeks"}]
+                    f["domain"] = "Health service and access"
+                    f["default"] = None
+                fields[n] = f
+        mid = f"{bundle_key}::{name}"
+        rec = RECOMMENDED.get((outcome, horizon))
+        recommended = bool(rec) and rec[0] == bundle_key and (
+            name.startswith(rec[1]) if rec[1] else name == bundle.get("champion"))
+        in_browser = m["kind"] in BROWSER_KINDS
+        if in_browser:
+            browser["preprocessors"][mid] = pre
+            browser["models"][mid] = {**m, "preprocessor": mid}
+        models.append({
+            "id": mid, "bundle": bundle_key, "model": name,
+            "outcome": outcome, "horizon": horizon,
+            "set": set_label, "algorithm": algorithm,
+            "n_predictors": len(predictors or asked), "fields": asked,
+            "heldout_AP": None if ap is None or pd.isna(ap) else float(ap),
+            "heldout_AUROC": None if auroc is None or pd.isna(auroc) else float(auroc),
+            "threshold": m.get("threshold"),
+            "browser": in_browser, "recommended": recommended,
+            "headline": name == bundle.get("champion"),
+            "note": note,
+        })
+
+    # ---- the 21-predictor models -----------------------------------------
+    v1 = load(MODELS / "v1_bundle.json.gz")
+    for name in v1["models"]:
+        r = t1.loc[name]
+        add("v1", v1, name, outcome="anc8plus", horizon="before",
+            set_label="21 predictors", algorithm=name,
+            ap=r.Weighted_AP, auroc=r.Weighted_AUROC)
+    ve = load(MODELS / "v1_anc_entry_bundle.json.gz")
+    for name in ve["models"]:
+        algo, spec = name.rsplit(" (", 1)
+        spec = spec.rstrip(")")
+        r = t2.loc[algo]
+        add("v1_anc_entry", ve, name, outcome="anc8plus", horizon="entry",
+            set_label="21 predictors" + (" + early ANC" if spec == "Extended" else ""),
+            algorithm=algo, ap=r[f"{spec}_Weighted_AP"],
+            auroc=r[f"{spec}_Weighted_AUROC"])
+
+    # ---- the full-pool models, one bundle per outcome -----------------------
+    not_deployed = {}
+    for outcome, key in (("anc1plus", "pool_anc1plus"), ("anc4plus", "pool_anc4plus"),
+                         ("anc8plus", "v2")):
+        path = MODELS / f"{key}_bundle.json.gz"
+        if not path.exists():
+            continue
+        b = load(path)
+        h = held[outcome]
+        h = h[~h.generation.astype(str).str.startswith("V1")].set_index("model")
+        for name in b["models"]:
+            add(key, b, name, outcome=outcome, horizon="before",
+                set_label="Full pool", algorithm=name,
+                ap=h.AP.get(name), auroc=h.AUROC.get(name),
+                note=("a short list of the full pool's strongest predictors"
+                      if name == "Parsimonious" else ""))
+        if b.get("not_deployed"):
+            not_deployed[outcome] = b["not_deployed"]
+
+    # ---- the study's best small sets ---------------------------------------
+    small_path = MODELS / "small_bundle.json.gz"
+    if small_path.exists():
+        sb = load(small_path)
+        for c in sb["catalog"]:
+            label = c["set"]
+            label = ("Best " + label.removeprefix("best ")) if label.startswith("best ") \
+                else label[0].upper() + label[1:]
+            add("small", sb, c["model"], outcome=c["outcome"], horizon=c["horizon"],
+                set_label=label, algorithm="Logistic regression",
+                ap=c["heldout_AP"], auroc=c["heldout_AUROC"],
+                predictors=c["predictors"])
+            prevalence.setdefault((c["outcome"], c["horizon"]), c["prevalence"])
+
+    order = {k: i for i, k in enumerate(DOMAIN_ORDER)}
+    ordered = sorted(fields.values(),
+                     key=lambda f: (order.get(f["domain"], len(DOMAIN_ORDER)), f["label"]))
 
     schema = {
-        "v1": {
-            "title": "21-predictor models, before ANC",
-            "subtitle": "logistic regression, random forest, XGBoost",
-            "fields": v1_fields,
-            "models": list(v1["models"]),
-        }
+        "outcomes": OUTCOMES,
+        "horizons": HORIZONS,
+        "prevalence": {f"{o}|{h}": p for (o, h), p in prevalence.items()},
+        "fields": ordered,
+        "models": models,
+        "not_deployed": not_deployed,
     }
-
-    # ---- ANC-entry horizon ------------------------------------------------
-    entry_path = MODELS / "v1_anc_entry_bundle.json.gz"
-    if entry_path.exists():
-        ve = load(entry_path)
-        first = list(ve["models"])[0]
-        ve_pre = ve["preprocessors"][ve["models"][first]["preprocessor"]]
-        # The Extended specification carries early_anc in its own block, so its
-        # preprocessor is the one that describes every field the horizon needs.
-        for mname, m in ve["models"].items():
-            pre = ve["preprocessors"][m["preprocessor"]]
-            if pre.get("extra"):
-                ve_pre = pre
-                break
-
-        entry_fields = []
-        for n in (ve_pre["numeric"] + ve_pre.get("binary", [])
-                  + ve_pre["categorical"] + ve_pre.get("extra", [])):
-            f = field_for(n, ve_pre, reg1_map.get(n))
-            if n == "early_anc":
-                f["type"] = "select"
-                f["options"] = [{"value": "0", "label": "No -- first contact after 12 weeks"},
-                                {"value": "1", "label": "Yes -- first contact at or before 12 weeks"}]
-                f["domain"] = "Health service and access"
-                f["default"] = None
-            entry_fields.append(f)
-
-        schema["v1_anc_entry"] = {
-            "title": "21-predictor models, at ANC entry",
-            "subtitle": "for women who have already started ANC",
-            "fields": entry_fields,
-            "models": list(ve["models"]),
-            "gating_field": "early_anc",
-        }
-
-    v2_path = MODELS / "v2_bundle.json.gz"
-    if v2_path.exists():
-        v2 = load(v2_path)
-        reg2 = pd.read_csv(ENHANCED / "predictor_register_v2.csv")
-        reg2_map = {r.final_variable: {"domain": r.domain, "description": r.description}
-                    for r in reg2.itertuples()}
-
-        champ = v2.get("champion") or list(v2["models"])[0]
-        if champ not in v2["models"]:
-            champ = list(v2["models"])[0]
-        v2_pre = v2["preprocessors"][v2["models"][champ]["preprocessor"]]
-
-        pars = json.loads((ENHANCED / "anc8plus" / "parsimonious_spec.json").read_text())
-        core = set(pars["predictors"])
-
-        v2_fields = []
-        for n in v2_pre["numeric"] + v2_pre.get("binary", []) + v2_pre["categorical"]:
-            f = field_for(n, v2_pre, reg2_map.get(n))
-            f["core"] = n in core
-            v2_fields.append(f)
-
-        schema["v2"] = {
-            "title": "Full-pool model",
-            "subtitle": f"{len(v2_fields)} predictors",
-            "fields": v2_fields,
-            "models": list(v2["models"]),
-            "champion": champ,
-            "core_predictors": pars["predictors"],
-        }
-
-    # Order fields by domain so the form reads like a questionnaire.
-    for gen in schema.values():
-        gen["fields"].sort(
-            key=lambda f: (DOMAIN_ORDER.index(f["domain"]) if f["domain"] in DOMAIN_ORDER
-                           else len(DOMAIN_ORDER), f["label"])
-        )
-
     out = ROOT / "app" / "public" / "form_schema.json"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(schema, indent=1), encoding="utf-8")
-    print(f"wrote {out}")
-    for k, g in schema.items():
-        print(f"  {k}: {len(g['fields'])} fields, models: {g['models']}")
-
+    out.write_text(json.dumps(schema, indent=1, ensure_ascii=False), encoding="utf-8")
+    bout = ROOT / "app" / "public" / "browser_models.json"
+    bout.write_text(json.dumps(browser, ensure_ascii=False), encoding="utf-8")
+    print(f"wrote {out}: {len(ordered)} fields, {len(models)} models")
+    print(f"wrote {bout}: {len(browser['models'])} models scored in the browser "
+          f"({bout.stat().st_size / 1024:.0f} KB)")
+    for m in models:
+        ap = m["heldout_AP"]
+        print(f"  {m['outcome']:8s} {m['horizon']:6s} {m['set']:28s} {m['algorithm']:22s} "
+              f"AP {'  -  ' if ap is None else f'{ap:.3f}'}"
+              f"{'  browser' if m['browser'] else ''}"
+              f"{'  RECOMMENDED' if m['recommended'] else ''}")
 
 if __name__ == "__main__":
     main()

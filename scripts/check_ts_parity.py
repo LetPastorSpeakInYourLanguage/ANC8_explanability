@@ -2,7 +2,8 @@
 
     python scripts/check_ts_parity.py
 
-The what-if view scores in the browser for responsiveness. That is only
+The Predict tab scores the additive models (explainable boosting, logistic
+regression) in the browser for responsiveness. That is only
 acceptable if the TypeScript port computes the same thing as the model that was
 actually fitted and evaluated -- otherwise the app shows numbers no part of the
 analysis produced.
@@ -51,30 +52,39 @@ fs.writeFileSync(process.argv[6], JSON.stringify(out));
 def main():
     import scorer
 
-    bundle_path = ROOT / "app" / "models" / "v2_bundle.json.gz"
+    bundle_path = ROOT / "app" / "public" / "browser_models.json"
     if not bundle_path.exists():
-        print("v2 bundle not built yet; run scripts/export_serving.py --v2")
+        print("browser models not built yet; run scripts/build_form_schema.py")
         sys.exit(1)
-
-    with gzip.open(bundle_path, "rt", encoding="utf-8") as fh:
-        bundle = json.load(fh)
-
-    ebm_models = [n for n, m in bundle["models"].items() if m.get("kind") == "ebm"]
+    bundle = json.loads(bundle_path.read_text(encoding="utf-8"))
+    ebm_models = list(bundle["models"])
     if not ebm_models:
-        print("no additive model in the bundle; nothing to score in the browser")
+        print("no additive model to score in the browser")
         sys.exit(1)
 
-    from anc8 import design
+    from anc8 import cohorts, selection as sel
 
-    df = pd.read_pickle(ROOT / "outputs" / "enhanced" / "ANC8_analysis_frozen_v2.pkl")
-    _, test_psus = design.make_psu_holdout(df)
-    held = df[df.v021.isin(test_psus)].reset_index(drop=True)
-
-    spec = json.load(open(ROOT / "outputs" / "enhanced" / "feature_spec_v2.json"))
-    cols = spec["numeric_predictors"] + spec["categorical_predictors"]
-    X = held[cols].copy()
-    for c in spec["categorical_predictors"]:
-        X[c] = X[c].astype(str)
+    # Held-out women with every column any browser model asks for: the
+    # analysis frame, the 21-predictor frame for its own codings, and early
+    # ANC for the women who started ANC (missing, so imputed, for the rest).
+    df, _ = sel.build_pool(cohorts.load("full"))
+    held = cohorts.heldout(df)
+    entry, _ = sel.build_pool(cohorts.load("entry"))
+    frozen = pd.read_pickle(ROOT / "outputs" / "ANC8_analysis_frozen.pkl")
+    kinds = {}
+    for pre in bundle["preprocessors"].values():
+        for c in pre["numeric"] + pre.get("extra", []):
+            kinds.setdefault(c, "num")
+        for c in pre.get("binary", []) + pre["categorical"]:
+            kinds.setdefault(c, "cat")
+    missing = [c for c in kinds if c not in held.columns and c != "early_anc"]
+    held = held.merge(frozen[["caseid"] + [c for c in missing if c in frozen.columns]],
+                      on="caseid", how="left")
+    held = held.merge(entry[["caseid", "early_anc"]], on="caseid", how="left")
+    X = pd.DataFrame({c: held[c] for c in kinds})
+    for c, k in kinds.items():
+        if k == "cat":
+            X[c] = X[c].where(X[c].isna(), X[c].astype(str))
     rows = X.astype(object).where(pd.notna(X), None).to_dict("records")
 
     # Compile the TypeScript port once, then drive it from node.
@@ -112,7 +122,7 @@ def main():
             d = np.abs(ts_p - py_p).max()
             ok = d < TOLERANCE
             failures += not ok
-            print(f"  {model:30s} TS vs Python  max|diff|={d:.3e}  "
+            print(f"  {model[:52]:52s} TS vs Python  max|diff|={d:.3e}  "
                   f"{'PASS' if ok else 'FAIL'}")
 
             # The displayed bars must reconstruct the displayed probability, or
@@ -120,7 +130,7 @@ def main():
             recon = np.abs(1 / (1 + np.exp(-ts_sum)) - ts_p).max()
             ok2 = recon < TOLERANCE
             failures += not ok2
-            print(f"  {'':30s} contributions sum to probability: "
+            print(f"  {'':52s} contributions sum to probability: "
                   f"max|diff|={recon:.3e}  {'PASS' if ok2 else 'FAIL'}")
 
     print()
