@@ -14,7 +14,7 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const studio = useStudio();
-  const { theme, toggle, present, togglePresent } = useTheme();
+  const { toggle, present, togglePresent } = useTheme();
   const active = modeForPath(pathname);
   const searchRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
@@ -179,8 +179,13 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
         aria-label="Toggle theme"
         className="border border-topline2 bg-topfill2 text-current h-26 md:h-24 px-8 md:px-9 rounded-3 text-11 flex items-center gap-5 flex-none"
       >
-        {theme === "light" ? <Sun className="size-12" /> : <Moon className="size-12" />}
-        <span className="hidden lg:inline">{theme === "light" ? "Light" : "Dark"}</span>
+        {/* Both are rendered and CSS picks one from <html data-theme>, so the server
+            and the browser produce the same markup (the theme is only known in the
+            browser). */}
+        <Sun className="size-12 theme-light-only" />
+        <Moon className="size-12 theme-dark-only" />
+        <span className="hidden lg:inline theme-light-only">Light</span>
+        <span className="hidden lg:inline theme-dark-only">Dark</span>
       </button>
     </div>
   );

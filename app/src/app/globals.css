@@ -528,3 +528,26 @@
   --text-13\.5: calc(13.5px * var(--font-scale, 1));
   --spacing-0\.5: 1px;
 }
+
+/* Region fills animate when the metric changes: the map "transforms" rather than
+   jumping, which is what lets a meeting follow ANC1+ -> ANC4+ -> ANC8+. */
+path.leaflet-interactive,
+.studio-minimap path {
+  transition: fill 650ms ease, stroke 200ms ease, stroke-width 200ms ease;
+}
+.studio-maplabel-wrap { background: none; border: 0; }
+.studio-maplabel {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-family-mono);
+  font-size: calc(10.5px * var(--font-scale, 1));
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  /* a halo in the region's own tone keeps the value readable on any shade */
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+}
+
+/* Theme-dependent chrome rendered for both themes; the attribute picks one. */
+:root:not([data-theme="dark"]) .theme-dark-only { display: none !important; }
+:root[data-theme="dark"] .theme-light-only { display: none !important; }

@@ -1,0 +1,63 @@
+{
+ "births_per_year": 4176742,
+ "source": "UN World Population Prospects 2024, medium variant, births in 2025 (https://population.un.org/wpp/)",
+ "method": "national births x the region's survey-weighted share of births in the 24 months before interview",
+ "regions": {
+  "Addis Ababa": {
+   "share": 0.04394316266248929,
+   "births": 183539.25310525083
+  },
+  "Afar": {
+   "share": 0.01297345204472302,
+   "births": 54186.76204018052
+  },
+  "Amhara": {
+   "share": 0.2343876079675292,
+   "births": 978976.5664775139
+  },
+  "Benishangul-Gumuz": {
+   "share": 0.011449102809685311,
+   "births": 47819.94856753064
+  },
+  "Central Ethiopia": {
+   "share": 0.043100921134315254,
+   "births": 180021.42754038217
+  },
+  "Dire Dawa": {
+   "share": 0.004751170421913455,
+   "births": 19844.413050363644
+  },
+  "Gambella": {
+   "share": 0.0044536519018551724,
+   "births": 18601.754951858376
+  },
+  "Harari": {
+   "share": 0.002658957118018915,
+   "births": 11105.777871028558
+  },
+  "Oromia": {
+   "share": 0.39264709797057384,
+   "births": 1639985.6252718105
+  },
+  "Sidama": {
+   "share": 0.034007355907814805,
+   "births": 142039.9517291182
+  },
+  "Somali": {
+   "share": 0.04167100806474986,
+   "births": 174049.04956637946
+  },
+  "South Ethiopia": {
+   "share": 0.08146786398241708,
+   "births": 340270.2491456487
+  },
+  "South West Ethiopia": {
+   "share": 0.026753932981759307,
+   "births": 111744.27555009934
+  },
+  "Tigray": {
+   "share": 0.06573471503215572,
+   "births": 274556.9451328362
+  }
+ }
+}

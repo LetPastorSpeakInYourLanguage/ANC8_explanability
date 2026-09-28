@@ -1,0 +1,631 @@
+rung,region,concept,contribution,region_predicted,national_predicted,label,modifiable,lever
+anc1,Addis Ababa,agency,-0.19412569489787587,0.9715774063852526,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Addis Ababa,barriers,-0.010400049850093195,0.9715774063852526,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Addis Ababa,culture,0.07893391445970516,0.9715774063852526,0.77121501659176,Language and religion,False,
+anc1,Addis Ababa,education,0.3454915795373259,0.9715774063852526,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Addis Ababa,healthpost,0.28180650485017533,0.9715774063852526,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Addis Ababa,history,0.12306216864803075,0.9715774063852526,0.77121501659176,Age and pregnancy history,False,
+anc1,Addis Ababa,hospital,0.08448047319339572,0.9715774063852526,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Addis Ababa,household,0.18493796431642062,0.9715774063852526,0.77121501659176,Partner and household,False,
+anc1,Addis Ababa,information,-0.04617843503142741,0.9715774063852526,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Addis Ababa,insurance,-0.07619293013650241,0.9715774063852526,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Addis Ababa,intention,0.06028204214851859,0.9715774063852526,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Addis Ababa,place,0.42385078356602096,0.9715774063852526,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Addis Ababa,urban,0.41003016703823,0.9715774063852526,0.77121501659176,Urban or rural,False,
+anc1,Addis Ababa,wealth,0.4950686912594721,0.9715774063852526,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Addis Ababa,work,0.05716929639760304,0.9715774063852526,0.77121501659176,Her work,False,
+anc1,Afar,agency,0.048815370426718054,0.6468326844528743,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Afar,barriers,-0.0066710870325699615,0.6468326844528743,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Afar,culture,-0.04558061100528982,0.6468326844528743,0.77121501659176,Language and religion,False,
+anc1,Afar,education,-0.17042975531780583,0.6468326844528743,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Afar,healthpost,0.08359430466578685,0.6468326844528743,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Afar,history,-0.028731369192278186,0.6468326844528743,0.77121501659176,Age and pregnancy history,False,
+anc1,Afar,hospital,-0.01707990398714208,0.6468326844528743,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Afar,household,-0.1278968921882603,0.6468326844528743,0.77121501659176,Partner and household,False,
+anc1,Afar,information,-0.02295811796790135,0.6468326844528743,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Afar,insurance,-0.07933671589431925,0.6468326844528743,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Afar,intention,-0.07406446262013255,0.6468326844528743,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Afar,place,0.3147401481226643,0.6468326844528743,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Afar,urban,-0.024973544215649564,0.6468326844528743,0.77121501659176,Urban or rural,False,
+anc1,Afar,wealth,-0.608180607000143,0.6468326844528743,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Afar,work,-0.06774873822471761,0.6468326844528743,0.77121501659176,Her work,False,
+anc1,Amhara,agency,0.004097943276239562,0.8770513042960367,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Amhara,barriers,0.031231169926216315,0.8770513042960367,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Amhara,culture,0.12465834903616292,0.8770513042960367,0.77121501659176,Language and religion,False,
+anc1,Amhara,education,0.03738183830651992,0.8770513042960367,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Amhara,healthpost,0.0182284356023712,0.8770513042960367,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Amhara,history,0.03252622415457567,0.8770513042960367,0.77121501659176,Age and pregnancy history,False,
+anc1,Amhara,hospital,0.030524063488871177,0.8770513042960367,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Amhara,household,-0.004343955357228428,0.8770513042960367,0.77121501659176,Partner and household,False,
+anc1,Amhara,information,0.00702139484151248,0.8770513042960367,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Amhara,insurance,0.03867289245185067,0.8770513042960367,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Amhara,intention,0.021334283159260777,0.8770513042960367,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Amhara,place,0.12454117267046172,0.8770513042960367,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Amhara,urban,-0.019758535647095222,0.8770513042960367,0.77121501659176,Urban or rural,False,
+anc1,Amhara,wealth,0.2108255377479704,0.8770513042960367,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Amhara,work,0.0527949996109555,0.8770513042960367,0.77121501659176,Her work,False,
+anc1,Benishangul-Gumuz,agency,-0.005607805832899838,0.7434770474911804,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Benishangul-Gumuz,barriers,-0.02891706579844202,0.7434770474911804,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Benishangul-Gumuz,culture,0.004977460078162864,0.7434770474911804,0.77121501659176,Language and religion,False,
+anc1,Benishangul-Gumuz,education,0.0149687448185017,0.7434770474911804,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Benishangul-Gumuz,healthpost,-0.03275225618052311,0.7434770474911804,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Benishangul-Gumuz,history,-0.010061234862417574,0.7434770474911804,0.77121501659176,Age and pregnancy history,False,
+anc1,Benishangul-Gumuz,hospital,0.0022759718862158714,0.7434770474911804,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Benishangul-Gumuz,household,0.03521867785013561,0.7434770474911804,0.77121501659176,Partner and household,False,
+anc1,Benishangul-Gumuz,information,-0.004540437374954385,0.7434770474911804,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Benishangul-Gumuz,insurance,-0.0670510390137647,0.7434770474911804,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Benishangul-Gumuz,intention,-0.008211850321271353,0.7434770474911804,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Benishangul-Gumuz,place,0.016643911324423617,0.7434770474911804,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Benishangul-Gumuz,urban,0.024895225953382137,0.7434770474911804,0.77121501659176,Urban or rural,False,
+anc1,Benishangul-Gumuz,wealth,-0.12681610156252163,0.7434770474911804,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Benishangul-Gumuz,work,-0.04843816469921536,0.7434770474911804,0.77121501659176,Her work,False,
+anc1,Central Ethiopia,agency,-0.027085351866125235,0.817021188738894,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Central Ethiopia,barriers,0.022900675720512464,0.817021188738894,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Central Ethiopia,culture,-0.05317148615558594,0.817021188738894,0.77121501659176,Language and religion,False,
+anc1,Central Ethiopia,education,0.016105045479302627,0.817021188738894,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Central Ethiopia,healthpost,0.046605074104108773,0.817021188738894,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Central Ethiopia,history,0.0016695355318264542,0.817021188738894,0.77121501659176,Age and pregnancy history,False,
+anc1,Central Ethiopia,hospital,0.010440753523316231,0.817021188738894,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Central Ethiopia,household,0.03137849538885929,0.817021188738894,0.77121501659176,Partner and household,False,
+anc1,Central Ethiopia,information,-0.009096351354928417,0.817021188738894,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Central Ethiopia,insurance,-0.005102357693992252,0.817021188738894,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Central Ethiopia,intention,-0.01628251944294374,0.817021188738894,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Central Ethiopia,place,0.15608070142498173,0.817021188738894,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Central Ethiopia,urban,-0.027596216498217297,0.817021188738894,0.77121501659176,Urban or rural,False,
+anc1,Central Ethiopia,wealth,0.01209851499336106,0.817021188738894,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Central Ethiopia,work,-0.03042426346296838,0.817021188738894,0.77121501659176,Her work,False,
+anc1,Dire Dawa,agency,-0.08293740217121133,0.8720116632986553,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Dire Dawa,barriers,-0.006670066202102115,0.8720116632986553,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Dire Dawa,culture,0.0019971468308055155,0.8720116632986553,0.77121501659176,Language and religion,False,
+anc1,Dire Dawa,education,0.09288379500205507,0.8720116632986553,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Dire Dawa,healthpost,0.27848482442769135,0.8720116632986553,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Dire Dawa,history,0.04017623621764855,0.8720116632986553,0.77121501659176,Age and pregnancy history,False,
+anc1,Dire Dawa,hospital,0.06256367246328257,0.8720116632986553,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Dire Dawa,household,0.028582852366114256,0.8720116632986553,0.77121501659176,Partner and household,False,
+anc1,Dire Dawa,information,-0.019683523577766916,0.8720116632986553,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Dire Dawa,insurance,-0.023581978064598476,0.8720116632986553,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Dire Dawa,intention,-0.06240169010740038,0.8720116632986553,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Dire Dawa,place,0.05021535253227275,0.8720116632986553,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Dire Dawa,urban,0.15091309446309925,0.8720116632986553,0.77121501659176,Urban or rural,False,
+anc1,Dire Dawa,wealth,0.25235179883818204,0.8720116632986553,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Dire Dawa,work,0.013226389952561783,0.8720116632986553,0.77121501659176,Her work,False,
+anc1,Gambella,agency,-0.039675880895364515,0.768438099956884,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Gambella,barriers,-0.01965964826397189,0.768438099956884,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Gambella,culture,-0.08911751385254144,0.768438099956884,0.77121501659176,Language and religion,False,
+anc1,Gambella,education,0.13654608394168344,0.768438099956884,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Gambella,healthpost,0.03059279654950899,0.768438099956884,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Gambella,history,-0.014292429475585176,0.768438099956884,0.77121501659176,Age and pregnancy history,False,
+anc1,Gambella,hospital,-0.015882751280296276,0.768438099956884,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Gambella,household,0.01763501441740577,0.768438099956884,0.77121501659176,Partner and household,False,
+anc1,Gambella,information,0.03993377346075114,0.768438099956884,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Gambella,insurance,-0.04847466200671347,0.768438099956884,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Gambella,intention,-0.039806473616033976,0.768438099956884,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Gambella,place,0.07055660830303721,0.768438099956884,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Gambella,urban,0.1237190362811112,0.768438099956884,0.77121501659176,Urban or rural,False,
+anc1,Gambella,wealth,-0.14677503136317366,0.768438099956884,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Gambella,work,-0.009966328356755911,0.768438099956884,0.77121501659176,Her work,False,
+anc1,Harari,agency,-0.06759133739394003,0.8452054931709622,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Harari,barriers,0.007371151879653891,0.8452054931709622,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Harari,culture,-0.014598989272915908,0.8452054931709622,0.77121501659176,Language and religion,False,
+anc1,Harari,education,0.11723059729165845,0.8452054931709622,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Harari,healthpost,-0.004602284128291816,0.8452054931709622,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Harari,history,-0.004780416179289929,0.8452054931709622,0.77121501659176,Age and pregnancy history,False,
+anc1,Harari,hospital,0.059798490147029475,0.8452054931709622,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Harari,household,0.09874077046857098,0.8452054931709622,0.77121501659176,Partner and household,False,
+anc1,Harari,information,-0.023335202726684594,0.8452054931709622,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Harari,insurance,0.05398359108658462,0.8452054931709622,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Harari,intention,-0.007326357049644447,0.8452054931709622,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Harari,place,0.017268148697726034,0.8452054931709622,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Harari,urban,0.03498441560173214,0.8452054931709622,0.77121501659176,Urban or rural,False,
+anc1,Harari,wealth,0.19430902438457281,0.8452054931709622,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Harari,work,0.043444063736423004,0.8452054931709622,0.77121501659176,Her work,False,
+anc1,Oromia,agency,0.04243039944181065,0.7165970695947552,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Oromia,barriers,-0.0328218497848849,0.7165970695947552,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Oromia,culture,-0.04755186893283464,0.7165970695947552,0.77121501659176,Language and religion,False,
+anc1,Oromia,education,-0.04692900914207103,0.7165970695947552,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Oromia,healthpost,-0.041266994815431404,0.7165970695947552,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Oromia,history,-0.023957736302059447,0.7165970695947552,0.77121501659176,Age and pregnancy history,False,
+anc1,Oromia,hospital,-0.0055896036739974805,0.7165970695947552,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Oromia,household,-0.0002926845670814778,0.7165970695947552,0.77121501659176,Partner and household,False,
+anc1,Oromia,information,-0.0016324721472008121,0.7165970695947552,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Oromia,insurance,0.022546545673610082,0.7165970695947552,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Oromia,intention,0.0063679489746325,0.7165970695947552,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Oromia,place,-0.18653778317139685,0.7165970695947552,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Oromia,urban,-0.033674132040015035,0.7165970695947552,0.77121501659176,Urban or rural,False,
+anc1,Oromia,wealth,-0.05779913938653428,0.7165970695947552,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Oromia,work,-0.024112023140297634,0.7165970695947552,0.77121501659176,Her work,False,
+anc1,Sidama,agency,0.04693018702875166,0.8037850198589473,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Sidama,barriers,0.10273478572864364,0.8037850198589473,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Sidama,culture,-0.13882461366466792,0.8037850198589473,0.77121501659176,Language and religion,False,
+anc1,Sidama,education,0.04553377200089003,0.8037850198589473,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Sidama,healthpost,0.014707474478210575,0.8037850198589473,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Sidama,history,0.028546656968038896,0.8037850198589473,0.77121501659176,Age and pregnancy history,False,
+anc1,Sidama,hospital,-0.016953756087301087,0.8037850198589473,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Sidama,household,0.10869680456299505,0.8037850198589473,0.77121501659176,Partner and household,False,
+anc1,Sidama,information,0.00726541581599605,0.8037850198589473,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Sidama,insurance,-0.04692117096742348,0.8037850198589473,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Sidama,intention,0.05918921750816565,0.8037850198589473,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Sidama,place,0.012910353654800654,0.8037850198589473,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Sidama,urban,-0.014187999106586378,0.8037850198589473,0.77121501659176,Urban or rural,False,
+anc1,Sidama,wealth,-0.11633836539824097,0.8037850198589473,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Sidama,work,0.018233690849691737,0.8037850198589473,0.77121501659176,Her work,False,
+anc1,Somali,agency,-0.19937476887466854,0.41644153061312433,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Somali,barriers,-0.04206464101468907,0.41644153061312433,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Somali,culture,-0.07870857862295233,0.41644153061312433,0.77121501659176,Language and religion,False,
+anc1,Somali,education,-0.19843615374569115,0.41644153061312433,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Somali,healthpost,-0.05378809841105989,0.41644153061312433,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Somali,history,-0.0965017483990443,0.41644153061312433,0.77121501659176,Age and pregnancy history,False,
+anc1,Somali,hospital,0.00291587976323408,0.41644153061312433,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Somali,household,-0.25281014603531937,0.41644153061312433,0.77121501659176,Partner and household,False,
+anc1,Somali,information,-0.03219542259244165,0.41644153061312433,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Somali,insurance,-0.10291436318433143,0.41644153061312433,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Somali,intention,-0.2032737065114495,0.41644153061312433,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Somali,place,-0.23001718332737986,0.41644153061312433,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Somali,urban,0.04804096225901046,0.41644153061312433,0.77121501659176,Urban or rural,False,
+anc1,Somali,wealth,-0.5495491297028022,0.41644153061312433,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Somali,work,-0.07775908647551731,0.41644153061312433,0.77121501659176,Her work,False,
+anc1,South Ethiopia,agency,0.021545043654311744,0.7437998458763919,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,South Ethiopia,barriers,-0.013105844534058678,0.7437998458763919,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,South Ethiopia,culture,-0.10508871551645628,0.7437998458763919,0.77121501659176,Language and religion,False,
+anc1,South Ethiopia,education,-0.0047381608693110346,0.7437998458763919,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,South Ethiopia,healthpost,-0.05782077148758749,0.7437998458763919,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,South Ethiopia,history,-0.015104483212051007,0.7437998458763919,0.77121501659176,Age and pregnancy history,False,
+anc1,South Ethiopia,hospital,-0.061426109575104644,0.7437998458763919,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,South Ethiopia,household,0.03292210314114351,0.7437998458763919,0.77121501659176,Partner and household,False,
+anc1,South Ethiopia,information,0.004088756625788064,0.7437998458763919,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,South Ethiopia,insurance,-0.005785621912438004,0.7437998458763919,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,South Ethiopia,intention,-0.02079170607520888,0.7437998458763919,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,South Ethiopia,place,0.0160633272590866,0.7437998458763919,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,South Ethiopia,urban,-0.010800949267565023,0.7437998458763919,0.77121501659176,Urban or rural,False,
+anc1,South Ethiopia,wealth,-0.0719153817282547,0.7437998458763919,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,South Ethiopia,work,0.022317391304923953,0.7437998458763919,0.77121501659176,Her work,False,
+anc1,South West Ethiopia,agency,0.03506485115968818,0.7228231966365453,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,South West Ethiopia,barriers,-0.011938764601678954,0.7228231966365453,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,South West Ethiopia,culture,-0.054452407154495064,0.7228231966365453,0.77121501659176,Language and religion,False,
+anc1,South West Ethiopia,education,-0.044615867286533245,0.7228231966365453,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,South West Ethiopia,healthpost,-0.047765575336828806,0.7228231966365453,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,South West Ethiopia,history,-0.013204369828290794,0.7228231966365453,0.77121501659176,Age and pregnancy history,False,
+anc1,South West Ethiopia,hospital,-0.0528000599709398,0.7228231966365453,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,South West Ethiopia,household,-0.019721855772872186,0.7228231966365453,0.77121501659176,Partner and household,False,
+anc1,South West Ethiopia,information,-0.012473494751991884,0.7228231966365453,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,South West Ethiopia,insurance,-0.014824516245211266,0.7228231966365453,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,South West Ethiopia,intention,0.019388169769401678,0.7228231966365453,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,South West Ethiopia,place,0.027549518349727926,0.7228231966365453,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,South West Ethiopia,urban,-0.029471449653205202,0.7228231966365453,0.77121501659176,Urban or rural,False,
+anc1,South West Ethiopia,wealth,-0.19452822107164497,0.7228231966365453,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,South West Ethiopia,work,-0.030994611725948747,0.7228231966365453,0.77121501659176,Her work,False,
+anc1,Tigray,agency,-0.06644296646845785,0.8359024946260355,0.77121501659176,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc1,Tigray,barriers,0.0770145007102675,0.8359024946260355,0.77121501659176,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc1,Tigray,culture,0.11554164134354827,0.8359024946260355,0.77121501659176,Language and religion,False,
+anc1,Tigray,education,0.04544435661149807,0.8359024946260355,0.77121501659176,Her education,False,Long-term: girls' schooling
+anc1,Tigray,healthpost,0.05291653675761626,0.8359024946260355,0.77121501659176,Health post access,True,"More health posts, outreach days, health extension workers"
+anc1,Tigray,history,0.020094078723179025,0.8359024946260355,0.77121501659176,Age and pregnancy history,False,
+anc1,Tigray,hospital,-0.037450865555780345,0.8359024946260355,0.77121501659176,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc1,Tigray,household,-0.047590547984459185,0.8359024946260355,0.77121501659176,Partner and household,False,
+anc1,Tigray,information,0.04342926713668542,0.8359024946260355,0.77121501659176,Information and media,True,"Radio, TV and mobile health messaging"
+anc1,Tigray,insurance,-0.09019417154538067,0.8359024946260355,0.77121501659176,Health insurance,True,Community-based health insurance enrolment
+anc1,Tigray,intention,-0.009546281792227437,0.8359024946260355,0.77121501659176,Wanted pregnancy and family size,True,Family planning services and counselling
+anc1,Tigray,place,0.33046643637604695,0.8359024946260355,0.77121501659176,Region,False,What is left once the women themselves are accounted for: the region's services
+anc1,Tigray,urban,0.006980981890565644,0.8359024946260355,0.77121501659176,Urban or rural,False,
+anc1,Tigray,wealth,-0.03841635517661318,0.8359024946260355,0.77121501659176,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc1,Tigray,work,-0.018377605283561433,0.8359024946260355,0.77121501659176,Her work,False,
+anc4,Addis Ababa,agency,-0.05954530362653648,0.9058165971357729,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Addis Ababa,barriers,0.024546877902203428,0.9058165971357729,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Addis Ababa,culture,0.06127357616901147,0.9058165971357729,0.5190419393310902,Language and religion,False,
+anc4,Addis Ababa,education,0.21349661724417632,0.9058165971357729,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Addis Ababa,healthpost,0.08849233915069336,0.9058165971357729,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Addis Ababa,history,0.09418462937294528,0.9058165971357729,0.5190419393310902,Age and pregnancy history,False,
+anc4,Addis Ababa,hospital,0.050331645460173303,0.9058165971357729,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Addis Ababa,household,0.1606135527933527,0.9058165971357729,0.5190419393310902,Partner and household,False,
+anc4,Addis Ababa,information,0.2768583782119699,0.9058165971357729,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Addis Ababa,insurance,-0.06561700603204836,0.9058165971357729,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Addis Ababa,intention,0.04896816503059337,0.9058165971357729,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Addis Ababa,place,0.6623684331871685,0.9058165971357729,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Addis Ababa,urban,0.21170929502355088,0.9058165971357729,0.5190419393310902,Urban or rural,False,
+anc4,Addis Ababa,wealth,0.5571545212823014,0.9058165971357729,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Addis Ababa,work,0.012018538682950074,0.9058165971357729,0.5190419393310902,Her work,False,
+anc4,Afar,agency,0.0027048662896583383,0.3865352659357177,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Afar,barriers,-0.0069324812564798294,0.3865352659357177,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Afar,culture,-0.10084575383454905,0.3865352659357177,0.5190419393310902,Language and religion,False,
+anc4,Afar,education,-0.11051372523780982,0.3865352659357177,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Afar,healthpost,0.01923151637797666,0.3865352659357177,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Afar,history,-0.025691614911901077,0.3865352659357177,0.5190419393310902,Age and pregnancy history,False,
+anc4,Afar,hospital,-0.04862547157554771,0.3865352659357177,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Afar,household,-0.08112773581721833,0.3865352659357177,0.5190419393310902,Partner and household,False,
+anc4,Afar,information,-0.038518565176442324,0.3865352659357177,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Afar,insurance,-0.06832442007511724,0.3865352659357177,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Afar,intention,-0.0855614699101033,0.3865352659357177,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Afar,place,0.47915938105511013,0.3865352659357177,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Afar,urban,-0.012894493784018772,0.3865352659357177,0.5190419393310902,Urban or rural,False,
+anc4,Afar,wealth,-0.5322213078500551,0.3865352659357177,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Afar,work,-0.0449139292232458,0.3865352659357177,0.5190419393310902,Her work,False,
+anc4,Amhara,agency,0.0006053885380754298,0.6188214445167077,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Amhara,barriers,0.007113609280667078,0.6188214445167077,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Amhara,culture,0.08139058429185658,0.6188214445167077,0.5190419393310902,Language and religion,False,
+anc4,Amhara,education,0.027327073293302195,0.6188214445167077,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Amhara,healthpost,0.005321039871812997,0.6188214445167077,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Amhara,history,0.009027078544059531,0.6188214445167077,0.5190419393310902,Age and pregnancy history,False,
+anc4,Amhara,hospital,0.02307915551984142,0.6188214445167077,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Amhara,household,0.002273416481049952,0.6188214445167077,0.5190419393310902,Partner and household,False,
+anc4,Amhara,information,0.008117643742802994,0.6188214445167077,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Amhara,insurance,0.0333049196656914,0.6188214445167077,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Amhara,intention,0.02169075434099755,0.6188214445167077,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Amhara,place,0.0607465043009882,0.6188214445167077,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Amhara,urban,-0.010201848519487609,0.6188214445167077,0.5190419393310902,Urban or rural,False,
+anc4,Amhara,wealth,0.16496497411263875,0.6188214445167077,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Amhara,work,0.03602180130683741,0.6188214445167077,0.5190419393310902,Her work,False,
+anc4,Benishangul-Gumuz,agency,-0.0010864281670663657,0.49639808524742945,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Benishangul-Gumuz,barriers,-0.005661128522291742,0.49639808524742945,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Benishangul-Gumuz,culture,-0.04789547045580574,0.49639808524742945,0.5190419393310902,Language and religion,False,
+anc4,Benishangul-Gumuz,education,0.012733639808122008,0.49639808524742945,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Benishangul-Gumuz,healthpost,0.03947334020913748,0.49639808524742945,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Benishangul-Gumuz,history,-0.0039255367425685235,0.49639808524742945,0.5190419393310902,Age and pregnancy history,False,
+anc4,Benishangul-Gumuz,hospital,-0.006249679829626411,0.49639808524742945,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Benishangul-Gumuz,household,0.05281647832055672,0.49639808524742945,0.5190419393310902,Partner and household,False,
+anc4,Benishangul-Gumuz,information,-0.018984713936893615,0.49639808524742945,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Benishangul-Gumuz,insurance,-0.057744050839613176,0.49639808524742945,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Benishangul-Gumuz,intention,-0.001788529890020386,0.49639808524742945,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Benishangul-Gumuz,place,0.04310653480664275,0.49639808524742945,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Benishangul-Gumuz,urban,0.012854056017666397,0.49639808524742945,0.5190419393310902,Urban or rural,False,
+anc4,Benishangul-Gumuz,wealth,-0.13400846428466195,0.49639808524742945,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Benishangul-Gumuz,work,0.00683024596277735,0.49639808524742945,0.5190419393310902,Her work,False,
+anc4,Central Ethiopia,agency,-0.0001723177313605747,0.5068996953272602,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Central Ethiopia,barriers,0.005020123252704809,0.5068996953272602,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Central Ethiopia,culture,-0.08024514496141444,0.5068996953272602,0.5190419393310902,Language and religion,False,
+anc4,Central Ethiopia,education,0.007356423410542947,0.5068996953272602,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Central Ethiopia,healthpost,0.019669390685418283,0.5068996953272602,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Central Ethiopia,history,-0.0007729412667694981,0.5068996953272602,0.5190419393310902,Age and pregnancy history,False,
+anc4,Central Ethiopia,hospital,0.012987074432119529,0.5068996953272602,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Central Ethiopia,household,-0.01038028971521708,0.5068996953272602,0.5190419393310902,Partner and household,False,
+anc4,Central Ethiopia,information,-0.022858275554780635,0.5068996953272602,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Central Ethiopia,insurance,-0.004394127315809331,0.5068996953272602,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Central Ethiopia,intention,-0.012610169328470129,0.5068996953272602,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Central Ethiopia,place,0.030362950601556228,0.5068996953272602,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Central Ethiopia,urban,-0.014248648050352154,0.5068996953272602,0.5190419393310902,Urban or rural,False,
+anc4,Central Ethiopia,wealth,0.01470318867164561,0.5068996953272602,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Central Ethiopia,work,-0.01756896558755263,0.5068996953272602,0.5190419393310902,Her work,False,
+anc4,Dire Dawa,agency,-0.021992137329095558,0.6514103588233626,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Dire Dawa,barriers,0.012802627227033068,0.6514103588233626,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Dire Dawa,culture,0.02225236948654929,0.6514103588233626,0.5190419393310902,Language and religion,False,
+anc4,Dire Dawa,education,0.06048908657659748,0.6514103588233626,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Dire Dawa,healthpost,0.10535034073467162,0.6514103588233626,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Dire Dawa,history,0.013929028186729496,0.6514103588233626,0.5190419393310902,Age and pregnancy history,False,
+anc4,Dire Dawa,hospital,0.03355074705828591,0.6514103588233626,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Dire Dawa,household,0.04234790705820691,0.6514103588233626,0.5190419393310902,Partner and household,False,
+anc4,Dire Dawa,information,0.09397418134102177,0.6514103588233626,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Dire Dawa,insurance,-0.020308692606258946,0.6514103588233626,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Dire Dawa,intention,-0.062292041342826884,0.6514103588233626,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Dire Dawa,place,0.03574785945947395,0.6514103588233626,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Dire Dawa,urban,0.0779203761259508,0.6514103588233626,0.5190419393310902,Urban or rural,False,
+anc4,Dire Dawa,wealth,0.30199908162568256,0.6514103588233626,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Dire Dawa,work,-0.010319834855755093,0.6514103588233626,0.5190419393310902,Her work,False,
+anc4,Gambella,agency,0.012561038586225402,0.5046392284516632,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Gambella,barriers,-0.0030642484902646803,0.5046392284516632,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Gambella,culture,-0.12459417399692627,0.5046392284516632,0.5190419393310902,Language and religion,False,
+anc4,Gambella,education,0.10116478805936809,0.5046392284516632,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Gambella,healthpost,0.04598142636195628,0.5046392284516632,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Gambella,history,0.02314012072609454,0.5046392284516632,0.5190419393310902,Age and pregnancy history,False,
+anc4,Gambella,hospital,-0.014331902434534412,0.5046392284516632,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Gambella,household,0.047603737234509814,0.5046392284516632,0.5190419393310902,Partner and household,False,
+anc4,Gambella,information,0.024692155690305452,0.5046392284516632,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Gambella,insurance,-0.04174615917247936,0.5046392284516632,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Gambella,intention,-0.048149241889778004,0.5046392284516632,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Gambella,place,-0.04720118318439602,0.5046392284516632,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Gambella,urban,0.06387937292824855,0.5046392284516632,0.5190419393310902,Urban or rural,False,
+anc4,Gambella,wealth,-0.12692639566521868,0.5046392284516632,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Gambella,work,-0.006323116220046305,0.5046392284516632,0.5190419393310902,Her work,False,
+anc4,Harari,agency,-0.011847903646792347,0.615008095254326,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Harari,barriers,0.037060042779554686,0.615008095254326,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Harari,culture,0.015126796654777265,0.615008095254326,0.5190419393310902,Language and religion,False,
+anc4,Harari,education,0.06741190648535438,0.615008095254326,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Harari,healthpost,-0.015326101154168638,0.615008095254326,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Harari,history,0.00455954463406424,0.615008095254326,0.5190419393310902,Age and pregnancy history,False,
+anc4,Harari,hospital,0.021603239823713836,0.615008095254326,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Harari,household,0.07612922199659608,0.615008095254326,0.5190419393310902,Partner and household,False,
+anc4,Harari,information,0.10879016540419033,0.615008095254326,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Harari,insurance,0.04649042392271843,0.615008095254326,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Harari,intention,-0.015074810980824959,0.615008095254326,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Harari,place,-0.060087002380766495,0.615008095254326,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Harari,urban,0.018063368403727954,0.615008095254326,0.5190419393310902,Urban or rural,False,
+anc4,Harari,wealth,0.19278487965821856,0.615008095254326,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Harari,work,0.0017040098923544042,0.615008095254326,0.5190419393310902,Her work,False,
+anc4,Oromia,agency,0.017004648085895833,0.47719467300397905,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Oromia,barriers,-0.0038331783890107538,0.47719467300397905,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Oromia,culture,0.007629653918827098,0.47719467300397905,0.5190419393310902,Language and religion,False,
+anc4,Oromia,education,-0.028600975272095434,0.47719467300397905,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Oromia,healthpost,-0.015977472558707535,0.47719467300397905,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Oromia,history,-0.011881820156364062,0.47719467300397905,0.5190419393310902,Age and pregnancy history,False,
+anc4,Oromia,hospital,-0.002354016489822297,0.47719467300397905,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Oromia,household,-0.011254186793646868,0.47719467300397905,0.5190419393310902,Partner and household,False,
+anc4,Oromia,information,-0.016997461256609718,0.47719467300397905,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Oromia,insurance,0.019416982925012333,0.47719467300397905,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Oromia,intention,0.010461684222925833,0.47719467300397905,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Oromia,place,-0.10646175836362518,0.47719467300397905,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Oromia,urban,-0.01738683474491001,0.47719467300397905,0.5190419393310902,Urban or rural,False,
+anc4,Oromia,wealth,-0.052333880266994016,0.47719467300397905,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Oromia,work,-0.010704735039451766,0.47719467300397905,0.5190419393310902,Her work,False,
+anc4,Sidama,agency,0.004097345302252613,0.455645576738477,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Sidama,barriers,-0.007651051511840575,0.455645576738477,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Sidama,culture,-0.1848581001700711,0.455645576738477,0.5190419393310902,Language and religion,False,
+anc4,Sidama,education,0.02034578541069161,0.455645576738477,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Sidama,healthpost,0.0046362940547835475,0.455645576738477,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Sidama,history,0.03433361905531867,0.455645576738477,0.5190419393310902,Age and pregnancy history,False,
+anc4,Sidama,hospital,0.001156345696749112,0.455645576738477,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Sidama,household,0.0751011954318386,0.455645576738477,0.5190419393310902,Partner and household,False,
+anc4,Sidama,information,-0.02926974116833475,0.455645576738477,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Sidama,insurance,-0.04040829973180418,0.455645576738477,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Sidama,intention,0.05102118925972004,0.455645576738477,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Sidama,place,-0.11701146579375318,0.455645576738477,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Sidama,urban,-0.007325634868153754,0.455645576738477,0.5190419393310902,Urban or rural,False,
+anc4,Sidama,wealth,-0.11068475915096117,0.455645576738477,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Sidama,work,-0.01378052743273776,0.455645576738477,0.5190419393310902,Her work,False,
+anc4,Somali,agency,-0.042919038596216146,0.24248712657703128,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Somali,barriers,0.00868812300668745,0.24248712657703128,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Somali,culture,-0.10527667493406756,0.24248712657703128,0.5190419393310902,Language and religion,False,
+anc4,Somali,education,-0.12860314265305767,0.24248712657703128,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Somali,healthpost,-0.0028760073425343063,0.24248712657703128,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Somali,history,-0.04825975271315808,0.24248712657703128,0.5190419393310902,Age and pregnancy history,False,
+anc4,Somali,hospital,-0.01539666736848617,0.24248712657703128,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Somali,household,-0.16420986307468705,0.24248712657703128,0.5190419393310902,Partner and household,False,
+anc4,Somali,information,-0.03852614777628353,0.24248712657703128,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Somali,insurance,-0.08862938303793534,0.24248712657703128,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Somali,intention,-0.2373038331224631,0.24248712657703128,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Somali,place,-0.13416834771538394,0.24248712657703128,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Somali,urban,0.02480480479174064,0.24248712657703128,0.5190419393310902,Urban or rural,False,
+anc4,Somali,wealth,-0.4735219214375112,0.24248712657703128,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Somali,work,-0.05201167562274041,0.24248712657703128,0.5190419393310902,Her work,False,
+anc4,South Ethiopia,agency,0.002705325409350748,0.4479860219356333,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,South Ethiopia,barriers,-0.014176110482918792,0.4479860219356333,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,South Ethiopia,culture,-0.11860280816074675,0.4479860219356333,0.5190419393310902,Language and religion,False,
+anc4,South Ethiopia,education,-0.005355312550859871,0.4479860219356333,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,South Ethiopia,healthpost,-0.027096463159941405,0.4479860219356333,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,South Ethiopia,history,-0.0044247077077598,0.4479860219356333,0.5190419393310902,Age and pregnancy history,False,
+anc4,South Ethiopia,hospital,-0.04931354500756455,0.4479860219356333,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,South Ethiopia,household,0.013299309150566945,0.4479860219356333,0.5190419393310902,Partner and household,False,
+anc4,South Ethiopia,information,-0.015705759126560834,0.4479860219356333,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,South Ethiopia,insurance,-0.004982551363328135,0.4479860219356333,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,South Ethiopia,intention,-0.02384911670308202,0.4479860219356333,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,South Ethiopia,place,-0.047077593172943424,0.4479860219356333,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,South Ethiopia,urban,-0.00557681248562405,0.4479860219356333,0.5190419393310902,Urban or rural,False,
+anc4,South Ethiopia,wealth,-0.06329058003210741,0.4479860219356333,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,South Ethiopia,work,-0.0006038432913719801,0.4479860219356333,0.5190419393310902,Her work,False,
+anc4,South West Ethiopia,agency,0.00014890307753094925,0.4477944682227605,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,South West Ethiopia,barriers,-0.011542918498008863,0.4477944682227605,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,South West Ethiopia,culture,-0.09463040994837243,0.4477944682227605,0.5190419393310902,Language and religion,False,
+anc4,South West Ethiopia,education,-0.03526475652478126,0.4477944682227605,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,South West Ethiopia,healthpost,-0.008638247096989581,0.4477944682227605,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,South West Ethiopia,history,0.021076402372512203,0.4477944682227605,0.5190419393310902,Age and pregnancy history,False,
+anc4,South West Ethiopia,hospital,-0.027942226662000545,0.4477944682227605,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,South West Ethiopia,household,0.025539567740383923,0.4477944682227605,0.5190419393310902,Partner and household,False,
+anc4,South West Ethiopia,information,-0.07089250727885044,0.4477944682227605,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,South West Ethiopia,insurance,-0.012766806187155803,0.4477944682227605,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,South West Ethiopia,intention,0.030466363090748093,0.4477944682227605,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,South West Ethiopia,place,0.022730093792958327,0.4477944682227605,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,South West Ethiopia,urban,-0.015216879954153313,0.4477944682227605,0.5190419393310902,Urban or rural,False,
+anc4,South West Ethiopia,wealth,-0.1698535361473115,0.4477944682227605,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,South West Ethiopia,work,-0.019361603048808913,0.4477944682227605,0.5190419393310902,Her work,False,
+anc4,Tigray,agency,-0.044581791656169274,0.5083926976621371,0.5190419393310902,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc4,Tigray,barriers,-0.0008962765573767497,0.5083926976621371,0.5190419393310902,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc4,Tigray,culture,0.06409321929805109,0.5083926976621371,0.5190419393310902,Language and religion,False,
+anc4,Tigray,education,0.025644851549237808,0.5083926976621371,0.5190419393310902,Her education,False,Long-term: girls' schooling
+anc4,Tigray,healthpost,0.021795736907728985,0.5083926976621371,0.5190419393310902,Health post access,True,"More health posts, outreach days, health extension workers"
+anc4,Tigray,history,-0.012420172544169612,0.5083926976621371,0.5190419393310902,Age and pregnancy history,False,
+anc4,Tigray,hospital,-0.02179071220573184,0.5083926976621371,0.5190419393310902,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc4,Tigray,household,-0.007878223383964681,0.5083926976621371,0.5190419393310902,Partner and household,False,
+anc4,Tigray,information,-0.005205698285704685,0.5083926976621371,0.5190419393310902,Information and media,True,"Radio, TV and mobile health messaging"
+anc4,Tigray,insurance,-0.07767481166226366,0.5083926976621371,0.5190419393310902,Health insurance,True,Community-based health insurance enrolment
+anc4,Tigray,intention,-0.0035003005620344147,0.5083926976621371,0.5190419393310902,Wanted pregnancy and family size,True,Family planning services and counselling
+anc4,Tigray,place,0.06465031320298464,0.5083926976621371,0.5190419393310902,Region,False,What is left once the women themselves are accounted for: the region's services
+anc4,Tigray,urban,0.0036044634600898764,0.5083926976621371,0.5190419393310902,Urban or rural,False,
+anc4,Tigray,wealth,-0.03875297739557153,0.5083926976621371,0.5190419393310902,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc4,Tigray,work,-0.003748175289901233,0.5083926976621371,0.5190419393310902,Her work,False,
+anc8,Addis Ababa,agency,-0.024618051060661873,0.5901448830002594,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Addis Ababa,barriers,-0.017331525270607342,0.5901448830002594,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Addis Ababa,culture,0.0986140864471405,0.5901448830002594,0.19340126350347892,Language and religion,False,
+anc8,Addis Ababa,education,0.12696937344136236,0.5901448830002594,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Addis Ababa,healthpost,0.1936086035785314,0.5901448830002594,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Addis Ababa,history,0.1290135988501264,0.5901448830002594,0.19340126350347892,Age and pregnancy history,False,
+anc8,Addis Ababa,hospital,0.09441972086595772,0.5901448830002594,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Addis Ababa,household,0.1293748643711239,0.5901448830002594,0.19340126350347892,Partner and household,False,
+anc8,Addis Ababa,information,0.19171119160129071,0.5901448830002594,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Addis Ababa,insurance,-0.051241809658680575,0.5901448830002594,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Addis Ababa,intention,0.05127728741690808,0.5901448830002594,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Addis Ababa,place,0.4761003243309143,0.5901448830002594,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Addis Ababa,urban,0.1800832531987855,0.5901448830002594,0.19340126350347892,Urban or rural,False,
+anc8,Addis Ababa,wealth,0.7276250761046807,0.5901448830002594,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Addis Ababa,work,-0.027191045014218845,0.5901448830002594,0.19340126350347892,Her work,False,
+anc8,Afar,agency,0.020642843089385642,0.12504504376876868,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Afar,barriers,0.0073805739221001095,0.12504504376876868,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Afar,culture,-0.12239303522179554,0.12504504376876868,0.19340126350347892,Language and religion,False,
+anc8,Afar,education,-0.05279154099907217,0.12504504376876868,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Afar,healthpost,0.02316771401321511,0.12504504376876868,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Afar,history,-0.034182237590658034,0.12504504376876868,0.19340126350347892,Age and pregnancy history,False,
+anc8,Afar,hospital,-0.08842464411091257,0.12504504376876868,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Afar,household,-0.04942016195134453,0.12504504376876868,0.19340126350347892,Partner and household,False,
+anc8,Afar,information,-0.013798690606889506,0.12504504376876868,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Afar,insurance,-0.05335609074907997,0.12504504376876868,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Afar,intention,-0.026800710297191978,0.12504504376876868,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Afar,place,0.4207547481992374,0.12504504376876868,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Afar,urban,-0.0109682590399222,0.12504504376876868,0.19340126350347892,Urban or rural,False,
+anc8,Afar,wealth,-0.49519573321819665,0.12504504376876868,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Afar,work,-0.09508076908138666,0.12504504376876868,0.19340126350347892,Her work,False,
+anc8,Amhara,agency,0.008215498122821423,0.27321230312605355,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Amhara,barriers,0.016389991028518215,0.27321230312605355,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Amhara,culture,0.13750320788129056,0.27321230312605355,0.19340126350347892,Language and religion,False,
+anc8,Amhara,education,0.017575057811738543,0.27321230312605355,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Amhara,healthpost,0.022895277068316903,0.27321230312605355,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Amhara,history,0.02344995281996365,0.27321230312605355,0.19340126350347892,Age and pregnancy history,False,
+anc8,Amhara,hospital,0.041920526764806426,0.27321230312605355,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Amhara,household,-0.00038019278472266674,0.27321230312605355,0.19340126350347892,Partner and household,False,
+anc8,Amhara,information,0.008729423896067665,0.27321230312605355,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Amhara,insurance,0.026008567860799248,0.27321230312605355,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Amhara,intention,0.001355900628488945,0.27321230312605355,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Amhara,place,0.15205448480840555,0.27321230312605355,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Amhara,urban,-0.008677852665024266,0.27321230312605355,0.19340126350347892,Urban or rural,False,
+anc8,Amhara,wealth,0.18114047900623437,0.27321230312605355,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Amhara,work,0.07607919316782567,0.27321230312605355,0.19340126350347892,Her work,False,
+anc8,Benishangul-Gumuz,agency,-0.008116838720588776,0.17276304217338168,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Benishangul-Gumuz,barriers,0.007360759099252415,0.17276304217338168,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Benishangul-Gumuz,culture,-0.08142313981774527,0.17276304217338168,0.19340126350347892,Language and religion,False,
+anc8,Benishangul-Gumuz,education,0.004564491147961995,0.17276304217338168,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Benishangul-Gumuz,healthpost,0.08902304785207739,0.17276304217338168,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Benishangul-Gumuz,history,-0.010967162747351931,0.17276304217338168,0.19340126350347892,Age and pregnancy history,False,
+anc8,Benishangul-Gumuz,hospital,0.001399930556014898,0.17276304217338168,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Benishangul-Gumuz,household,0.03435354974214907,0.17276304217338168,0.19340126350347892,Partner and household,False,
+anc8,Benishangul-Gumuz,information,-0.013051881177052237,0.17276304217338168,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Benishangul-Gumuz,insurance,-0.04509364021576141,0.17276304217338168,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Benishangul-Gumuz,intention,0.013729039657655179,0.17276304217338168,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Benishangul-Gumuz,place,0.047504400349049306,0.17276304217338168,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Benishangul-Gumuz,urban,0.010933862040413947,0.17276304217338168,0.19340126350347892,Urban or rural,False,
+anc8,Benishangul-Gumuz,wealth,-0.17408179650710567,0.17276304217338168,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Benishangul-Gumuz,work,0.06427633732094942,0.17276304217338168,0.19340126350347892,Her work,False,
+anc8,Central Ethiopia,agency,-0.008434437189863584,0.13757005796445407,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Central Ethiopia,barriers,0.0017400141353974205,0.13757005796445407,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Central Ethiopia,culture,-0.14471361977223077,0.13757005796445407,0.19340126350347892,Language and religion,False,
+anc8,Central Ethiopia,education,-0.013303462400450692,0.13757005796445407,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Central Ethiopia,healthpost,0.01732448714249114,0.13757005796445407,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Central Ethiopia,history,-0.018661983752757974,0.13757005796445407,0.19340126350347892,Age and pregnancy history,False,
+anc8,Central Ethiopia,hospital,0.01642146965125311,0.13757005796445407,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Central Ethiopia,household,-0.008658512247959823,0.13757005796445407,0.19340126350347892,Partner and household,False,
+anc8,Central Ethiopia,information,-0.02345468520789684,0.13757005796445407,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Central Ethiopia,insurance,-0.0034314737771293387,0.13757005796445407,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Central Ethiopia,intention,-0.026492796917995068,0.13757005796445407,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Central Ethiopia,place,-0.02798559991338215,0.13757005796445407,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Central Ethiopia,urban,-0.012120123938377459,0.13757005796445407,0.19340126350347892,Urban or rural,False,
+anc8,Central Ethiopia,wealth,-0.016106945964374807,0.13757005796445407,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Central Ethiopia,work,-0.035142337529734245,0.13757005796445407,0.19340126350347892,Her work,False,
+anc8,Dire Dawa,agency,-0.004533520106423285,0.31963092898401313,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Dire Dawa,barriers,-0.017195229426480642,0.31963092898401313,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Dire Dawa,culture,0.04736789021022831,0.31963092898401313,0.19340126350347892,Language and religion,False,
+anc8,Dire Dawa,education,0.043184939426543494,0.31963092898401313,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Dire Dawa,healthpost,0.17069905064400503,0.31963092898401313,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Dire Dawa,history,0.016057477125193526,0.31963092898401313,0.19340126350347892,Age and pregnancy history,False,
+anc8,Dire Dawa,hospital,0.0651445080819353,0.31963092898401313,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Dire Dawa,household,0.05667477493893411,0.31963092898401313,0.19340126350347892,Partner and household,False,
+anc8,Dire Dawa,information,0.08503290008422042,0.31963092898401313,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Dire Dawa,insurance,-0.01585951910756647,0.31963092898401313,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Dire Dawa,intention,-0.023935317028420743,0.31963092898401313,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Dire Dawa,place,0.047789761620175945,0.31963092898401313,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Dire Dawa,urban,0.06628029639262284,0.31963092898401313,0.19340126350347892,Urban or rural,False,
+anc8,Dire Dawa,wealth,0.3620540290129853,0.31963092898401313,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Dire Dawa,work,-0.05994136798080236,0.31963092898401313,0.19340126350347892,Her work,False,
+anc8,Gambella,agency,-0.05436676709655542,0.16217343200183618,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Gambella,barriers,-0.01161082429358502,0.16217343200183618,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Gambella,culture,-0.20236375460019335,0.16217343200183618,0.19340126350347892,Language and religion,False,
+anc8,Gambella,education,0.06342987500349706,0.16217343200183618,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Gambella,healthpost,0.0917220482128952,0.16217343200183618,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Gambella,history,0.016271299568011877,0.16217343200183618,0.19340126350347892,Age and pregnancy history,False,
+anc8,Gambella,hospital,-0.020386909632734714,0.16217343200183618,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Gambella,household,0.04711632103106627,0.16217343200183618,0.19340126350347892,Partner and household,False,
+anc8,Gambella,information,0.02756872484642154,0.16217343200183618,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Gambella,insurance,-0.032600523426082224,0.16217343200183618,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Gambella,intention,-0.02489633305829566,0.16217343200183618,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Gambella,place,-0.033140592303920906,0.16217343200183618,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Gambella,urban,0.054336798428891636,0.16217343200183618,0.19340126350347892,Urban or rural,False,
+anc8,Gambella,wealth,-0.1506627364863675,0.16217343200183618,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Gambella,work,-0.009292146311075517,0.16217343200183618,0.19340126350347892,Her work,False,
+anc8,Harari,agency,0.03522134089736728,0.2661117917655362,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Harari,barriers,-0.04800745921372167,0.2661117917655362,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Harari,culture,0.035231214282044246,0.2661117917655362,0.19340126350347892,Language and religion,False,
+anc8,Harari,education,0.037204516161133475,0.2661117917655362,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Harari,healthpost,0.026775611422287106,0.2661117917655362,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Harari,history,0.008637045263383014,0.2661117917655362,0.19340126350347892,Age and pregnancy history,False,
+anc8,Harari,hospital,0.06403953488902538,0.2661117917655362,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Harari,household,0.06496838085672946,0.2661117917655362,0.19340126350347892,Partner and household,False,
+anc8,Harari,information,0.07293554280014827,0.2661117917655362,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Harari,insurance,0.03630542747463624,0.2661117917655362,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Harari,intention,-0.01831617381784567,0.2661117917655362,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Harari,place,-0.02793937997637235,0.2661117917655362,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Harari,urban,0.015364985016409453,0.2661117917655362,0.19340126350347892,Urban or rural,False,
+anc8,Harari,wealth,0.2673250270094807,0.2661117917655362,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Harari,work,-0.036562292124383965,0.2661117917655362,0.19340126350347892,Her work,False,
+anc8,Oromia,agency,-0.007735060338828011,0.16144711844329215,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Oromia,barriers,-0.010727284209492663,0.16144711844329215,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Oromia,culture,0.012851639855135287,0.16144711844329215,0.19340126350347892,Language and religion,False,
+anc8,Oromia,education,-0.015087900928489375,0.16144711844329215,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Oromia,healthpost,-0.009442953872103057,0.16144711844329215,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Oromia,history,-0.015190866969657397,0.16144711844329215,0.19340126350347892,Age and pregnancy history,False,
+anc8,Oromia,hospital,0.001437660466453168,0.16144711844329215,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Oromia,household,-0.011614145224439109,0.16144711844329215,0.19340126350347892,Partner and household,False,
+anc8,Oromia,information,-0.019054947834153558,0.16144711844329215,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Oromia,insurance,0.01516316277373857,0.16144711844329215,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Oromia,intention,0.01933042121381052,0.16144711844329215,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Oromia,place,-0.04172952815561768,0.16144711844329215,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Oromia,urban,-0.01478951485500322,0.16144711844329215,0.19340126350347892,Urban or rural,False,
+anc8,Oromia,wealth,-0.05843214680194547,0.16144711844329215,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Oromia,work,-0.013294516530686744,0.16144711844329215,0.19340126350347892,Her work,False,
+anc8,Sidama,agency,0.026372981174008648,0.11884370452713815,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Sidama,barriers,0.0025713575793494953,0.11884370452713815,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Sidama,culture,-0.2722387170744086,0.11884370452713815,0.19340126350347892,Language and religion,False,
+anc8,Sidama,education,-0.007602988170478067,0.11884370452713815,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Sidama,healthpost,-0.025349988915074256,0.11884370452713815,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Sidama,history,0.03337762922492196,0.11884370452713815,0.19340126350347892,Age and pregnancy history,False,
+anc8,Sidama,hospital,-0.007013554343939316,0.11884370452713815,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Sidama,household,0.046737630136718576,0.11884370452713815,0.19340126350347892,Partner and household,False,
+anc8,Sidama,information,-0.014633742987620437,0.11884370452713815,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Sidama,insurance,-0.031555758616549925,0.11884370452713815,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Sidama,intention,0.03319414316500448,0.11884370452713815,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Sidama,place,-0.17199071860087609,0.11884370452713815,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Sidama,urban,-0.006231300135673497,0.11884370452713815,0.19340126350347892,Urban or rural,False,
+anc8,Sidama,wealth,-0.15699547187739643,0.11884370452713815,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Sidama,work,-0.05270408111544185,0.11884370452713815,0.19340126350347892,Her work,False,
+anc8,Somali,agency,-0.0349587943818182,0.06338702330285582,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Somali,barriers,-0.01248885446919856,0.06338702330285582,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Somali,culture,-0.10797327113586222,0.06338702330285582,0.19340126350347892,Language and religion,False,
+anc8,Somali,education,-0.04953015625162535,0.06338702330285582,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Somali,healthpost,-0.06823630993799458,0.06338702330285582,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Somali,history,-0.08661820034385861,0.06338702330285582,0.19340126350347892,Age and pregnancy history,False,
+anc8,Somali,hospital,-0.019997670058711975,0.06338702330285582,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Somali,household,-0.09657509297714383,0.06338702330285582,0.19340126350347892,Partner and household,False,
+anc8,Somali,information,-0.013740141439814755,0.06338702330285582,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Somali,insurance,-0.06921269729341234,0.06338702330285582,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Somali,intention,-0.11080468833054519,0.06338702330285582,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Somali,place,-0.1347318687020515,0.06338702330285582,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Somali,urban,0.021099356744636786,0.06338702330285582,0.19340126350347892,Urban or rural,False,
+anc8,Somali,wealth,-0.4539119101765595,0.06338702330285582,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Somali,work,-0.10664772487863089,0.06338702330285582,0.19340126350347892,Her work,False,
+anc8,South Ethiopia,agency,0.022495203147149548,0.10604090475176026,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,South Ethiopia,barriers,0.013217527814201172,0.10604090475176026,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,South Ethiopia,culture,-0.21396140030501665,0.10604090475176026,0.19340126350347892,Language and religion,False,
+anc8,South Ethiopia,education,-0.007109296927983722,0.10604090475176026,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,South Ethiopia,healthpost,-0.10477044891781508,0.10604090475176026,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,South Ethiopia,history,-0.017143583534805804,0.10604090475176026,0.19340126350347892,Age and pregnancy history,False,
+anc8,South Ethiopia,hospital,-0.10816998453815808,0.10604090475176026,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,South Ethiopia,household,0.019915147460151616,0.10604090475176026,0.19340126350347892,Partner and household,False,
+anc8,South Ethiopia,information,-0.010732489403819273,0.10604090475176026,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,South Ethiopia,insurance,-0.0038909874743379594,0.10604090475176026,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,South Ethiopia,intention,-0.04610557897796143,0.10604090475176026,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,South Ethiopia,place,-0.18214574710947368,0.10604090475176026,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,South Ethiopia,urban,-0.004743724335670149,0.10604090475176026,0.19340126350347892,Urban or rural,False,
+anc8,South Ethiopia,wealth,-0.10805432206169531,0.10604090475176026,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,South Ethiopia,work,-0.025275305776843157,0.10604090475176026,0.19340126350347892,Her work,False,
+anc8,South West Ethiopia,agency,0.041137832194519296,0.11374517322660789,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,South West Ethiopia,barriers,-0.0006664729776881999,0.11374517322660789,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,South West Ethiopia,culture,-0.18745911593845566,0.11374517322660789,0.19340126350347892,Language and religion,False,
+anc8,South West Ethiopia,education,-0.01954366843962472,0.11374517322660789,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,South West Ethiopia,healthpost,-0.032491451701369,0.11374517322660789,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,South West Ethiopia,history,0.010161999460748557,0.11374517322660789,0.19340126350347892,Age and pregnancy history,False,
+anc8,South West Ethiopia,hospital,-0.056215726991735535,0.11374517322660789,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,South West Ethiopia,household,0.007876795099867839,0.11374517322660789,0.19340126350347892,Partner and household,False,
+anc8,South West Ethiopia,information,-0.03752524793136928,0.11374517322660789,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,South West Ethiopia,insurance,-0.009969888785720957,0.11374517322660789,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,South West Ethiopia,intention,0.006779082264731045,0.11374517322660789,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,South West Ethiopia,place,-0.07363908997434225,0.11374517322660789,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,South West Ethiopia,urban,-0.012943717210784121,0.11374517322660789,0.19340126350347892,Urban or rural,False,
+anc8,South West Ethiopia,wealth,-0.20249779614950658,0.11374517322660789,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,South West Ethiopia,work,-0.024861600655911892,0.11374517322660789,0.19340126350347892,Her work,False,
+anc8,Tigray,agency,0.0008833855606263548,0.14416883302002423,0.19340126350347892,Women's say in decisions,True,"Community dialogue, women's development groups"
+anc8,Tigray,barriers,0.007719950061008479,0.14416883302002423,0.19340126350347892,Barriers to reaching care,True,"Transport vouchers, fee waivers, accompanied visits"
+anc8,Tigray,culture,0.06818131286962362,0.14416883302002423,0.19340126350347892,Language and religion,False,
+anc8,Tigray,education,0.005959234678331181,0.14416883302002423,0.19340126350347892,Her education,False,Long-term: girls' schooling
+anc8,Tigray,healthpost,-0.005887541137288622,0.14416883302002423,0.19340126350347892,Health post access,True,"More health posts, outreach days, health extension workers"
+anc8,Tigray,history,-0.0075558591558331015,0.14416883302002423,0.19340126350347892,Age and pregnancy history,False,
+anc8,Tigray,hospital,-0.05037592385778502,0.14416883302002423,0.19340126350347892,Distance to a hospital or health centre,True,"Referral transport, health centre coverage"
+anc8,Tigray,household,-0.007261029712375578,0.14416883302002423,0.19340126350347892,Partner and household,False,
+anc8,Tigray,information,0.013585619590541543,0.14416883302002423,0.19340126350347892,Information and media,True,"Radio, TV and mobile health messaging"
+anc8,Tigray,insurance,-0.060658023813637475,0.14416883302002423,0.19340126350347892,Health insurance,True,Community-based health insurance enrolment
+anc8,Tigray,intention,-0.02687347391829923,0.14416883302002423,0.19340126350347892,Wanted pregnancy and family size,True,Family planning services and counselling
+anc8,Tigray,place,-0.2579439973038821,0.14416883302002423,0.19340126350347892,Region,False,What is left once the women themselves are accounted for: the region's services
+anc8,Tigray,urban,0.003066013260574716,0.14416883302002423,0.19340126350347892,Urban or rural,False,
+anc8,Tigray,wealth,-0.07683636380594444,0.14416883302002423,0.19340126350347892,Household wealth,False,Target support to the poorest; the gradient itself moves with development
+anc8,Tigray,work,-0.0020738332063320493,0.14416883302002423,0.19340126350347892,Her work,False,

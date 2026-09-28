@@ -1,0 +1,586 @@
+cohort,region,key,label,modifiable,value
+full,Ethiopia,poorest40,In the poorest two-fifths,False,0.4003794572355299
+full,Addis Ababa,poorest40,In the poorest two-fifths,False,0.0
+full,Afar,poorest40,In the poorest two-fifths,False,0.7689219144666123
+full,Amhara,poorest40,In the poorest two-fifths,False,0.25636402080798676
+full,Benishangul-Gumuz,poorest40,In the poorest two-fifths,False,0.5262876520742553
+full,Central Ethiopia,poorest40,In the poorest two-fifths,False,0.41741681805259473
+full,Dire Dawa,poorest40,In the poorest two-fifths,False,0.2693125368492271
+full,Gambella,poorest40,In the poorest two-fifths,False,0.5262087939995486
+full,Harari,poorest40,In the poorest two-fifths,False,0.25928494226789983
+full,Oromia,poorest40,In the poorest two-fifths,False,0.4166117881749545
+full,Sidama,poorest40,In the poorest two-fifths,False,0.5365384790395136
+full,Somali,poorest40,In the poorest two-fifths,False,0.7215282738327966
+full,South Ethiopia,poorest40,In the poorest two-fifths,False,0.4736994890591691
+full,South West Ethiopia,poorest40,In the poorest two-fifths,False,0.5343138633583081
+full,Tigray,poorest40,In the poorest two-fifths,False,0.5654417489102053
+full,Ethiopia,no_school,No schooling,False,0.37425223787186307
+full,Addis Ababa,no_school,No schooling,False,0.06153031934329867
+full,Afar,no_school,No schooling,False,0.6412260992453046
+full,Amhara,no_school,No schooling,False,0.3513123640867097
+full,Benishangul-Gumuz,no_school,No schooling,False,0.3219024449950176
+full,Central Ethiopia,no_school,No schooling,False,0.24881225850852162
+full,Dire Dawa,no_school,No schooling,False,0.2959944143681024
+full,Gambella,no_school,No schooling,False,0.17355009258239568
+full,Harari,no_school,No schooling,False,0.2662610478227762
+full,Oromia,no_school,No schooling,False,0.4135789931922436
+full,Sidama,no_school,No schooling,False,0.21819553533721914
+full,Somali,no_school,No schooling,False,0.7699807297738466
+full,South Ethiopia,no_school,No schooling,False,0.37087062107587065
+full,South West Ethiopia,no_school,No schooling,False,0.44535185975718117
+full,Tigray,no_school,No schooling,False,0.2995295562898277
+full,Ethiopia,rural,Rural,False,0.7038596123753944
+full,Addis Ababa,rural,Rural,False,0.0
+full,Afar,rural,Rural,False,0.7467293096911725
+full,Amhara,rural,Rural,False,0.7377772027374059
+full,Benishangul-Gumuz,rural,Rural,False,0.6611243565377146
+full,Central Ethiopia,rural,Rural,False,0.7512314006215302
+full,Dire Dawa,rural,Rural,False,0.44480152175138304
+full,Gambella,rural,Rural,False,0.4914829632393291
+full,Harari,rural,Rural,False,0.643805208616563
+full,Oromia,rural,Rural,False,0.7616647775318227
+full,Sidama,rural,Rural,False,0.7282147948822787
+full,Somali,rural,Rural,False,0.6213922824274122
+full,South Ethiopia,rural,Rural,False,0.7224005700314339
+full,South West Ethiopia,rural,Rural,False,0.7544504342139055
+full,Tigray,rural,Rural,False,0.6918760277455467
+full,Ethiopia,unintended,Pregnancy not wanted then,True,0.15350952564979586
+full,Addis Ababa,unintended,Pregnancy not wanted then,True,0.14412763542726945
+full,Afar,unintended,Pregnancy not wanted then,True,0.05998470750111794
+full,Amhara,unintended,Pregnancy not wanted then,True,0.1735177346148852
+full,Benishangul-Gumuz,unintended,Pregnancy not wanted then,True,0.08462969719385048
+full,Central Ethiopia,unintended,Pregnancy not wanted then,True,0.13440584405002332
+full,Dire Dawa,unintended,Pregnancy not wanted then,True,0.12118234820684974
+full,Gambella,unintended,Pregnancy not wanted then,True,0.17034148078090114
+full,Harari,unintended,Pregnancy not wanted then,True,0.15178376778230826
+full,Oromia,unintended,Pregnancy not wanted then,True,0.12213483141105957
+full,Sidama,unintended,Pregnancy not wanted then,True,0.1794027524153549
+full,Somali,unintended,Pregnancy not wanted then,True,0.18168798606315836
+full,South Ethiopia,unintended,Pregnancy not wanted then,True,0.22644066471561716
+full,South West Ethiopia,unintended,Pregnancy not wanted then,True,0.1610870981052745
+full,Tigray,unintended,Pregnancy not wanted then,True,0.19796378108386953
+full,Ethiopia,teen,Under 20 at the birth,False,0.10886123681371092
+full,Addis Ababa,teen,Under 20 at the birth,False,0.024312116950642945
+full,Afar,teen,Under 20 at the birth,False,0.12171388520679237
+full,Amhara,teen,Under 20 at the birth,False,0.07315427833325054
+full,Benishangul-Gumuz,teen,Under 20 at the birth,False,0.12982986541137678
+full,Central Ethiopia,teen,Under 20 at the birth,False,0.07237612203657783
+full,Dire Dawa,teen,Under 20 at the birth,False,0.09994463440519151
+full,Gambella,teen,Under 20 at the birth,False,0.18142592577347574
+full,Harari,teen,Under 20 at the birth,False,0.16248282323293797
+full,Oromia,teen,Under 20 at the birth,False,0.14256541333582212
+full,Sidama,teen,Under 20 at the birth,False,0.08638071982703387
+full,Somali,teen,Under 20 at the birth,False,0.14707371677891265
+full,South Ethiopia,teen,Under 20 at the birth,False,0.11054256686269588
+full,South West Ethiopia,teen,Under 20 at the birth,False,0.07891292127337948
+full,Tigray,teen,Under 20 at the birth,False,0.10095951747190428
+full,Ethiopia,grand_multi,Sixth pregnancy or later,False,0.21143092222342974
+full,Addis Ababa,grand_multi,Sixth pregnancy or later,False,0.029809440239315164
+full,Afar,grand_multi,Sixth pregnancy or later,False,0.2672844319010057
+full,Amhara,grand_multi,Sixth pregnancy or later,False,0.19601042031164442
+full,Benishangul-Gumuz,grand_multi,Sixth pregnancy or later,False,0.2294504841990466
+full,Central Ethiopia,grand_multi,Sixth pregnancy or later,False,0.2650038131425191
+full,Dire Dawa,grand_multi,Sixth pregnancy or later,False,0.18636738834716265
+full,Gambella,grand_multi,Sixth pregnancy or later,False,0.14751257717982572
+full,Harari,grand_multi,Sixth pregnancy or later,False,0.18768130655388715
+full,Oromia,grand_multi,Sixth pregnancy or later,False,0.22461379825478683
+full,Sidama,grand_multi,Sixth pregnancy or later,False,0.11344216385100389
+full,Somali,grand_multi,Sixth pregnancy or later,False,0.353228966264284
+full,South Ethiopia,grand_multi,Sixth pregnancy or later,False,0.22918949572353992
+full,South West Ethiopia,grand_multi,Sixth pregnancy or later,False,0.17846186903669134
+full,Tigray,grand_multi,Sixth pregnancy or later,False,0.2230744198104682
+full,Ethiopia,no_post,No health post in reach,True,0.18667411485652705
+full,Addis Ababa,no_post,No health post in reach,True,0.8578577533331656
+full,Afar,no_post,No health post in reach,True,0.41410318104240035
+full,Amhara,no_post,No health post in reach,True,0.25006351807709015
+full,Benishangul-Gumuz,no_post,No health post in reach,True,0.23445947447042462
+full,Central Ethiopia,no_post,No health post in reach,True,0.25359486729892206
+full,Dire Dawa,no_post,No health post in reach,True,0.8418202321330633
+full,Gambella,no_post,No health post in reach,True,0.3102973587184565
+full,Harari,no_post,No health post in reach,True,0.13471188438453294
+full,Oromia,no_post,No health post in reach,True,0.08342217856985701
+full,Sidama,no_post,No health post in reach,True,0.17498726128383796
+full,Somali,no_post,No health post in reach,True,0.06395318171796739
+full,South Ethiopia,no_post,No health post in reach,True,0.06484568319880021
+full,South West Ethiopia,no_post,No health post in reach,True,0.05621867335745604
+full,Tigray,no_post,No health post in reach,True,0.28044000891298493
+full,Ethiopia,far_post,Over an hour to a health post,True,0.20655502268091727
+full,Addis Ababa,far_post,Over an hour to a health post,True,0.02233785883579967
+full,Afar,far_post,Over an hour to a health post,True,0.31315054044320656
+full,Amhara,far_post,Over an hour to a health post,True,0.12201440972263133
+full,Benishangul-Gumuz,far_post,Over an hour to a health post,True,0.02156363968990735
+full,Central Ethiopia,far_post,Over an hour to a health post,True,0.14211244322797864
+full,Dire Dawa,far_post,Over an hour to a health post,True,0.0773467865215387
+full,Gambella,far_post,Over an hour to a health post,True,0.04897865797542081
+full,Harari,far_post,Over an hour to a health post,True,0.15884624174098752
+full,Oromia,far_post,Over an hour to a health post,True,0.22515527552553247
+full,Sidama,far_post,Over an hour to a health post,True,0.19300236392857995
+full,Somali,far_post,Over an hour to a health post,True,0.3897784111692666
+full,South Ethiopia,far_post,Over an hour to a health post,True,0.36106201764813567
+full,South West Ethiopia,far_post,Over an hour to a health post,True,0.23359272269447762
+full,Tigray,far_post,Over an hour to a health post,True,0.2927660111757146
+full,Ethiopia,distance_problem,Distance a big problem,True,0.4496988304838594
+full,Addis Ababa,distance_problem,Distance a big problem,True,0.23031359873899007
+full,Afar,distance_problem,Distance a big problem,True,0.5290436458737363
+full,Amhara,distance_problem,Distance a big problem,True,0.38845496079467795
+full,Benishangul-Gumuz,distance_problem,Distance a big problem,True,0.5049996943964832
+full,Central Ethiopia,distance_problem,Distance a big problem,True,0.40634230618461853
+full,Dire Dawa,distance_problem,Distance a big problem,True,0.3354292684934998
+full,Gambella,distance_problem,Distance a big problem,True,0.46979275864473846
+full,Harari,distance_problem,Distance a big problem,True,0.09884579173612149
+full,Oromia,distance_problem,Distance a big problem,True,0.4760661897197188
+full,Sidama,distance_problem,Distance a big problem,True,0.5285340601090311
+full,Somali,distance_problem,Distance a big problem,True,0.39713950609716525
+full,South Ethiopia,distance_problem,Distance a big problem,True,0.569690908515804
+full,South West Ethiopia,distance_problem,Distance a big problem,True,0.5818536867136462
+full,Tigray,distance_problem,Distance a big problem,True,0.467114930498695
+full,Ethiopia,money_problem,Money a big problem,True,0.5599855508118872
+full,Addis Ababa,money_problem,Money a big problem,True,0.3247800129604505
+full,Afar,money_problem,Money a big problem,True,0.5646110248017714
+full,Amhara,money_problem,Money a big problem,True,0.5405157209839045
+full,Benishangul-Gumuz,money_problem,Money a big problem,True,0.5886694784276252
+full,Central Ethiopia,money_problem,Money a big problem,True,0.5270035907540384
+full,Dire Dawa,money_problem,Money a big problem,True,0.4266553702009085
+full,Gambella,money_problem,Money a big problem,True,0.5703956586847971
+full,Harari,money_problem,Money a big problem,True,0.25247176016150297
+full,Oromia,money_problem,Money a big problem,True,0.5608724937677605
+full,Sidama,money_problem,Money a big problem,True,0.6961505382973566
+full,Somali,money_problem,Money a big problem,True,0.44225965117630905
+full,South Ethiopia,money_problem,Money a big problem,True,0.7048418910193698
+full,South West Ethiopia,money_problem,Money a big problem,True,0.5946656545869428
+full,Tigray,money_problem,Money a big problem,True,0.6257483718283882
+full,Ethiopia,uninsured,No health insurance,True,0.5552885722888006
+full,Addis Ababa,uninsured,No health insurance,True,0.860776406838489
+full,Afar,uninsured,No health insurance,True,0.873381097348791
+full,Amhara,uninsured,No health insurance,True,0.40023352781520555
+full,Benishangul-Gumuz,uninsured,No health insurance,True,0.8241229205140899
+full,Central Ethiopia,uninsured,No health insurance,True,0.5757459585612954
+full,Dire Dawa,uninsured,No health insurance,True,0.6498381243331465
+full,Gambella,uninsured,No health insurance,True,0.7496428188104811
+full,Harari,uninsured,No health insurance,True,0.3388468327112333
+full,Oromia,uninsured,No health insurance,True,0.4648904815201787
+full,Sidama,uninsured,No health insurance,True,0.7434142538670561
+full,Somali,uninsured,No health insurance,True,0.9679132855911694
+full,South Ethiopia,uninsured,No health insurance,True,0.5784854372261049
+full,South West Ethiopia,uninsured,No health insurance,True,0.614725968355377
+full,Tigray,uninsured,No health insurance,True,0.9169129658518108
+full,Ethiopia,no_say,No say in her own health care,True,0.21496319812486958
+full,Addis Ababa,no_say,No say in her own health care,True,0.08694356899443773
+full,Afar,no_say,No say in her own health care,True,0.2568958881828455
+full,Amhara,no_say,No say in her own health care,True,0.09133482917425659
+full,Benishangul-Gumuz,no_say,No say in her own health care,True,0.1551376305777075
+full,Central Ethiopia,no_say,No say in her own health care,True,0.24132374046474322
+full,Dire Dawa,no_say,No say in her own health care,True,0.11532907658065454
+full,Gambella,no_say,No say in her own health care,True,0.2839522345977795
+full,Harari,no_say,No say in her own health care,True,0.06978653775201968
+full,Oromia,no_say,No say in her own health care,True,0.3434078365727087
+full,Sidama,no_say,No say in her own health care,True,0.17319806094398582
+full,Somali,no_say,No say in her own health care,True,0.19444256220739498
+full,South Ethiopia,no_say,No say in her own health care,True,0.15451704971730118
+full,South West Ethiopia,no_say,No say in her own health care,True,0.15018144280611412
+full,Tigray,no_say,No say in her own health care,True,0.09892715224402666
+full,Ethiopia,no_media,"No radio, TV or paper weekly",True,0.6954991702152754
+full,Addis Ababa,no_media,"No radio, TV or paper weekly",True,0.20458298927505142
+full,Afar,no_media,"No radio, TV or paper weekly",True,0.8323343156229811
+full,Amhara,no_media,"No radio, TV or paper weekly",True,0.7298974186991256
+full,Benishangul-Gumuz,no_media,"No radio, TV or paper weekly",True,0.73157882234381
+full,Central Ethiopia,no_media,"No radio, TV or paper weekly",True,0.7703702938457626
+full,Dire Dawa,no_media,"No radio, TV or paper weekly",True,0.5944846436358705
+full,Gambella,no_media,"No radio, TV or paper weekly",True,0.7663259785689733
+full,Harari,no_media,"No radio, TV or paper weekly",True,0.5044530150190479
+full,Oromia,no_media,"No radio, TV or paper weekly",True,0.6630706946471816
+full,Sidama,no_media,"No radio, TV or paper weekly",True,0.741454848701766
+full,Somali,no_media,"No radio, TV or paper weekly",True,0.9141884803526991
+full,South Ethiopia,no_media,"No radio, TV or paper weekly",True,0.7273861113706925
+full,South West Ethiopia,no_media,"No radio, TV or paper weekly",True,0.8452865359815736
+full,Tigray,no_media,"No radio, TV or paper weekly",True,0.7503842807140846
+entry,Ethiopia,poorest40,In the poorest two-fifths,False,0.32473316971130667
+entry,Addis Ababa,poorest40,In the poorest two-fifths,False,0.0
+entry,Afar,poorest40,In the poorest two-fifths,False,0.6867709100893586
+entry,Amhara,poorest40,In the poorest two-fifths,False,0.23868587273350508
+entry,Benishangul-Gumuz,poorest40,In the poorest two-fifths,False,0.3836576429276137
+entry,Central Ethiopia,poorest40,In the poorest two-fifths,False,0.39399990622146436
+entry,Dire Dawa,poorest40,In the poorest two-fifths,False,0.24628017121769888
+entry,Gambella,poorest40,In the poorest two-fifths,False,0.45129429547108546
+entry,Harari,poorest40,In the poorest two-fifths,False,0.15851340203743003
+entry,Oromia,poorest40,In the poorest two-fifths,False,0.32567462991238805
+entry,Sidama,poorest40,In the poorest two-fifths,False,0.49146486454419236
+entry,Somali,poorest40,In the poorest two-fifths,False,0.5193709525721714
+entry,South Ethiopia,poorest40,In the poorest two-fifths,False,0.38443818039424943
+entry,South West Ethiopia,poorest40,In the poorest two-fifths,False,0.425969109938696
+entry,Tigray,poorest40,In the poorest two-fifths,False,0.5427442092378275
+entry,Ethiopia,no_school,No schooling,False,0.3081484272095905
+entry,Addis Ababa,no_school,No schooling,False,0.062424179612918254
+entry,Afar,no_school,No schooling,False,0.5414691650631819
+entry,Amhara,no_school,No schooling,False,0.33032674488330155
+entry,Benishangul-Gumuz,no_school,No schooling,False,0.24738255684894733
+entry,Central Ethiopia,no_school,No schooling,False,0.22083569730421249
+entry,Dire Dawa,no_school,No schooling,False,0.26267183393813953
+entry,Gambella,no_school,No schooling,False,0.12987827992418485
+entry,Harari,no_school,No schooling,False,0.15980374081910476
+entry,Oromia,no_school,No schooling,False,0.3506925702065379
+entry,Sidama,no_school,No schooling,False,0.1720091457032143
+entry,Somali,no_school,No schooling,False,0.5757802980326073
+entry,South Ethiopia,no_school,No schooling,False,0.27920856356358353
+entry,South West Ethiopia,no_school,No schooling,False,0.33783552507611986
+entry,Tigray,no_school,No schooling,False,0.27507795873876534
+entry,Ethiopia,rural,Rural,False,0.6526616744086619
+entry,Addis Ababa,rural,Rural,False,0.0
+entry,Afar,rural,Rural,False,0.6699831014460156
+entry,Amhara,rural,Rural,False,0.7167758951268189
+entry,Benishangul-Gumuz,rural,Rural,False,0.5643887361250335
+entry,Central Ethiopia,rural,Rural,False,0.7357673505520643
+entry,Dire Dawa,rural,Rural,False,0.41106357926664727
+entry,Gambella,rural,Rural,False,0.4272565798418118
+entry,Harari,rural,Rural,False,0.5709071663316208
+entry,Oromia,rural,Rural,False,0.7036690641586653
+entry,Sidama,rural,Rural,False,0.6926883276924198
+entry,Somali,rural,Rural,False,0.4143676093940447
+entry,South Ethiopia,rural,Rural,False,0.6371021950313579
+entry,South West Ethiopia,rural,Rural,False,0.7262465011733414
+entry,Tigray,rural,Rural,False,0.6647635611788218
+entry,Ethiopia,unintended,Pregnancy not wanted then,True,0.14199369675601684
+entry,Addis Ababa,unintended,Pregnancy not wanted then,True,0.1339680834894746
+entry,Afar,unintended,Pregnancy not wanted then,True,0.05932411430481833
+entry,Amhara,unintended,Pregnancy not wanted then,True,0.17257499784417443
+entry,Benishangul-Gumuz,unintended,Pregnancy not wanted then,True,0.07259476674997264
+entry,Central Ethiopia,unintended,Pregnancy not wanted then,True,0.1266455714868953
+entry,Dire Dawa,unintended,Pregnancy not wanted then,True,0.10286491781523883
+entry,Gambella,unintended,Pregnancy not wanted then,True,0.16134459897153733
+entry,Harari,unintended,Pregnancy not wanted then,True,0.11736223540872634
+entry,Oromia,unintended,Pregnancy not wanted then,True,0.10385123121008596
+entry,Sidama,unintended,Pregnancy not wanted then,True,0.16013490783643156
+entry,Somali,unintended,Pregnancy not wanted then,True,0.07618281392833724
+entry,South Ethiopia,unintended,Pregnancy not wanted then,True,0.22011766796264606
+entry,South West Ethiopia,unintended,Pregnancy not wanted then,True,0.11780286732861678
+entry,Tigray,unintended,Pregnancy not wanted then,True,0.1927288638892367
+entry,Ethiopia,teen,Under 20 at the birth,False,0.09431921649853145
+entry,Addis Ababa,teen,Under 20 at the birth,False,0.02466530275634755
+entry,Afar,teen,Under 20 at the birth,False,0.13425261979126762
+entry,Amhara,teen,Under 20 at the birth,False,0.067837860271593
+entry,Benishangul-Gumuz,teen,Under 20 at the birth,False,0.11977658969493694
+entry,Central Ethiopia,teen,Under 20 at the birth,False,0.08170235483384901
+entry,Dire Dawa,teen,Under 20 at the birth,False,0.08978063733734071
+entry,Gambella,teen,Under 20 at the birth,False,0.20253208947465232
+entry,Harari,teen,Under 20 at the birth,False,0.15431047281942853
+entry,Oromia,teen,Under 20 at the birth,False,0.11831728041785512
+entry,Sidama,teen,Under 20 at the birth,False,0.08671916393196344
+entry,Somali,teen,Under 20 at the birth,False,0.15815308459274324
+entry,South Ethiopia,teen,Under 20 at the birth,False,0.11147198711183078
+entry,South West Ethiopia,teen,Under 20 at the birth,False,0.07619240741890884
+entry,Tigray,teen,Under 20 at the birth,False,0.09301005906157103
+entry,Ethiopia,grand_multi,Sixth pregnancy or later,False,0.1809975865709713
+entry,Addis Ababa,grand_multi,Sixth pregnancy or later,False,0.030242486493160508
+entry,Afar,grand_multi,Sixth pregnancy or later,False,0.24172006637301346
+entry,Amhara,grand_multi,Sixth pregnancy or later,False,0.17608629783323115
+entry,Benishangul-Gumuz,grand_multi,Sixth pregnancy or later,False,0.20472553144128244
+entry,Central Ethiopia,grand_multi,Sixth pregnancy or later,False,0.24166765867689866
+entry,Dire Dawa,grand_multi,Sixth pregnancy or later,False,0.18188066121397065
+entry,Gambella,grand_multi,Sixth pregnancy or later,False,0.12532241424812662
+entry,Harari,grand_multi,Sixth pregnancy or later,False,0.11794129178447185
+entry,Oromia,grand_multi,Sixth pregnancy or later,False,0.19708417348857918
+entry,Sidama,grand_multi,Sixth pregnancy or later,False,0.09914774198380252
+entry,Somali,grand_multi,Sixth pregnancy or later,False,0.25459902428281556
+entry,South Ethiopia,grand_multi,Sixth pregnancy or later,False,0.194139982745967
+entry,South West Ethiopia,grand_multi,Sixth pregnancy or later,False,0.13250065006074532
+entry,Tigray,grand_multi,Sixth pregnancy or later,False,0.2161842205011767
+entry,Ethiopia,no_post,No health post in reach,True,0.21904311380399746
+entry,Addis Ababa,no_post,No health post in reach,True,0.8557928313843444
+entry,Afar,no_post,No health post in reach,True,0.44463551996209816
+entry,Amhara,no_post,No health post in reach,True,0.25727983768738427
+entry,Benishangul-Gumuz,no_post,No health post in reach,True,0.24848759650193386
+entry,Central Ethiopia,no_post,No health post in reach,True,0.26203016096105713
+entry,Dire Dawa,no_post,No health post in reach,True,0.8525351799859494
+entry,Gambella,no_post,No health post in reach,True,0.34371938004334573
+entry,Harari,no_post,No health post in reach,True,0.1369018235203861
+entry,Oromia,no_post,No health post in reach,True,0.10282249380737993
+entry,Sidama,no_post,No health post in reach,True,0.1799385837160501
+entry,Somali,no_post,No health post in reach,True,0.11828094154658168
+entry,South Ethiopia,no_post,No health post in reach,True,0.08263976005948857
+entry,South West Ethiopia,no_post,No health post in reach,True,0.06906130795518883
+entry,Tigray,no_post,No health post in reach,True,0.3036875677915911
+entry,Ethiopia,far_post,Over an hour to a health post,True,0.16514337416979694
+entry,Addis Ababa,far_post,Over an hour to a health post,True,0.022662364294812325
+entry,Afar,far_post,Over an hour to a health post,True,0.2525375734797884
+entry,Amhara,far_post,Over an hour to a health post,True,0.10117115102819775
+entry,Benishangul-Gumuz,far_post,Over an hour to a health post,True,0.02175678085127955
+entry,Central Ethiopia,far_post,Over an hour to a health post,True,0.12563996740740382
+entry,Dire Dawa,far_post,Over an hour to a health post,True,0.05706796353280566
+entry,Gambella,far_post,Over an hour to a health post,True,0.043523324349613327
+entry,Harari,far_post,Over an hour to a health post,True,0.09674150087752258
+entry,Oromia,far_post,Over an hour to a health post,True,0.18330880320398185
+entry,Sidama,far_post,Over an hour to a health post,True,0.16591256651015476
+entry,Somali,far_post,Over an hour to a health post,True,0.2889589205349103
+entry,South Ethiopia,far_post,Over an hour to a health post,True,0.3156202061021751
+entry,South West Ethiopia,far_post,Over an hour to a health post,True,0.21259806794797137
+entry,Tigray,far_post,Over an hour to a health post,True,0.2674053969911219
+entry,Ethiopia,distance_problem,Distance a big problem,True,0.40692367936590235
+entry,Addis Ababa,distance_problem,Distance a big problem,True,0.23365939927542614
+entry,Afar,distance_problem,Distance a big problem,True,0.43875971389457313
+entry,Amhara,distance_problem,Distance a big problem,True,0.3624369215344797
+entry,Benishangul-Gumuz,distance_problem,Distance a big problem,True,0.4132637145702601
+entry,Central Ethiopia,distance_problem,Distance a big problem,True,0.3846280257114159
+entry,Dire Dawa,distance_problem,Distance a big problem,True,0.3176223820197181
+entry,Gambella,distance_problem,Distance a big problem,True,0.4156878943706464
+entry,Harari,distance_problem,Distance a big problem,True,0.05663551575564657
+entry,Oromia,distance_problem,Distance a big problem,True,0.4290838024831784
+entry,Sidama,distance_problem,Distance a big problem,True,0.48983379539944755
+entry,Somali,distance_problem,Distance a big problem,True,0.3077471324677761
+entry,South Ethiopia,distance_problem,Distance a big problem,True,0.5050753288103401
+entry,South West Ethiopia,distance_problem,Distance a big problem,True,0.5324015215234187
+entry,Tigray,distance_problem,Distance a big problem,True,0.45226446993484043
+entry,Ethiopia,money_problem,Money a big problem,True,0.5398324394611059
+entry,Addis Ababa,money_problem,Money a big problem,True,0.3168365493209073
+entry,Afar,money_problem,Money a big problem,True,0.4978310524093506
+entry,Amhara,money_problem,Money a big problem,True,0.5365908032661332
+entry,Benishangul-Gumuz,money_problem,Money a big problem,True,0.49415535243413894
+entry,Central Ethiopia,money_problem,Money a big problem,True,0.5094732045816938
+entry,Dire Dawa,money_problem,Money a big problem,True,0.4005682887517482
+entry,Gambella,money_problem,Money a big problem,True,0.5492510456570244
+entry,Harari,money_problem,Money a big problem,True,0.19672126263373962
+entry,Oromia,money_problem,Money a big problem,True,0.5374635042498881
+entry,Sidama,money_problem,Money a big problem,True,0.6683840034842851
+entry,Somali,money_problem,Money a big problem,True,0.3734382080238597
+entry,South Ethiopia,money_problem,Money a big problem,True,0.656418708706998
+entry,South West Ethiopia,money_problem,Money a big problem,True,0.5448531164993912
+entry,Tigray,money_problem,Money a big problem,True,0.6349120762306217
+entry,Ethiopia,uninsured,No health insurance,True,0.5489430741881602
+entry,Addis Ababa,uninsured,No health insurance,True,0.8587538846112529
+entry,Afar,uninsured,No health insurance,True,0.8519897623835354
+entry,Amhara,uninsured,No health insurance,True,0.41094124921317976
+entry,Benishangul-Gumuz,uninsured,No health insurance,True,0.7861637996696978
+entry,Central Ethiopia,uninsured,No health insurance,True,0.5556802014728617
+entry,Dire Dawa,uninsured,No health insurance,True,0.645733935438253
+entry,Gambella,uninsured,No health insurance,True,0.7495004038675315
+entry,Harari,uninsured,No health insurance,True,0.37542389118648956
+entry,Oromia,uninsured,No health insurance,True,0.4642770648037207
+entry,Sidama,uninsured,No health insurance,True,0.7545852743174548
+entry,Somali,uninsured,No health insurance,True,0.9730467572590505
+entry,South Ethiopia,uninsured,No health insurance,True,0.5601003897644564
+entry,South West Ethiopia,uninsured,No health insurance,True,0.5797173587894304
+entry,Tigray,uninsured,No health insurance,True,0.9210044768007887
+entry,Ethiopia,no_say,No say in her own health care,True,0.20153167204021744
+entry,Addis Ababa,no_say,No say in her own health care,True,0.08820661139129994
+entry,Afar,no_say,No say in her own health care,True,0.2432142667443772
+entry,Amhara,no_say,No say in her own health care,True,0.08443184175783035
+entry,Benishangul-Gumuz,no_say,No say in her own health care,True,0.09546678814049847
+entry,Central Ethiopia,no_say,No say in her own health care,True,0.23680032056764105
+entry,Dire Dawa,no_say,No say in her own health care,True,0.1049640966902466
+entry,Gambella,no_say,No say in her own health care,True,0.28143396965795214
+entry,Harari,no_say,No say in her own health care,True,0.07097650696708457
+entry,Oromia,no_say,No say in her own health care,True,0.3498818129071913
+entry,Sidama,no_say,No say in her own health care,True,0.17227782558541962
+entry,Somali,no_say,No say in her own health care,True,0.12053855919832153
+entry,South Ethiopia,no_say,No say in her own health care,True,0.1354710147830539
+entry,South West Ethiopia,no_say,No say in her own health care,True,0.1671246568230075
+entry,Tigray,no_say,No say in her own health care,True,0.09417097829471252
+entry,Ethiopia,no_media,"No radio, TV or paper weekly",True,0.6536356352890967
+entry,Addis Ababa,no_media,"No radio, TV or paper weekly",True,0.1997280062628878
+entry,Afar,no_media,"No radio, TV or paper weekly",True,0.7831461282397897
+entry,Amhara,no_media,"No radio, TV or paper weekly",True,0.7092539631194539
+entry,Benishangul-Gumuz,no_media,"No radio, TV or paper weekly",True,0.6230432497476219
+entry,Central Ethiopia,no_media,"No radio, TV or paper weekly",True,0.7522782151693286
+entry,Dire Dawa,no_media,"No radio, TV or paper weekly",True,0.5551419113598532
+entry,Gambella,no_media,"No radio, TV or paper weekly",True,0.7343730456410297
+entry,Harari,no_media,"No radio, TV or paper weekly",True,0.38452258848343907
+entry,Oromia,no_media,"No radio, TV or paper weekly",True,0.6251477715998967
+entry,Sidama,no_media,"No radio, TV or paper weekly",True,0.7107409572947141
+entry,Somali,no_media,"No radio, TV or paper weekly",True,0.8118287452975345
+entry,South Ethiopia,no_media,"No radio, TV or paper weekly",True,0.6594620565970452
+entry,South West Ethiopia,no_media,"No radio, TV or paper weekly",True,0.8011054787703251
+entry,Tigray,no_media,"No radio, TV or paper weekly",True,0.729054220865885
+recent,Ethiopia,poorest40,In the poorest two-fifths,False,0.40171295495944737
+recent,Addis Ababa,poorest40,In the poorest two-fifths,False,0.0
+recent,Afar,poorest40,In the poorest two-fifths,False,0.7845796422875401
+recent,Amhara,poorest40,In the poorest two-fifths,False,0.2564257671187081
+recent,Benishangul-Gumuz,poorest40,In the poorest two-fifths,False,0.534727703804958
+recent,Central Ethiopia,poorest40,In the poorest two-fifths,False,0.39344284935610246
+recent,Dire Dawa,poorest40,In the poorest two-fifths,False,0.2513868945907573
+recent,Gambella,poorest40,In the poorest two-fifths,False,0.5117618378297898
+recent,Harari,poorest40,In the poorest two-fifths,False,0.2581319009025044
+recent,Oromia,poorest40,In the poorest two-fifths,False,0.4228693577346116
+recent,Sidama,poorest40,In the poorest two-fifths,False,0.5299218204576824
+recent,Somali,poorest40,In the poorest two-fifths,False,0.721543388120542
+recent,South Ethiopia,poorest40,In the poorest two-fifths,False,0.47705619523869996
+recent,South West Ethiopia,poorest40,In the poorest two-fifths,False,0.5226138159002537
+recent,Tigray,poorest40,In the poorest two-fifths,False,0.5661778763935258
+recent,Ethiopia,no_school,No schooling,False,0.3671663708275558
+recent,Addis Ababa,no_school,No schooling,False,0.07483321689270749
+recent,Afar,no_school,No schooling,False,0.6382151200963294
+recent,Amhara,no_school,No schooling,False,0.35665775279563006
+recent,Benishangul-Gumuz,no_school,No schooling,False,0.31310014063523467
+recent,Central Ethiopia,no_school,No schooling,False,0.22881445831762187
+recent,Dire Dawa,no_school,No schooling,False,0.29267443747375754
+recent,Gambella,no_school,No schooling,False,0.17077690699592038
+recent,Harari,no_school,No schooling,False,0.26664977879333823
+recent,Oromia,no_school,No schooling,False,0.4021345229452215
+recent,Sidama,no_school,No schooling,False,0.18950563340910914
+recent,Somali,no_school,No schooling,False,0.7593051236163788
+recent,South Ethiopia,no_school,No schooling,False,0.35281245527875654
+recent,South West Ethiopia,no_school,No schooling,False,0.4399421092211976
+recent,Tigray,no_school,No schooling,False,0.2920736344483336
+recent,Ethiopia,rural,Rural,False,0.7038028992090216
+recent,Addis Ababa,rural,Rural,False,0.0
+recent,Afar,rural,Rural,False,0.7575362565891554
+recent,Amhara,rural,Rural,False,0.7289583164082761
+recent,Benishangul-Gumuz,rural,Rural,False,0.6550487374072952
+recent,Central Ethiopia,rural,Rural,False,0.738219992195097
+recent,Dire Dawa,rural,Rural,False,0.4137645903887
+recent,Gambella,rural,Rural,False,0.5054793536680963
+recent,Harari,rural,Rural,False,0.6657404834045226
+recent,Oromia,rural,Rural,False,0.7717908453742754
+recent,Sidama,rural,Rural,False,0.7112211919632558
+recent,Somali,rural,Rural,False,0.6176840265395538
+recent,South Ethiopia,rural,Rural,False,0.7171467386359746
+recent,South West Ethiopia,rural,Rural,False,0.7848778063780877
+recent,Tigray,rural,Rural,False,0.6909683126890382
+recent,Ethiopia,unintended,Pregnancy not wanted then,True,0.15744177671896506
+recent,Addis Ababa,unintended,Pregnancy not wanted then,True,0.15348137162163203
+recent,Afar,unintended,Pregnancy not wanted then,True,0.05197026302872327
+recent,Amhara,unintended,Pregnancy not wanted then,True,0.1796126070517877
+recent,Benishangul-Gumuz,unintended,Pregnancy not wanted then,True,0.08396870852842123
+recent,Central Ethiopia,unintended,Pregnancy not wanted then,True,0.13691991609600912
+recent,Dire Dawa,unintended,Pregnancy not wanted then,True,0.14066335875630934
+recent,Gambella,unintended,Pregnancy not wanted then,True,0.14618674491394004
+recent,Harari,unintended,Pregnancy not wanted then,True,0.14253526599044009
+recent,Oromia,unintended,Pregnancy not wanted then,True,0.12472551893889727
+recent,Sidama,unintended,Pregnancy not wanted then,True,0.2044293297588436
+recent,Somali,unintended,Pregnancy not wanted then,True,0.18214103628237552
+recent,South Ethiopia,unintended,Pregnancy not wanted then,True,0.2428987026691906
+recent,South West Ethiopia,unintended,Pregnancy not wanted then,True,0.13976452231157374
+recent,Tigray,unintended,Pregnancy not wanted then,True,0.18742146413982588
+recent,Ethiopia,teen,Under 20 at the birth,False,0.10444748142203272
+recent,Addis Ababa,teen,Under 20 at the birth,False,0.025574780267402227
+recent,Afar,teen,Under 20 at the birth,False,0.12849100213567133
+recent,Amhara,teen,Under 20 at the birth,False,0.06773601690946497
+recent,Benishangul-Gumuz,teen,Under 20 at the birth,False,0.1242890128094354
+recent,Central Ethiopia,teen,Under 20 at the birth,False,0.06760479317532674
+recent,Dire Dawa,teen,Under 20 at the birth,False,0.09890267820410212
+recent,Gambella,teen,Under 20 at the birth,False,0.16467282596663693
+recent,Harari,teen,Under 20 at the birth,False,0.17532375847444057
+recent,Oromia,teen,Under 20 at the birth,False,0.13597611392204179
+recent,Sidama,teen,Under 20 at the birth,False,0.054712887767599194
+recent,Somali,teen,Under 20 at the birth,False,0.1537996579225291
+recent,South Ethiopia,teen,Under 20 at the birth,False,0.11981978940700684
+recent,South West Ethiopia,teen,Under 20 at the birth,False,0.06987362706366745
+recent,Tigray,teen,Under 20 at the birth,False,0.09862027142493054
+recent,Ethiopia,grand_multi,Sixth pregnancy or later,False,0.2082227099566856
+recent,Addis Ababa,grand_multi,Sixth pregnancy or later,False,0.023746109133231198
+recent,Afar,grand_multi,Sixth pregnancy or later,False,0.23129642813552345
+recent,Amhara,grand_multi,Sixth pregnancy or later,False,0.2041554705925324
+recent,Benishangul-Gumuz,grand_multi,Sixth pregnancy or later,False,0.21162752694981193
+recent,Central Ethiopia,grand_multi,Sixth pregnancy or later,False,0.2428971868791786
+recent,Dire Dawa,grand_multi,Sixth pregnancy or later,False,0.1945222461985229
+recent,Gambella,grand_multi,Sixth pregnancy or later,False,0.14467065728604586
+recent,Harari,grand_multi,Sixth pregnancy or later,False,0.1845982595244691
+recent,Oromia,grand_multi,Sixth pregnancy or later,False,0.22221012198335816
+recent,Sidama,grand_multi,Sixth pregnancy or later,False,0.1085372891770189
+recent,Somali,grand_multi,Sixth pregnancy or later,False,0.34204659252443914
+recent,South Ethiopia,grand_multi,Sixth pregnancy or later,False,0.20966009794223497
+recent,South West Ethiopia,grand_multi,Sixth pregnancy or later,False,0.16673018775136164
+recent,Tigray,grand_multi,Sixth pregnancy or later,False,0.22270891184965153
+recent,Ethiopia,no_post,No health post in reach,True,0.19232193385858
+recent,Addis Ababa,no_post,No health post in reach,True,0.8671231929574854
+recent,Afar,no_post,No health post in reach,True,0.4112334190190039
+recent,Amhara,no_post,No health post in reach,True,0.24091952193066904
+recent,Benishangul-Gumuz,no_post,No health post in reach,True,0.2494668024643747
+recent,Central Ethiopia,no_post,No health post in reach,True,0.26008147578846574
+recent,Dire Dawa,no_post,No health post in reach,True,0.8530532357201779
+recent,Gambella,no_post,No health post in reach,True,0.30386103340658543
+recent,Harari,no_post,No health post in reach,True,0.12644737112063129
+recent,Oromia,no_post,No health post in reach,True,0.0970916932794535
+recent,Sidama,no_post,No health post in reach,True,0.1821862359441801
+recent,Somali,no_post,No health post in reach,True,0.06391964783198764
+recent,South Ethiopia,no_post,No health post in reach,True,0.06993194913650459
+recent,South West Ethiopia,no_post,No health post in reach,True,0.05331145949737605
+recent,Tigray,no_post,No health post in reach,True,0.28143668401622546
+recent,Ethiopia,far_post,Over an hour to a health post,True,0.208913493447639
+recent,Addis Ababa,far_post,Over an hour to a health post,True,0.011252416082478817
+recent,Afar,far_post,Over an hour to a health post,True,0.31001386530756303
+recent,Amhara,far_post,Over an hour to a health post,True,0.13528702135915638
+recent,Benishangul-Gumuz,far_post,Over an hour to a health post,True,0.019522690490975672
+recent,Central Ethiopia,far_post,Over an hour to a health post,True,0.14934731026376027
+recent,Dire Dawa,far_post,Over an hour to a health post,True,0.07018054818212516
+recent,Gambella,far_post,Over an hour to a health post,True,0.042365387785446705
+recent,Harari,far_post,Over an hour to a health post,True,0.16910308055553433
+recent,Oromia,far_post,Over an hour to a health post,True,0.220863119754095
+recent,Sidama,far_post,Over an hour to a health post,True,0.18600460754201958
+recent,Somali,far_post,Over an hour to a health post,True,0.39667338210041897
+recent,South Ethiopia,far_post,Over an hour to a health post,True,0.3677573503056095
+recent,South West Ethiopia,far_post,Over an hour to a health post,True,0.23931268503433137
+recent,Tigray,far_post,Over an hour to a health post,True,0.2908001380611761
+recent,Ethiopia,distance_problem,Distance a big problem,True,0.448212498459368
+recent,Addis Ababa,distance_problem,Distance a big problem,True,0.2231378750813568
+recent,Afar,distance_problem,Distance a big problem,True,0.53616674814424
+recent,Amhara,distance_problem,Distance a big problem,True,0.385770211699347
+recent,Benishangul-Gumuz,distance_problem,Distance a big problem,True,0.5245676494230468
+recent,Central Ethiopia,distance_problem,Distance a big problem,True,0.41605411224997274
+recent,Dire Dawa,distance_problem,Distance a big problem,True,0.33506553043575527
+recent,Gambella,distance_problem,Distance a big problem,True,0.46577898414716185
+recent,Harari,distance_problem,Distance a big problem,True,0.112122103866629
+recent,Oromia,distance_problem,Distance a big problem,True,0.47479659187498524
+recent,Sidama,distance_problem,Distance a big problem,True,0.503677989723269
+recent,Somali,distance_problem,Distance a big problem,True,0.41980618508452944
+recent,South Ethiopia,distance_problem,Distance a big problem,True,0.5620660189258943
+recent,South West Ethiopia,distance_problem,Distance a big problem,True,0.6040666822183156
+recent,Tigray,distance_problem,Distance a big problem,True,0.45831636375271123
+recent,Ethiopia,money_problem,Money a big problem,True,0.5612593970212981
+recent,Addis Ababa,money_problem,Money a big problem,True,0.3478361125749824
+recent,Afar,money_problem,Money a big problem,True,0.5747202414529158
+recent,Amhara,money_problem,Money a big problem,True,0.5474824589647296
+recent,Benishangul-Gumuz,money_problem,Money a big problem,True,0.5956478013792895
+recent,Central Ethiopia,money_problem,Money a big problem,True,0.5104590533219282
+recent,Dire Dawa,money_problem,Money a big problem,True,0.4301649308681761
+recent,Gambella,money_problem,Money a big problem,True,0.565311434149198
+recent,Harari,money_problem,Money a big problem,True,0.2640676148859285
+recent,Oromia,money_problem,Money a big problem,True,0.557339731891065
+recent,Sidama,money_problem,Money a big problem,True,0.6861941915899126
+recent,Somali,money_problem,Money a big problem,True,0.472131038491976
+recent,South Ethiopia,money_problem,Money a big problem,True,0.6954360430140735
+recent,South West Ethiopia,money_problem,Money a big problem,True,0.6293028957420698
+recent,Tigray,money_problem,Money a big problem,True,0.6202350991668238
+recent,Ethiopia,uninsured,No health insurance,True,0.5675666209943477
+recent,Addis Ababa,uninsured,No health insurance,True,0.8655923830354184
+recent,Afar,uninsured,No health insurance,True,0.8693936377233684
+recent,Amhara,uninsured,No health insurance,True,0.432044189810205
+recent,Benishangul-Gumuz,uninsured,No health insurance,True,0.8323705225200465
+recent,Central Ethiopia,uninsured,No health insurance,True,0.58285245872774
+recent,Dire Dawa,uninsured,No health insurance,True,0.6628535451006079
+recent,Gambella,uninsured,No health insurance,True,0.7501626171445727
+recent,Harari,uninsured,No health insurance,True,0.32294067942700444
+recent,Oromia,uninsured,No health insurance,True,0.47154609064317166
+recent,Sidama,uninsured,No health insurance,True,0.7579827314933398
+recent,Somali,uninsured,No health insurance,True,0.967254792065186
+recent,South Ethiopia,uninsured,No health insurance,True,0.5725008208768161
+recent,South West Ethiopia,uninsured,No health insurance,True,0.6289005733842263
+recent,Tigray,uninsured,No health insurance,True,0.9170786444761063
+recent,Ethiopia,no_say,No say in her own health care,True,0.2073236659777261
+recent,Addis Ababa,no_say,No say in her own health care,True,0.10358194312843123
+recent,Afar,no_say,No say in her own health care,True,0.24618950755674623
+recent,Amhara,no_say,No say in her own health care,True,0.08913357416063489
+recent,Benishangul-Gumuz,no_say,No say in her own health care,True,0.15947493365866083
+recent,Central Ethiopia,no_say,No say in her own health care,True,0.24086901436023206
+recent,Dire Dawa,no_say,No say in her own health care,True,0.0911871065218598
+recent,Gambella,no_say,No say in her own health care,True,0.2787604313513831
+recent,Harari,no_say,No say in her own health care,True,0.07300747258111687
+recent,Oromia,no_say,No say in her own health care,True,0.3235832484036596
+recent,Sidama,no_say,No say in her own health care,True,0.172204179287771
+recent,Somali,no_say,No say in her own health care,True,0.20371811912075483
+recent,South Ethiopia,no_say,No say in her own health care,True,0.1510883367234377
+recent,South West Ethiopia,no_say,No say in her own health care,True,0.1516181488751787
+recent,Tigray,no_say,No say in her own health care,True,0.10413409178865758
+recent,Ethiopia,no_media,"No radio, TV or paper weekly",True,0.695891008265949
+recent,Addis Ababa,no_media,"No radio, TV or paper weekly",True,0.2022240013707085
+recent,Afar,no_media,"No radio, TV or paper weekly",True,0.8367442970586363
+recent,Amhara,no_media,"No radio, TV or paper weekly",True,0.7515852649174979
+recent,Benishangul-Gumuz,no_media,"No radio, TV or paper weekly",True,0.7448355768989687
+recent,Central Ethiopia,no_media,"No radio, TV or paper weekly",True,0.7707673761783161
+recent,Dire Dawa,no_media,"No radio, TV or paper weekly",True,0.5804700531861481
+recent,Gambella,no_media,"No radio, TV or paper weekly",True,0.7462507657390594
+recent,Harari,no_media,"No radio, TV or paper weekly",True,0.5038843748989775
+recent,Oromia,no_media,"No radio, TV or paper weekly",True,0.6516516559625029
+recent,Sidama,no_media,"No radio, TV or paper weekly",True,0.7294843674389654
+recent,Somali,no_media,"No radio, TV or paper weekly",True,0.9148117438675856
+recent,South Ethiopia,no_media,"No radio, TV or paper weekly",True,0.7354688717610673
+recent,South West Ethiopia,no_media,"No radio, TV or paper weekly",True,0.8429153158388142
+recent,Tigray,no_media,"No radio, TV or paper weekly",True,0.7537980022214145

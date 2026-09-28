@@ -108,3 +108,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     </ThemeContext.Provider>
   );
 }
+
+/**
+ * The theme for drawing with (map fills, chart colours). The shell hydrates inside a
+ * Suspense boundary, after ThemeProvider has already read the stored theme, so a
+ * component that rendered straight from `theme` would disagree with the server's
+ * light-theme HTML. This returns "light" until the calling component has mounted,
+ * then the real theme, so the first render always matches the server.
+ */
+export function useRenderTheme(): Theme {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted ? theme : "light";
+}

@@ -615,6 +615,70 @@ def test_wording():
           not hits, "; ".join(hits[:12]) if hits else f"{len(files)} files")
 
 
+HOUSE_SPACING = set(
+    "0 0.5 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 18 19 20 21 22 23 24 25 26 28 30 32 36 38 "
+    "40 44 46 52 56 60 64 70 78 88 90 96 120 130 140 150 160 180 186 190 196 200 220 230 236 "
+    "250 260 280 300 320 330 340 375 420 560 620 640 700 720 760 820 950 1000 1100 1120".split())
+
+
+def test_studio():
+    section("11. THE STUDIO (maps, regions, design)")
+    import re
+    base = first([ROOT / "app_payload", ROOT / "app" / "public"])
+    if base is None:
+        skip("studio data", "no app payload")
+        return
+
+    geo = base / "geo" / "regions.geojson"
+    if geo.exists():
+        g = json.loads(geo.read_text(encoding="utf-8"))
+        codes = [f["properties"]["pcode"] for f in g["features"]]
+        want = {"ET01", "ET02", "ET03", "ET04", "ET05", "ET06", "ET07", "ET08", "ET11",
+                "ET12", "ET13", "ET14", "ET15", "ET16"}
+        check("every survey region has exactly one map polygon",
+              all(codes.count(c) == 1 for c in want) and set(codes) <= want | {"ET99"},
+              f"{len(codes)} polygons")
+    else:
+        skip("map boundaries", "geo/regions.geojson absent; run scripts/build_geo.py")
+
+    rp = base / "data" / "regions.json"
+    if not rp.exists():
+        skip("regions.json", "absent; run scripts/run_regional_eda.py and export_viz_data.py")
+        return
+    d = json.loads(rp.read_text(encoding="utf-8"))
+    ok = all(len(d["cohorts"][c]["regions"]) == 14 for c in ("full", "entry", "recent"))
+    check("regions.json has all 14 regions in all three cohorts", ok)
+    nat = d["cohorts"]["full"]["national"]
+    got = {"anc1plus": nat["reach1"], "anc4plus": nat["reach4"], "anc8plus": nat["reach8"]}
+    bad = {k: v for k, v in got.items() if abs(v - EXPECTED_PREVALENCE[k]) > 6e-4}
+    check("the map's national cascade equals the study's weighted prevalence", not bad, str(bad) if bad else "")
+    outside = [(c, r) for c, blk in d["cohorts"].items() for r, x in blk["regions"].items()
+               if not (x["reach8_ci"][0] - 1e-9 <= x["reach8"] <= x["reach8_ci"][1] + 1e-9)]
+    check("every regional interval contains its estimate", not outside, str(outside[:4]))
+    concepts = {c["key"] for c in d["concepts"]}
+    missing = [(rung, r) for rung, blk in d["drivers"].items() for r, x in blk["regions"].items()
+               if set(x["concepts"]) - concepts]
+    check("every region's driver split uses only known concepts", not missing, str(missing[:3]))
+
+    # The house design system: spacing utilities outside its scale silently fall back
+    # to Tailwind's default (e.g. h-54 = 216px), so they are refused here.
+    src = ROOT / "app" / "src"
+    if src.exists():
+        pat = re.compile(r'(?<![\w-])-?(?:[mp][xytrbl]?|gap(?:-[xy])?|[wh]|size|top|left|right|bottom|'
+                         r'inset(?:-[xy])?|space-[xy]|min-[wh]|max-[wh]|translate-[xy]|scroll-mt)-'
+                         r'(\d+(?:\.\d+)?)(?![\w.\[])')
+        dirs = ["app", "components/studio", "components/shell", "components/charts", "components/map",
+                "components/planner", "components/war", "components/upload", "components/lab",
+                "components/explore"]
+        hits = []
+        for dname in dirs:
+            for f in sorted((src / dname).rglob("*.tsx")) if (src / dname).exists() else []:
+                for i, line in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+                    hits += [f"{f.relative_to(src)}:{i} {m.group(0)}" for m in pat.finditer(line)
+                             if m.group(1) not in HOUSE_SPACING]
+        check("studio screens use only the house spacing scale", not hits, "; ".join(hits[:6]))
+
+
 def main():
     print("=" * 74)
     print("ANC ATTAINMENT -- CHECK SUITE")
@@ -632,6 +696,7 @@ def main():
     test_study()
     test_record()
     test_wording()
+    test_studio()
 
     print("\n" + "=" * 74)
     passed = sum(1 for k, _ in RESULTS if k == "PASS")

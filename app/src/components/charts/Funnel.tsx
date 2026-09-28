@@ -62,7 +62,13 @@ export default function Funnel({
                   className="absolute inset-y-0 left-0 rounded-2 transition-all duration-500"
                   style={{ width: `${s.value * 100}%`, background: "var(--accent)" }}
                 />
-                <span className="absolute inset-y-0 left-6 flex items-center font-mono text-11 font-semibold text-white">
+                {/* a short bar cannot hold its label, so the label sits just past its end */}
+                <span
+                  className={`absolute inset-y-0 flex items-center font-mono text-11 font-semibold ${
+                    s.value >= 0.16 ? "left-6 text-white" : "text-text"
+                  }`}
+                  style={s.value >= 0.16 ? undefined : { left: `calc(${s.value * 100}% + 6px)` }}
+                >
                   {pct(s.value)}
                 </span>
               </span>
