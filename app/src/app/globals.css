@@ -1,153 +1,530 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --bg: #fbfaf8;
-  --fg: #12161c;
-  --muted: #5d6673;
-  --line: #e3e0da;
-  --card: #ffffff;
-  --set21: #7c6f9c;
-  --accent: #2f7d70;
-  --warn: #b4552d;
-}
+/*
+ * Design tokens ported verbatim from v1 (apps/web/src/index.css). Tailwind v4's
+ * @theme registers these as utilities WITHOUT replacing the default scale — v1 did a
+ * wholesale replace, which would break every vendored shadcn component here, since
+ * those are written against the default scale. Instead: shadcn's own --background/
+ * --border/etc tokens are mapped onto these ASTU variables below, so shadcn primitives
+ * inherit the ASTU palette and the data-theme dark toggle for free (no `dark:` variants
+ * anywhere), and the dense ASTU scale (text-11.5, spacing-7, ...) is added as EXTRA
+ * @theme entries for hand-written markup.
+ */
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #12161c;
-    --fg: #eef1f5;
-    --muted: #9aa4b2;
-    --line: #2a313b;
-    --card: #1a1f27;
-    --set21: #a99bd0;
-    --accent: #5cbfad;
-    --warn: #e08a5f;
+@layer base {
+  :root {
+    --bg: #e9eef4;
+    --panel: #ffffff;
+    --panel2: #f3f6fa;
+    --panel3: #e7eef5;
+    --border: #d2dbe5;
+    --border2: #b7c4d2;
+    --text: #0d1922;
+    --dim: #57697a;
+    --faint: #5b6d7d;
+    --accent: #0b69b0;
+    --accent2: #1183d6;
+    --soft: #e1eefa;
+    --sel: #d5e7f7;
+    --top: #0a4e86;
+    --topfg: #dceaf6;
+    --good: #12735c;
+    --goodbg: #ddf0ea;
+    --warn: #9c5c0b;
+    --warnbg: #faeedc;
+    --bad: #a83236;
+    --badbg: #f8e4e5;
+
+    /* Cross-cutting (Quality Assurance edges, peer target group). Deliberately outside
+       the light/dark ramp — it means "second parent", not a severity. */
+    --cross: #6b4e9e;
+    --crossbg: #ede6f6;
+    --crosspanel: #f6f2fb;
+
+    --topfill: rgba(255, 255, 255, 0.12);
+    --topfill2: rgba(255, 255, 255, 0.08);
+    --topline: rgba(255, 255, 255, 0.14);
+    --topline2: rgba(255, 255, 255, 0.2);
+    --topsel: rgba(255, 255, 255, 0.92);
+    --topdim: rgba(255, 255, 255, 0.82);
+
+    /* Personal display preferences, driven by ThemeProvider's data-font-size /
+       data-font-family attributes on <html>. */
+    --font-scale: 1;
+    --font-family-sans: "IBM Plex Sans", system-ui, sans-serif;
+    --font-family-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+    /* shadcn token mapping — every vendored ui/ component reads these, so retuning
+       the values above re-themes shadcn too, including the dark blocks below. */
+    --background: var(--bg);
+    --foreground: var(--text);
+    --card: var(--panel);
+    --card-foreground: var(--text);
+    --popover: var(--panel);
+    --popover-foreground: var(--text);
+    --primary: var(--accent);
+    --primary-foreground: #ffffff;
+    --secondary: var(--panel2);
+    --secondary-foreground: var(--text);
+    --muted: var(--panel3);
+    --muted-foreground: var(--dim);
+    --accent-shadcn: var(--soft);
+    --accent-foreground: var(--text);
+    --destructive: var(--bad);
+    --destructive-foreground: #ffffff;
+    --border-shadcn: var(--border);
+    --input: var(--border2);
+    --ring: var(--accent);
+    --radius: 2px;
+  }
+
+  :root[data-font-size="small"] {
+    --font-scale: 0.9;
+  }
+  :root[data-font-size="large"] {
+    --font-scale: 1.15;
+  }
+  :root[data-font-size="xlarge"] {
+    --font-scale: 1.3;
+  }
+
+  :root[data-font-family="system"] {
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  :root[data-font-family="serif"] {
+    --font-family-sans: Georgia, "Times New Roman", Times, serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d131a;
+      --panel: #151d25;
+      --panel2: #111820;
+      --panel3: #1a232c;
+      --border: #26313c;
+      --border2: #37444f;
+      --text: #dce6ef;
+      --dim: #92a3b3;
+      --faint: #8496a8;
+      --accent: #4fa6e8;
+      --accent2: #7cc2f5;
+      --soft: #132b3b;
+      --sel: #1c3446;
+      --top: #0a1720;
+      --topfg: #cfe0ee;
+      --good: #3eae8e;
+      --goodbg: #122c26;
+      --warn: #d0902f;
+      --warnbg: #2e2314;
+      --bad: #e0696d;
+      --badbg: #31191b;
+      --cross: #a98fd8;
+      --crossbg: #251d33;
+      --crosspanel: #1d1728;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d131a;
+    --panel: #151d25;
+    --panel2: #111820;
+    --panel3: #1a232c;
+    --border: #26313c;
+    --border2: #37444f;
+    --text: #dce6ef;
+    --dim: #92a3b3;
+    --faint: #8496a8;
+    --accent: #4fa6e8;
+    --accent2: #7cc2f5;
+    --soft: #132b3b;
+    --sel: #1c3446;
+    --top: #0a1720;
+    --topfg: #cfe0ee;
+    --good: #3eae8e;
+    --goodbg: #122c26;
+    --warn: #d0902f;
+    --warnbg: #2e2314;
+    --bad: #e0696d;
+    --badbg: #31191b;
+    --cross: #a98fd8;
+    --crossbg: #251d33;
+    --crosspanel: #1d1728;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #__next {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  body {
+    font-family: var(--font-family-sans);
+    font-size: calc(13px * var(--font-scale, 1));
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--accent2);
+    text-decoration: underline;
+  }
+
+  input,
+  button,
+  select,
+  textarea {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+  button {
+    cursor: pointer;
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border2);
+    border-radius: 6px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--faint);
+    background-clip: content-box;
+    border: 3px solid transparent;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
   }
 }
 
-:root[data-theme="dark"] {
-  --bg: #12161c;
-  --fg: #eef1f5;
-  --muted: #9aa4b2;
-  --line: #2a313b;
-  --card: #1a1f27;
-  --set21: #a99bd0;
-  --accent: #5cbfad;
-  --warn: #e08a5f;
+/* Extra dense scale, additive to Tailwind's defaults (not a wholesale replace — see the
+ * comment at the top of this file). Utilities like text-11.5, px-14, rounded-2 resolve
+ * through these; anything not listed here still falls back to Tailwind's default scale,
+ * which is what keeps shadcn components (text-sm, px-4, rounded-md, ...) working
+ * unmodified. */
+@theme {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel2: var(--panel2);
+  --color-panel3: var(--panel3);
+  --color-border: var(--border);
+  --color-border2: var(--border2);
+  --color-text: var(--text);
+  --color-dim: var(--dim);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent2: var(--accent2);
+  --color-soft: var(--soft);
+  --color-sel: var(--sel);
+  --color-top: var(--top);
+  --color-topfg: var(--topfg);
+  --color-good: var(--good);
+  --color-goodbg: var(--goodbg);
+  --color-warn: var(--warn);
+  --color-warnbg: var(--warnbg);
+  --color-bad: var(--bad);
+  --color-badbg: var(--badbg);
+  --color-cross: var(--cross);
+  --color-crossbg: var(--crossbg);
+  --color-crosspanel: var(--crosspanel);
+  --color-topfill: var(--topfill);
+  --color-topfill2: var(--topfill2);
+  --color-topline: var(--topline);
+  --color-topline2: var(--topline2);
+  --color-topsel: var(--topsel);
+  --color-topdim: var(--topdim);
+
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+
+  --text-8-5: calc(8.5px * var(--font-scale, 1));
+  --text-9-5: calc(9.5px * var(--font-scale, 1));
+  --text-10: calc(10px * var(--font-scale, 1));
+  --text-10-5: calc(10.5px * var(--font-scale, 1));
+  --text-11: calc(11px * var(--font-scale, 1));
+  --text-11-5: calc(11.5px * var(--font-scale, 1));
+  --text-12: calc(12px * var(--font-scale, 1));
+  --text-12-5: calc(12.5px * var(--font-scale, 1));
+  --text-13: calc(13px * var(--font-scale, 1));
+  --text-13-5: calc(13.5px * var(--font-scale, 1));
+  --text-14: calc(14px * var(--font-scale, 1));
+  --text-15: calc(15px * var(--font-scale, 1));
+  --text-17: calc(17px * var(--font-scale, 1));
+  --text-19: calc(19px * var(--font-scale, 1));
+  --text-21: calc(21px * var(--font-scale, 1));
+  --text-26: calc(26px * var(--font-scale, 1));
+  --text-30: calc(30px * var(--font-scale, 1));
+
+  --spacing-0-5: 1px;
+  --spacing-1: 1px;
+  --spacing-2: 2px;
+  --spacing-3: 3px;
+  --spacing-4: 4px;
+  --spacing-5: 5px;
+  --spacing-6: 6px;
+  --spacing-7: 7px;
+  --spacing-8: 8px;
+  --spacing-9: 9px;
+  --spacing-10: 10px;
+  --spacing-11: 11px;
+  --spacing-12: 12px;
+  --spacing-13: 13px;
+  --spacing-14: 14px;
+  --spacing-15: 15px;
+  --spacing-16: 16px;
+  --spacing-18: 18px;
+  --spacing-19: 19px;
+  --spacing-20: 20px;
+  --spacing-21: 21px;
+  --spacing-22: 22px;
+  --spacing-23: 23px;
+  --spacing-24: 24px;
+  --spacing-25: 25px;
+  --spacing-26: 26px;
+  --spacing-28: 28px;
+  --spacing-30: 30px;
+  --spacing-32: 32px;
+  --spacing-36: 36px;
+  --spacing-38: 38px;
+  --spacing-40: 40px;
+  --spacing-44: 44px;
+  --spacing-46: 46px;
+  --spacing-52: 52px;
+  --spacing-56: 56px;
+  --spacing-60: 60px;
+  --spacing-64: 64px;
+  --spacing-70: 70px;
+  --spacing-78: 78px;
+  --spacing-88: 88px;
+  --spacing-90: 90px;
+  --spacing-96: 96px;
+  --spacing-120: 120px;
+  --spacing-130: 130px;
+  --spacing-140: 140px;
+  --spacing-150: 150px;
+  --spacing-160: 160px;
+  --spacing-180: 180px;
+  --spacing-186: 186px;
+  --spacing-190: 190px;
+  --spacing-196: 196px;
+  --spacing-200: 200px;
+  --spacing-220: 220px;
+  --spacing-230: 230px;
+  --spacing-236: 236px;
+  --spacing-250: 250px;
+  --spacing-260: 260px;
+  --spacing-280: 280px;
+  --spacing-300: 300px;
+  --spacing-320: 320px;
+  --spacing-330: 330px;
+  --spacing-340: 340px;
+  --spacing-375: 375px;
+  --spacing-420: 420px;
+  --spacing-560: 560px;
+  --spacing-620: 620px;
+  --spacing-640: 640px;
+  --spacing-700: 700px;
+  --spacing-720: 720px;
+  --spacing-760: 760px;
+  --spacing-820: 820px;
+  --spacing-950: 950px;
+  --spacing-1000: 1000px;
+  --spacing-1100: 1100px;
+  --spacing-1120: 1120px;
+
+  --tracking-label: 0.09em;
+  --tracking-caps: 0.08em;
+
+  --radius-1: 1px;
+  --radius-2: 2px;
+  --radius-3: 3px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+
+  --shadow-none: none;
 }
 
-html,
-body {
-  background: var(--bg);
-  color: var(--fg);
-}
+/* ===========================================================================
+ * ANC Planning Studio additions. Everything above this line is the house design
+ * (sc_feedback_v2/src/app/globals.css), copied verbatim; keep it that way so the
+ * two stay in step. Additions below use only the house tokens.
+ * ======================================================================== */
 
-body {
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  /* Names the pre-studio components still read. Removed once the last of them
+     is ported (see the studio plan, milestone M2). --muted here is the old
+     text-grey meaning; no vendored ui/ component reads --muted. */
+  :root {
+    --fg: var(--text);
+    --line: var(--border);
+    --v1: var(--cross);
+    --v2: var(--accent);
+    --muted: var(--dim);
+  }
 }
 
 .card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
 }
-
 .label {
-  font-size: 0.8rem;
-  color: var(--muted);
+  font-size: calc(11.5px * var(--font-scale, 1));
+  color: var(--dim);
 }
-
-input,
-select {
-  background: var(--card);
-  color: var(--fg);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0.5rem 0.65rem;
-  width: 100%;
-  font-size: 0.9rem;
-}
-
-input:focus,
-select:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
-}
-
-button {
-  font: inherit;
-}
-
-.tabular {
+.tabular,
+.num {
+  font-family: var(--font-family-mono);
   font-variant-numeric: tabular-nums;
 }
 
-/* ------------------------------------------------ rendered reports (Reports) */
+/* Panel title strip and table header: the house's uppercase label. */
+.caps {
+  font-size: calc(9.5px * var(--font-scale, 1));
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-weight: 600;
+  color: var(--faint);
+}
+
+/* ------------------------------------------------ rendered documents (Library) */
 .doc {
-  font-size: 0.95rem;
-  line-height: 1.65;
-  max-width: 52rem;
+  font-size: calc(13.5px * var(--font-scale, 1));
+  line-height: 1.62;
+  max-width: 820px;
   overflow-wrap: anywhere;
 }
-.doc h1 { font-size: 1.6rem; font-weight: 650; line-height: 1.25; margin: 0 0 1rem; }
+.doc h1 { font-size: calc(21px * var(--font-scale, 1)); font-weight: 600; line-height: 1.25; margin: 0 0 12px; }
 .doc h2 {
-  font-size: 1.2rem; font-weight: 650; margin: 2.2rem 0 0.75rem;
-  padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: calc(15px * var(--font-scale, 1)); font-weight: 600; margin: 26px 0 8px;
+  padding-top: 12px; border-top: 1px solid var(--border);
 }
-.doc h3 { font-size: 1.02rem; font-weight: 650; margin: 1.6rem 0 0.5rem; }
-.doc p { margin: 0.7rem 0; }
-.doc ul, .doc ol { margin: 0.6rem 0 0.9rem; padding-left: 1.4rem; }
+.doc h3 { font-size: calc(13.5px * var(--font-scale, 1)); font-weight: 600; margin: 18px 0 6px; }
+.doc p { margin: 8px 0; }
+.doc ul, .doc ol { margin: 6px 0 10px; padding-left: 20px; }
 .doc ul { list-style: disc; }
 .doc ol { list-style: decimal; }
-.doc li { margin: 0.25rem 0; }
-.doc strong { font-weight: 650; }
+.doc li { margin: 3px 0; }
+.doc strong { font-weight: 600; }
 .doc a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 .doc a.docref code { color: var(--accent); }
-.doc hr { border: 0; border-top: 1px solid var(--line); margin: 1.8rem 0; }
+.doc hr { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
 .doc code {
-  font-size: 0.84em;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 0.05rem 0.3rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.86em;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0 4px;
 }
 .doc pre {
-  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
-  padding: 0.8rem 1rem; overflow-x: auto; margin: 0.9rem 0; font-size: 0.82rem;
+  background: var(--panel2); border: 1px solid var(--border); border-radius: 3px;
+  padding: 10px 12px; overflow-x: auto; margin: 10px 0; font-size: calc(11.5px * var(--font-scale, 1));
 }
 .doc pre code { border: 0; padding: 0; background: none; }
 .doc blockquote {
-  border-left: 3px solid var(--accent); margin: 1rem 0; padding: 0.2rem 0 0.2rem 1rem;
-  color: var(--muted);
+  border-left: 2px solid var(--accent); margin: 12px 0; padding: 2px 0 2px 12px;
+  color: var(--dim);
 }
 /* Tables scroll sideways on a phone instead of widening the page. */
 .doc table {
   display: block; overflow-x: auto; max-width: 100%;
-  border-collapse: collapse; margin: 1rem 0; font-size: 0.83rem;
+  border-collapse: collapse; margin: 12px 0; font-size: calc(11.5px * var(--font-scale, 1));
 }
 .doc th, .doc td {
-  border-bottom: 1px solid var(--line); padding: 0.4rem 0.75rem 0.4rem 0;
+  border-bottom: 1px solid var(--border); padding: 6px 12px 6px 0;
   text-align: left; vertical-align: top;
 }
-.doc th { color: var(--muted); font-weight: 500; white-space: nowrap; }
-.doc td { font-variant-numeric: tabular-nums; }
+.doc th {
+  color: var(--faint); font-weight: 600; white-space: nowrap;
+  text-transform: uppercase; letter-spacing: 0.09em; font-size: calc(9.5px * var(--font-scale, 1));
+}
+.doc td { font-family: var(--font-family-mono); font-size: calc(11px * var(--font-scale, 1)); }
 
-/* -------------------------------------- compact markdown (How we tested tab) */
-.doc.doc-compact { font-size: 0.9rem; line-height: 1.55; max-width: none; }
-.doc.doc-compact p { margin: 0.3rem 0; }
+.doc.doc-compact { font-size: calc(12.5px * var(--font-scale, 1)); line-height: 1.55; max-width: none; }
+.doc.doc-compact p { margin: 3px 0; }
 .doc.doc-compact p:first-child { margin-top: 0; }
 .doc.doc-compact p:last-child { margin-bottom: 0; }
-.doc.doc-compact ul, .doc.doc-compact ol { margin: 0.3rem 0 0.4rem; }
-.doc.doc-compact li { margin: 0.12rem 0; }
-.doc.doc-compact table { margin: 0.5rem 0; }
-.doc.doc-compact blockquote { margin: 0.6rem 0; }
-.doc.label { color: var(--muted); }
+.doc.doc-compact ul, .doc.doc-compact ol { margin: 3px 0 4px; }
+.doc.doc-compact li { margin: 1px 0; }
+.doc.doc-compact table { margin: 6px 0; }
+.doc.label { color: var(--dim); }
 
-/* A term or figure the address points to glows briefly. */
+/* A term or figure the address points to is outlined briefly. */
 .flash { animation: flash 1.8s ease-out; }
 @keyframes flash {
-  0%, 30% { box-shadow: 0 0 0 3px var(--accent); }
-  100% { box-shadow: 0 0 0 0 transparent; }
+  0%, 30% { outline: 2px solid var(--accent); outline-offset: 2px; }
+  100% { outline: 2px solid transparent; outline-offset: 2px; }
+}
+
+/* ------------------------------------------------ maps (Leaflet), house chrome */
+.leaflet-container {
+  background: var(--panel2);
+  font-family: var(--font-family-sans);
+  font-size: calc(11px * var(--font-scale, 1));
+}
+.leaflet-container a { color: var(--accent); }
+.leaflet-bar,
+.leaflet-control-layers {
+  border: 1px solid var(--border2) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+.leaflet-bar a {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-bottom-color: var(--border) !important;
+  width: 24px !important;
+  height: 24px !important;
+  line-height: 24px !important;
+}
+.leaflet-tooltip.studio-tip {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  box-shadow: none;
+  padding: 5px 8px;
+  font-size: calc(11px * var(--font-scale, 1));
+}
+.leaflet-tooltip.studio-tip::before { display: none; }
+.leaflet-control-attribution {
+  background: color-mix(in srgb, var(--panel) 85%, transparent) !important;
+  color: var(--faint) !important;
+  font-size: calc(9.5px * var(--font-scale, 1));
+}
+.leaflet-interactive:focus { outline: none; }
+
+/* Presentation mode: the same screens, larger, for a projector. */
+:root[data-present="on"] {
+  --font-scale: 1.3;
+}
+
+/* The house @theme spells decimal sizes with a hyphen (--text-10-5), but Tailwind v4
+   resolves the class `text-10.5` through the key `--text-10\.5`, so every decimal size
+   fell back to the 13px body size (measured in the browser). The escaped keys below
+   make the classes resolve; the hyphenated ones above stay for parity with the house. */
+@theme {
+  --text-8\.5: calc(8.5px * var(--font-scale, 1));
+  --text-9\.5: calc(9.5px * var(--font-scale, 1));
+  --text-10\.5: calc(10.5px * var(--font-scale, 1));
+  --text-11\.5: calc(11.5px * var(--font-scale, 1));
+  --text-12\.5: calc(12.5px * var(--font-scale, 1));
+  --text-13\.5: calc(13.5px * var(--font-scale, 1));
+  --spacing-0\.5: 1px;
 }

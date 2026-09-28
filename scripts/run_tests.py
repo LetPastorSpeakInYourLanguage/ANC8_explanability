@@ -592,6 +592,28 @@ def test_wording():
           not hits, "; ".join(hits[:12]) + (" ..." if len(hits) > 12 else "")
           if hits else f"{len(docs)} documents")
 
+    # The studio's own screens carry the same rule: what a reader sees on screen must
+    # frame the work the way the documents do.
+    src = ROOT / "app" / "src"
+    if not src.exists():
+        skip("studio wording", "app/ not in this layout")
+        return
+    files = sorted((src / "app").rglob("*.tsx")) + [src / "lib" / "nav.ts"]
+    for d in ("studio", "shell", "charts", "map", "planner", "war", "upload", "lab", "explore"):
+        files += sorted((src / "components" / d).rglob("*.tsx"))
+    hits = []
+    for f in files:
+        if not f.exists():
+            continue
+        for i, line in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+            if line.lstrip().startswith("import "):
+                continue
+            for pat, name in BANNED:
+                if re.search(pat, line):
+                    hits.append(f"{f.relative_to(src)}:{i} {name}")
+    check("no studio screen uses the old framing or carries a clock time or date",
+          not hits, "; ".join(hits[:12]) if hits else f"{len(files)} files")
+
 
 def main():
     print("=" * 74)
