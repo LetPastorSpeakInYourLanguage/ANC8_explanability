@@ -1,0 +1,12 @@
+{
+ "periods": [
+  "2022Q1",
+  "2024Q4"
+ ],
+ "bootstrap_resamples": 300,
+ "caveats": [
+  "only each woman's most recent birth is in the survey",
+  "contact counts are recalled less well for older births"
+ ],
+ "minutes": 0.1
+}

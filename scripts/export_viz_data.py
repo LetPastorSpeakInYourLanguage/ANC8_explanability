@@ -12,6 +12,8 @@ reported, not faked.
                                  distributions, the EDHS report table, the networks
   app/public/data/war.json       the conflict simulator's model, evidence and backtest
   app/public/data/scenarios.json the planner's levers: g-computation over 128 combinations
+  app/public/data/series.json    ANC by quarter and half-year of birth, and the screener
+  app/public/samples/*.csv       sample files for "Your data" (survey-derived and synthetic)
 """
 
 from __future__ import annotations
@@ -35,6 +37,8 @@ WARTIME = ROOT / "outputs" / "wartime"
 DEEP = ROOT / "outputs" / "deep"
 WAR = ROOT / "outputs" / "war"
 SCEN = ROOT / "outputs" / "scenarios"
+TS = ROOT / "outputs" / "timeseries"
+SCREEN = ROOT / "outputs" / "screener"
 
 RUNG_OF = {"anc1plus": "anc1", "anc4plus": "anc4", "anc8plus": "anc8"}
 
@@ -237,6 +241,30 @@ def scenarios_block() -> dict | None:
     }
 
 
+def series_block() -> dict | None:
+    if not (TS / "national_quarterly.csv").exists():
+        print("  series: skipped, run scripts/run_time_series.py first")
+        return None
+    nat = pd.read_csv(TS / "national_quarterly.csv")
+    reg = pd.read_csv(TS / "regional_half_year.csv")
+    out = {
+        "national_quarterly": nat.to_dict("records"),
+        "regional_half_year": {r: g.drop(columns="region").to_dict("records") for r, g in reg.groupby("region")},
+        "caveats": json.loads((TS / "summary.json").read_text())["caveats"],
+    }
+    if (SCREEN / "screener.json").exists():
+        out["screener"] = json.loads((SCREEN / "screener.json").read_text(encoding="utf-8"))
+    # the sample files, served as they are
+    samples = ROOT / "app" / "public" / "samples"
+    samples.mkdir(parents=True, exist_ok=True)
+    for src, name in ((TS / "sample_survey_quarterly.csv", "survey_regions_quarterly.csv"),
+                      (TS / "sample_synthetic_monthly.csv", "synthetic_woreda_monthly.csv"),
+                      (SCREEN / "sample_register.csv", "synthetic_register.csv")):
+        if src.exists():
+            (samples / name).write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+    return out
+
+
 def write(name: str, data) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
@@ -250,6 +278,9 @@ def main():
     if reg:
         write("regions.json", reg)
     write("explore.json", explore_block())
+    se = series_block()
+    if se:
+        write("series.json", se)
     sc = scenarios_block()
     if sc:
         write("scenarios.json", sc)

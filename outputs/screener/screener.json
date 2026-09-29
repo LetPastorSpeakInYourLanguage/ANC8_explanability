@@ -1,0 +1,258 @@
+{
+ "fields": [
+  {
+   "key": "age",
+   "kind": "numeric",
+   "question": "Her age in years",
+   "median": 28.0,
+   "mean": 28.964401294498384,
+   "sd": 6.3404394686532335
+  },
+  {
+   "key": "previous_births",
+   "kind": "numeric",
+   "question": "Children she has given birth to before",
+   "median": 3.0,
+   "mean": 3.2920089619118746,
+   "sd": 2.2035642921324303
+  },
+  {
+   "key": "minutes_to_facility",
+   "kind": "numeric",
+   "question": "Minutes it takes her to reach a health facility",
+   "median": 30.0,
+   "mean": 59.927806821010705,
+   "sd": 77.25487365842112
+  },
+  {
+   "key": "assets",
+   "kind": "numeric",
+   "question": "How many of: electricity, radio, television, mobile phone, bank account",
+   "median": 2.0,
+   "mean": 1.9372666168782673,
+   "sd": 1.5357777650068298
+  },
+  {
+   "key": "early_first_visit",
+   "kind": "numeric",
+   "question": "Is this first visit in the first three months? (1 yes, 0 no)",
+   "median": 0.0,
+   "mean": 0.4266865820263879,
+   "sd": 0.49465751321512563
+  },
+  {
+   "key": "education",
+   "kind": "categorical",
+   "question": "Her schooling",
+   "levels": [
+    "Higher",
+    "No education",
+    "Primary",
+    "Secondary"
+   ]
+  },
+  {
+   "key": "pregnancy_wanted",
+   "kind": "categorical",
+   "question": "Was this pregnancy wanted then, later, or not at all?",
+   "levels": [
+    "Wanted later",
+    "Wanted no more",
+    "Wanted then"
+   ]
+  },
+  {
+   "key": "transport",
+   "kind": "categorical",
+   "question": "How she travels to the facility",
+   "levels": [
+    "Motorcycle/bajaj/taxi/minibus",
+    "Other motorized",
+    "Other non-motorized",
+    "Walking"
+   ]
+  },
+  {
+   "key": "insured",
+   "kind": "categorical",
+   "question": "Health insurance",
+   "levels": [
+    "No",
+    "Yes"
+   ]
+  },
+  {
+   "key": "residence",
+   "kind": "categorical",
+   "question": "Urban or rural",
+   "levels": [
+    "Rural",
+    "Urban"
+   ]
+  },
+  {
+   "key": "region",
+   "kind": "categorical",
+   "question": "Region",
+   "levels": [
+    "Addis Ababa",
+    "Afar",
+    "Amhara",
+    "Benishangul-Gumuz",
+    "Central Ethiopia",
+    "Dire Dawa",
+    "Gambella",
+    "Harari",
+    "Oromia",
+    "Sidama",
+    "Somali",
+    "South Ethiopia",
+    "South West Ethiopia",
+    "Tigray"
+   ]
+  },
+  {
+   "key": "marital_status",
+   "kind": "categorical",
+   "question": "Marital status",
+   "levels": [
+    "Currently in union",
+    "Not currently in union"
+   ]
+  }
+ ],
+ "assets": [
+  "electricity",
+  "radio",
+  "television",
+  "mobile_phone",
+  "bank_account"
+ ],
+ "rungs": {
+  "anc4": {
+   "intercept": 1.548161589117282,
+   "coefficients": {
+    "age": 0.0598393040143993,
+    "previous_births": -0.15779788293203842,
+    "minutes_to_facility": -0.16826198977934503,
+    "assets": 0.3085696137926027,
+    "early_first_visit": 0.8061036234624118,
+    "education=No education": -0.9874416568298671,
+    "education=Primary": -0.7098339912718571,
+    "education=Secondary": -0.7212320306486469,
+    "pregnancy_wanted=Wanted no more": 0.09819812339347997,
+    "pregnancy_wanted=Wanted then": 0.4933528591515174,
+    "transport=Other motorized": -0.07675597998757328,
+    "transport=Other non-motorized": 0.09405199047566208,
+    "transport=Walking": 0.13109328779482177,
+    "insured=Yes": 0.2742462309170455,
+    "residence=Urban": 0.3837624387367701,
+    "region=Afar": -0.6341855438337327,
+    "region=Amhara": -0.8270973621452012,
+    "region=Benishangul-Gumuz": 0.25161732114233515,
+    "region=Central Ethiopia": -0.5897515197114341,
+    "region=Dire Dawa": -0.520508941630284,
+    "region=Gambella": -0.9880854992163388,
+    "region=Harari": -1.2961511664399028,
+    "region=Oromia": -0.592927198454959,
+    "region=Sidama": -1.2787528021984067,
+    "region=Somali": -2.197562197170526,
+    "region=South Ethiopia": -0.6613673612175128,
+    "region=South West Ethiopia": -0.3157872837681037,
+    "region=Tigray": -0.6049991611393991,
+    "marital_status=Not currently in union": 0.2756472040485895
+   },
+   "C": 1.0,
+   "heldout": {
+    "AP": 0.8888418117055938,
+    "AUROC": 0.7989743015423031,
+    "calibration_slope": 1.0531337069756121,
+    "prevalence": 0.6798690766632183
+   },
+   "reference": [
+    {
+     "set": "21",
+     "n_predictors": 22,
+     "AP": 0.890515,
+     "AUROC": 0.798194
+    },
+    {
+     "set": "tier set",
+     "n_predictors": 3,
+     "AP": 0.880925,
+     "AUROC": 0.785927
+    },
+    {
+     "set": "full pool",
+     "n_predictors": 89,
+     "AP": 0.899969,
+     "AUROC": 0.807778
+    }
+   ]
+  },
+  "anc8": {
+   "intercept": -0.8945172284756282,
+   "coefficients": {
+    "age": 0.21963478455298746,
+    "previous_births": -0.34181850355653715,
+    "minutes_to_facility": -0.35941003053481185,
+    "assets": 0.17032406697359317,
+    "early_first_visit": 0.7525746938175361,
+    "education=No education": -0.4953015899484812,
+    "education=Primary": -0.545780843696384,
+    "education=Secondary": -0.6081924909243959,
+    "pregnancy_wanted=Wanted no more": 0.08292286349612081,
+    "pregnancy_wanted=Wanted then": 0.6912902587363599,
+    "transport=Other motorized": 0.19916887530632582,
+    "transport=Other non-motorized": 0.46092642052122346,
+    "transport=Walking": -0.04200997895757348,
+    "insured=Yes": 0.08674501664003835,
+    "residence=Urban": 0.25675931556262815,
+    "region=Afar": -0.040223554987572095,
+    "region=Amhara": -0.6628382827047047,
+    "region=Benishangul-Gumuz": -0.46732719262349504,
+    "region=Central Ethiopia": -1.7082759575385882,
+    "region=Dire Dawa": -0.42140517472381467,
+    "region=Gambella": -1.0132356697075982,
+    "region=Harari": -0.6783798165607022,
+    "region=Oromia": -0.8502060151944244,
+    "region=Sidama": -1.7018826489376628,
+    "region=Somali": -1.5903878562619647,
+    "region=South Ethiopia": -1.3617283046096615,
+    "region=South West Ethiopia": -0.7146378172551286,
+    "region=Tigray": -1.4551015122897424,
+    "marital_status=Not currently in union": 0.2959252704463154
+   },
+   "C": 1.0,
+   "heldout": {
+    "AP": 0.4727063585690347,
+    "AUROC": 0.7577350486138392,
+    "calibration_slope": 0.7895426179148668,
+    "prevalence": 0.2091832577013134
+   },
+   "reference": [
+    {
+     "set": "21",
+     "n_predictors": 22,
+     "AP": 0.473709,
+     "AUROC": 0.761415
+    },
+    {
+     "set": "tier set",
+     "n_predictors": 7,
+     "AP": 0.472291,
+     "AUROC": 0.757347
+    },
+    {
+     "set": "full pool",
+     "n_predictors": 89,
+     "AP": 0.481558,
+     "AUROC": 0.782449
+    }
+   ]
+  }
+ },
+ "n_development": 4017,
+ "n_heldout": 984,
+ "minutes": 0.1
+}

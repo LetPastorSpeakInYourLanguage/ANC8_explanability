@@ -744,6 +744,64 @@ def test_studio():
                              if m.group(1) not in sizes]
         check("studio screens use only the house type sizes", not hits, "; ".join(hits[:6]))
 
+    test_browser_ports()
+
+
+def _compile_ts(names: list[str], tmp: Path) -> bool:
+    import subprocess
+    r = subprocess.run(["npx", "tsc", *[str(ROOT / "app" / "src" / "lib" / n) for n in names],
+                        "--outDir", str(tmp), "--module", "commonjs", "--target", "es2019",
+                        "--skipLibCheck", "--esModuleInterop"],
+                       capture_output=True, text=True, shell=sys.platform == "win32", cwd=ROOT / "app")
+    return r.returncode == 0
+
+
+def test_browser_ports():
+    """The screener and the forecasters run in the browser: check them there."""
+    import subprocess
+    import tempfile
+    cases = ROOT / "outputs" / "screener" / "parity_cases.json"
+    sj = ROOT / "outputs" / "screener" / "screener.json"
+    if not (cases.exists() and sj.exists()):
+        skip("screener parity", "run scripts/run_clinic_screener.py first")
+        return
+    with tempfile.TemporaryDirectory() as t:
+        tmp = Path(t)
+        if not _compile_ts(["screener.ts", "forecast.ts"], tmp):
+            skip("browser ports", "TypeScript compiler not available")
+            return
+        runner = tmp / "run.js"
+        runner.write_text(r"""
+const fs = require('fs');
+const { score } = require('./screener.js');
+const f = require('./forecast.js');
+const s = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+const c = JSON.parse(fs.readFileSync(process.argv[3], 'utf8'));
+const p = {};
+for (const r of ['anc4', 'anc8']) p[r] = c.records.map(rec => score(s, r, rec).p);
+// forecasters: a seasonal series with a trend; the seasonal model should beat the
+// last-value model, and two runs must agree exactly
+const y = Array.from({length: 48}, (_, t) => 100 + 0.8 * t + 12 * Math.sin(2 * Math.PI * t / 12));
+const a = f.backtest(y, 12, 6), b = f.backtest(y, 12, 6);
+fs.writeFileSync(process.argv[4], JSON.stringify({p, best: a[0].key,
+  naive: a.find(x => x.key === 'naive').mae, top: a[0].mae, same: JSON.stringify(a) === JSON.stringify(b)}));
+""", encoding="utf-8")
+        outp = tmp / "out.json"
+        r = subprocess.run(["node", str(runner), str(sj), str(cases), str(outp)], capture_output=True, text=True, cwd=tmp)
+        if r.returncode != 0:
+            check("the browser screener runs", False, r.stderr[-300:])
+            return
+        res = json.loads(outp.read_text(encoding="utf-8"))
+        ref = json.loads(cases.read_text(encoding="utf-8"))["p"]
+        worst = max(abs(a - b) for rung in ("anc4", "anc8") for a, b in zip(res["p"][rung], ref[rung]))
+        check("the browser screener matches the fitted model on held-out women", worst < 1e-9,
+              f"worst difference {worst:.1e} over {2 * len(ref['anc4'])} predictions")
+        check("the forecasters find the season in a seasonal series",
+              res["best"] in ("hw", "snaive") and res["top"] < res["naive"],
+              f"best {res['best']}, error {res['top']:.2f} against last-value {res['naive']:.2f}")
+        check("the forecast backtest is reproducible", res["same"])
+
+
 
 def main():
     print("=" * 74)
