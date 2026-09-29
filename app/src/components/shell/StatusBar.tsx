@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { COHORTS, useStudio } from "@/lib/studio";
+import { COHORTS, RUNGS, useStudio } from "@/lib/studio";
+import OfflineStatus from "./OfflineStatus";
+import { useOpenScope } from "./ScopePicker";
 
 /** The house status bar: what the screen is about on the left, the standing caveat
  *  on the right. The caveat never leaves the screen, because every number in the
  *  studio is an association in one survey round. */
 export default function StatusBar() {
   const studio = useStudio();
+  const openScope = useOpenScope();
   const cohort = COHORTS.find((c) => c.key === studio.cohort) ?? COHORTS[0];
   return (
     <div data-mark="status" className="bg-top text-topfg flex items-center gap-8 md:gap-12 px-10 text-10.5 flex-none min-w-0 overflow-hidden">
@@ -15,12 +18,17 @@ export default function StatusBar() {
       <span aria-hidden="true" className="flex-none">|</span>
       <span className="opacity-85 whitespace-nowrap flex-none hidden sm:inline">survey-weighted</span>
       <span aria-hidden="true" className="flex-none hidden sm:inline">|</span>
-      <span className="opacity-85 whitespace-nowrap flex-none max-w-[40vw] overflow-hidden text-ellipsis">
-        {studio.region || "Ethiopia"} · {cohort.label.toLowerCase()}
-      </span>
+      <button
+        onClick={openScope}
+        title="Change the scope"
+        className="opacity-85 hover:opacity-100 hover:underline whitespace-nowrap flex-none max-w-[40vw] overflow-hidden text-ellipsis text-topfg"
+      >
+        {studio.region || "Ethiopia"} · {RUNGS.find((r) => r.key === studio.rung)?.label} · {cohort.label.toLowerCase()}
+      </button>
       <Link href={studio.href("/about")} className="opacity-85 hover:opacity-100 whitespace-nowrap flex-none hover:no-underline text-topfg">
         About the study
       </Link>
+      <OfflineStatus />
       <div className="flex-1 min-w-8" />
       <span className="whitespace-nowrap overflow-hidden text-ellipsis min-w-0">
         <span className="hidden lg:inline">

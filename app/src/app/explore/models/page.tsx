@@ -13,7 +13,7 @@ import {
   NETWORKS, OUTCOME_OF, RUNG_LABEL, RUNG_OF, num, signed,
   type ExploreData, type Outcome,
 } from "@/lib/explore";
-import { SET_SHORT, type ModelsData } from "@/lib/modelCards";
+import { MODELS_INDEX, SETS, SET_SHORT, setFile, type ModelsIndex, type ModelsSet } from "@/lib/modelCards";
 import { RUNGS, useStudio } from "@/lib/studio";
 
 const OUTCOMES: Outcome[] = ["anc1plus", "anc4plus", "anc8plus"];
@@ -44,7 +44,7 @@ export default function ModelsPage() {
   const theme = useRenderTheme();
   const ana = useJSON<Analysis>("/analysis.json");
   const exp = useJSON<ExploreData>("/data/explore.json");
-  const lib = useJSON<ModelsData>("/data/models.json");
+  const lib = useJSON<ModelsIndex>(MODELS_INDEX);
   const [measure, setMeasure] = useState<Measure>("AP");
   const [ablModel, setAblModel] = useState("XGBoost");
   const [calFocus, setCalFocus] = useState<string | null>(null);
@@ -56,14 +56,15 @@ export default function ModelsPage() {
   // the same 1,375 held-out women.
   const sets = lib.data?.meta.sets.map((x) => x.key) ?? [];
   const setAsked = studio.params.get("set") ?? "";
-  const set = sets.includes(setAsked) ? setAsked : sets.includes("pool") ? "pool" : sets[0] ?? "pool";
+  const set = SETS.includes(setAsked) ? setAsked : "pool";
+  const setCards = useJSON<ModelsSet>(setFile(set));
   const models = useMemo(() => {
     const out: Record<Outcome, ModelRow[]> = { anc1plus: [], anc4plus: [], anc8plus: [] };
     const d = lib.data;
     if (!d) return out;
     for (const o of OUTCOMES) {
       for (const [k, f] of Object.entries(d.families)) {
-        const c = f.set === set ? d.cards[k][RUNG_OF[o]] : undefined;
+        const c = f.set === set ? d.summary[k]?.[RUNG_OF[o]] : undefined;
         if (!c) continue;
         out[o].push({
           model: f.slug, name: f.name, network: NETWORKS.includes(f.name),
@@ -120,7 +121,7 @@ export default function ModelsPage() {
   const L = lib.data;
   const fams = Object.values(L.families);
   const slugs = [...new Set(fams.map((f) => f.slug))];
-  const cellOf = (slug: string, s: string) => L.cards[`${s}.${slug}`]?.[rung];
+  const cellOf = (slug: string, s: string) => L.summary[`${s}.${slug}`]?.[rung];
   const bySet = slugs
     .map((slug) => ({
       key: slug,
@@ -140,7 +141,7 @@ export default function ModelsPage() {
   const hp = a.hyperparameters?.[outcome]?.[ablModel] ?? {};
 
   const cal: Record<string, { predicted: number; observed: number; n: number }[]> = Object.fromEntries(
-    CAL_MODELS.map((m) => [m, cellOf(fams.find((f) => f.name === m)?.slug ?? "", set)?.calibration ?? []]),
+    CAL_MODELS.map((m) => [m, setCards.data?.cards[`${set}.${fams.find((f) => f.name === m)?.slug}`]?.[rung]?.calibration ?? []]),
   );
   const calModels = CAL_MODELS.filter((m) => cal[m]?.length);
   const dca = a.decision_curve?.[outcome] ?? [];

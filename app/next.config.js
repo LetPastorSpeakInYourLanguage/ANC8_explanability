@@ -5,6 +5,9 @@ const isDev = process.env.NODE_ENV === "development";
 // tab uses NEXT_PUBLIC_PREDICT_API if it is set, and says so if it is not.
 const isStatic = process.env.STATIC_EXPORT === "1";
 const basePath = process.env.BASE_PATH || "";
+// The build's id: part of every data file's address and of the service worker's cache,
+// so a new deploy is never read from an old copy.
+const build = (process.env.VERCEL_GIT_COMMIT_SHA || "").slice(0, 10) || Date.now().toString(36);
 
 module.exports = {
   reactStrictMode: true,
@@ -16,11 +19,21 @@ module.exports = {
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
     NEXT_PUBLIC_STATIC_EXPORT: isStatic ? "1" : "",
+    NEXT_PUBLIC_BUILD: build,
   },
   // In development the Python function is served by scripts/dev_api.py on
   // port 8000. On Vercel, api/predict.py is routed natively and this rewrite
   // is not applied.
   ...(isStatic ? {} : {
+    // Data files carry the build in their address, so browsers may keep them; the
+    // service worker must always be checked for a new version.
+    async headers() {
+      return [
+        { source: "/data/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
+        { source: "/:name([a-z_]+\\.json)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
+        { source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache" }] },
+      ];
+    },
     async rewrites() {
       return isDev
         ? [{ source: "/api/:path*", destination: "http://127.0.0.1:8000/api/:path*" }]

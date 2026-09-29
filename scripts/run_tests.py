@@ -713,10 +713,16 @@ def test_studio():
     else:
         skip("scenarios.json", "absent; run scripts/run_scenarios.py and export_viz_data.py")
 
-    mp = base / "data" / "models.json"
+    mp = base / "data" / "models" / "index.json"
     if mp.exists():
         mj = json.loads(mp.read_text(encoding="utf-8"))
-        fams, cards = mj["families"], mj["cards"]
+        fams = mj["families"]
+        # full cards, one predictor set per file
+        cards = {}
+        for st in mj["meta"]["sets"]:
+            cards.update(json.loads((mp.parent / f"{st['key']}.json").read_text(encoding="utf-8"))["cards"])
+        check("the models index summarises exactly the cards in the set files",
+              set(mj["summary"]) == set(cards) and all(set(mj["summary"][k]) == set(cards[k]) for k in cards))
         # The library is complete: every model, predictor set and rung has a card.
         sys.path.insert(0, str(ROOT / "src"))
         from anc8 import library as _lib

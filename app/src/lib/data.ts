@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { asset } from "@/lib/paths";
+import { versioned } from "@/lib/offline";
 
 /**
  * One cache for every JSON file the studio reads from app/public. Screens ask for
  * what they need by path; a file is fetched once per page load however many
  * screens and panels read it, so moving between screens is instant after the
- * first visit.
+ * first visit. The build is part of each address, so a browser may keep the files
+ * (and the service worker may serve them offline) until the next deploy.
  */
 
 const cache = new Map<string, Promise<unknown>>();
@@ -15,7 +16,7 @@ const cache = new Map<string, Promise<unknown>>();
 export function loadJSON<T>(path: string): Promise<T> {
   let p = cache.get(path) as Promise<T> | undefined;
   if (!p) {
-    p = fetch(asset(path)).then((r) => {
+    p = fetch(versioned(path)).then((r) => {
       if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
       return r.json() as Promise<T>;
     });

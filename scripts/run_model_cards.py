@@ -373,6 +373,21 @@ def main():
                               "auroc": pm["AUROC"], "brier": pm["Brier"],
                               "slope": pm["Calibration_slope"], "lift": card["lift"]})
 
+    # The study's own importance shares (explainable boosting's terms, XGBoost's SHAP) for
+    # those two models on the full pool, limited to the predictors the model uses, so the
+    # Model analysis screen needs nothing but its own files.
+    an_p = ROOT / "app" / "public" / "analysis.json"
+    matrix = json.loads(an_p.read_text(encoding="utf-8")).get("predictor_matrix", []) if an_p.exists() else []
+    for slug, col in (("explainable-boosting", "ebm"), ("xgboost", "shap")):
+        for rung, short in RUNGS.items():
+            card = cards.get(f"pool.{slug}", {}).get(short)
+            if not card:
+                continue
+            uses = set(card["predictors"])
+            rows = sorted((r for r in matrix if r["rung"] == rung and r["predictor"] in uses and (r.get(col) or 0) > 0),
+                          key=lambda r: -r[col])[:8]
+            card["shares"] = {"kind": col, "rows": [{"predictor": r["predictor"], "share": r[col]} for r in rows]}
+
     meta = {"n_development": int(len(dev_all)), "n_heldout": int(len(held)), "resamples": n_boot,
             "sets": [{"key": s, "label": lib.SET_LABEL[s]} for s in lib.SETS if s in summary]}
     result = {"meta": meta, "families": fams, "cards": cards, "cross": cross}

@@ -1,9 +1,10 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { MODES, NAV, itemForPath, modeForPath } from "@/lib/nav";
 import { COHORTS, useStudio } from "@/lib/studio";
+import { useOpenScope } from "./ScopePicker";
 
 /**
  * The house sidebar. The scope block says what everything on screen is about: the
@@ -14,6 +15,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const studio = useStudio();
+  const openScope = useOpenScope();
   const mode = modeForPath(pathname);
   const activeKey = itemForPath(pathname)?.key;
   const cohort = COHORTS.find((c) => c.key === studio.cohort) ?? COHORTS[0];
@@ -48,10 +50,22 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       <div data-mark="scope" className="px-12 pt-9 pb-9 border-b border-border flex-none">
         <div className="text-9.5 uppercase tracking-label text-faint font-semibold">Scope</div>
         <div className="flex items-center gap-6 mt-4">
-          <div className="w-6 h-6 bg-accent rounded-1 flex-none" />
-          <div className="text-12 font-semibold leading-snug flex-1 min-w-0 truncate">
-            {studio.region || "Ethiopia"}
-          </div>
+          <button
+            onClick={() => {
+              onNavigate?.(); // on a phone, close the drawer so the picker has the screen
+              openScope();
+            }}
+            title="Change the scope: the whole country or one region"
+            className="flex items-center gap-6 flex-1 min-w-0 text-left hover:text-accent"
+          >
+            <span className="w-6 h-6 bg-accent rounded-1 flex-none" />
+            <span className="text-12 font-semibold leading-snug flex-1 min-w-0 truncate">
+              {studio.region || "Ethiopia"}
+            </span>
+            <span className="flex items-center gap-2 text-10 text-accent flex-none">
+              Change <ChevronDown className="size-11" />
+            </span>
+          </button>
           {studio.region && (
             <button
               onClick={() => studio.set({ region: "" })}

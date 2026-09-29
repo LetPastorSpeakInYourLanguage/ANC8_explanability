@@ -16,7 +16,8 @@ reported, not faked.
   app/public/samples/*.csv       sample files for "Your data" (survey-derived and synthetic)
   app/public/data/lab.json       the Model lab: attention, drop-off curves, composite profiles
   app/public/data/nets.json      the two networks' weights, for the browser forward pass
-  app/public/data/models.json    the Model analysis screen: a card per model and rung
+  app/public/data/models/        the Model analysis screen: index.json (scores for every
+                                 model), and <set>.json (full cards, one predictor set each)
 """
 
 from __future__ import annotations
@@ -327,6 +328,7 @@ def models_block() -> dict | None:
 def write(name: str, data, rounder=None) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
+    p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps((rounder or clean)(data), separators=(",", ":")), encoding="utf-8")
     print(f"  wrote app/public/data/{name}  ({p.stat().st_size / 1024:.0f} KB)")
 
@@ -351,7 +353,17 @@ def main():
         write("war.json", war)
     mc = models_block()
     if mc:
-        write("models.json", mc, rounder=sig)
+        # A small index for the rankings and heatmaps, and the full cards one predictor
+        # set per file, fetched only when that set is on screen.
+        keep = ("ap", "ap_ci", "auroc", "auroc_ci", "brier", "slope", "lift", "prevalence",
+                "dev_ap", "rank", "of", "n_predictors")
+        summary = {k: {r: {f: c[f] for f in keep} for r, c in by.items()} for k, by in mc["cards"].items()}
+        write("models/index.json", {"meta": mc["meta"], "families": mc["families"], "summary": summary,
+                                    "cross": mc["cross"]}, rounder=sig)
+        for st in [x["key"] for x in mc["meta"]["sets"]]:
+            write(f"models/{st}.json", {"cards": {k: by for k, by in mc["cards"].items()
+                                                  if mc["families"][k]["set"] == st}}, rounder=sig)
+        (OUT / "models.json").unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

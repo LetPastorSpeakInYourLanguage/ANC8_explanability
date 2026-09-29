@@ -13,11 +13,12 @@ import { Select } from "@/components/ui/select";
 import {
   DataNote, InlineError, Note, Panel, PanelLoading, Picker, Screen, Segmented, StatTile, Tag,
 } from "@/components/studio/ui";
-import type { Analysis } from "@/lib/analysis";
 import { useJSON } from "@/lib/data";
-import { OUTCOME_OF, RUNG_LABEL, num, signed } from "@/lib/explore";
+import { RUNG_LABEL, num, signed } from "@/lib/explore";
 import { label } from "@/lib/labels";
-import { GROUPS, SET_SHORT, bestAt, type Card, type ModelsData } from "@/lib/modelCards";
+import {
+  GROUPS, MODELS_INDEX, SETS, SET_SHORT, bestAt, setFile, type Card, type ModelsIndex, type ModelsSet,
+} from "@/lib/modelCards";
 import { RUNGS, useStudio, type Rung } from "@/lib/studio";
 
 const pct = (v: number, d = 0) => `${(v * 100).toFixed(d)}%`;
@@ -31,14 +32,17 @@ const DIMS = [
 export default function ModelAnalysisPage() {
   const studio = useStudio();
   const theme = useRenderTheme();
-  const data = useJSON<ModelsData>("/data/models.json");
-  const ana = useJSON<Analysis>("/analysis.json");
+  // The index ranks every model; the full cards come one predictor set at a time.
+  const setParam = studio.params.get("set") ?? "pool";
+  const index = useJSON<ModelsIndex>(MODELS_INDEX);
+  const setData = useJSON<ModelsSet>(setFile(setParam));
 
   const rung = studio.rung;
   const dim = (studio.params.get("dim") ?? "region") as (typeof DIMS)[number]["key"];
 
-  const err = data.error;
-  const d = data.data;
+  const err = index.error ?? setData.error;
+  const d = index.data;
+  const S = setData.data;
 
   // Models are asked for by family (the slug), so switching the predictor set keeps
   // the same model in view.
@@ -46,33 +50,32 @@ export default function ModelAnalysisPage() {
     if (!d) return null;
     const sets = d.meta.sets.map((x) => x.key);
     const setAsked = studio.params.get("set") ?? "";
-    const set = sets.includes(setAsked) ? setAsked : sets.includes("pool") ? "pool" : sets[0];
+    const set = sets.includes(setAsked) && SETS.includes(setAsked) ? setAsked : "pool";
     const slug = (studio.params.get("model") ?? "").replace(/^[a-z0-9]+\./, "");
     const asked = slug ? `${set}.${slug}` : "";
     const best = bestAt(d, rung, set);
-    const key = d.cards[asked]?.[rung] ? asked : best;
+    const key = d.summary[asked]?.[rung] ? asked : best;
     const vsSlug = studio.params.get("vs") ?? "";
     const vsAsked = vsSlug ? `${set}.${vsSlug}` : "";
-    const vsKey = vsAsked && vsAsked !== key && d.cards[vsAsked]?.[rung] ? vsAsked : "";
+    const vsKey = vsAsked && vsAsked !== key && d.summary[vsAsked]?.[rung] ? vsAsked : "";
     return { set, asked, best, key, vsKey };
   }, [d, studio.params, rung]);
 
   if (err) return <Screen><InlineError message={err} /></Screen>;
-  if (!d || !view) return <Screen><PanelLoading rows={8} /></Screen>;
+  if (!d || !view || !S?.cards[view.key]?.[rung]) return <Screen><PanelLoading rows={8} /></Screen>;
 
   const { set, key, vsKey, best, asked } = view;
   const fam = d.families[key];
-  const card = d.cards[key][rung]!;
-  const vs: Card | null = vsKey ? d.cards[vsKey][rung]! : null;
+  const card = S.cards[key][rung]!;
+  const vs: Card | null = vsKey ? S.cards[vsKey]?.[rung] ?? null : null;
   const vsName = vsKey ? d.families[vsKey].name : null;
-  const outcome = OUTCOME_OF[rung];
   const rl = RUNG_LABEL[rung];
 
   const inSet = Object.keys(d.families).filter((k) => d.families[k].set === set);
-  const available = inSet.filter((k) => d.cards[k][rung]);
+  const available = inSet.filter((k) => d.summary[k]?.[rung]);
   const byGroup = GROUPS.map((g) => ({
     g,
-    items: available.filter((k) => d.families[k].group === g).sort((a, b) => d.cards[b][rung]!.ap - d.cards[a][rung]!.ap),
+    items: available.filter((k) => d.families[k].group === g).sort((a, b) => d.summary[b][rung]!.ap - d.summary[a][rung]!.ap),
   })).filter((x) => x.items.length);
 
   const pick = (k: string) => studio.set({ model: d.families[k].slug });
@@ -80,10 +83,10 @@ export default function ModelAnalysisPage() {
   const slopeTone = card.slope < 0.8 || card.slope > 1.25 ? "warn" : "good";
 
   // every model at this rung, against chance
-  const ranked = available.map((k) => ({ k, c: d.cards[k][rung]! })).sort((a, b) => b.c.ap - a.c.ap);
+  const ranked = available.map((k) => ({ k, c: d.summary[k][rung]! })).sort((a, b) => b.c.ap - a.c.ap);
 
   const sub = card.subgroups[dim];
-  const own = Object.entries(d.cards[key]).map(([r, c]) => ({ r: r as Rung, c: c! }));
+  const own = Object.entries(d.summary[key]).map(([r, c]) => ({ r: r as Rung, c: c! }));
 
   const paired = [card.vs_best, card.vs_logistic].filter((p): p is NonNullable<typeof p> => !!p);
   const pairedRows = paired.flatMap((p) => [
@@ -91,16 +94,10 @@ export default function ModelAnalysisPage() {
     { key: `${p.key}-au`, label: `AUROC · vs ${p.vs}`, v: p.auroc, lo: p.auroc_ci[0], hi: p.auroc_ci[1] },
   ]);
 
-  // Importance shares come from the study's own explainable boosting and XGBoost fits on
-  // the candidate pool; only predictors this model uses are listed.
-  const shareKey = set === "pool" ? (fam.slug === "explainable-boosting" ? "ebm" : fam.slug === "xgboost" ? "shap" : null) : null;
-  const uses = new Set(card.predictors);
-  const shares = shareKey && ana.data
-    ? (ana.data.predictor_matrix ?? [])
-        .filter((r) => r.rung === outcome && uses.has(r.predictor) && (r[shareKey] ?? 0) > 0)
-        .sort((a, b) => (b[shareKey] ?? 0) - (a[shareKey] ?? 0))
-        .slice(0, 8)
-    : [];
+  // Importance shares: the study's own explainable boosting and XGBoost fits on the pool,
+  // limited to the predictors this model uses.
+  const shares = card.shares?.rows ?? [];
+  const shareKey = card.shares?.kind ?? null;
 
   return (
     <Screen>
@@ -210,7 +207,7 @@ export default function ModelAnalysisPage() {
               label: RUNG_LABEL[r],
               sub: `rank ${c.rank} of ${c.of}`,
               values: { dev: c.dev_ap, held: c.ap },
-              display: c.optimism == null ? num(c.ap) : signed(-c.optimism),
+              display: c.dev_ap == null ? num(c.ap) : signed(c.ap - c.dev_ap),
             }))}
             series={[
               { key: "dev", label: "Development", color: "var(--dim)", hollow: true },
@@ -275,11 +272,11 @@ export default function ModelAnalysisPage() {
               theme={theme}
               perColumn
               rows={inSet
-                .sort((a, b) => (d.cards[b][rung]?.ap ?? -1) - (d.cards[a][rung]?.ap ?? -1))
+                .sort((a, b) => (d.summary[b]?.[rung]?.ap ?? -1) - (d.summary[a]?.[rung]?.ap ?? -1))
                 .map((k) => ({
                   key: k,
                   label: d.families[k].name,
-                  values: Object.fromEntries(RUNGS.map((r) => [r.key, d.cards[k][r.key]?.ap ?? null])),
+                  values: Object.fromEntries(RUNGS.map((r) => [r.key, d.summary[k]?.[r.key]?.ap ?? null])),
                 }))}
               cols={RUNGS.map((r) => ({ key: r.key, label: r.label }))}
               format={(v) => v.toFixed(3)}
@@ -310,8 +307,8 @@ export default function ModelAnalysisPage() {
               rows={shares.map((r) => ({
                 key: r.predictor,
                 label: label(r.predictor),
-                value: r[shareKey] ?? 0,
-                display: pct(r[shareKey] ?? 0, 1),
+                value: r.share,
+                display: pct(r.share, 1),
                 color: "var(--accent)",
               }))}
               referenceLabel=""

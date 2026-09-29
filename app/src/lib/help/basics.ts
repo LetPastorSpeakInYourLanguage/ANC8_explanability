@@ -134,7 +134,8 @@ export const BASICS: HelpTopic[] = [
         shows: "The Scope box at the top of the sidebar says what the numbers on screen are about.",
         read: [
           "It reads **Ethiopia** until you pick a region, by clicking one on a map, a ranked list or a heatmap, or by finding it with the finder.",
-          "Once a region is chosen, every screen that can show one region does: the ladder, the planner, the cohorts and the lab.",
+          "From any screen, **Change** in the Scope box, the scope button in the screen's header, or the scope in the status bar opens the scope picker: every region with its women and its reach at the rung, a search box, and switches for the rung (ANC1+, ANC4+, ANC8+) and the cohort. On a phone, the header button is the quickest.",
+          "Once a region is chosen, every screen that can show one region does: the ladder, the planner, the cohorts and the lab. The picker says when a screen describes the whole country instead.",
           "The small × next to the region name goes back to the whole country.",
         ],
       },
@@ -185,6 +186,17 @@ export const BASICS: HelpTopic[] = [
           "Copy the address to send a colleague exactly what you see, for example a planner scenario prepared for a meeting.",
           "The browser's **Back** button undoes the last click.",
           "A bookmark brings the same view back later.",
+        ],
+        shot: false,
+      },
+      {
+        id: "offline",
+        title: "Working without a connection",
+        shows: "After the first screen loads, the studio saves itself in your browser: every screen and the model and analysis data first, the figures and these Help pictures last.",
+        read: [
+          "The status bar shows a small bar and **saving for offline** while it saves, then **available offline**, and **offline** when there is no connection.",
+          "Click it for the menu: **Fetch current version** drops the saved copy and reloads everything from the server; **Save for offline now** starts the saving when data saver is on.",
+          "Predict and the map's background tiles need the connection; everything else works offline.",
         ],
         shot: false,
       },

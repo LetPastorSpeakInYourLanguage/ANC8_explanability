@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { Panel, Screen, SectionRule, StatTile } from "@/components/studio/ui";
-import type { ModelsData } from "@/lib/modelCards";
+import { MODELS_INDEX, type ModelsIndex } from "@/lib/modelCards";
 import { useJSON } from "@/lib/data";
 import { asset } from "@/lib/paths";
 import { COHORTS, useStudio } from "@/lib/studio";
@@ -66,13 +66,13 @@ export default function AboutPage() {
   const reg = useJSON<Regions>("/data/regions.json").data;
   const war = useJSON<War>("/data/war.json").data;
   const scen = useJSON<Scen>("/data/scenarios.json").data;
-  const mod = useJSON<ModelsData>("/data/models.json").data;
+  const mod = useJSON<ModelsIndex>(MODELS_INDEX).data;
 
   const nat = reg?.cohorts.full.national;
   const recent = reg?.cohorts.recent.national;
   const supported = scen?.levers.filter((l) => l.supported).length;
-  const seq = mod?.cards["pool.contact-sequence-encoder-decoder"]?.anc8?.ap;
-  const xgb = mod?.cards["pool.xgboost"]?.anc8?.ap;
+  const seq = mod?.summary["pool.contact-sequence-encoder-decoder"]?.anc8?.ap;
+  const xgb = mod?.summary["pool.xgboost"]?.anc8?.ap;
   const n = (v: number | undefined, f: (x: number) => string) => (v == null ? "…" : f(v));
 
   return (

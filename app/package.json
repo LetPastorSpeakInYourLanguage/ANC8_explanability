@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node ../scripts/offline_manifest.mjs",
     "build": "next build",
     "start": "next start",
     "help:shots": "node ../scripts/capture_help_shots.mjs"

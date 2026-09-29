@@ -26,68 +26,68 @@
   "anc1": {
    "best": "LightGBM",
    "prevalence": 0.7615691189556617,
-   "n_models": 6
+   "n_models": 17
   },
   "anc4": {
    "best": "LightGBM",
    "prevalence": 0.5176109040661865,
-   "n_models": 6
+   "n_models": 16
   },
   "anc8": {
-   "best": "Extra Trees",
+   "best": "Logistic regression",
    "prevalence": 0.15980392199863247,
-   "n_models": 6
+   "n_models": 16
   }
  },
  "s21": {
   "anc1": {
-   "best": "Contact-sequence encoder-decoder",
+   "best": "MLP",
    "prevalence": 0.7615691189556617,
-   "n_models": 6
+   "n_models": 14
   },
   "anc4": {
-   "best": "LightGBM",
+   "best": "HistGradientBoosting",
    "prevalence": 0.5176109040661865,
-   "n_models": 6
+   "n_models": 14
   },
   "anc8": {
-   "best": "Elastic net logistic",
+   "best": "MLP",
    "prevalence": 0.15980392199863247,
-   "n_models": 6
+   "n_models": 14
   }
  },
  "short": {
   "anc1": {
    "best": "Extra Trees",
    "prevalence": 0.7615691189556617,
-   "n_models": 6
+   "n_models": 14
   },
   "anc4": {
-   "best": "Elastic net logistic",
+   "best": "Logistic regression",
    "prevalence": 0.5176109040661865,
-   "n_models": 6
+   "n_models": 14
   },
   "anc8": {
    "best": "Extra Trees",
    "prevalence": 0.15980392199863247,
-   "n_models": 5
+   "n_models": 14
   }
  },
  "pars": {
   "anc1": {
    "best": "Extra Trees",
    "prevalence": 0.7615691189556617,
-   "n_models": 6
+   "n_models": 14
   },
   "anc4": {
-   "best": "Extra Trees",
+   "best": "HistGradientBoosting",
    "prevalence": 0.5176109040661865,
-   "n_models": 5
+   "n_models": 14
   },
   "anc8": {
    "best": "Extra Trees",
    "prevalence": 0.15980392199863247,
-   "n_models": 5
+   "n_models": 14
   }
  }
 }

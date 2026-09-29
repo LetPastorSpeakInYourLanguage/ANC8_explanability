@@ -3,10 +3,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { topicForScreen } from "@/lib/help/href";
+import { startOffline } from "@/lib/offline";
 import { LEGACY_HASH, itemForPath } from "@/lib/nav";
 import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
 import ContentHeader from "./ContentHeader";
+import { ScopeProvider } from "./ScopePicker";
 import StatusBar from "./StatusBar";
 import Tour from "./Tour";
 
@@ -43,6 +45,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     setDrawerOpen(false);
   }, [pathname]);
 
+  // Save the app for offline use, once the first screen has what it needs.
+  useEffect(() => startOffline(), []);
+
   // Links shared before the studio (…/#reports, …/#predict/…) still arrive somewhere.
   useEffect(() => {
     if (pathname !== "/" || !window.location.hash) return;
@@ -64,6 +69,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <HeaderContext.Provider value={setOverride}>
+      <ScopeProvider>
       <div className="h-dvh w-full grid grid-rows-[38px_1fr_24px] bg-bg overflow-hidden">
         <TopBar onOpenMenu={() => setDrawerOpen(true)} />
 
@@ -102,6 +108,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <StatusBar />
         <Tour />
       </div>
+      </ScopeProvider>
     </HeaderContext.Provider>
   );
 }
