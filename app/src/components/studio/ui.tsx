@@ -387,6 +387,12 @@ export function Note({ children, tone = "warn" }: { children: ReactNode; tone?: 
   );
 }
 
+/** A small italic aside: what more data would let this panel do. Not text to read,
+ *  a margin note for the reader who wonders how it could be better. */
+export function DataNote({ children, className = "px-14 pb-10" }: { children: ReactNode; className?: string }) {
+  return <p className={`text-9.5 italic text-faint leading-snug ${className}`}>{children}</p>;
+}
+
 export function SectionRule({ label, children }: { label: string; children?: ReactNode }) {
   return (
     <div className="pt-4 pb-2 flex items-center gap-10">

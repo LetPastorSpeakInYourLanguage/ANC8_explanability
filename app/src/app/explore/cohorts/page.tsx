@@ -5,7 +5,7 @@ import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts"
 import DotRows from "@/components/charts/DotRows";
 import RankedBars from "@/components/charts/RankedBars";
 import { AXIS, ChartBox, GRID, SeriesLegend, TipPanel, tip } from "@/components/charts/rc";
-import { InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
+import { DataNote, InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
 import type { Analysis } from "@/lib/analysis";
 import { useJSON } from "@/lib/data";
 import { COHORT_COLOR, OUTCOME_OF, RUNG_LABEL, num, pct, setName, signed, type ExploreData } from "@/lib/explore";
@@ -191,6 +191,7 @@ export default function CohortsPage() {
           <div className="px-14 pb-12">
             <Note tone="accent">The number at the right is the 24-month cohort minus the full cohort, in percentage points.</Note>
           </div>
+          <DataNote>Earlier EDHS rounds would give a trend across surveys rather than one reconstructed from birth dates.</DataNote>
         </Panel>
 
         <Panel

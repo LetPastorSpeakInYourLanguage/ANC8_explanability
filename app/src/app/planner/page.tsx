@@ -7,8 +7,9 @@ import { RotateCcw } from "lucide-react";
 import DotRows from "@/components/charts/DotRows";
 import MatrixHeat from "@/components/charts/MatrixHeat";
 import RankedBars from "@/components/charts/RankedBars";
+import FixedVsAdjustable from "@/components/planner/FixedVsAdjustable";
 import { useRenderTheme } from "@/components/shell/theme-provider";
-import {
+import { DataNote,
   InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Table, Tag,
 } from "@/components/studio/ui";
 import { Input } from "@/components/ui/input";
@@ -244,6 +245,8 @@ export default function PlannerPage() {
         </div>
       </div>
 
+      <FixedVsAdjustable reg={reg.data} sc={d} rung={rung} region={studio.region} cov={cov} setCov={setCov} />
+
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
         <Panel
           title={`Spend a budget · ${RUNG_LABEL[rung]}`}
@@ -294,6 +297,7 @@ export default function PlannerPage() {
           ) : (
             <div className="px-14 py-12 text-11 text-dim">Nothing affordable at these costs.</div>
           )}
+          <DataNote>The Ministry&apos;s own unit costs would replace the placeholders, and the allocation would become a costed plan.</DataNote>
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
@@ -394,6 +398,7 @@ export default function PlannerPage() {
             from {d.bootstrap_resamples} cluster resamples of who lives where; they do not include the uncertainty in the model itself.
           </Note>
         </div>
+        <DataNote>Results from programmes actually delivered (enrolment drives, new health posts, family-planning outreach), with ANC counts before and after, would turn these associations into effect estimates.</DataNote>
       </Panel>
     </Screen>
   );

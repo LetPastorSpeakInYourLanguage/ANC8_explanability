@@ -8,7 +8,7 @@ import MatrixHeat from "@/components/charts/MatrixHeat";
 import RankedBars from "@/components/charts/RankedBars";
 import { AXIS, ChartBox, GRID, SeriesLegend, TipPanel, tip } from "@/components/charts/rc";
 import { useRenderTheme } from "@/components/shell/theme-provider";
-import { InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
+import { DataNote, InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
 import { Select } from "@/components/ui/select";
 import { label as predictorLabel } from "@/lib/labels";
 import { loadJSON, useJSON } from "@/lib/data";
@@ -134,6 +134,7 @@ export default function LabPage() {
           format={(v) => v.toFixed(3)}
           labelWidth={260}
         />
+        <DataNote>Networks usually need tens of thousands of records to overtake trees on tables like this; pooling survey rounds and countries would test whether they then pull ahead.</DataNote>
       </Panel>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">

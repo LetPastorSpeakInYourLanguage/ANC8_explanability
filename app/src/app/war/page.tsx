@@ -10,7 +10,7 @@ import {
 import DotRows from "@/components/charts/DotRows";
 import { AXIS, ChartBox, GRID, SeriesLegend, TipPanel, tip } from "@/components/charts/rc";
 import { useRenderTheme } from "@/components/shell/theme-provider";
-import {
+import { DataNote,
   InlineError, Note, Panel, PanelLoading, Range, Screen, Segmented, StatTile, Tag,
 } from "@/components/studio/ui";
 import { NO_DATA, inkOn } from "@/lib/colors";
@@ -467,6 +467,7 @@ function TigrayEvidence({ w }: { w: WarData }) {
         { key: "n", label: "No war", color: "var(--accent)", dashed: true },
         { key: "c", label: "No-conflict regions", color: "var(--faint)", dashed: true },
       ]} />
+      <DataNote>Monthly DHIS2 ANC counts for Tigray and Amhara from 2020 onwards, and interviews with displaced women, would measure the shock and the recovery directly instead of from births recalled in one survey.</DataNote>
     </Panel>
   );
 }
@@ -524,6 +525,7 @@ function AmharaBacktest({ w }: { w: WarData }) {
           disruptions, which is why the simulator offers both.
         </Note>
       </div>
+      <DataNote>Records of which facilities stayed open, and when, would tell a siege from an insurgency on evidence rather than by fitting.</DataNote>
     </Panel>
   );
 }

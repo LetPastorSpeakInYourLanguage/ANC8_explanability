@@ -6,7 +6,7 @@ import DotRows, { niceTicks } from "@/components/charts/DotRows";
 import MatrixHeat from "@/components/charts/MatrixHeat";
 import { AXIS, ChartBox, GRID, SeriesLegend, TipPanel, tip } from "@/components/charts/rc";
 import { useRenderTheme } from "@/components/shell/theme-provider";
-import { InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
+import { DataNote, InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
 import type { Analysis, LeaderboardRow } from "@/lib/analysis";
 import { useJSON } from "@/lib/data";
 import {
@@ -180,6 +180,7 @@ export default function ModelsPage() {
             </Note>
           </div>
         )}
+        <DataNote>A test on an earlier EDHS round or a neighbouring country&apos;s survey would show whether this accuracy travels; one survey round cannot.</DataNote>
       </Panel>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">

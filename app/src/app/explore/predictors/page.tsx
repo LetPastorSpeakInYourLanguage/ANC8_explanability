@@ -7,7 +7,7 @@ import MatrixHeat from "@/components/charts/MatrixHeat";
 import RankedBars from "@/components/charts/RankedBars";
 import { AXIS, ChartBox, GRID, SeriesLegend, TipPanel, tip } from "@/components/charts/rc";
 import { useRenderTheme } from "@/components/shell/theme-provider";
-import {
+import { DataNote,
   InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Table, Tag,
 } from "@/components/studio/ui";
 import type { Analysis, FeatureValueEntry } from "@/lib/analysis";
@@ -193,6 +193,7 @@ export default function PredictorsPage() {
         ) : (
           <PanelLoading rows={6} />
         )}
+        <DataNote>The survey records women&apos;s circumstances, not their care: facility data (quality, staffing, stock-outs, waiting times) is the likeliest route to better ANC8+ prediction.</DataNote>
       </Panel>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">

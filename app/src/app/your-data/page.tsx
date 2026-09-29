@@ -8,7 +8,7 @@ import {
 import DotRows from "@/components/charts/DotRows";
 import RankedBars from "@/components/charts/RankedBars";
 import { AXIS, ChartBox, GRID, SeriesLegend, TipPanel, tip } from "@/components/charts/rc";
-import {
+import { DataNote,
   EmptyState, InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Table, Tag,
 } from "@/components/studio/ui";
 import { Select } from "@/components/ui/select";
@@ -269,6 +269,7 @@ function AggregateMode() {
                 </span>
               )}
             </div>
+            <DataNote>Five or more years of monthly facility reports would let the seasonal forecasters show their strength; with a few years, simple methods usually win.</DataNote>
           </Panel>
 
           <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
@@ -538,6 +539,7 @@ function RegisterMode() {
             the screen does not need a survey. It describes women like her, not her: use it to decide who to call, not who to care for.
           </Note>
         </div>
+        <DataNote>Follow-up records from clinics using the screen (did the women it flagged come back?) would validate it where it is used and recalibrate it to local rates.</DataNote>
       </Panel>
     </>
   );

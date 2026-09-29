@@ -11,7 +11,7 @@ import Legend from "@/components/map/Legend";
 import MiniMap, { useRegionPaths } from "@/components/map/MiniMap";
 import RegionPanel from "@/components/map/RegionPanel";
 import { useRenderTheme } from "@/components/shell/theme-provider";
-import { InlineError, Panel, PanelLoading, Screen, Segmented } from "@/components/studio/ui";
+import { DataNote, InlineError, Panel, PanelLoading, Screen, Segmented } from "@/components/studio/ui";
 import { Select } from "@/components/ui/select";
 import { classify, colorOf, inkOn } from "@/lib/colors";
 import { useJSON } from "@/lib/data";
@@ -219,6 +219,7 @@ export default function MapPage() {
             ) : (
               <PanelLoading rows={8} />
             )}
+            <DataNote>With the survey&apos;s cluster coordinates (the DHS GPS file), this map could show zones and clusters instead of fourteen regions, and follow roads and health facilities.</DataNote>
           </Panel>
 
           <Panel
@@ -319,6 +320,7 @@ export default function MapPage() {
           ) : (
             <PanelLoading rows={10} />
           )}
+          <DataNote>Each region rests on a few hundred women; pooling earlier survey rounds would narrow the intervals and let the smaller regions be read with more confidence.</DataNote>
         </Panel>
       </Screen>
 

@@ -9,7 +9,7 @@ import MatrixHeat from "@/components/charts/MatrixHeat";
 import RankedBars from "@/components/charts/RankedBars";
 import { AXIS, ChartBox, GRID, SeriesLegend, TipPanel, tip } from "@/components/charts/rc";
 import { useRenderTheme } from "@/components/shell/theme-provider";
-import { InlineError, Note, Panel, PanelLoading, Picker, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
+import { DataNote, InlineError, Note, Panel, PanelLoading, Picker, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
 import type { Analysis } from "@/lib/analysis";
 import { useJSON } from "@/lib/data";
 import { RUNG_COLOR, RUNG_LABEL, pct, type ExploreData } from "@/lib/explore";
@@ -305,6 +305,7 @@ export default function LadderPage() {
             ) : (
               <PanelLoading rows={3} />
             )}
+            <DataNote>The survey asks how many contacts, not when each happened; visit dates from facility registers would let the models learn when women drop out, not only whether.</DataNote>
           </Panel>
 
           <Panel
