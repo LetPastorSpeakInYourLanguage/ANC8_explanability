@@ -301,6 +301,21 @@ def lab_block() -> dict | None:
     }
 
 
+def sig(obj, digits=5):
+    """Round to significant figures: search-space values run from 1e-5 to 1e3, so
+    fixed decimals would flatten the small ones to zero."""
+    if isinstance(obj, dict):
+        return {k: sig(v, digits) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [sig(v, digits) for v in obj]
+    if isinstance(obj, (bool, np.bool_)) or obj is None or isinstance(obj, str):
+        return obj
+    if isinstance(obj, (int, np.integer)):
+        return int(obj)
+    f = float(obj)
+    return float(f"{f:.{digits}g}") if np.isfinite(f) else None
+
+
 def models_block() -> dict | None:
     f = ROOT / "outputs" / "model_cards" / "model_cards.json"
     if not f.exists():
@@ -309,10 +324,10 @@ def models_block() -> dict | None:
     return json.loads(f.read_text(encoding="utf-8"))
 
 
-def write(name: str, data) -> None:
+def write(name: str, data, rounder=None) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
-    p.write_text(json.dumps(clean(data), separators=(",", ":")), encoding="utf-8")
+    p.write_text(json.dumps((rounder or clean)(data), separators=(",", ":")), encoding="utf-8")
     print(f"  wrote app/public/data/{name}  ({p.stat().st_size / 1024:.0f} KB)")
 
 
@@ -336,7 +351,7 @@ def main():
         write("war.json", war)
     mc = models_block()
     if mc:
-        write("models.json", mc)
+        write("models.json", mc, rounder=sig)
 
 
 if __name__ == "__main__":

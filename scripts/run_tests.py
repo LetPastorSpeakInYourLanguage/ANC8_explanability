@@ -594,7 +594,7 @@ def test_wording():
         skip("studio wording", "app/ not in this layout")
         return
     files = sorted((src / "app").rglob("*.tsx")) + [src / "lib" / "nav.ts"]
-    for d in ("studio", "shell", "charts", "map", "planner", "war", "upload", "lab", "explore"):
+    for d in ("studio", "shell", "charts", "map", "planner", "war", "upload", "lab", "explore", "models", "predict"):
         files += sorted((src / "components" / d).rglob("*.tsx"))
     hits = []
     for f in files:
@@ -761,7 +761,7 @@ def test_studio():
                          r'(\d+(?:\.\d+)?)(?![\w.\[])')
         dirs = ["app", "components/studio", "components/shell", "components/charts", "components/map",
                 "components/planner", "components/war", "components/upload", "components/lab",
-                "components/explore"]
+                "components/explore", "components/models", "components/predict"]
         hits = []
         for dname in dirs:
             for f in sorted((src / dname).rglob("*.tsx")) if (src / dname).exists() else []:
