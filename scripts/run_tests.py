@@ -690,6 +690,29 @@ def test_studio():
     else:
         skip("war.json", "absent; run scripts/run_war_model.py and export_viz_data.py")
 
+    sp = base / "data" / "scenarios.json"
+    if sp.exists():
+        sj = json.loads(sp.read_text(encoding="utf-8"))
+        n_lev = len(sj["levers"])
+        check("the planner has every on/off combination of its levers",
+              len(sj["subsets"]) == 2 ** n_lev and len(set(sj["subsets"])) == 2 ** n_lev, f"{len(sj['subsets'])} combinations")
+        # g-computation sanity: a lever's single-lever gain is its combination's mean
+        # minus the no-lever mean, in every region and rung.
+        worst = 0.0
+        for r, blk in sj["rungs"].items():
+            for ri, row in enumerate(blk["means"]):
+                for i in range(n_lev):
+                    j = sj["subsets"].index("".join("1" if k == i else "0" for k in range(n_lev)))
+                    worst = max(worst, abs((row[j] - row[0]) - blk["gain"][ri][i]))
+        # both numbers are written to four decimals, so they can differ by one unit in the last
+        check("each lever's weight equals its re-scored average minus the unchanged one", worst <= 1.5e-4, f"worst {worst:.1e}")
+        elig_ok = all(0 <= v <= 1 for vals in sj["eligible"].values() for v in vals)
+        check("every lever's eligible share is a share", elig_ok)
+        check("at least one lever is supported by the data at every rung",
+              any(l["supported"] for l in sj["levers"]), ", ".join(l["key"] for l in sj["levers"] if l["supported"]))
+    else:
+        skip("scenarios.json", "absent; run scripts/run_scenarios.py and export_viz_data.py")
+
     # The house design system: spacing utilities outside its scale silently fall back
     # to Tailwind's default (e.g. h-54 = 216px), so they are refused here.
     src = ROOT / "app" / "src"

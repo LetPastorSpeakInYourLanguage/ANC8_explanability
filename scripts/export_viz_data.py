@@ -11,6 +11,7 @@ reported, not faked.
   app/public/data/explore.json   the Explore screens' extras: contact-count
                                  distributions, the EDHS report table, the networks
   app/public/data/war.json       the conflict simulator's model, evidence and backtest
+  app/public/data/scenarios.json the planner's levers: g-computation over 128 combinations
 """
 
 from __future__ import annotations
@@ -33,6 +34,7 @@ REGIONAL = ROOT / "outputs" / "regional"
 WARTIME = ROOT / "outputs" / "wartime"
 DEEP = ROOT / "outputs" / "deep"
 WAR = ROOT / "outputs" / "war"
+SCEN = ROOT / "outputs" / "scenarios"
 
 RUNG_OF = {"anc1plus": "anc1", "anc4plus": "anc4", "anc8plus": "anc8"}
 
@@ -213,6 +215,28 @@ def war_block() -> dict | None:
     }
 
 
+def scenarios_block() -> dict | None:
+    f = SCEN / "scenarios.json"
+    if not f.exists():
+        print("  scenarios: skipped, run scripts/run_scenarios.py first")
+        return None
+    m = json.loads(f.read_text(encoding="utf-8"))
+    rungs = ("anc1", "anc4", "anc8")
+    # A lever is offered by default only where the data back it: the model expects
+    # every rung to rise when it is applied. The others are shown, with their numbers,
+    # as levers the data do not support.
+    for i, lv in enumerate(m["levers"]):
+        ebm = [m["rungs"][r]["gain"][-1][i] for r in rungs]
+        lr = [m["rungs"][r]["logistic_check"][-1][i] for r in rungs if m["rungs"][r]["logistic_check"]]
+        lv["supported"] = all(g > 0 for g in ebm)
+        lv["models_agree"] = all((a > 0) == (b > 0) for a, b in zip(ebm, lr))
+    return {
+        "method": ("g-computation: every woman re-scored by the explainable boosting model with the "
+                   "lever applied; association-based, not a causal estimate"),
+        **m,
+    }
+
+
 def write(name: str, data) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
@@ -226,6 +250,9 @@ def main():
     if reg:
         write("regions.json", reg)
     write("explore.json", explore_block())
+    sc = scenarios_block()
+    if sc:
+        write("scenarios.json", sc)
     war = war_block()
     if war:
         write("war.json", war)
