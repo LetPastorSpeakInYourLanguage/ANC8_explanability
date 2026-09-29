@@ -1,0 +1,18 @@
+{
+ "quick": false,
+ "seeds": [
+  2026,
+  2027,
+  2028
+ ],
+ "n_development": 5518,
+ "n_heldout": 1375,
+ "predictors": 95,
+ "bootstrap_resamples": 1000,
+ "ladder_violations_heldout": {
+  "XGBoost, three separate models": 0.004363636363636364,
+  "Ladder transformer": 0.0,
+  "Contact-sequence encoder-decoder": 0.0
+ },
+ "minutes": 46.4
+}

@@ -1,0 +1,2251 @@
+model,region,step,concept,attention,label,modifiable
+ladder,Ethiopia,,agency,0.11989989950434936,Women's say in decisions,True
+ladder,Ethiopia,,barriers,0.04716146917746277,Barriers to reaching care,True
+ladder,Ethiopia,,culture,0.041178024272015466,Language and religion,False
+ladder,Ethiopia,,education,0.06708954390927784,Her education,False
+ladder,Ethiopia,,healthpost,0.07783108769036094,Health post access,True
+ladder,Ethiopia,,history,0.08051433705348478,Age and pregnancy history,False
+ladder,Ethiopia,,hospital,0.04055743807401867,Distance to a hospital or health centre,True
+ladder,Ethiopia,,household,0.13968791073318232,Partner and household,False
+ladder,Ethiopia,,information,0.08884089500859338,Information and media,True
+ladder,Ethiopia,,insurance,0.019628855078162085,Health insurance,True
+ladder,Ethiopia,,intention,0.04897656991286452,Wanted pregnancy and family size,True
+ladder,Ethiopia,,place,0.023767815552631515,Region,False
+ladder,Ethiopia,,urban,0.017785252212538703,Urban or rural,False
+ladder,Ethiopia,,wealth,0.1510018617260527,Household wealth,False
+ladder,Ethiopia,,work,0.029092791831545978,Her work,False
+ladder,Addis Ababa,,agency,0.11488577064071342,Women's say in decisions,True
+ladder,Addis Ababa,,barriers,0.04793347795766236,Barriers to reaching care,True
+ladder,Addis Ababa,,culture,0.04583885389455377,Language and religion,False
+ladder,Addis Ababa,,education,0.06427987567762013,Her education,False
+ladder,Addis Ababa,,healthpost,0.07569845701945983,Health post access,True
+ladder,Addis Ababa,,history,0.08239117962626195,Age and pregnancy history,False
+ladder,Addis Ababa,,hospital,0.040624006871140476,Distance to a hospital or health centre,True
+ladder,Addis Ababa,,household,0.14115380163822397,Partner and household,False
+ladder,Addis Ababa,,information,0.0859063976467201,Information and media,True
+ladder,Addis Ababa,,insurance,0.01699604793517362,Health insurance,True
+ladder,Addis Ababa,,intention,0.04406093572377902,Wanted pregnancy and family size,True
+ladder,Addis Ababa,,place,0.031584087799198045,Region,False
+ladder,Addis Ababa,,urban,0.019726936883247403,Urban or rural,False
+ladder,Addis Ababa,,wealth,0.1513047745327936,Household wealth,False
+ladder,Addis Ababa,,work,0.03021287312319039,Her work,False
+ladder,Afar,,agency,0.121895258275986,Women's say in decisions,True
+ladder,Afar,,barriers,0.04649162868582392,Barriers to reaching care,True
+ladder,Afar,,culture,0.03239317028110875,Language and religion,False
+ladder,Afar,,education,0.06931161873784751,Her education,False
+ladder,Afar,,healthpost,0.07484196721331084,Health post access,True
+ladder,Afar,,history,0.07860882692263221,Age and pregnancy history,False
+ladder,Afar,,hospital,0.04150239704565718,Distance to a hospital or health centre,True
+ladder,Afar,,household,0.14267081342491353,Partner and household,False
+ladder,Afar,,information,0.08640083695518884,Information and media,True
+ladder,Afar,,insurance,0.01833659165120762,Health insurance,True
+ladder,Afar,,intention,0.05806498476876344,Wanted pregnancy and family size,True
+ladder,Afar,,place,0.0148487140499156,Region,False
+ladder,Afar,,urban,0.017432502373464914,Urban or rural,False
+ladder,Afar,,wealth,0.16266484932445718,Household wealth,False
+ladder,Afar,,work,0.028151985442120164,Her work,False
+ladder,Amhara,,agency,0.11869893270448938,Women's say in decisions,True
+ladder,Amhara,,barriers,0.047272141582496346,Barriers to reaching care,True
+ladder,Amhara,,culture,0.04493023457181213,Language and religion,False
+ladder,Amhara,,education,0.06685304790397543,Her education,False
+ladder,Amhara,,healthpost,0.07940300722141254,Health post access,True
+ladder,Amhara,,history,0.08064259227929796,Age and pregnancy history,False
+ladder,Amhara,,hospital,0.03931547107127284,Distance to a hospital or health centre,True
+ladder,Amhara,,household,0.1431200772256482,Partner and household,False
+ladder,Amhara,,information,0.08826512184502854,Information and media,True
+ladder,Amhara,,insurance,0.020183263452978085,Health insurance,True
+ladder,Amhara,,intention,0.04698597812868235,Wanted pregnancy and family size,True
+ladder,Amhara,,place,0.018852116160130113,Region,False
+ladder,Amhara,,urban,0.017566731818887054,Urban or rural,False
+ladder,Amhara,,wealth,0.14968311421532682,Household wealth,False
+ladder,Amhara,,work,0.030589969802234267,Her work,False
+ladder,Benishangul-Gumuz,,agency,0.12139284321923113,Women's say in decisions,True
+ladder,Benishangul-Gumuz,,barriers,0.048506068461430615,Barriers to reaching care,True
+ladder,Benishangul-Gumuz,,culture,0.0385143844688691,Language and religion,False
+ladder,Benishangul-Gumuz,,education,0.06723399921121012,Her education,False
+ladder,Benishangul-Gumuz,,healthpost,0.07731425243390677,Health post access,True
+ladder,Benishangul-Gumuz,,history,0.08151362486522624,Age and pregnancy history,False
+ladder,Benishangul-Gumuz,,hospital,0.04195201568377059,Distance to a hospital or health centre,True
+ladder,Benishangul-Gumuz,,household,0.13939875540408897,Partner and household,False
+ladder,Benishangul-Gumuz,,information,0.08877099648177066,Information and media,True
+ladder,Benishangul-Gumuz,,insurance,0.018604345850249854,Health insurance,True
+ladder,Benishangul-Gumuz,,intention,0.05072767725693916,Wanted pregnancy and family size,True
+ladder,Benishangul-Gumuz,,place,0.015359739458993138,Region,False
+ladder,Benishangul-Gumuz,,urban,0.017704773548437983,Urban or rural,False
+ladder,Benishangul-Gumuz,,wealth,0.15789835165713448,Household wealth,False
+ladder,Benishangul-Gumuz,,work,0.028401380903732197,Her work,False
+ladder,Central Ethiopia,,agency,0.11772038491914681,Women's say in decisions,True
+ladder,Central Ethiopia,,barriers,0.045671903468304825,Barriers to reaching care,True
+ladder,Central Ethiopia,,culture,0.04111634887546222,Language and religion,False
+ladder,Central Ethiopia,,education,0.06762182227326169,Her education,False
+ladder,Central Ethiopia,,healthpost,0.07803323957163652,Health post access,True
+ladder,Central Ethiopia,,history,0.0789435912014717,Age and pregnancy history,False
+ladder,Central Ethiopia,,hospital,0.03969003828903883,Distance to a hospital or health centre,True
+ladder,Central Ethiopia,,household,0.13547623122723265,Partner and household,False
+ladder,Central Ethiopia,,information,0.0900203147033681,Information and media,True
+ladder,Central Ethiopia,,insurance,0.01959620857874084,Health insurance,True
+ladder,Central Ethiopia,,intention,0.04898624018157307,Wanted pregnancy and family size,True
+ladder,Central Ethiopia,,place,0.03585925547801602,Region,False
+ladder,Central Ethiopia,,urban,0.017317423556941415,Urban or rural,False
+ladder,Central Ethiopia,,wealth,0.149301136603488,Household wealth,False
+ladder,Central Ethiopia,,work,0.02760373644516035,Her work,False
+ladder,Dire Dawa,,agency,0.11833529734774105,Women's say in decisions,True
+ladder,Dire Dawa,,barriers,0.04722130957572213,Barriers to reaching care,True
+ladder,Dire Dawa,,culture,0.03683211387970601,Language and religion,False
+ladder,Dire Dawa,,education,0.06704317741100531,Her education,False
+ladder,Dire Dawa,,healthpost,0.07526503529839086,Health post access,True
+ladder,Dire Dawa,,history,0.08299981625863952,Age and pregnancy history,False
+ladder,Dire Dawa,,hospital,0.041414743508373535,Distance to a hospital or health centre,True
+ladder,Dire Dawa,,household,0.1388123290689473,Partner and household,False
+ladder,Dire Dawa,,information,0.08738960739070795,Information and media,True
+ladder,Dire Dawa,,insurance,0.018572859800148018,Health insurance,True
+ladder,Dire Dawa,,intention,0.05725054265647566,Wanted pregnancy and family size,True
+ladder,Dire Dawa,,place,0.02626207112468418,Region,False
+ladder,Dire Dawa,,urban,0.01875191594273968,Urban or rural,False
+ladder,Dire Dawa,,wealth,0.14792223331226928,Household wealth,False
+ladder,Dire Dawa,,work,0.028343113181032296,Her work,False
+ladder,Gambella,,agency,0.1176398820861461,Women's say in decisions,True
+ladder,Gambella,,barriers,0.04657551216316127,Barriers to reaching care,True
+ladder,Gambella,,culture,0.04417504847710662,Language and religion,False
+ladder,Gambella,,education,0.05947169757947423,Her education,False
+ladder,Gambella,,healthpost,0.07449835980796636,Health post access,True
+ladder,Gambella,,history,0.07940647367348787,Age and pregnancy history,False
+ladder,Gambella,,hospital,0.04144755157360769,Distance to a hospital or health centre,True
+ladder,Gambella,,household,0.1380319869864119,Partner and household,False
+ladder,Gambella,,information,0.08806344163250303,Information and media,True
+ladder,Gambella,,insurance,0.018519259598023214,Health insurance,True
+ladder,Gambella,,intention,0.05018067759001041,Wanted pregnancy and family size,True
+ladder,Gambella,,place,0.03677742081266355,Region,False
+ladder,Gambella,,urban,0.016937603363372696,Urban or rural,False
+ladder,Gambella,,wealth,0.15255206029071902,Household wealth,False
+ladder,Gambella,,work,0.029061794668251748,Her work,False
+ladder,Harari,,agency,0.11872835465875667,Women's say in decisions,True
+ladder,Harari,,barriers,0.04246885859356437,Barriers to reaching care,True
+ladder,Harari,,culture,0.03455655458186266,Language and religion,False
+ladder,Harari,,education,0.06471617336933269,Her education,False
+ladder,Harari,,healthpost,0.07615419935384456,Health post access,True
+ladder,Harari,,history,0.08053886488907892,Age and pregnancy history,False
+ladder,Harari,,hospital,0.04122769630358844,Distance to a hospital or health centre,True
+ladder,Harari,,household,0.14008408481384185,Partner and household,False
+ladder,Harari,,information,0.08931041979448479,Information and media,True
+ladder,Harari,,insurance,0.02036113538650841,Health insurance,True
+ladder,Harari,,intention,0.048004357702213285,Wanted pregnancy and family size,True
+ladder,Harari,,place,0.04665943976318443,Region,False
+ladder,Harari,,urban,0.017711185318395165,Urban or rural,False
+ladder,Harari,,wealth,0.14236585114377992,Household wealth,False
+ladder,Harari,,work,0.029947798506125035,Her work,False
+ladder,Oromia,,agency,0.12174285191228339,Women's say in decisions,True
+ladder,Oromia,,barriers,0.04786829138327239,Barriers to reaching care,True
+ladder,Oromia,,culture,0.038709825863662575,Language and religion,False
+ladder,Oromia,,education,0.06879849052275695,Her education,False
+ladder,Oromia,,healthpost,0.07727831402918986,Health post access,True
+ladder,Oromia,,history,0.08115493923335836,Age and pregnancy history,False
+ladder,Oromia,,hospital,0.04127374617913567,Distance to a hospital or health centre,True
+ladder,Oromia,,household,0.13911238535867282,Partner and household,False
+ladder,Oromia,,information,0.09007473954031311,Information and media,True
+ladder,Oromia,,insurance,0.020223758914962246,Health insurance,True
+ladder,Oromia,,intention,0.05007282308672891,Wanted pregnancy and family size,True
+ladder,Oromia,,place,0.01902986893790841,Region,False
+ladder,Oromia,,urban,0.017900466618029815,Urban or rural,False
+ladder,Oromia,,wealth,0.15143116564321646,Household wealth,False
+ladder,Oromia,,work,0.028531105926569024,Her work,False
+ladder,Sidama,,agency,0.12218142241673328,Women's say in decisions,True
+ladder,Sidama,,barriers,0.04462194347594052,Barriers to reaching care,True
+ladder,Sidama,,culture,0.04942855232998133,Language and religion,False
+ladder,Sidama,,education,0.06695156580314274,Her education,False
+ladder,Sidama,,healthpost,0.07713294887240858,Health post access,True
+ladder,Sidama,,history,0.08071816357970385,Age and pregnancy history,False
+ladder,Sidama,,hospital,0.0408569215775035,Distance to a hospital or health centre,True
+ladder,Sidama,,household,0.13994615925190246,Partner and household,False
+ladder,Sidama,,information,0.08924081798452702,Information and media,True
+ladder,Sidama,,insurance,0.01937835278466907,Health insurance,True
+ladder,Sidama,,intention,0.04225850282658538,Wanted pregnancy and family size,True
+ladder,Sidama,,place,0.019810388092866147,Region,False
+ladder,Sidama,,urban,0.017839540600691893,Urban or rural,False
+ladder,Sidama,,wealth,0.15277076196801218,Household wealth,False
+ladder,Sidama,,work,0.030524446466943335,Her work,False
+ladder,Somali,,agency,0.11540865803398148,Women's say in decisions,True
+ladder,Somali,,barriers,0.04537355385590076,Barriers to reaching care,True
+ladder,Somali,,culture,0.032967844541894165,Language and religion,False
+ladder,Somali,,education,0.06608951235962673,Her education,False
+ladder,Somali,,healthpost,0.07532560313029879,Health post access,True
+ladder,Somali,,history,0.07811770879845814,Age and pregnancy history,False
+ladder,Somali,,hospital,0.03840932086115809,Distance to a hospital or health centre,True
+ladder,Somali,,household,0.1386266053984373,Partner and household,False
+ladder,Somali,,information,0.08525529979161277,Information and media,True
+ladder,Somali,,insurance,0.017794253298045515,Health insurance,True
+ladder,Somali,,intention,0.07115186278476085,Wanted pregnancy and family size,True
+ladder,Somali,,place,0.028398911793767107,Region,False
+ladder,Somali,,urban,0.016587153119279323,Urban or rural,False
+ladder,Somali,,wealth,0.15546779891055032,Household wealth,False
+ladder,Somali,,work,0.02861705038084471,Her work,False
+ladder,South Ethiopia,,agency,0.12006139148262918,Women's say in decisions,True
+ladder,South Ethiopia,,barriers,0.047505189310265455,Barriers to reaching care,True
+ladder,South Ethiopia,,culture,0.046571443320273805,Language and religion,False
+ladder,South Ethiopia,,education,0.06364058092646586,Her education,False
+ladder,South Ethiopia,,healthpost,0.0780864981658503,Health post access,True
+ladder,South Ethiopia,,history,0.07818524912078906,Age and pregnancy history,False
+ladder,South Ethiopia,,hospital,0.04184354578131355,Distance to a hospital or health centre,True
+ladder,South Ethiopia,,household,0.13408176088746848,Partner and household,False
+ladder,South Ethiopia,,information,0.08800563895621147,Information and media,True
+ladder,South Ethiopia,,insurance,0.01954657577398425,Health insurance,True
+ladder,South Ethiopia,,intention,0.044716323481880954,Wanted pregnancy and family size,True
+ladder,South Ethiopia,,place,0.03792825494856063,Region,False
+ladder,South Ethiopia,,urban,0.017665056181819086,Urban or rural,False
+ladder,South Ethiopia,,wealth,0.14611967612131443,Household wealth,False
+ladder,South Ethiopia,,work,0.029608733432424372,Her work,False
+ladder,South West Ethiopia,,agency,0.12184540835000227,Women's say in decisions,True
+ladder,South West Ethiopia,,barriers,0.04681968653301163,Barriers to reaching care,True
+ladder,South West Ethiopia,,culture,0.04541215146220035,Language and religion,False
+ladder,South West Ethiopia,,education,0.06492528830103594,Her education,False
+ladder,South West Ethiopia,,healthpost,0.07764492106197005,Health post access,True
+ladder,South West Ethiopia,,history,0.07901112458897566,Age and pregnancy history,False
+ladder,South West Ethiopia,,hospital,0.04139921913068416,Distance to a hospital or health centre,True
+ladder,South West Ethiopia,,household,0.13724338162216937,Partner and household,False
+ladder,South West Ethiopia,,information,0.08863081482325816,Information and media,True
+ladder,South West Ethiopia,,insurance,0.019489381377176238,Health insurance,True
+ladder,South West Ethiopia,,intention,0.04579896375480548,Wanted pregnancy and family size,True
+ladder,South West Ethiopia,,place,0.02808731094048558,Region,False
+ladder,South West Ethiopia,,urban,0.01711626364852925,Urban or rural,False
+ladder,South West Ethiopia,,wealth,0.152158908631777,Household wealth,False
+ladder,South West Ethiopia,,work,0.02811594832203245,Her work,False
+ladder,Tigray,,agency,0.11800686806265259,Women's say in decisions,True
+ladder,Tigray,,barriers,0.045333695215389914,Barriers to reaching care,True
+ladder,Tigray,,culture,0.03399845843305199,Language and religion,False
+ladder,Tigray,,education,0.06512002373245329,Her education,False
+ladder,Tigray,,healthpost,0.07969569228632757,Health post access,True
+ladder,Tigray,,history,0.0810140353501399,Age and pregnancy history,False
+ladder,Tigray,,hospital,0.03991808728274962,Distance to a hospital or health centre,True
+ladder,Tigray,,household,0.14064329864346328,Partner and household,False
+ladder,Tigray,,information,0.08838380879398702,Information and media,True
+ladder,Tigray,,insurance,0.017749766146981132,Health insurance,True
+ladder,Tigray,,intention,0.046398690486938565,Wanted pregnancy and family size,True
+ladder,Tigray,,place,0.0386309434250195,Region,False
+ladder,Tigray,,urban,0.018170209405384934,Urban or rural,False
+ladder,Tigray,,wealth,0.15274503272458728,Household wealth,False
+ladder,Tigray,,work,0.026890004226098434,Her work,False
+sequence,Ethiopia,0.0,agency,0.11795460087791634,Women's say in decisions,True
+sequence,Ethiopia,0.0,barriers,0.04595512208147479,Barriers to reaching care,True
+sequence,Ethiopia,0.0,culture,0.023321796819646357,Language and religion,False
+sequence,Ethiopia,0.0,education,0.06360082828023828,Her education,False
+sequence,Ethiopia,0.0,healthpost,0.07052407404758522,Health post access,True
+sequence,Ethiopia,0.0,history,0.10941254906297773,Age and pregnancy history,False
+sequence,Ethiopia,0.0,hospital,0.043401095239190474,Distance to a hospital or health centre,True
+sequence,Ethiopia,0.0,household,0.13363563963362807,Partner and household,False
+sequence,Ethiopia,0.0,information,0.07376236678758966,Information and media,True
+sequence,Ethiopia,0.0,insurance,0.02055989466327716,Health insurance,True
+sequence,Ethiopia,0.0,intention,0.034532464462008215,Wanted pregnancy and family size,True
+sequence,Ethiopia,0.0,place,0.025502316542193097,Region,False
+sequence,Ethiopia,0.0,urban,0.04004685074114717,Urban or rural,False
+sequence,Ethiopia,0.0,wealth,0.16787673015804147,Household wealth,False
+sequence,Ethiopia,0.0,work,0.02991367054242323,Her work,False
+sequence,Addis Ababa,0.0,agency,0.06363317108782068,Women's say in decisions,True
+sequence,Addis Ababa,0.0,barriers,0.036554035295249435,Barriers to reaching care,True
+sequence,Addis Ababa,0.0,culture,0.02053763102505136,Language and religion,False
+sequence,Addis Ababa,0.0,education,0.07328911457093525,Her education,False
+sequence,Addis Ababa,0.0,healthpost,0.06968474807972708,Health post access,True
+sequence,Addis Ababa,0.0,history,0.11900353451208952,Age and pregnancy history,False
+sequence,Addis Ababa,0.0,hospital,0.03835549722001065,Distance to a hospital or health centre,True
+sequence,Addis Ababa,0.0,household,0.13673062035491518,Partner and household,False
+sequence,Addis Ababa,0.0,information,0.08515321661822473,Information and media,True
+sequence,Addis Ababa,0.0,insurance,0.009340562581622231,Health insurance,True
+sequence,Addis Ababa,0.0,intention,0.03856471812298073,Wanted pregnancy and family size,True
+sequence,Addis Ababa,0.0,place,0.04000625605697707,Region,False
+sequence,Addis Ababa,0.0,urban,0.07339109161105395,Urban or rural,False
+sequence,Addis Ababa,0.0,wealth,0.16683705699431414,Household wealth,False
+sequence,Addis Ababa,0.0,work,0.028918745909490583,Her work,False
+sequence,Afar,0.0,agency,0.1315960990682094,Women's say in decisions,True
+sequence,Afar,0.0,barriers,0.04455670482728306,Barriers to reaching care,True
+sequence,Afar,0.0,culture,0.016472124396357805,Language and religion,False
+sequence,Afar,0.0,education,0.06444952730971933,Her education,False
+sequence,Afar,0.0,healthpost,0.08240151565506783,Health post access,True
+sequence,Afar,0.0,history,0.09211216857118465,Age and pregnancy history,False
+sequence,Afar,0.0,hospital,0.037895584448395386,Distance to a hospital or health centre,True
+sequence,Afar,0.0,household,0.14564729900537893,Partner and household,False
+sequence,Afar,0.0,information,0.0660707324323623,Information and media,True
+sequence,Afar,0.0,insurance,0.01817316330732491,Health insurance,True
+sequence,Afar,0.0,intention,0.03218203272049922,Wanted pregnancy and family size,True
+sequence,Afar,0.0,place,0.00392610210570581,Region,False
+sequence,Afar,0.0,urban,0.05066714242779881,Urban or rural,False
+sequence,Afar,0.0,wealth,0.18787823231546988,Household wealth,False
+sequence,Afar,0.0,work,0.025971573674917002,Her work,False
+sequence,Amhara,0.0,agency,0.11128204349786283,Women's say in decisions,True
+sequence,Amhara,0.0,barriers,0.04620109498363811,Barriers to reaching care,True
+sequence,Amhara,0.0,culture,0.02096081666918195,Language and religion,False
+sequence,Amhara,0.0,education,0.06243509026771216,Her education,False
+sequence,Amhara,0.0,healthpost,0.06293067339242542,Health post access,True
+sequence,Amhara,0.0,history,0.11193522787434904,Age and pregnancy history,False
+sequence,Amhara,0.0,hospital,0.04027091248328573,Distance to a hospital or health centre,True
+sequence,Amhara,0.0,household,0.12666647932854033,Partner and household,False
+sequence,Amhara,0.0,information,0.06438949453018795,Information and media,True
+sequence,Amhara,0.0,insurance,0.019390249920697863,Health insurance,True
+sequence,Amhara,0.0,intention,0.035744113225305595,Wanted pregnancy and family size,True
+sequence,Amhara,0.0,place,0.05809870958914309,Region,False
+sequence,Amhara,0.0,urban,0.03667161641183394,Urban or rural,False
+sequence,Amhara,0.0,wealth,0.16853718050105132,Household wealth,False
+sequence,Amhara,0.0,work,0.0344862972676323,Her work,False
+sequence,Benishangul-Gumuz,0.0,agency,0.11582171546318504,Women's say in decisions,True
+sequence,Benishangul-Gumuz,0.0,barriers,0.048774551987318844,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,0.0,culture,0.02771225194038762,Language and religion,False
+sequence,Benishangul-Gumuz,0.0,education,0.06781242200830881,Her education,False
+sequence,Benishangul-Gumuz,0.0,healthpost,0.07354464982065842,Health post access,True
+sequence,Benishangul-Gumuz,0.0,history,0.10481053471303646,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,0.0,hospital,0.04666447158073766,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,0.0,household,0.13293923450131828,Partner and household,False
+sequence,Benishangul-Gumuz,0.0,information,0.07809585908410267,Information and media,True
+sequence,Benishangul-Gumuz,0.0,insurance,0.016785074329471163,Health insurance,True
+sequence,Benishangul-Gumuz,0.0,intention,0.035206790821255496,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,0.0,place,0.01226903700007387,Region,False
+sequence,Benishangul-Gumuz,0.0,urban,0.04346084244413223,Urban or rural,False
+sequence,Benishangul-Gumuz,0.0,wealth,0.1652044906765218,Household wealth,False
+sequence,Benishangul-Gumuz,0.0,work,0.030898073126377323,Her work,False
+sequence,Central Ethiopia,0.0,agency,0.10751532351373673,Women's say in decisions,True
+sequence,Central Ethiopia,0.0,barriers,0.03557916621907258,Barriers to reaching care,True
+sequence,Central Ethiopia,0.0,culture,0.021487933452870325,Language and religion,False
+sequence,Central Ethiopia,0.0,education,0.06611867939087475,Her education,False
+sequence,Central Ethiopia,0.0,healthpost,0.06410465268559494,Health post access,True
+sequence,Central Ethiopia,0.0,history,0.14387427374850983,Age and pregnancy history,False
+sequence,Central Ethiopia,0.0,hospital,0.03752267331570314,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,0.0,household,0.1305661961141622,Partner and household,False
+sequence,Central Ethiopia,0.0,information,0.053444039055770685,Information and media,True
+sequence,Central Ethiopia,0.0,insurance,0.038520331778248845,Health insurance,True
+sequence,Central Ethiopia,0.0,intention,0.03908242759102257,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,0.0,place,0.0224810575541554,Region,False
+sequence,Central Ethiopia,0.0,urban,0.036284884186868795,Urban or rural,False
+sequence,Central Ethiopia,0.0,wealth,0.17886488374216222,Household wealth,False
+sequence,Central Ethiopia,0.0,work,0.024553480594594175,Her work,False
+sequence,Dire Dawa,0.0,agency,0.10758953057397881,Women's say in decisions,True
+sequence,Dire Dawa,0.0,barriers,0.041229847249274316,Barriers to reaching care,True
+sequence,Dire Dawa,0.0,culture,0.018148016948035722,Language and religion,False
+sequence,Dire Dawa,0.0,education,0.0729063009354477,Her education,False
+sequence,Dire Dawa,0.0,healthpost,0.08500126742926706,Health post access,True
+sequence,Dire Dawa,0.0,history,0.11363049521483978,Age and pregnancy history,False
+sequence,Dire Dawa,0.0,hospital,0.04184918571713097,Distance to a hospital or health centre,True
+sequence,Dire Dawa,0.0,household,0.13352523196306565,Partner and household,False
+sequence,Dire Dawa,0.0,information,0.07668154254042388,Information and media,True
+sequence,Dire Dawa,0.0,insurance,0.01181694679896768,Health insurance,True
+sequence,Dire Dawa,0.0,intention,0.038180697229278804,Wanted pregnancy and family size,True
+sequence,Dire Dawa,0.0,place,0.010034256894248582,Region,False
+sequence,Dire Dawa,0.0,urban,0.05794525301109097,Urban or rural,False
+sequence,Dire Dawa,0.0,wealth,0.1601792009240349,Household wealth,False
+sequence,Dire Dawa,0.0,work,0.03128222500317382,Her work,False
+sequence,Gambella,0.0,agency,0.11062201901192484,Women's say in decisions,True
+sequence,Gambella,0.0,barriers,0.040640783707693015,Barriers to reaching care,True
+sequence,Gambella,0.0,culture,0.03197513336502394,Language and religion,False
+sequence,Gambella,0.0,education,0.0731205915727365,Her education,False
+sequence,Gambella,0.0,healthpost,0.07046940374311114,Health post access,True
+sequence,Gambella,0.0,history,0.1105243576237896,Age and pregnancy history,False
+sequence,Gambella,0.0,hospital,0.03415382534674761,Distance to a hospital or health centre,True
+sequence,Gambella,0.0,household,0.1379284789569671,Partner and household,False
+sequence,Gambella,0.0,information,0.06398936197472302,Information and media,True
+sequence,Gambella,0.0,insurance,0.017594263807384908,Health insurance,True
+sequence,Gambella,0.0,intention,0.03375629617580317,Wanted pregnancy and family size,True
+sequence,Gambella,0.0,place,0.017239904289126584,Region,False
+sequence,Gambella,0.0,urban,0.05953855861584366,Urban or rural,False
+sequence,Gambella,0.0,wealth,0.16793223682485559,Household wealth,False
+sequence,Gambella,0.0,work,0.03051479228316041,Her work,False
+sequence,Harari,0.0,agency,0.11583898678373225,Women's say in decisions,True
+sequence,Harari,0.0,barriers,0.0481193534517702,Barriers to reaching care,True
+sequence,Harari,0.0,culture,0.020668836958969736,Language and religion,False
+sequence,Harari,0.0,education,0.07085773479557973,Her education,False
+sequence,Harari,0.0,healthpost,0.06755693544750502,Health post access,True
+sequence,Harari,0.0,history,0.10014966445125105,Age and pregnancy history,False
+sequence,Harari,0.0,hospital,0.049549118087394615,Distance to a hospital or health centre,True
+sequence,Harari,0.0,household,0.1290189069253836,Partner and household,False
+sequence,Harari,0.0,information,0.08558092117156599,Information and media,True
+sequence,Harari,0.0,insurance,0.020439367900602953,Health insurance,True
+sequence,Harari,0.0,intention,0.03795480180761303,Wanted pregnancy and family size,True
+sequence,Harari,0.0,place,0.018914660707233317,Region,False
+sequence,Harari,0.0,urban,0.039447634334292915,Urban or rural,False
+sequence,Harari,0.0,wealth,0.15998428588101185,Household wealth,False
+sequence,Harari,0.0,work,0.03591879643497425,Her work,False
+sequence,Oromia,0.0,agency,0.1252676045830166,Women's say in decisions,True
+sequence,Oromia,0.0,barriers,0.04953851109967084,Barriers to reaching care,True
+sequence,Oromia,0.0,culture,0.021354086054724386,Language and religion,False
+sequence,Oromia,0.0,education,0.060171706595158324,Her education,False
+sequence,Oromia,0.0,healthpost,0.07261623567072824,Health post access,True
+sequence,Oromia,0.0,history,0.10479239913268724,Age and pregnancy history,False
+sequence,Oromia,0.0,hospital,0.04926548231072292,Distance to a hospital or health centre,True
+sequence,Oromia,0.0,household,0.13488744054683544,Partner and household,False
+sequence,Oromia,0.0,information,0.08367429694936677,Information and media,True
+sequence,Oromia,0.0,insurance,0.020108287753393718,Health insurance,True
+sequence,Oromia,0.0,intention,0.03266635890168953,Wanted pregnancy and family size,True
+sequence,Oromia,0.0,place,0.014034616191781509,Region,False
+sequence,Oromia,0.0,urban,0.038659559645809985,Urban or rural,False
+sequence,Oromia,0.0,wealth,0.1648389809607487,Household wealth,False
+sequence,Oromia,0.0,work,0.028124432851292777,Her work,False
+sequence,Sidama,0.0,agency,0.12595918475979045,Women's say in decisions,True
+sequence,Sidama,0.0,barriers,0.03372608767073261,Barriers to reaching care,True
+sequence,Sidama,0.0,culture,0.032834893604306255,Language and religion,False
+sequence,Sidama,0.0,education,0.06780841018736754,Her education,False
+sequence,Sidama,0.0,healthpost,0.06903939099611847,Health post access,True
+sequence,Sidama,0.0,history,0.12989856110982323,Age and pregnancy history,False
+sequence,Sidama,0.0,hospital,0.03426510535710642,Distance to a hospital or health centre,True
+sequence,Sidama,0.0,household,0.15795588150954912,Partner and household,False
+sequence,Sidama,0.0,information,0.05048037037774918,Information and media,True
+sequence,Sidama,0.0,insurance,0.0223146471377876,Health insurance,True
+sequence,Sidama,0.0,intention,0.03876708080706182,Wanted pregnancy and family size,True
+sequence,Sidama,0.0,place,0.010570154586250192,Region,False
+sequence,Sidama,0.0,urban,0.0415603528279877,Urban or rural,False
+sequence,Sidama,0.0,wealth,0.16093336404311473,Household wealth,False
+sequence,Sidama,0.0,work,0.02388651356868207,Her work,False
+sequence,Somali,0.0,agency,0.12750594549331626,Women's say in decisions,True
+sequence,Somali,0.0,barriers,0.05146082400039935,Barriers to reaching care,True
+sequence,Somali,0.0,culture,0.03409642232561514,Language and religion,False
+sequence,Somali,0.0,education,0.055216158681338286,Her education,False
+sequence,Somali,0.0,healthpost,0.0905871314335216,Health post access,True
+sequence,Somali,0.0,history,0.07652380342054645,Age and pregnancy history,False
+sequence,Somali,0.0,hospital,0.056608113460748906,Distance to a hospital or health centre,True
+sequence,Somali,0.0,household,0.1340836855898475,Partner and household,False
+sequence,Somali,0.0,information,0.10724126668014314,Information and media,True
+sequence,Somali,0.0,insurance,0.026968767803495084,Health insurance,True
+sequence,Somali,0.0,intention,0.030748332722220002,Wanted pregnancy and family size,True
+sequence,Somali,0.0,place,0.016762912551072352,Region,False
+sequence,Somali,0.0,urban,0.02413809029954165,Urban or rural,False
+sequence,Somali,0.0,wealth,0.13953851928154695,Household wealth,False
+sequence,Somali,0.0,work,0.028520024907528866,Her work,False
+sequence,South Ethiopia,0.0,agency,0.11812402252074279,Women's say in decisions,True
+sequence,South Ethiopia,0.0,barriers,0.04414625534462341,Barriers to reaching care,True
+sequence,South Ethiopia,0.0,culture,0.0346097191772482,Language and religion,False
+sequence,South Ethiopia,0.0,education,0.06962024267414527,Her education,False
+sequence,South Ethiopia,0.0,healthpost,0.06819119337915344,Health post access,True
+sequence,South Ethiopia,0.0,history,0.1069800126066723,Age and pregnancy history,False
+sequence,South Ethiopia,0.0,hospital,0.034318387897826944,Distance to a hospital or health centre,True
+sequence,South Ethiopia,0.0,household,0.1351425912015179,Partner and household,False
+sequence,South Ethiopia,0.0,information,0.06205104671153909,Information and media,True
+sequence,South Ethiopia,0.0,insurance,0.026318245214513623,Health insurance,True
+sequence,South Ethiopia,0.0,intention,0.03258279057785365,Wanted pregnancy and family size,True
+sequence,South Ethiopia,0.0,place,0.014093005110201064,Region,False
+sequence,South Ethiopia,0.0,urban,0.0442103810401256,Urban or rural,False
+sequence,South Ethiopia,0.0,wealth,0.1773641364646595,Household wealth,False
+sequence,South Ethiopia,0.0,work,0.032247970203183096,Her work,False
+sequence,South West Ethiopia,0.0,agency,0.12482953965780644,Women's say in decisions,True
+sequence,South West Ethiopia,0.0,barriers,0.05179488775132787,Barriers to reaching care,True
+sequence,South West Ethiopia,0.0,culture,0.03443901521096501,Language and religion,False
+sequence,South West Ethiopia,0.0,education,0.06369910756557041,Her education,False
+sequence,South West Ethiopia,0.0,healthpost,0.0711658434913119,Health post access,True
+sequence,South West Ethiopia,0.0,history,0.09780480414540021,Age and pregnancy history,False
+sequence,South West Ethiopia,0.0,hospital,0.039718377731501255,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,0.0,household,0.13054845500460227,Partner and household,False
+sequence,South West Ethiopia,0.0,information,0.07794931178971656,Information and media,True
+sequence,South West Ethiopia,0.0,insurance,0.01685450314856263,Health insurance,True
+sequence,South West Ethiopia,0.0,intention,0.032657077367998257,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,0.0,place,0.017044428246777682,Region,False
+sequence,South West Ethiopia,0.0,urban,0.039410803663661696,Urban or rural,False
+sequence,South West Ethiopia,0.0,wealth,0.1716378027248413,Household wealth,False
+sequence,South West Ethiopia,0.0,work,0.030446046062998756,Her work,False
+sequence,Tigray,0.0,agency,0.12628134821681655,Women's say in decisions,True
+sequence,Tigray,0.0,barriers,0.039793422275097044,Barriers to reaching care,True
+sequence,Tigray,0.0,culture,0.016402214928515863,Language and religion,False
+sequence,Tigray,0.0,education,0.0737402747022922,Her education,False
+sequence,Tigray,0.0,healthpost,0.0774663600552473,Health post access,True
+sequence,Tigray,0.0,history,0.12068740616734001,Age and pregnancy history,False
+sequence,Tigray,0.0,hospital,0.036925972356448206,Distance to a hospital or health centre,True
+sequence,Tigray,0.0,household,0.13469914079710446,Partner and household,False
+sequence,Tigray,0.0,information,0.05870050136372265,Information and media,True
+sequence,Tigray,0.0,insurance,0.014297600850177698,Health insurance,True
+sequence,Tigray,0.0,intention,0.0390643908047406,Wanted pregnancy and family size,True
+sequence,Tigray,0.0,place,0.00860603269462102,Region,False
+sequence,Tigray,0.0,urban,0.04024135495379597,Urban or rural,False
+sequence,Tigray,0.0,wealth,0.18333063781692682,Household wealth,False
+sequence,Tigray,0.0,work,0.029763342798104792,Her work,False
+sequence,Ethiopia,1.0,agency,0.12317659301783476,Women's say in decisions,True
+sequence,Ethiopia,1.0,barriers,0.046203795888151246,Barriers to reaching care,True
+sequence,Ethiopia,1.0,culture,0.02545557458168074,Language and religion,False
+sequence,Ethiopia,1.0,education,0.05784371119096649,Her education,False
+sequence,Ethiopia,1.0,healthpost,0.07833021831776787,Health post access,True
+sequence,Ethiopia,1.0,history,0.10978611703869075,Age and pregnancy history,False
+sequence,Ethiopia,1.0,hospital,0.04426325283261425,Distance to a hospital or health centre,True
+sequence,Ethiopia,1.0,household,0.13730431238528276,Partner and household,False
+sequence,Ethiopia,1.0,information,0.07975082876220548,Information and media,True
+sequence,Ethiopia,1.0,insurance,0.02464688568442502,Health insurance,True
+sequence,Ethiopia,1.0,intention,0.03155060221415161,Wanted pregnancy and family size,True
+sequence,Ethiopia,1.0,place,0.024159524094397623,Region,False
+sequence,Ethiopia,1.0,urban,0.028249294003698678,Urban or rural,False
+sequence,Ethiopia,1.0,wealth,0.15925958313985403,Household wealth,False
+sequence,Ethiopia,1.0,work,0.030019706052051183,Her work,False
+sequence,Addis Ababa,1.0,agency,0.07989946494782059,Women's say in decisions,True
+sequence,Addis Ababa,1.0,barriers,0.03119275232958125,Barriers to reaching care,True
+sequence,Addis Ababa,1.0,culture,0.024703401157408357,Language and religion,False
+sequence,Addis Ababa,1.0,education,0.06937104581930983,Her education,False
+sequence,Addis Ababa,1.0,healthpost,0.07584582031437033,Health post access,True
+sequence,Addis Ababa,1.0,history,0.11261329793152251,Age and pregnancy history,False
+sequence,Addis Ababa,1.0,hospital,0.042537932440396914,Distance to a hospital or health centre,True
+sequence,Addis Ababa,1.0,household,0.14000810423143262,Partner and household,False
+sequence,Addis Ababa,1.0,information,0.09818593772926115,Information and media,True
+sequence,Addis Ababa,1.0,insurance,0.011377707606954222,Health insurance,True
+sequence,Addis Ababa,1.0,intention,0.030462978228004287,Wanted pregnancy and family size,True
+sequence,Addis Ababa,1.0,place,0.0413012175649124,Region,False
+sequence,Addis Ababa,1.0,urban,0.047763150183108644,Urban or rural,False
+sequence,Addis Ababa,1.0,wealth,0.17154311351500265,Household wealth,False
+sequence,Addis Ababa,1.0,work,0.02319407281115578,Her work,False
+sequence,Afar,1.0,agency,0.13533834982163795,Women's say in decisions,True
+sequence,Afar,1.0,barriers,0.04934665932517661,Barriers to reaching care,True
+sequence,Afar,1.0,culture,0.025569063923501317,Language and religion,False
+sequence,Afar,1.0,education,0.054983005159847005,Her education,False
+sequence,Afar,1.0,healthpost,0.08144892688301959,Health post access,True
+sequence,Afar,1.0,history,0.09751970522525463,Age and pregnancy history,False
+sequence,Afar,1.0,hospital,0.04273699322942122,Distance to a hospital or health centre,True
+sequence,Afar,1.0,household,0.14463909679950177,Partner and household,False
+sequence,Afar,1.0,information,0.07344130570567885,Information and media,True
+sequence,Afar,1.0,insurance,0.0164941491560678,Health insurance,True
+sequence,Afar,1.0,intention,0.03380235732155742,Wanted pregnancy and family size,True
+sequence,Afar,1.0,place,0.019184913276101126,Region,False
+sequence,Afar,1.0,urban,0.03291319830840419,Urban or rural,False
+sequence,Afar,1.0,wealth,0.16599680458616176,Household wealth,False
+sequence,Afar,1.0,work,0.026585471662096155,Her work,False
+sequence,Amhara,1.0,agency,0.11646297117396619,Women's say in decisions,True
+sequence,Amhara,1.0,barriers,0.04434941377797176,Barriers to reaching care,True
+sequence,Amhara,1.0,culture,0.027409349186396356,Language and religion,False
+sequence,Amhara,1.0,education,0.0596126640246537,Her education,False
+sequence,Amhara,1.0,healthpost,0.07516712283072095,Health post access,True
+sequence,Amhara,1.0,history,0.11164533533306287,Age and pregnancy history,False
+sequence,Amhara,1.0,hospital,0.042697532739079246,Distance to a hospital or health centre,True
+sequence,Amhara,1.0,household,0.13164631746577313,Partner and household,False
+sequence,Amhara,1.0,information,0.07337355376319517,Information and media,True
+sequence,Amhara,1.0,insurance,0.027265240521484227,Health insurance,True
+sequence,Amhara,1.0,intention,0.03240210756625219,Wanted pregnancy and family size,True
+sequence,Amhara,1.0,place,0.03473674246418115,Region,False
+sequence,Amhara,1.0,urban,0.025597530642224323,Urban or rural,False
+sequence,Amhara,1.0,wealth,0.16290610108294742,Household wealth,False
+sequence,Amhara,1.0,work,0.034728019352608754,Her work,False
+sequence,Benishangul-Gumuz,1.0,agency,0.12096770678798856,Women's say in decisions,True
+sequence,Benishangul-Gumuz,1.0,barriers,0.04885662114629294,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,1.0,culture,0.028137043903766853,Language and religion,False
+sequence,Benishangul-Gumuz,1.0,education,0.06007372065073269,Her education,False
+sequence,Benishangul-Gumuz,1.0,healthpost,0.08474516573298946,Health post access,True
+sequence,Benishangul-Gumuz,1.0,history,0.10308508194951713,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,1.0,hospital,0.044174617524621616,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,1.0,household,0.13953020656464224,Partner and household,False
+sequence,Benishangul-Gumuz,1.0,information,0.07766155983089595,Information and media,True
+sequence,Benishangul-Gumuz,1.0,insurance,0.016806422776281617,Health insurance,True
+sequence,Benishangul-Gumuz,1.0,intention,0.03112187850574322,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,1.0,place,0.025174521145239773,Region,False
+sequence,Benishangul-Gumuz,1.0,urban,0.031089177668415006,Urban or rural,False
+sequence,Benishangul-Gumuz,1.0,wealth,0.15600490084210003,Household wealth,False
+sequence,Benishangul-Gumuz,1.0,work,0.03257137549978863,Her work,False
+sequence,Central Ethiopia,1.0,agency,0.12208690548658571,Women's say in decisions,True
+sequence,Central Ethiopia,1.0,barriers,0.041467700681406754,Barriers to reaching care,True
+sequence,Central Ethiopia,1.0,culture,0.023864936229252964,Language and religion,False
+sequence,Central Ethiopia,1.0,education,0.05755427057383284,Her education,False
+sequence,Central Ethiopia,1.0,healthpost,0.07515665932730121,Health post access,True
+sequence,Central Ethiopia,1.0,history,0.13467507267025805,Age and pregnancy history,False
+sequence,Central Ethiopia,1.0,hospital,0.04793024214955044,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,1.0,household,0.13315555584861957,Partner and household,False
+sequence,Central Ethiopia,1.0,information,0.07372234925493797,Information and media,True
+sequence,Central Ethiopia,1.0,insurance,0.034786624687853734,Health insurance,True
+sequence,Central Ethiopia,1.0,intention,0.03368399985933537,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,1.0,place,0.019476181498227437,Region,False
+sequence,Central Ethiopia,1.0,urban,0.024481903231022346,Urban or rural,False
+sequence,Central Ethiopia,1.0,wealth,0.1519704817137044,Household wealth,False
+sequence,Central Ethiopia,1.0,work,0.02598711960082268,Her work,False
+sequence,Dire Dawa,1.0,agency,0.1142010790146605,Women's say in decisions,True
+sequence,Dire Dawa,1.0,barriers,0.041688092302267075,Barriers to reaching care,True
+sequence,Dire Dawa,1.0,culture,0.023559684452480162,Language and religion,False
+sequence,Dire Dawa,1.0,education,0.061875696044775455,Her education,False
+sequence,Dire Dawa,1.0,healthpost,0.08125338106467547,Health post access,True
+sequence,Dire Dawa,1.0,history,0.10535219787572042,Age and pregnancy history,False
+sequence,Dire Dawa,1.0,hospital,0.04362685254578636,Distance to a hospital or health centre,True
+sequence,Dire Dawa,1.0,household,0.13722866878631643,Partner and household,False
+sequence,Dire Dawa,1.0,information,0.08534204603766084,Information and media,True
+sequence,Dire Dawa,1.0,insurance,0.01731224551608989,Health insurance,True
+sequence,Dire Dawa,1.0,intention,0.03388876739413335,Wanted pregnancy and family size,True
+sequence,Dire Dawa,1.0,place,0.024584781696260178,Region,False
+sequence,Dire Dawa,1.0,urban,0.038205112897007724,Urban or rural,False
+sequence,Dire Dawa,1.0,wealth,0.16301765449426384,Household wealth,False
+sequence,Dire Dawa,1.0,work,0.028863737013651938,Her work,False
+sequence,Gambella,1.0,agency,0.12009997304422429,Women's say in decisions,True
+sequence,Gambella,1.0,barriers,0.044205981726100824,Barriers to reaching care,True
+sequence,Gambella,1.0,culture,0.028121536815924365,Language and religion,False
+sequence,Gambella,1.0,education,0.06546134406821429,Her education,False
+sequence,Gambella,1.0,healthpost,0.080894776283962,Health post access,True
+sequence,Gambella,1.0,history,0.1119717526394679,Age and pregnancy history,False
+sequence,Gambella,1.0,hospital,0.04071119495460726,Distance to a hospital or health centre,True
+sequence,Gambella,1.0,household,0.14718409526581097,Partner and household,False
+sequence,Gambella,1.0,information,0.07601372257965876,Information and media,True
+sequence,Gambella,1.0,insurance,0.020300076174925474,Health insurance,True
+sequence,Gambella,1.0,intention,0.03177992735009428,Wanted pregnancy and family size,True
+sequence,Gambella,1.0,place,0.013103419935084926,Region,False
+sequence,Gambella,1.0,urban,0.038141614306463345,Urban or rural,False
+sequence,Gambella,1.0,wealth,0.1522824606577244,Household wealth,False
+sequence,Gambella,1.0,work,0.02972811910031158,Her work,False
+sequence,Harari,1.0,agency,0.11831995249213882,Women's say in decisions,True
+sequence,Harari,1.0,barriers,0.03908130801677389,Barriers to reaching care,True
+sequence,Harari,1.0,culture,0.023146497267058058,Language and religion,False
+sequence,Harari,1.0,education,0.0634719027528331,Her education,False
+sequence,Harari,1.0,healthpost,0.0753015160342079,Health post access,True
+sequence,Harari,1.0,history,0.10014439364855361,Age and pregnancy history,False
+sequence,Harari,1.0,hospital,0.04455665683645006,Distance to a hospital or health centre,True
+sequence,Harari,1.0,household,0.13970277823652724,Partner and household,False
+sequence,Harari,1.0,information,0.09469569629644889,Information and media,True
+sequence,Harari,1.0,insurance,0.02889713466977438,Health insurance,True
+sequence,Harari,1.0,intention,0.033205242959926655,Wanted pregnancy and family size,True
+sequence,Harari,1.0,place,0.01760274246006624,Region,False
+sequence,Harari,1.0,urban,0.02992599503791258,Urban or rural,False
+sequence,Harari,1.0,wealth,0.16038425750622684,Household wealth,False
+sequence,Harari,1.0,work,0.03156392302654501,Her work,False
+sequence,Oromia,1.0,agency,0.1283466454411958,Women's say in decisions,True
+sequence,Oromia,1.0,barriers,0.04845540823370303,Barriers to reaching care,True
+sequence,Oromia,1.0,culture,0.023143952733838444,Language and religion,False
+sequence,Oromia,1.0,education,0.05590715166993584,Her education,False
+sequence,Oromia,1.0,healthpost,0.07963272331416227,Health post access,True
+sequence,Oromia,1.0,history,0.10506156283520723,Age and pregnancy history,False
+sequence,Oromia,1.0,hospital,0.04446842079627969,Distance to a hospital or health centre,True
+sequence,Oromia,1.0,household,0.13768812502047573,Partner and household,False
+sequence,Oromia,1.0,information,0.08220933220567705,Information and media,True
+sequence,Oromia,1.0,insurance,0.025443838240379515,Health insurance,True
+sequence,Oromia,1.0,intention,0.03062478134131693,Wanted pregnancy and family size,True
+sequence,Oromia,1.0,place,0.021499194306470078,Region,False
+sequence,Oromia,1.0,urban,0.02773334833730436,Urban or rural,False
+sequence,Oromia,1.0,wealth,0.16070984197101698,Household wealth,False
+sequence,Oromia,1.0,work,0.02907567250368651,Her work,False
+sequence,Sidama,1.0,agency,0.12931663975330826,Women's say in decisions,True
+sequence,Sidama,1.0,barriers,0.0429685419604456,Barriers to reaching care,True
+sequence,Sidama,1.0,culture,0.025525136922238446,Language and religion,False
+sequence,Sidama,1.0,education,0.056569831858480336,Her education,False
+sequence,Sidama,1.0,healthpost,0.07691686062047137,Health post access,True
+sequence,Sidama,1.0,history,0.12573037210818153,Age and pregnancy history,False
+sequence,Sidama,1.0,hospital,0.047127718857270025,Distance to a hospital or health centre,True
+sequence,Sidama,1.0,household,0.156754927359988,Partner and household,False
+sequence,Sidama,1.0,information,0.07590572946569836,Information and media,True
+sequence,Sidama,1.0,insurance,0.02223134802974185,Health insurance,True
+sequence,Sidama,1.0,intention,0.034236428858831665,Wanted pregnancy and family size,True
+sequence,Sidama,1.0,place,0.011226622084198393,Region,False
+sequence,Sidama,1.0,urban,0.02626493988012564,Urban or rural,False
+sequence,Sidama,1.0,wealth,0.14277992886903682,Household wealth,False
+sequence,Sidama,1.0,work,0.0264449720556037,Her work,False
+sequence,Somali,1.0,agency,0.12543990339808403,Women's say in decisions,True
+sequence,Somali,1.0,barriers,0.050457652423526886,Barriers to reaching care,True
+sequence,Somali,1.0,culture,0.032661911599174843,Language and religion,False
+sequence,Somali,1.0,education,0.05258654826848194,Her education,False
+sequence,Somali,1.0,healthpost,0.08743346408079225,Health post access,True
+sequence,Somali,1.0,history,0.09209693649250031,Age and pregnancy history,False
+sequence,Somali,1.0,hospital,0.04692502624651739,Distance to a hospital or health centre,True
+sequence,Somali,1.0,household,0.13603901339091468,Partner and household,False
+sequence,Somali,1.0,information,0.08930216836350832,Information and media,True
+sequence,Somali,1.0,insurance,0.01976307670459682,Health insurance,True
+sequence,Somali,1.0,intention,0.03061675502519655,Wanted pregnancy and family size,True
+sequence,Somali,1.0,place,0.027192043929917184,Region,False
+sequence,Somali,1.0,urban,0.0312449797228119,Urban or rural,False
+sequence,Somali,1.0,wealth,0.1505366886233173,Household wealth,False
+sequence,Somali,1.0,work,0.02770383002716912,Her work,False
+sequence,South Ethiopia,1.0,agency,0.12693570126332712,Women's say in decisions,True
+sequence,South Ethiopia,1.0,barriers,0.04987847358822608,Barriers to reaching care,True
+sequence,South Ethiopia,1.0,culture,0.028787502020146388,Language and religion,False
+sequence,South Ethiopia,1.0,education,0.05797393902990727,Her education,False
+sequence,South Ethiopia,1.0,healthpost,0.07699361035820668,Health post access,True
+sequence,South Ethiopia,1.0,history,0.11000369657603674,Age and pregnancy history,False
+sequence,South Ethiopia,1.0,hospital,0.04449258382724117,Distance to a hospital or health centre,True
+sequence,South Ethiopia,1.0,household,0.14112942125701228,Partner and household,False
+sequence,South Ethiopia,1.0,information,0.07996527443344083,Information and media,True
+sequence,South Ethiopia,1.0,insurance,0.027880144132290525,Health insurance,True
+sequence,South Ethiopia,1.0,intention,0.03113318288959433,Wanted pregnancy and family size,True
+sequence,South Ethiopia,1.0,place,0.012552485225572648,Region,False
+sequence,South Ethiopia,1.0,urban,0.028299922092233195,Urban or rural,False
+sequence,South Ethiopia,1.0,wealth,0.15381291421421875,Household wealth,False
+sequence,South Ethiopia,1.0,work,0.030161142980743585,Her work,False
+sequence,South West Ethiopia,1.0,agency,0.13252956164418028,Women's say in decisions,True
+sequence,South West Ethiopia,1.0,barriers,0.048793166409083925,Barriers to reaching care,True
+sequence,South West Ethiopia,1.0,culture,0.03121038403365811,Language and religion,False
+sequence,South West Ethiopia,1.0,education,0.05557150785457299,Her education,False
+sequence,South West Ethiopia,1.0,healthpost,0.07793126771228133,Health post access,True
+sequence,South West Ethiopia,1.0,history,0.11025136988055542,Age and pregnancy history,False
+sequence,South West Ethiopia,1.0,hospital,0.037511903096355506,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,1.0,household,0.1402751567381059,Partner and household,False
+sequence,South West Ethiopia,1.0,information,0.07086007233709966,Information and media,True
+sequence,South West Ethiopia,1.0,insurance,0.024982047960019245,Health insurance,True
+sequence,South West Ethiopia,1.0,intention,0.029474699415018502,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,1.0,place,0.02647410113100973,Region,False
+sequence,South West Ethiopia,1.0,urban,0.02797408215890837,Urban or rural,False
+sequence,South West Ethiopia,1.0,wealth,0.15743575361656845,Household wealth,False
+sequence,South West Ethiopia,1.0,work,0.028724923853719938,Her work,False
+sequence,Tigray,1.0,agency,0.13122953945605997,Women's say in decisions,True
+sequence,Tigray,1.0,barriers,0.04554548273548022,Barriers to reaching care,True
+sequence,Tigray,1.0,culture,0.022210708283402582,Language and religion,False
+sequence,Tigray,1.0,education,0.05973271809193056,Her education,False
+sequence,Tigray,1.0,healthpost,0.08061083868997487,Health post access,True
+sequence,Tigray,1.0,history,0.11925315788660341,Age and pregnancy history,False
+sequence,Tigray,1.0,hospital,0.0474797690613194,Distance to a hospital or health centre,True
+sequence,Tigray,1.0,household,0.13785114604888343,Partner and household,False
+sequence,Tigray,1.0,information,0.08056040987015767,Information and media,True
+sequence,Tigray,1.0,insurance,0.01605201686055792,Health insurance,True
+sequence,Tigray,1.0,intention,0.033284840976312915,Wanted pregnancy and family size,True
+sequence,Tigray,1.0,place,0.01375480371535924,Region,False
+sequence,Tigray,1.0,urban,0.026987841394677085,Urban or rural,False
+sequence,Tigray,1.0,wealth,0.15548056222086737,Household wealth,False
+sequence,Tigray,1.0,work,0.029966162717979597,Her work,False
+sequence,Ethiopia,2.0,agency,0.1316782150143263,Women's say in decisions,True
+sequence,Ethiopia,2.0,barriers,0.0519370258332319,Barriers to reaching care,True
+sequence,Ethiopia,2.0,culture,0.032066368812574096,Language and religion,False
+sequence,Ethiopia,2.0,education,0.050940015077133666,Her education,False
+sequence,Ethiopia,2.0,healthpost,0.08972298851465992,Health post access,True
+sequence,Ethiopia,2.0,history,0.08456879751674622,Age and pregnancy history,False
+sequence,Ethiopia,2.0,hospital,0.05318275983969228,Distance to a hospital or health centre,True
+sequence,Ethiopia,2.0,household,0.13766651072949077,Partner and household,False
+sequence,Ethiopia,2.0,information,0.09815747290435775,Information and media,True
+sequence,Ethiopia,2.0,insurance,0.020902325110016152,Health insurance,True
+sequence,Ethiopia,2.0,intention,0.029907704976000073,Wanted pregnancy and family size,True
+sequence,Ethiopia,2.0,place,0.021446570673347674,Region,False
+sequence,Ethiopia,2.0,urban,0.021061333920753305,Urban or rural,False
+sequence,Ethiopia,2.0,wealth,0.14601617449738336,Household wealth,False
+sequence,Ethiopia,2.0,work,0.030745736998035445,Her work,False
+sequence,Addis Ababa,2.0,agency,0.11425633614813271,Women's say in decisions,True
+sequence,Addis Ababa,2.0,barriers,0.04166676798847787,Barriers to reaching care,True
+sequence,Addis Ababa,2.0,culture,0.03040695215576804,Language and religion,False
+sequence,Addis Ababa,2.0,education,0.060046288042514204,Her education,False
+sequence,Addis Ababa,2.0,healthpost,0.08482995315719333,Health post access,True
+sequence,Addis Ababa,2.0,history,0.0950641542231343,Age and pregnancy history,False
+sequence,Addis Ababa,2.0,hospital,0.047871034573794574,Distance to a hospital or health centre,True
+sequence,Addis Ababa,2.0,household,0.13495861466453948,Partner and household,False
+sequence,Addis Ababa,2.0,information,0.0993873426986955,Information and media,True
+sequence,Addis Ababa,2.0,insurance,0.016167949828839893,Health insurance,True
+sequence,Addis Ababa,2.0,intention,0.02982487019053467,Wanted pregnancy and family size,True
+sequence,Addis Ababa,2.0,place,0.029800593188240736,Region,False
+sequence,Addis Ababa,2.0,urban,0.028929424498704802,Urban or rural,False
+sequence,Addis Ababa,2.0,wealth,0.1595924285402235,Household wealth,False
+sequence,Addis Ababa,2.0,work,0.027197292833746126,Her work,False
+sequence,Afar,2.0,agency,0.1340330456882781,Women's say in decisions,True
+sequence,Afar,2.0,barriers,0.05183186210376122,Barriers to reaching care,True
+sequence,Afar,2.0,culture,0.03167627417855332,Language and religion,False
+sequence,Afar,2.0,education,0.05094774968319272,Her education,False
+sequence,Afar,2.0,healthpost,0.08701894166718184,Health post access,True
+sequence,Afar,2.0,history,0.08537118476209937,Age and pregnancy history,False
+sequence,Afar,2.0,hospital,0.05155042614056112,Distance to a hospital or health centre,True
+sequence,Afar,2.0,household,0.1388839211010667,Partner and household,False
+sequence,Afar,2.0,information,0.09346079684728202,Information and media,True
+sequence,Afar,2.0,insurance,0.019831472310038047,Health insurance,True
+sequence,Afar,2.0,intention,0.02966171738557232,Wanted pregnancy and family size,True
+sequence,Afar,2.0,place,0.027965850042323805,Region,False
+sequence,Afar,2.0,urban,0.0216995834801372,Urban or rural,False
+sequence,Afar,2.0,wealth,0.14504010509724505,Household wealth,False
+sequence,Afar,2.0,work,0.031027070742595086,Her work,False
+sequence,Amhara,2.0,agency,0.1315435391235419,Women's say in decisions,True
+sequence,Amhara,2.0,barriers,0.051283090529469985,Barriers to reaching care,True
+sequence,Amhara,2.0,culture,0.033100844244022716,Language and religion,False
+sequence,Amhara,2.0,education,0.05213830089476227,Her education,False
+sequence,Amhara,2.0,healthpost,0.08933136940450029,Health post access,True
+sequence,Amhara,2.0,history,0.08688183609105127,Age and pregnancy history,False
+sequence,Amhara,2.0,hospital,0.05167680565082186,Distance to a hospital or health centre,True
+sequence,Amhara,2.0,household,0.136788137996582,Partner and household,False
+sequence,Amhara,2.0,information,0.09465994168996245,Information and media,True
+sequence,Amhara,2.0,insurance,0.021040111895550925,Health insurance,True
+sequence,Amhara,2.0,intention,0.030626508627923755,Wanted pregnancy and family size,True
+sequence,Amhara,2.0,place,0.021275975479096088,Region,False
+sequence,Amhara,2.0,urban,0.0209441684072805,Urban or rural,False
+sequence,Amhara,2.0,wealth,0.1472684882819835,Household wealth,False
+sequence,Amhara,2.0,work,0.03144088393954467,Her work,False
+sequence,Benishangul-Gumuz,2.0,agency,0.1328761495939014,Women's say in decisions,True
+sequence,Benishangul-Gumuz,2.0,barriers,0.052248242165119425,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,2.0,culture,0.031955032585736835,Language and religion,False
+sequence,Benishangul-Gumuz,2.0,education,0.051065229781559925,Her education,False
+sequence,Benishangul-Gumuz,2.0,healthpost,0.09026908674876713,Health post access,True
+sequence,Benishangul-Gumuz,2.0,history,0.08559725846641923,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,2.0,hospital,0.05269393438991472,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,2.0,household,0.13876569313036835,Partner and household,False
+sequence,Benishangul-Gumuz,2.0,information,0.09502993456210465,Information and media,True
+sequence,Benishangul-Gumuz,2.0,insurance,0.020333920930941676,Health insurance,True
+sequence,Benishangul-Gumuz,2.0,intention,0.029512185400071608,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,2.0,place,0.023170123198467157,Region,False
+sequence,Benishangul-Gumuz,2.0,urban,0.020805651227202987,Urban or rural,False
+sequence,Benishangul-Gumuz,2.0,wealth,0.144674289783757,Household wealth,False
+sequence,Benishangul-Gumuz,2.0,work,0.031003270196141627,Her work,False
+sequence,Central Ethiopia,2.0,agency,0.1330990423399256,Women's say in decisions,True
+sequence,Central Ethiopia,2.0,barriers,0.054110576834311044,Barriers to reaching care,True
+sequence,Central Ethiopia,2.0,culture,0.031737070371825965,Language and religion,False
+sequence,Central Ethiopia,2.0,education,0.04785185644719805,Her education,False
+sequence,Central Ethiopia,2.0,healthpost,0.09164609732415958,Health post access,True
+sequence,Central Ethiopia,2.0,history,0.07823477246198918,Age and pregnancy history,False
+sequence,Central Ethiopia,2.0,hospital,0.05720817325816851,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,2.0,household,0.14127990271049726,Partner and household,False
+sequence,Central Ethiopia,2.0,information,0.10590577118264524,Information and media,True
+sequence,Central Ethiopia,2.0,insurance,0.021168352788429746,Health insurance,True
+sequence,Central Ethiopia,2.0,intention,0.029796167765583307,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,2.0,place,0.017712927882111047,Region,False
+sequence,Central Ethiopia,2.0,urban,0.019394337870842222,Urban or rural,False
+sequence,Central Ethiopia,2.0,wealth,0.13993966175450492,Household wealth,False
+sequence,Central Ethiopia,2.0,work,0.030915288429304116,Her work,False
+sequence,Dire Dawa,2.0,agency,0.1285124709368622,Women's say in decisions,True
+sequence,Dire Dawa,2.0,barriers,0.04916282762665308,Barriers to reaching care,True
+sequence,Dire Dawa,2.0,culture,0.030238901247792688,Language and religion,False
+sequence,Dire Dawa,2.0,education,0.05355801233760387,Her education,False
+sequence,Dire Dawa,2.0,healthpost,0.08434772661856622,Health post access,True
+sequence,Dire Dawa,2.0,history,0.08762732918877965,Age and pregnancy history,False
+sequence,Dire Dawa,2.0,hospital,0.051389389341788876,Distance to a hospital or health centre,True
+sequence,Dire Dawa,2.0,household,0.13707588574668012,Partner and household,False
+sequence,Dire Dawa,2.0,information,0.09681341618511485,Information and media,True
+sequence,Dire Dawa,2.0,insurance,0.01923169372433318,Health insurance,True
+sequence,Dire Dawa,2.0,intention,0.031008749669601897,Wanted pregnancy and family size,True
+sequence,Dire Dawa,2.0,place,0.02481292496843891,Region,False
+sequence,Dire Dawa,2.0,urban,0.023984698025489724,Urban or rural,False
+sequence,Dire Dawa,2.0,wealth,0.15149022601551435,Household wealth,False
+sequence,Dire Dawa,2.0,work,0.030745744003762315,Her work,False
+sequence,Gambella,2.0,agency,0.13587930400079223,Women's say in decisions,True
+sequence,Gambella,2.0,barriers,0.05386951185377024,Barriers to reaching care,True
+sequence,Gambella,2.0,culture,0.03239268662120594,Language and religion,False
+sequence,Gambella,2.0,education,0.04864087293382105,Her education,False
+sequence,Gambella,2.0,healthpost,0.08986320117958277,Health post access,True
+sequence,Gambella,2.0,history,0.08233941899667589,Age and pregnancy history,False
+sequence,Gambella,2.0,hospital,0.05448952863082087,Distance to a hospital or health centre,True
+sequence,Gambella,2.0,household,0.1391515141883073,Partner and household,False
+sequence,Gambella,2.0,information,0.10001104638311602,Information and media,True
+sequence,Gambella,2.0,insurance,0.021471349942501557,Health insurance,True
+sequence,Gambella,2.0,intention,0.02981411829304735,Wanted pregnancy and family size,True
+sequence,Gambella,2.0,place,0.020236690938590766,Region,False
+sequence,Gambella,2.0,urban,0.019326279874276462,Urban or rural,False
+sequence,Gambella,2.0,wealth,0.14166453534143172,Household wealth,False
+sequence,Gambella,2.0,work,0.030849941386939177,Her work,False
+sequence,Harari,2.0,agency,0.12923942202601296,Women's say in decisions,True
+sequence,Harari,2.0,barriers,0.050327687874865204,Barriers to reaching care,True
+sequence,Harari,2.0,culture,0.030629233150713735,Language and religion,False
+sequence,Harari,2.0,education,0.052620556582057554,Her education,False
+sequence,Harari,2.0,healthpost,0.08863388827045374,Health post access,True
+sequence,Harari,2.0,history,0.08534417552431628,Age and pregnancy history,False
+sequence,Harari,2.0,hospital,0.051950985826787706,Distance to a hospital or health centre,True
+sequence,Harari,2.0,household,0.13904409847030957,Partner and household,False
+sequence,Harari,2.0,information,0.09982564661593324,Information and media,True
+sequence,Harari,2.0,insurance,0.021462384136797363,Health insurance,True
+sequence,Harari,2.0,intention,0.02980729685292758,Wanted pregnancy and family size,True
+sequence,Harari,2.0,place,0.020943366982431568,Region,False
+sequence,Harari,2.0,urban,0.022041404651119912,Urban or rural,False
+sequence,Harari,2.0,wealth,0.14705552195207863,Household wealth,False
+sequence,Harari,2.0,work,0.03107433282885463,Her work,False
+sequence,Oromia,2.0,agency,0.1328118802255287,Women's say in decisions,True
+sequence,Oromia,2.0,barriers,0.052513271257134314,Barriers to reaching care,True
+sequence,Oromia,2.0,culture,0.031616337744775666,Language and religion,False
+sequence,Oromia,2.0,education,0.05050459513301626,Her education,False
+sequence,Oromia,2.0,healthpost,0.09002509007660568,Health post access,True
+sequence,Oromia,2.0,history,0.08446969154101513,Age and pregnancy history,False
+sequence,Oromia,2.0,hospital,0.05308231300113869,Distance to a hospital or health centre,True
+sequence,Oromia,2.0,household,0.13748662650744747,Partner and household,False
+sequence,Oromia,2.0,information,0.0977895606435364,Information and media,True
+sequence,Oromia,2.0,insurance,0.021116170054374078,Health insurance,True
+sequence,Oromia,2.0,intention,0.029481073823499942,Wanted pregnancy and family size,True
+sequence,Oromia,2.0,place,0.02107280042808754,Region,False
+sequence,Oromia,2.0,urban,0.020971444819997975,Urban or rural,False
+sequence,Oromia,2.0,wealth,0.14625420325143199,Household wealth,False
+sequence,Oromia,2.0,work,0.030804940827339544,Her work,False
+sequence,Sidama,2.0,agency,0.1313664146244726,Women's say in decisions,True
+sequence,Sidama,2.0,barriers,0.05546951614832748,Barriers to reaching care,True
+sequence,Sidama,2.0,culture,0.030427090046885943,Language and religion,False
+sequence,Sidama,2.0,education,0.04841562915297448,Her education,False
+sequence,Sidama,2.0,healthpost,0.09000045953481366,Health post access,True
+sequence,Sidama,2.0,history,0.07749890131612139,Age and pregnancy history,False
+sequence,Sidama,2.0,hospital,0.05876109697586831,Distance to a hospital or health centre,True
+sequence,Sidama,2.0,household,0.13644086813172426,Partner and household,False
+sequence,Sidama,2.0,information,0.10676896472281873,Information and media,True
+sequence,Sidama,2.0,insurance,0.021398542217191667,Health insurance,True
+sequence,Sidama,2.0,intention,0.03036714396435897,Wanted pregnancy and family size,True
+sequence,Sidama,2.0,place,0.021639207474259136,Region,False
+sequence,Sidama,2.0,urban,0.019204191444736854,Urban or rural,False
+sequence,Sidama,2.0,wealth,0.14124053248784557,Household wealth,False
+sequence,Sidama,2.0,work,0.031001442916440646,Her work,False
+sequence,Somali,2.0,agency,0.13165047689658257,Women's say in decisions,True
+sequence,Somali,2.0,barriers,0.05261878387348779,Barriers to reaching care,True
+sequence,Somali,2.0,culture,0.03251407208121932,Language and religion,False
+sequence,Somali,2.0,education,0.05073329648167682,Her education,False
+sequence,Somali,2.0,healthpost,0.09227289528061611,Health post access,True
+sequence,Somali,2.0,history,0.08302394560954401,Age and pregnancy history,False
+sequence,Somali,2.0,hospital,0.05116114215106634,Distance to a hospital or health centre,True
+sequence,Somali,2.0,household,0.13800941227222624,Partner and household,False
+sequence,Somali,2.0,information,0.09677805272863398,Information and media,True
+sequence,Somali,2.0,insurance,0.021567509336094123,Health insurance,True
+sequence,Somali,2.0,intention,0.02901386938790497,Wanted pregnancy and family size,True
+sequence,Somali,2.0,place,0.022068744852812378,Region,False
+sequence,Somali,2.0,urban,0.022222402010749518,Urban or rural,False
+sequence,Somali,2.0,wealth,0.1457722302637694,Household wealth,False
+sequence,Somali,2.0,work,0.030593163681002823,Her work,False
+sequence,South Ethiopia,2.0,agency,0.1333195545686792,Women's say in decisions,True
+sequence,South Ethiopia,2.0,barriers,0.052599416870432986,Barriers to reaching care,True
+sequence,South Ethiopia,2.0,culture,0.031701935181921034,Language and religion,False
+sequence,South Ethiopia,2.0,education,0.04956521406725466,Her education,False
+sequence,South Ethiopia,2.0,healthpost,0.09113945559685425,Health post access,True
+sequence,South Ethiopia,2.0,history,0.08166385504573023,Age and pregnancy history,False
+sequence,South Ethiopia,2.0,hospital,0.0555280824000953,Distance to a hospital or health centre,True
+sequence,South Ethiopia,2.0,household,0.13913243082969598,Partner and household,False
+sequence,South Ethiopia,2.0,information,0.1007874034819206,Information and media,True
+sequence,South Ethiopia,2.0,insurance,0.020638798765873687,Health insurance,True
+sequence,South Ethiopia,2.0,intention,0.030509808897652736,Wanted pregnancy and family size,True
+sequence,South Ethiopia,2.0,place,0.019739466174179113,Region,False
+sequence,South Ethiopia,2.0,urban,0.02011839311086688,Urban or rural,False
+sequence,South Ethiopia,2.0,wealth,0.14319427861384557,Household wealth,False
+sequence,South Ethiopia,2.0,work,0.030361904511642644,Her work,False
+sequence,South West Ethiopia,2.0,agency,0.13450153498068299,Women's say in decisions,True
+sequence,South West Ethiopia,2.0,barriers,0.05143753239142235,Barriers to reaching care,True
+sequence,South West Ethiopia,2.0,culture,0.032548551781596366,Language and religion,False
+sequence,South West Ethiopia,2.0,education,0.0503439554851749,Her education,False
+sequence,South West Ethiopia,2.0,healthpost,0.09133441582835049,Health post access,True
+sequence,South West Ethiopia,2.0,history,0.08781035012623445,Age and pregnancy history,False
+sequence,South West Ethiopia,2.0,hospital,0.05146954021339712,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,2.0,household,0.13825339251484714,Partner and household,False
+sequence,South West Ethiopia,2.0,information,0.09309652830263845,Information and media,True
+sequence,South West Ethiopia,2.0,insurance,0.021623461906123666,Health insurance,True
+sequence,South West Ethiopia,2.0,intention,0.02883105852604883,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,2.0,place,0.020050002715037242,Region,False
+sequence,South West Ethiopia,2.0,urban,0.020500270830054644,Urban or rural,False
+sequence,South West Ethiopia,2.0,wealth,0.14698822145040016,Household wealth,False
+sequence,South West Ethiopia,2.0,work,0.03121118382441895,Her work,False
+sequence,Tigray,2.0,agency,0.13215264265547313,Women's say in decisions,True
+sequence,Tigray,2.0,barriers,0.0532756946479823,Barriers to reaching care,True
+sequence,Tigray,2.0,culture,0.033503937897229025,Language and religion,False
+sequence,Tigray,2.0,education,0.048598870742278456,Her education,False
+sequence,Tigray,2.0,healthpost,0.08786185382666425,Health post access,True
+sequence,Tigray,2.0,history,0.08061274377372024,Age and pregnancy history,False
+sequence,Tigray,2.0,hospital,0.056692094746685594,Distance to a hospital or health centre,True
+sequence,Tigray,2.0,household,0.13920298211465054,Partner and household,False
+sequence,Tigray,2.0,information,0.10365153433204868,Information and media,True
+sequence,Tigray,2.0,insurance,0.021747364738906372,Health insurance,True
+sequence,Tigray,2.0,intention,0.0301137615071753,Wanted pregnancy and family size,True
+sequence,Tigray,2.0,place,0.021796147945936133,Region,False
+sequence,Tigray,2.0,urban,0.01941964216819209,Urban or rural,False
+sequence,Tigray,2.0,wealth,0.14119320148118478,Household wealth,False
+sequence,Tigray,2.0,work,0.03017753112211115,Her work,False
+sequence,Ethiopia,3.0,agency,0.13507647062130013,Women's say in decisions,True
+sequence,Ethiopia,3.0,barriers,0.05352541685277012,Barriers to reaching care,True
+sequence,Ethiopia,3.0,culture,0.0330059487895245,Language and religion,False
+sequence,Ethiopia,3.0,education,0.05142170522674957,Her education,False
+sequence,Ethiopia,3.0,healthpost,0.08819220568237936,Health post access,True
+sequence,Ethiopia,3.0,history,0.08030637573845395,Age and pregnancy history,False
+sequence,Ethiopia,3.0,hospital,0.053173239103018466,Distance to a hospital or health centre,True
+sequence,Ethiopia,3.0,household,0.13799284156360708,Partner and household,False
+sequence,Ethiopia,3.0,information,0.09898275966474714,Information and media,True
+sequence,Ethiopia,3.0,insurance,0.02105022256228182,Health insurance,True
+sequence,Ethiopia,3.0,intention,0.03050371688003018,Wanted pregnancy and family size,True
+sequence,Ethiopia,3.0,place,0.020780661750541295,Region,False
+sequence,Ethiopia,3.0,urban,0.020538342421729767,Urban or rural,False
+sequence,Ethiopia,3.0,wealth,0.14458833787458267,Household wealth,False
+sequence,Ethiopia,3.0,work,0.030861755109284374,Her work,False
+sequence,Addis Ababa,3.0,agency,0.12831342426287604,Women's say in decisions,True
+sequence,Addis Ababa,3.0,barriers,0.04770702568232234,Barriers to reaching care,True
+sequence,Addis Ababa,3.0,culture,0.03184947413531564,Language and religion,False
+sequence,Addis Ababa,3.0,education,0.05486799673819844,Her education,False
+sequence,Addis Ababa,3.0,healthpost,0.08924618198162194,Health post access,True
+sequence,Addis Ababa,3.0,history,0.08666954337975544,Age and pregnancy history,False
+sequence,Addis Ababa,3.0,hospital,0.05082512029511371,Distance to a hospital or health centre,True
+sequence,Addis Ababa,3.0,household,0.13667438234133011,Partner and household,False
+sequence,Addis Ababa,3.0,information,0.10135325797281676,Information and media,True
+sequence,Addis Ababa,3.0,insurance,0.020307411635676568,Health insurance,True
+sequence,Addis Ababa,3.0,intention,0.029627163645808606,Wanted pregnancy and family size,True
+sequence,Addis Ababa,3.0,place,0.023786686809490486,Region,False
+sequence,Addis Ababa,3.0,urban,0.020615139865378253,Urban or rural,False
+sequence,Addis Ababa,3.0,wealth,0.15022777859870703,Household wealth,False
+sequence,Addis Ababa,3.0,work,0.02792940524958507,Her work,False
+sequence,Afar,3.0,agency,0.1339957982462435,Women's say in decisions,True
+sequence,Afar,3.0,barriers,0.05311518953306976,Barriers to reaching care,True
+sequence,Afar,3.0,culture,0.031088999201148666,Language and religion,False
+sequence,Afar,3.0,education,0.05288923506305902,Her education,False
+sequence,Afar,3.0,healthpost,0.08645596764180519,Health post access,True
+sequence,Afar,3.0,history,0.08218217784644732,Age and pregnancy history,False
+sequence,Afar,3.0,hospital,0.05252801414810139,Distance to a hospital or health centre,True
+sequence,Afar,3.0,household,0.1394152352843372,Partner and household,False
+sequence,Afar,3.0,information,0.09723064536510759,Information and media,True
+sequence,Afar,3.0,insurance,0.021603487369483757,Health insurance,True
+sequence,Afar,3.0,intention,0.029433532090720492,Wanted pregnancy and family size,True
+sequence,Afar,3.0,place,0.01988532354697483,Region,False
+sequence,Afar,3.0,urban,0.021381696450066007,Urban or rural,False
+sequence,Afar,3.0,wealth,0.14734703218325731,Household wealth,False
+sequence,Afar,3.0,work,0.03144766381007899,Her work,False
+sequence,Amhara,3.0,agency,0.13546719109900404,Women's say in decisions,True
+sequence,Amhara,3.0,barriers,0.05364863461779079,Barriers to reaching care,True
+sequence,Amhara,3.0,culture,0.03305274008719633,Language and religion,False
+sequence,Amhara,3.0,education,0.05087863693746487,Her education,False
+sequence,Amhara,3.0,healthpost,0.09026160253558915,Health post access,True
+sequence,Amhara,3.0,history,0.08092288253309657,Age and pregnancy history,False
+sequence,Amhara,3.0,hospital,0.05360648203012585,Distance to a hospital or health centre,True
+sequence,Amhara,3.0,household,0.13907125484014699,Partner and household,False
+sequence,Amhara,3.0,information,0.1004318274335398,Information and media,True
+sequence,Amhara,3.0,insurance,0.020781112468525435,Health insurance,True
+sequence,Amhara,3.0,intention,0.031111231310267554,Wanted pregnancy and family size,True
+sequence,Amhara,3.0,place,0.0185385234007086,Region,False
+sequence,Amhara,3.0,urban,0.019767871247031873,Urban or rural,False
+sequence,Amhara,3.0,wealth,0.14206643291663398,Household wealth,False
+sequence,Amhara,3.0,work,0.030393575610129207,Her work,False
+sequence,Benishangul-Gumuz,3.0,agency,0.13608345093972707,Women's say in decisions,True
+sequence,Benishangul-Gumuz,3.0,barriers,0.05361301011191121,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,3.0,culture,0.032579704034747796,Language and religion,False
+sequence,Benishangul-Gumuz,3.0,education,0.0503946991342075,Her education,False
+sequence,Benishangul-Gumuz,3.0,healthpost,0.08757020584048053,Health post access,True
+sequence,Benishangul-Gumuz,3.0,history,0.08121296400146272,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,3.0,hospital,0.05346341751164944,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,3.0,household,0.1382454455713852,Partner and household,False
+sequence,Benishangul-Gumuz,3.0,information,0.0989357843468013,Information and media,True
+sequence,Benishangul-Gumuz,3.0,insurance,0.02216995057547808,Health insurance,True
+sequence,Benishangul-Gumuz,3.0,intention,0.03032225378424956,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,3.0,place,0.021087520509013725,Region,False
+sequence,Benishangul-Gumuz,3.0,urban,0.01964633717763826,Urban or rural,False
+sequence,Benishangul-Gumuz,3.0,wealth,0.1436515888782294,Household wealth,False
+sequence,Benishangul-Gumuz,3.0,work,0.031023669653855977,Her work,False
+sequence,Central Ethiopia,3.0,agency,0.1364304713140168,Women's say in decisions,True
+sequence,Central Ethiopia,3.0,barriers,0.055532597963327775,Barriers to reaching care,True
+sequence,Central Ethiopia,3.0,culture,0.032859469730174076,Language and religion,False
+sequence,Central Ethiopia,3.0,education,0.04943539413094471,Her education,False
+sequence,Central Ethiopia,3.0,healthpost,0.08807774968545057,Health post access,True
+sequence,Central Ethiopia,3.0,history,0.07509115877555417,Age and pregnancy history,False
+sequence,Central Ethiopia,3.0,hospital,0.05581857759873626,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,3.0,household,0.14108477848954173,Partner and household,False
+sequence,Central Ethiopia,3.0,information,0.10334296133690225,Information and media,True
+sequence,Central Ethiopia,3.0,insurance,0.020405734641458735,Health insurance,True
+sequence,Central Ethiopia,3.0,intention,0.029362837025548323,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,3.0,place,0.019378563654196053,Region,False
+sequence,Central Ethiopia,3.0,urban,0.020334474714183388,Urban or rural,False
+sequence,Central Ethiopia,3.0,wealth,0.14149841089962434,Household wealth,False
+sequence,Central Ethiopia,3.0,work,0.03134681793301801,Her work,False
+sequence,Dire Dawa,3.0,agency,0.13418419347053517,Women's say in decisions,True
+sequence,Dire Dawa,3.0,barriers,0.05246237077317347,Barriers to reaching care,True
+sequence,Dire Dawa,3.0,culture,0.032248192131545374,Language and religion,False
+sequence,Dire Dawa,3.0,education,0.05205917833343633,Her education,False
+sequence,Dire Dawa,3.0,healthpost,0.0853941725442329,Health post access,True
+sequence,Dire Dawa,3.0,history,0.0829677365073425,Age and pregnancy history,False
+sequence,Dire Dawa,3.0,hospital,0.05241133428870344,Distance to a hospital or health centre,True
+sequence,Dire Dawa,3.0,household,0.13793667209069876,Partner and household,False
+sequence,Dire Dawa,3.0,information,0.09899950141021979,Information and media,True
+sequence,Dire Dawa,3.0,insurance,0.020885972351644327,Health insurance,True
+sequence,Dire Dawa,3.0,intention,0.030616894085701455,Wanted pregnancy and family size,True
+sequence,Dire Dawa,3.0,place,0.021935849869948107,Region,False
+sequence,Dire Dawa,3.0,urban,0.020272857937691853,Urban or rural,False
+sequence,Dire Dawa,3.0,wealth,0.14672339642174986,Household wealth,False
+sequence,Dire Dawa,3.0,work,0.030901680236382872,Her work,False
+sequence,Gambella,3.0,agency,0.13917275069135804,Women's say in decisions,True
+sequence,Gambella,3.0,barriers,0.05536241014215744,Barriers to reaching care,True
+sequence,Gambella,3.0,culture,0.03358539750827559,Language and religion,False
+sequence,Gambella,3.0,education,0.04934506645786088,Her education,False
+sequence,Gambella,3.0,healthpost,0.08616523555671103,Health post access,True
+sequence,Gambella,3.0,history,0.0791329121486133,Age and pregnancy history,False
+sequence,Gambella,3.0,hospital,0.053882179578571346,Distance to a hospital or health centre,True
+sequence,Gambella,3.0,household,0.13595028044081273,Partner and household,False
+sequence,Gambella,3.0,information,0.0986866275684864,Information and media,True
+sequence,Gambella,3.0,insurance,0.02228243899027032,Health insurance,True
+sequence,Gambella,3.0,intention,0.030258358688466814,Wanted pregnancy and family size,True
+sequence,Gambella,3.0,place,0.023609358841371164,Region,False
+sequence,Gambella,3.0,urban,0.018418466172374307,Urban or rural,False
+sequence,Gambella,3.0,wealth,0.1430246761561101,Household wealth,False
+sequence,Gambella,3.0,work,0.03112384116425354,Her work,False
+sequence,Harari,3.0,agency,0.1343759158428579,Women's say in decisions,True
+sequence,Harari,3.0,barriers,0.05371232215810953,Barriers to reaching care,True
+sequence,Harari,3.0,culture,0.03203712353276577,Language and religion,False
+sequence,Harari,3.0,education,0.0520901150338787,Her education,False
+sequence,Harari,3.0,healthpost,0.08738768966951257,Health post access,True
+sequence,Harari,3.0,history,0.08243811163021257,Age and pregnancy history,False
+sequence,Harari,3.0,hospital,0.05246258525393207,Distance to a hospital or health centre,True
+sequence,Harari,3.0,household,0.13849326666054362,Partner and household,False
+sequence,Harari,3.0,information,0.09854821151275968,Information and media,True
+sequence,Harari,3.0,insurance,0.02041953400519494,Health insurance,True
+sequence,Harari,3.0,intention,0.03053254194295405,Wanted pregnancy and family size,True
+sequence,Harari,3.0,place,0.02144518571050762,Region,False
+sequence,Harari,3.0,urban,0.020634427166866896,Urban or rural,False
+sequence,Harari,3.0,wealth,0.14452649029908887,Household wealth,False
+sequence,Harari,3.0,work,0.030896480602891675,Her work,False
+sequence,Oromia,3.0,agency,0.1348006082414265,Women's say in decisions,True
+sequence,Oromia,3.0,barriers,0.05383059483524983,Barriers to reaching care,True
+sequence,Oromia,3.0,culture,0.032587423468113115,Language and religion,False
+sequence,Oromia,3.0,education,0.05161910799501984,Her education,False
+sequence,Oromia,3.0,healthpost,0.08797794138479821,Health post access,True
+sequence,Oromia,3.0,history,0.08083796044442486,Age and pregnancy history,False
+sequence,Oromia,3.0,hospital,0.05317723159882853,Distance to a hospital or health centre,True
+sequence,Oromia,3.0,household,0.13794778420559833,Partner and household,False
+sequence,Oromia,3.0,information,0.09851741045314519,Information and media,True
+sequence,Oromia,3.0,insurance,0.020755374902148946,Health insurance,True
+sequence,Oromia,3.0,intention,0.030592600089203784,Wanted pregnancy and family size,True
+sequence,Oromia,3.0,place,0.02031642581042359,Region,False
+sequence,Oromia,3.0,urban,0.020844944407597286,Urban or rural,False
+sequence,Oromia,3.0,wealth,0.14469529787491003,Household wealth,False
+sequence,Oromia,3.0,work,0.03149929604907591,Her work,False
+sequence,Sidama,3.0,agency,0.13745489507732916,Women's say in decisions,True
+sequence,Sidama,3.0,barriers,0.05385969236288884,Barriers to reaching care,True
+sequence,Sidama,3.0,culture,0.03623468456505356,Language and religion,False
+sequence,Sidama,3.0,education,0.051942272422073166,Her education,False
+sequence,Sidama,3.0,healthpost,0.08545512554650804,Health post access,True
+sequence,Sidama,3.0,history,0.07586104600699387,Age and pregnancy history,False
+sequence,Sidama,3.0,hospital,0.05109320895793578,Distance to a hospital or health centre,True
+sequence,Sidama,3.0,household,0.13349289165323283,Partner and household,False
+sequence,Sidama,3.0,information,0.09525048216543022,Information and media,True
+sequence,Sidama,3.0,insurance,0.022086777251310002,Health insurance,True
+sequence,Sidama,3.0,intention,0.029406562440165568,Wanted pregnancy and family size,True
+sequence,Sidama,3.0,place,0.02632259800682467,Region,False
+sequence,Sidama,3.0,urban,0.021188863442174053,Urban or rural,False
+sequence,Sidama,3.0,wealth,0.14953845827639758,Household wealth,False
+sequence,Sidama,3.0,work,0.03081244056567998,Her work,False
+sequence,Somali,3.0,agency,0.13455027522930119,Women's say in decisions,True
+sequence,Somali,3.0,barriers,0.05231998899023546,Barriers to reaching care,True
+sequence,Somali,3.0,culture,0.03336640133473408,Language and religion,False
+sequence,Somali,3.0,education,0.05465440398194616,Her education,False
+sequence,Somali,3.0,healthpost,0.08373543871089346,Health post access,True
+sequence,Somali,3.0,history,0.082427799028065,Age and pregnancy history,False
+sequence,Somali,3.0,hospital,0.04903256815123143,Distance to a hospital or health centre,True
+sequence,Somali,3.0,household,0.13584781409766555,Partner and household,False
+sequence,Somali,3.0,information,0.09324458511682523,Information and media,True
+sequence,Somali,3.0,insurance,0.02192308426769456,Health insurance,True
+sequence,Somali,3.0,intention,0.030236704952243797,Wanted pregnancy and family size,True
+sequence,Somali,3.0,place,0.02418922856401313,Region,False
+sequence,Somali,3.0,urban,0.02403591374736158,Urban or rural,False
+sequence,Somali,3.0,wealth,0.15041050152866625,Household wealth,False
+sequence,Somali,3.0,work,0.03002529065081269,Her work,False
+sequence,South Ethiopia,3.0,agency,0.13697836543232106,Women's say in decisions,True
+sequence,South Ethiopia,3.0,barriers,0.053887292341484684,Barriers to reaching care,True
+sequence,South Ethiopia,3.0,culture,0.033533526169260496,Language and religion,False
+sequence,South Ethiopia,3.0,education,0.050495089740910895,Her education,False
+sequence,South Ethiopia,3.0,healthpost,0.08809753252430419,Health post access,True
+sequence,South Ethiopia,3.0,history,0.0786009845975294,Age and pregnancy history,False
+sequence,South Ethiopia,3.0,hospital,0.0535118001555263,Distance to a hospital or health centre,True
+sequence,South Ethiopia,3.0,household,0.13692054458725472,Partner and household,False
+sequence,South Ethiopia,3.0,information,0.09774575454902154,Information and media,True
+sequence,South Ethiopia,3.0,insurance,0.02095950057760481,Health insurance,True
+sequence,South Ethiopia,3.0,intention,0.030434169699949585,Wanted pregnancy and family size,True
+sequence,South Ethiopia,3.0,place,0.023379177170914176,Region,False
+sequence,South Ethiopia,3.0,urban,0.020157740432148238,Urban or rural,False
+sequence,South Ethiopia,3.0,wealth,0.14452496330888415,Household wealth,False
+sequence,South Ethiopia,3.0,work,0.030773558619623102,Her work,False
+sequence,South West Ethiopia,3.0,agency,0.13315324766105888,Women's say in decisions,True
+sequence,South West Ethiopia,3.0,barriers,0.05276009791198862,Barriers to reaching care,True
+sequence,South West Ethiopia,3.0,culture,0.03242082313120073,Language and religion,False
+sequence,South West Ethiopia,3.0,education,0.0514580716953526,Her education,False
+sequence,South West Ethiopia,3.0,healthpost,0.08969096858938981,Health post access,True
+sequence,South West Ethiopia,3.0,history,0.08035709217879682,Age and pregnancy history,False
+sequence,South West Ethiopia,3.0,hospital,0.05477200869065062,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,3.0,household,0.13793616977058037,Partner and household,False
+sequence,South West Ethiopia,3.0,information,0.09950589404388151,Information and media,True
+sequence,South West Ethiopia,3.0,insurance,0.02117929305219579,Health insurance,True
+sequence,South West Ethiopia,3.0,intention,0.030756281037678343,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,3.0,place,0.019241072664540063,Region,False
+sequence,South West Ethiopia,3.0,urban,0.020016471370885018,Urban or rural,False
+sequence,South West Ethiopia,3.0,wealth,0.14555564448847125,Household wealth,False
+sequence,South West Ethiopia,3.0,work,0.031196861017466507,Her work,False
+sequence,Tigray,3.0,agency,0.13627159540223893,Women's say in decisions,True
+sequence,Tigray,3.0,barriers,0.05420742008204508,Barriers to reaching care,True
+sequence,Tigray,3.0,culture,0.03435602429217425,Language and religion,False
+sequence,Tigray,3.0,education,0.04997811324812877,Her education,False
+sequence,Tigray,3.0,healthpost,0.085918854744767,Health post access,True
+sequence,Tigray,3.0,history,0.07654011374189554,Age and pregnancy history,False
+sequence,Tigray,3.0,hospital,0.054135323580688,Distance to a hospital or health centre,True
+sequence,Tigray,3.0,household,0.13814688657844543,Partner and household,False
+sequence,Tigray,3.0,information,0.09942908325254018,Information and media,True
+sequence,Tigray,3.0,insurance,0.02335459073493419,Health insurance,True
+sequence,Tigray,3.0,intention,0.0301029035171918,Wanted pregnancy and family size,True
+sequence,Tigray,3.0,place,0.02281263748026417,Region,False
+sequence,Tigray,3.0,urban,0.019835608195497324,Urban or rural,False
+sequence,Tigray,3.0,wealth,0.14425323159950657,Household wealth,False
+sequence,Tigray,3.0,work,0.030657613033290898,Her work,False
+sequence,Ethiopia,4.0,agency,0.13500454604095816,Women's say in decisions,True
+sequence,Ethiopia,4.0,barriers,0.0546590558683266,Barriers to reaching care,True
+sequence,Ethiopia,4.0,culture,0.03537140445334534,Language and religion,False
+sequence,Ethiopia,4.0,education,0.04586497507657114,Her education,False
+sequence,Ethiopia,4.0,healthpost,0.09479113932534353,Health post access,True
+sequence,Ethiopia,4.0,history,0.08537584898189804,Age and pregnancy history,False
+sequence,Ethiopia,4.0,hospital,0.05369689176788701,Distance to a hospital or health centre,True
+sequence,Ethiopia,4.0,household,0.13934239803418597,Partner and household,False
+sequence,Ethiopia,4.0,information,0.09846493309109852,Information and media,True
+sequence,Ethiopia,4.0,insurance,0.02252410693866732,Health insurance,True
+sequence,Ethiopia,4.0,intention,0.030763957858640337,Wanted pregnancy and family size,True
+sequence,Ethiopia,4.0,place,0.02190725430292729,Region,False
+sequence,Ethiopia,4.0,urban,0.015789724800655505,Urban or rural,False
+sequence,Ethiopia,4.0,wealth,0.13542616710228597,Household wealth,False
+sequence,Ethiopia,4.0,work,0.031017596536888972,Her work,False
+sequence,Addis Ababa,4.0,agency,0.13454794564609793,Women's say in decisions,True
+sequence,Addis Ababa,4.0,barriers,0.05228623550676401,Barriers to reaching care,True
+sequence,Addis Ababa,4.0,culture,0.034472299632023716,Language and religion,False
+sequence,Addis Ababa,4.0,education,0.048035493525966345,Her education,False
+sequence,Addis Ababa,4.0,healthpost,0.09644444888761398,Health post access,True
+sequence,Addis Ababa,4.0,history,0.08331137180520669,Age and pregnancy history,False
+sequence,Addis Ababa,4.0,hospital,0.05020256762527011,Distance to a hospital or health centre,True
+sequence,Addis Ababa,4.0,household,0.14390160999123755,Partner and household,False
+sequence,Addis Ababa,4.0,information,0.10352495488377716,Information and media,True
+sequence,Addis Ababa,4.0,insurance,0.022478051224304754,Health insurance,True
+sequence,Addis Ababa,4.0,intention,0.02880647472629895,Wanted pregnancy and family size,True
+sequence,Addis Ababa,4.0,place,0.019155229448888415,Region,False
+sequence,Addis Ababa,4.0,urban,0.014385873619396429,Urban or rural,False
+sequence,Addis Ababa,4.0,wealth,0.14143684213424115,Household wealth,False
+sequence,Addis Ababa,4.0,work,0.027010601079323435,Her work,False
+sequence,Afar,4.0,agency,0.13526247075031889,Women's say in decisions,True
+sequence,Afar,4.0,barriers,0.053944291036238774,Barriers to reaching care,True
+sequence,Afar,4.0,culture,0.04049453234361794,Language and religion,False
+sequence,Afar,4.0,education,0.04375095893560331,Her education,False
+sequence,Afar,4.0,healthpost,0.08962163203870248,Health post access,True
+sequence,Afar,4.0,history,0.09336549169581804,Age and pregnancy history,False
+sequence,Afar,4.0,hospital,0.053653448189067816,Distance to a hospital or health centre,True
+sequence,Afar,4.0,household,0.1344496330600602,Partner and household,False
+sequence,Afar,4.0,information,0.09228782259572964,Information and media,True
+sequence,Afar,4.0,insurance,0.018273616341231542,Health insurance,True
+sequence,Afar,4.0,intention,0.03299861908824625,Wanted pregnancy and family size,True
+sequence,Afar,4.0,place,0.045994636155487996,Region,False
+sequence,Afar,4.0,urban,0.014995852064182393,Urban or rural,False
+sequence,Afar,4.0,wealth,0.12144142022877308,Household wealth,False
+sequence,Afar,4.0,work,0.029465575090409524,Her work,False
+sequence,Amhara,4.0,agency,0.1341298860309862,Women's say in decisions,True
+sequence,Amhara,4.0,barriers,0.05320575186840292,Barriers to reaching care,True
+sequence,Amhara,4.0,culture,0.03897081433868283,Language and religion,False
+sequence,Amhara,4.0,education,0.046366157985736074,Her education,False
+sequence,Amhara,4.0,healthpost,0.10084657023558001,Health post access,True
+sequence,Amhara,4.0,history,0.08615042874272734,Age and pregnancy history,False
+sequence,Amhara,4.0,hospital,0.051787153705994945,Distance to a hospital or health centre,True
+sequence,Amhara,4.0,household,0.13915276437048804,Partner and household,False
+sequence,Amhara,4.0,information,0.09729355067483149,Information and media,True
+sequence,Amhara,4.0,insurance,0.0235437053981008,Health insurance,True
+sequence,Amhara,4.0,intention,0.030985733034635678,Wanted pregnancy and family size,True
+sequence,Amhara,4.0,place,0.01637657661418373,Region,False
+sequence,Amhara,4.0,urban,0.015075561758086466,Urban or rural,False
+sequence,Amhara,4.0,wealth,0.13498408334689127,Household wealth,False
+sequence,Amhara,4.0,work,0.03113126377466071,Her work,False
+sequence,Benishangul-Gumuz,4.0,agency,0.13646939890936652,Women's say in decisions,True
+sequence,Benishangul-Gumuz,4.0,barriers,0.05608448075426655,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,4.0,culture,0.03205544425703721,Language and religion,False
+sequence,Benishangul-Gumuz,4.0,education,0.044160413634602956,Her education,False
+sequence,Benishangul-Gumuz,4.0,healthpost,0.09918579933811777,Health post access,True
+sequence,Benishangul-Gumuz,4.0,history,0.08800059948219995,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,4.0,hospital,0.050216241520419765,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,4.0,household,0.14253250185186953,Partner and household,False
+sequence,Benishangul-Gumuz,4.0,information,0.09196682383560745,Information and media,True
+sequence,Benishangul-Gumuz,4.0,insurance,0.020177699244186702,Health insurance,True
+sequence,Benishangul-Gumuz,4.0,intention,0.03029908518437924,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,4.0,place,0.02864909944671509,Region,False
+sequence,Benishangul-Gumuz,4.0,urban,0.015281254597745203,Urban or rural,False
+sequence,Benishangul-Gumuz,4.0,wealth,0.13292829920436258,Household wealth,False
+sequence,Benishangul-Gumuz,4.0,work,0.0319928560517861,Her work,False
+sequence,Central Ethiopia,4.0,agency,0.13201035454623833,Women's say in decisions,True
+sequence,Central Ethiopia,4.0,barriers,0.05817081855866481,Barriers to reaching care,True
+sequence,Central Ethiopia,4.0,culture,0.032298275090147495,Language and religion,False
+sequence,Central Ethiopia,4.0,education,0.039373292748897455,Her education,False
+sequence,Central Ethiopia,4.0,healthpost,0.10029285259646731,Health post access,True
+sequence,Central Ethiopia,4.0,history,0.07219551397196879,Age and pregnancy history,False
+sequence,Central Ethiopia,4.0,hospital,0.0682530593406991,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,4.0,household,0.14621636674234498,Partner and household,False
+sequence,Central Ethiopia,4.0,information,0.12174307422337104,Information and media,True
+sequence,Central Ethiopia,4.0,insurance,0.020123743527400886,Health insurance,True
+sequence,Central Ethiopia,4.0,intention,0.030316640710716575,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,4.0,place,0.013038829289454566,Region,False
+sequence,Central Ethiopia,4.0,urban,0.012705342823512347,Urban or rural,False
+sequence,Central Ethiopia,4.0,wealth,0.12258003064297028,Household wealth,False
+sequence,Central Ethiopia,4.0,work,0.0306818056862778,Her work,False
+sequence,Dire Dawa,4.0,agency,0.132655782911608,Women's say in decisions,True
+sequence,Dire Dawa,4.0,barriers,0.052429024758542615,Barriers to reaching care,True
+sequence,Dire Dawa,4.0,culture,0.03530959768962777,Language and religion,False
+sequence,Dire Dawa,4.0,education,0.04426604045009154,Her education,False
+sequence,Dire Dawa,4.0,healthpost,0.09224827173539413,Health post access,True
+sequence,Dire Dawa,4.0,history,0.08409594780230494,Age and pregnancy history,False
+sequence,Dire Dawa,4.0,hospital,0.053747352216734434,Distance to a hospital or health centre,True
+sequence,Dire Dawa,4.0,household,0.138875239214315,Partner and household,False
+sequence,Dire Dawa,4.0,information,0.09726533556776755,Information and media,True
+sequence,Dire Dawa,4.0,insurance,0.022216838656211484,Health insurance,True
+sequence,Dire Dawa,4.0,intention,0.02969195477059499,Wanted pregnancy and family size,True
+sequence,Dire Dawa,4.0,place,0.0350818509121925,Region,False
+sequence,Dire Dawa,4.0,urban,0.014889159885585642,Urban or rural,False
+sequence,Dire Dawa,4.0,wealth,0.13898145555478816,Household wealth,False
+sequence,Dire Dawa,4.0,work,0.02824614892427224,Her work,False
+sequence,Gambella,4.0,agency,0.13786347721828063,Women's say in decisions,True
+sequence,Gambella,4.0,barriers,0.057357471722897374,Barriers to reaching care,True
+sequence,Gambella,4.0,culture,0.03183668524621886,Language and religion,False
+sequence,Gambella,4.0,education,0.04661554334013276,Her education,False
+sequence,Gambella,4.0,healthpost,0.09326184264788148,Health post access,True
+sequence,Gambella,4.0,history,0.08627385202074404,Age and pregnancy history,False
+sequence,Gambella,4.0,hospital,0.05241466570550072,Distance to a hospital or health centre,True
+sequence,Gambella,4.0,household,0.14385874576467725,Partner and household,False
+sequence,Gambella,4.0,information,0.09520777882918152,Information and media,True
+sequence,Gambella,4.0,insurance,0.02139377315404845,Health insurance,True
+sequence,Gambella,4.0,intention,0.03137035979769631,Wanted pregnancy and family size,True
+sequence,Gambella,4.0,place,0.01910846953862099,Region,False
+sequence,Gambella,4.0,urban,0.015903867349802873,Urban or rural,False
+sequence,Gambella,4.0,wealth,0.13622165762127147,Household wealth,False
+sequence,Gambella,4.0,work,0.0313118122306436,Her work,False
+sequence,Harari,4.0,agency,0.13364207695159125,Women's say in decisions,True
+sequence,Harari,4.0,barriers,0.0478499917569355,Barriers to reaching care,True
+sequence,Harari,4.0,culture,0.034962373458516514,Language and religion,False
+sequence,Harari,4.0,education,0.04672306954642333,Her education,False
+sequence,Harari,4.0,healthpost,0.09499441627234384,Health post access,True
+sequence,Harari,4.0,history,0.08744523805127445,Age and pregnancy history,False
+sequence,Harari,4.0,hospital,0.05128448920605987,Distance to a hospital or health centre,True
+sequence,Harari,4.0,household,0.144817900366407,Partner and household,False
+sequence,Harari,4.0,information,0.099252742046632,Information and media,True
+sequence,Harari,4.0,insurance,0.024090079342094686,Health insurance,True
+sequence,Harari,4.0,intention,0.029931043102839543,Wanted pregnancy and family size,True
+sequence,Harari,4.0,place,0.017346968684291194,Region,False
+sequence,Harari,4.0,urban,0.016133116217105514,Urban or rural,False
+sequence,Harari,4.0,wealth,0.14243532911421963,Household wealth,False
+sequence,Harari,4.0,work,0.029091168779251327,Her work,False
+sequence,Oromia,4.0,agency,0.13704933980819253,Women's say in decisions,True
+sequence,Oromia,4.0,barriers,0.054221172842648054,Barriers to reaching care,True
+sequence,Oromia,4.0,culture,0.035197955679943015,Language and religion,False
+sequence,Oromia,4.0,education,0.047549115040721554,Her education,False
+sequence,Oromia,4.0,healthpost,0.09257036183011902,Health post access,True
+sequence,Oromia,4.0,history,0.08678508904297251,Age and pregnancy history,False
+sequence,Oromia,4.0,hospital,0.05046487863922227,Distance to a hospital or health centre,True
+sequence,Oromia,4.0,household,0.13738021337060627,Partner and household,False
+sequence,Oromia,4.0,information,0.09293155016112752,Information and media,True
+sequence,Oromia,4.0,insurance,0.022956103701613887,Health insurance,True
+sequence,Oromia,4.0,intention,0.03043985399191731,Wanted pregnancy and family size,True
+sequence,Oromia,4.0,place,0.025137955994412636,Region,False
+sequence,Oromia,4.0,urban,0.016772157395175603,Urban or rural,False
+sequence,Oromia,4.0,wealth,0.13846838768365022,Household wealth,False
+sequence,Oromia,4.0,work,0.03207586368203823,Her work,False
+sequence,Sidama,4.0,agency,0.13150401839107795,Women's say in decisions,True
+sequence,Sidama,4.0,barriers,0.06066427483702082,Barriers to reaching care,True
+sequence,Sidama,4.0,culture,0.027959137551823564,Language and religion,False
+sequence,Sidama,4.0,education,0.0423762620343879,Her education,False
+sequence,Sidama,4.0,healthpost,0.09371475698268203,Health post access,True
+sequence,Sidama,4.0,history,0.07741854554261808,Age and pregnancy history,False
+sequence,Sidama,4.0,hospital,0.06502020662287579,Distance to a hospital or health centre,True
+sequence,Sidama,4.0,household,0.13952179243739127,Partner and household,False
+sequence,Sidama,4.0,information,0.11576142606825837,Information and media,True
+sequence,Sidama,4.0,insurance,0.02190699971016998,Health insurance,True
+sequence,Sidama,4.0,intention,0.031755307979274325,Wanted pregnancy and family size,True
+sequence,Sidama,4.0,place,0.019761662990901024,Region,False
+sequence,Sidama,4.0,urban,0.013753910798552472,Urban or rural,False
+sequence,Sidama,4.0,wealth,0.1273531704943866,Household wealth,False
+sequence,Sidama,4.0,work,0.03152852311943624,Her work,False
+sequence,Somali,4.0,agency,0.13652839999502273,Women's say in decisions,True
+sequence,Somali,4.0,barriers,0.05289116227094878,Barriers to reaching care,True
+sequence,Somali,4.0,culture,0.0297452522575612,Language and religion,False
+sequence,Somali,4.0,education,0.051639062117382506,Her education,False
+sequence,Somali,4.0,healthpost,0.08275036765414413,Health post access,True
+sequence,Somali,4.0,history,0.09440241908858459,Age and pregnancy history,False
+sequence,Somali,4.0,hospital,0.04844772073727339,Distance to a hospital or health centre,True
+sequence,Somali,4.0,household,0.13530581917241785,Partner and household,False
+sequence,Somali,4.0,information,0.08460235695993222,Information and media,True
+sequence,Somali,4.0,insurance,0.01705158195309157,Health insurance,True
+sequence,Somali,4.0,intention,0.03276412004051362,Wanted pregnancy and family size,True
+sequence,Somali,4.0,place,0.024534437298374505,Region,False
+sequence,Somali,4.0,urban,0.024997172614125804,Urban or rural,False
+sequence,Somali,4.0,wealth,0.15484991874681875,Household wealth,False
+sequence,Somali,4.0,work,0.02949020801633862,Her work,False
+sequence,South Ethiopia,4.0,agency,0.13488124826209164,Women's say in decisions,True
+sequence,South Ethiopia,4.0,barriers,0.05752198444930308,Barriers to reaching care,True
+sequence,South Ethiopia,4.0,culture,0.030019745383952936,Language and religion,False
+sequence,South Ethiopia,4.0,education,0.043230380508170116,Her education,False
+sequence,South Ethiopia,4.0,healthpost,0.09316406045952669,Health post access,True
+sequence,South Ethiopia,4.0,history,0.08454576810767904,Age and pregnancy history,False
+sequence,South Ethiopia,4.0,hospital,0.05827321850994289,Distance to a hospital or health centre,True
+sequence,South Ethiopia,4.0,household,0.1421748933960386,Partner and household,False
+sequence,South Ethiopia,4.0,information,0.10462810463473593,Information and media,True
+sequence,South Ethiopia,4.0,insurance,0.021129251445527467,Health insurance,True
+sequence,South Ethiopia,4.0,intention,0.031522352754364144,Wanted pregnancy and family size,True
+sequence,South Ethiopia,4.0,place,0.02109077974537184,Region,False
+sequence,South Ethiopia,4.0,urban,0.014477044628249818,Urban or rural,False
+sequence,South Ethiopia,4.0,wealth,0.13353050235360298,Household wealth,False
+sequence,South Ethiopia,4.0,work,0.0298106675278748,Her work,False
+sequence,South West Ethiopia,4.0,agency,0.13736718445450724,Women's say in decisions,True
+sequence,South West Ethiopia,4.0,barriers,0.053735146013504625,Barriers to reaching care,True
+sequence,South West Ethiopia,4.0,culture,0.03024015901373016,Language and religion,False
+sequence,South West Ethiopia,4.0,education,0.04477533272998072,Her education,False
+sequence,South West Ethiopia,4.0,healthpost,0.09604308249856985,Health post access,True
+sequence,South West Ethiopia,4.0,history,0.09685878065057901,Age and pregnancy history,False
+sequence,South West Ethiopia,4.0,hospital,0.052052628830746434,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,4.0,household,0.14001309448001817,Partner and household,False
+sequence,South West Ethiopia,4.0,information,0.089619089222558,Information and media,True
+sequence,South West Ethiopia,4.0,insurance,0.0228686520730712,Health insurance,True
+sequence,South West Ethiopia,4.0,intention,0.03057050556831584,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,4.0,place,0.02585100066829352,Region,False
+sequence,South West Ethiopia,4.0,urban,0.01584573558452465,Urban or rural,False
+sequence,South West Ethiopia,4.0,wealth,0.1330366690044622,Household wealth,False
+sequence,South West Ethiopia,4.0,work,0.031122941735645077,Her work,False
+sequence,Tigray,4.0,agency,0.12775000606047401,Women's say in decisions,True
+sequence,Tigray,4.0,barriers,0.056655386001155696,Barriers to reaching care,True
+sequence,Tigray,4.0,culture,0.042456065191055506,Language and religion,False
+sequence,Tigray,4.0,education,0.03935782187216308,Her education,False
+sequence,Tigray,4.0,healthpost,0.09154934634502415,Health post access,True
+sequence,Tigray,4.0,history,0.07663940552787457,Age and pregnancy history,False
+sequence,Tigray,4.0,hospital,0.06596749719219457,Distance to a hospital or health centre,True
+sequence,Tigray,4.0,household,0.1429461258315687,Partner and household,False
+sequence,Tigray,4.0,information,0.11576222360560791,Information and media,True
+sequence,Tigray,4.0,insurance,0.024532150517315363,Health insurance,True
+sequence,Tigray,4.0,intention,0.030552885307560156,Wanted pregnancy and family size,True
+sequence,Tigray,4.0,place,0.022548217748954918,Region,False
+sequence,Tigray,4.0,urban,0.012556169354378564,Urban or rural,False
+sequence,Tigray,4.0,wealth,0.12119862658663061,Household wealth,False
+sequence,Tigray,4.0,work,0.02952807515480937,Her work,False
+sequence,Ethiopia,5.0,agency,0.13536954508661744,Women's say in decisions,True
+sequence,Ethiopia,5.0,barriers,0.05762079512263941,Barriers to reaching care,True
+sequence,Ethiopia,5.0,culture,0.037332726344002407,Language and religion,False
+sequence,Ethiopia,5.0,education,0.04181317961495254,Her education,False
+sequence,Ethiopia,5.0,healthpost,0.10202925761076545,Health post access,True
+sequence,Ethiopia,5.0,history,0.07845771247573916,Age and pregnancy history,False
+sequence,Ethiopia,5.0,hospital,0.05669587942775804,Distance to a hospital or health centre,True
+sequence,Ethiopia,5.0,household,0.14170605696791835,Partner and household,False
+sequence,Ethiopia,5.0,information,0.10359502848395048,Information and media,True
+sequence,Ethiopia,5.0,insurance,0.022868818375691158,Health insurance,True
+sequence,Ethiopia,5.0,intention,0.030941332876819005,Wanted pregnancy and family size,True
+sequence,Ethiopia,5.0,place,0.021053967730146717,Region,False
+sequence,Ethiopia,5.0,urban,0.014044063045001314,Urban or rural,False
+sequence,Ethiopia,5.0,wealth,0.12532771515268543,Household wealth,False
+sequence,Ethiopia,5.0,work,0.031143921998807826,Her work,False
+sequence,Addis Ababa,5.0,agency,0.14734990914419233,Women's say in decisions,True
+sequence,Addis Ababa,5.0,barriers,0.06418095484046327,Barriers to reaching care,True
+sequence,Addis Ababa,5.0,culture,0.03415154154482584,Language and religion,False
+sequence,Addis Ababa,5.0,education,0.04111751823352436,Her education,False
+sequence,Addis Ababa,5.0,healthpost,0.09922346729481797,Health post access,True
+sequence,Addis Ababa,5.0,history,0.0731297296924451,Age and pregnancy history,False
+sequence,Addis Ababa,5.0,hospital,0.05174616963342908,Distance to a hospital or health centre,True
+sequence,Addis Ababa,5.0,household,0.15079667454175785,Partner and household,False
+sequence,Addis Ababa,5.0,information,0.10444840546609009,Information and media,True
+sequence,Addis Ababa,5.0,insurance,0.02951687597323945,Health insurance,True
+sequence,Addis Ababa,5.0,intention,0.028988926007325846,Wanted pregnancy and family size,True
+sequence,Addis Ababa,5.0,place,0.012756802491859134,Region,False
+sequence,Addis Ababa,5.0,urban,0.009432657954410966,Urban or rural,False
+sequence,Addis Ababa,5.0,wealth,0.1238225126273291,Household wealth,False
+sequence,Addis Ababa,5.0,work,0.029337853769615976,Her work,False
+sequence,Afar,5.0,agency,0.131598410058032,Women's say in decisions,True
+sequence,Afar,5.0,barriers,0.05425592362298274,Barriers to reaching care,True
+sequence,Afar,5.0,culture,0.044144161063275844,Language and religion,False
+sequence,Afar,5.0,education,0.03818575591905283,Her education,False
+sequence,Afar,5.0,healthpost,0.09861304274239766,Health post access,True
+sequence,Afar,5.0,history,0.09024471509429371,Age and pregnancy history,False
+sequence,Afar,5.0,hospital,0.05880568926174131,Distance to a hospital or health centre,True
+sequence,Afar,5.0,household,0.13320424286865595,Partner and household,False
+sequence,Afar,5.0,information,0.09941554849733708,Information and media,True
+sequence,Afar,5.0,insurance,0.018466278750142704,Health insurance,True
+sequence,Afar,5.0,intention,0.03292559345945127,Wanted pregnancy and family size,True
+sequence,Afar,5.0,place,0.058306961947810126,Region,False
+sequence,Afar,5.0,urban,0.010977425916387633,Urban or rural,False
+sequence,Afar,5.0,wealth,0.10161983564283966,Household wealth,False
+sequence,Afar,5.0,work,0.029236411933820882,Her work,False
+sequence,Amhara,5.0,agency,0.13551362387018157,Women's say in decisions,True
+sequence,Amhara,5.0,barriers,0.05717757538704321,Barriers to reaching care,True
+sequence,Amhara,5.0,culture,0.03921722021483785,Language and religion,False
+sequence,Amhara,5.0,education,0.04182405433750697,Her education,False
+sequence,Amhara,5.0,healthpost,0.111028352436604,Health post access,True
+sequence,Amhara,5.0,history,0.07854579961751502,Age and pregnancy history,False
+sequence,Amhara,5.0,hospital,0.053964562047850516,Distance to a hospital or health centre,True
+sequence,Amhara,5.0,household,0.14408685904419632,Partner and household,False
+sequence,Amhara,5.0,information,0.10426634512202518,Information and media,True
+sequence,Amhara,5.0,insurance,0.023144626574199387,Health insurance,True
+sequence,Amhara,5.0,intention,0.0315969799332294,Wanted pregnancy and family size,True
+sequence,Amhara,5.0,place,0.012122133960396811,Region,False
+sequence,Amhara,5.0,urban,0.01397234306458508,Urban or rural,False
+sequence,Amhara,5.0,wealth,0.12350490783324165,Household wealth,False
+sequence,Amhara,5.0,work,0.030034616108100456,Her work,False
+sequence,Benishangul-Gumuz,5.0,agency,0.1387320750588215,Women's say in decisions,True
+sequence,Benishangul-Gumuz,5.0,barriers,0.05953898784762402,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,5.0,culture,0.03173233899993501,Language and religion,False
+sequence,Benishangul-Gumuz,5.0,education,0.03934562041466689,Her education,False
+sequence,Benishangul-Gumuz,5.0,healthpost,0.1064228720866537,Health post access,True
+sequence,Benishangul-Gumuz,5.0,history,0.08401617671462314,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,5.0,hospital,0.05149348947198066,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,5.0,household,0.1454738593035562,Partner and household,False
+sequence,Benishangul-Gumuz,5.0,information,0.09570445839067088,Information and media,True
+sequence,Benishangul-Gumuz,5.0,insurance,0.022177818823076588,Health insurance,True
+sequence,Benishangul-Gumuz,5.0,intention,0.03085411284932503,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,5.0,place,0.02797211822873521,Region,False
+sequence,Benishangul-Gumuz,5.0,urban,0.01273174036897307,Urban or rural,False
+sequence,Benishangul-Gumuz,5.0,wealth,0.12244947835458359,Household wealth,False
+sequence,Benishangul-Gumuz,5.0,work,0.03135484955398748,Her work,False
+sequence,Central Ethiopia,5.0,agency,0.12708488510961938,Women's say in decisions,True
+sequence,Central Ethiopia,5.0,barriers,0.061264560669811605,Barriers to reaching care,True
+sequence,Central Ethiopia,5.0,culture,0.03179001037006164,Language and religion,False
+sequence,Central Ethiopia,5.0,education,0.0350320883994583,Her education,False
+sequence,Central Ethiopia,5.0,healthpost,0.10647339134726418,Health post access,True
+sequence,Central Ethiopia,5.0,history,0.06319526828048605,Age and pregnancy history,False
+sequence,Central Ethiopia,5.0,hospital,0.07348189151833395,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,5.0,household,0.15115999386427195,Partner and household,False
+sequence,Central Ethiopia,5.0,information,0.13254923503839333,Information and media,True
+sequence,Central Ethiopia,5.0,insurance,0.020854881741280498,Health insurance,True
+sequence,Central Ethiopia,5.0,intention,0.02971970079701971,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,5.0,place,0.010163725663152342,Region,False
+sequence,Central Ethiopia,5.0,urban,0.011707671826833986,Urban or rural,False
+sequence,Central Ethiopia,5.0,wealth,0.11467561418583548,Household wealth,False
+sequence,Central Ethiopia,5.0,work,0.03084708058364657,Her work,False
+sequence,Dire Dawa,5.0,agency,0.1369177209453132,Women's say in decisions,True
+sequence,Dire Dawa,5.0,barriers,0.057246839704838855,Barriers to reaching care,True
+sequence,Dire Dawa,5.0,culture,0.036941404533230755,Language and religion,False
+sequence,Dire Dawa,5.0,education,0.03920452542075111,Her education,False
+sequence,Dire Dawa,5.0,healthpost,0.09760631178387746,Health post access,True
+sequence,Dire Dawa,5.0,history,0.07798699624599226,Age and pregnancy history,False
+sequence,Dire Dawa,5.0,hospital,0.05692498805136332,Distance to a hospital or health centre,True
+sequence,Dire Dawa,5.0,household,0.14065552434544615,Partner and household,False
+sequence,Dire Dawa,5.0,information,0.10075293415654141,Information and media,True
+sequence,Dire Dawa,5.0,insurance,0.024608280543536525,Health insurance,True
+sequence,Dire Dawa,5.0,intention,0.02933276572599193,Wanted pregnancy and family size,True
+sequence,Dire Dawa,5.0,place,0.036722231229027916,Region,False
+sequence,Dire Dawa,5.0,urban,0.011245057530875036,Urban or rural,False
+sequence,Dire Dawa,5.0,wealth,0.1254558810798643,Household wealth,False
+sequence,Dire Dawa,5.0,work,0.02839853996152414,Her work,False
+sequence,Gambella,5.0,agency,0.13858212577109158,Women's say in decisions,True
+sequence,Gambella,5.0,barriers,0.06239960743803846,Barriers to reaching care,True
+sequence,Gambella,5.0,culture,0.03289590824572725,Language and religion,False
+sequence,Gambella,5.0,education,0.04078281975002124,Her education,False
+sequence,Gambella,5.0,healthpost,0.09927980356662336,Health post access,True
+sequence,Gambella,5.0,history,0.07955301554203298,Age and pregnancy history,False
+sequence,Gambella,5.0,hospital,0.05529632705265676,Distance to a hospital or health centre,True
+sequence,Gambella,5.0,household,0.14384004637012762,Partner and household,False
+sequence,Gambella,5.0,information,0.10134282598874637,Information and media,True
+sequence,Gambella,5.0,insurance,0.023118795328919358,Health insurance,True
+sequence,Gambella,5.0,intention,0.03122594505654275,Wanted pregnancy and family size,True
+sequence,Gambella,5.0,place,0.02028056827581785,Region,False
+sequence,Gambella,5.0,urban,0.01260200212163974,Urban or rural,False
+sequence,Gambella,5.0,wealth,0.12699653327565216,Household wealth,False
+sequence,Gambella,5.0,work,0.03180366817307553,Her work,False
+sequence,Harari,5.0,agency,0.13577800296062675,Women's say in decisions,True
+sequence,Harari,5.0,barriers,0.051799448161423116,Barriers to reaching care,True
+sequence,Harari,5.0,culture,0.03791631713137966,Language and religion,False
+sequence,Harari,5.0,education,0.04076419828051756,Her education,False
+sequence,Harari,5.0,healthpost,0.10566146773823767,Health post access,True
+sequence,Harari,5.0,history,0.08222535507004454,Age and pregnancy history,False
+sequence,Harari,5.0,hospital,0.05398504322013484,Distance to a hospital or health centre,True
+sequence,Harari,5.0,household,0.14768209140852134,Partner and household,False
+sequence,Harari,5.0,information,0.10151391175491283,Information and media,True
+sequence,Harari,5.0,insurance,0.023254664008104588,Health insurance,True
+sequence,Harari,5.0,intention,0.02965279577278505,Wanted pregnancy and family size,True
+sequence,Harari,5.0,place,0.01638313395352808,Region,False
+sequence,Harari,5.0,urban,0.013259267055635075,Urban or rural,False
+sequence,Harari,5.0,wealth,0.13145485145603875,Household wealth,False
+sequence,Harari,5.0,work,0.028669458802081323,Her work,False
+sequence,Oromia,5.0,agency,0.1377920789580322,Women's say in decisions,True
+sequence,Oromia,5.0,barriers,0.05620401548429973,Barriers to reaching care,True
+sequence,Oromia,5.0,culture,0.03899529667800192,Language and religion,False
+sequence,Oromia,5.0,education,0.0438378526599905,Her education,False
+sequence,Oromia,5.0,healthpost,0.09980252611144999,Health post access,True
+sequence,Oromia,5.0,history,0.08058026916570908,Age and pregnancy history,False
+sequence,Oromia,5.0,hospital,0.05346790020717064,Distance to a hospital or health centre,True
+sequence,Oromia,5.0,household,0.13882234706365182,Partner and household,False
+sequence,Oromia,5.0,information,0.09642230836617051,Information and media,True
+sequence,Oromia,5.0,insurance,0.02241965326501532,Health insurance,True
+sequence,Oromia,5.0,intention,0.03054250294558996,Wanted pregnancy and family size,True
+sequence,Oromia,5.0,place,0.02584999999573526,Region,False
+sequence,Oromia,5.0,urban,0.015122911116977415,Urban or rural,False
+sequence,Oromia,5.0,wealth,0.12757268544500755,Household wealth,False
+sequence,Oromia,5.0,work,0.03256765427461326,Her work,False
+sequence,Sidama,5.0,agency,0.1275052467496844,Women's say in decisions,True
+sequence,Sidama,5.0,barriers,0.06323092102086642,Barriers to reaching care,True
+sequence,Sidama,5.0,culture,0.02945292314877764,Language and religion,False
+sequence,Sidama,5.0,education,0.03958640603998992,Her education,False
+sequence,Sidama,5.0,healthpost,0.09830997043896154,Health post access,True
+sequence,Sidama,5.0,history,0.0683189384214917,Age and pregnancy history,False
+sequence,Sidama,5.0,hospital,0.0667377752111412,Distance to a hospital or health centre,True
+sequence,Sidama,5.0,household,0.13662331038080336,Partner and household,False
+sequence,Sidama,5.0,information,0.12125479219095339,Information and media,True
+sequence,Sidama,5.0,insurance,0.024116011695468488,Health insurance,True
+sequence,Sidama,5.0,intention,0.031458135619222116,Wanted pregnancy and family size,True
+sequence,Sidama,5.0,place,0.024561483112967502,Region,False
+sequence,Sidama,5.0,urban,0.013227054603213623,Urban or rural,False
+sequence,Sidama,5.0,wealth,0.12339765513927817,Household wealth,False
+sequence,Sidama,5.0,work,0.03221937734526541,Her work,False
+sequence,Somali,5.0,agency,0.14187624164804968,Women's say in decisions,True
+sequence,Somali,5.0,barriers,0.05489127930108196,Barriers to reaching care,True
+sequence,Somali,5.0,culture,0.02820964354412766,Language and religion,False
+sequence,Somali,5.0,education,0.05030071281408904,Her education,False
+sequence,Somali,5.0,healthpost,0.0852780994538404,Health post access,True
+sequence,Somali,5.0,history,0.0917349731616075,Age and pregnancy history,False
+sequence,Somali,5.0,hospital,0.05110347913444907,Distance to a hospital or health centre,True
+sequence,Somali,5.0,household,0.13658156036500424,Partner and household,False
+sequence,Somali,5.0,information,0.0873196447216385,Information and media,True
+sequence,Somali,5.0,insurance,0.01772173624566369,Health insurance,True
+sequence,Somali,5.0,intention,0.03178005858822945,Wanted pregnancy and family size,True
+sequence,Somali,5.0,place,0.020057039206963168,Region,False
+sequence,Somali,5.0,urban,0.021099466746903908,Urban or rural,False
+sequence,Somali,5.0,wealth,0.15127419408857382,Household wealth,False
+sequence,Somali,5.0,work,0.030771870076399286,Her work,False
+sequence,South Ethiopia,5.0,agency,0.13118337690240256,Women's say in decisions,True
+sequence,South Ethiopia,5.0,barriers,0.059264322809009645,Barriers to reaching care,True
+sequence,South Ethiopia,5.0,culture,0.03042710715511337,Language and religion,False
+sequence,South Ethiopia,5.0,education,0.03927075430764279,Her education,False
+sequence,South Ethiopia,5.0,healthpost,0.0995231018235587,Health post access,True
+sequence,South Ethiopia,5.0,history,0.07778818365674263,Age and pregnancy history,False
+sequence,South Ethiopia,5.0,hospital,0.062220427214179086,Distance to a hospital or health centre,True
+sequence,South Ethiopia,5.0,household,0.14268394828608252,Partner and household,False
+sequence,South Ethiopia,5.0,information,0.11143980081600996,Information and media,True
+sequence,South Ethiopia,5.0,insurance,0.021124132180573827,Health insurance,True
+sequence,South Ethiopia,5.0,intention,0.03175024230137377,Wanted pregnancy and family size,True
+sequence,South Ethiopia,5.0,place,0.023410797731409735,Region,False
+sequence,South Ethiopia,5.0,urban,0.013043751502073792,Urban or rural,False
+sequence,South Ethiopia,5.0,wealth,0.12711252744066703,Household wealth,False
+sequence,South Ethiopia,5.0,work,0.029757524022422134,Her work,False
+sequence,South West Ethiopia,5.0,agency,0.13462936150791854,Women's say in decisions,True
+sequence,South West Ethiopia,5.0,barriers,0.055794365148324684,Barriers to reaching care,True
+sequence,South West Ethiopia,5.0,culture,0.028785489753092638,Language and religion,False
+sequence,South West Ethiopia,5.0,education,0.039765655700223605,Her education,False
+sequence,South West Ethiopia,5.0,healthpost,0.10920333772750639,Health post access,True
+sequence,South West Ethiopia,5.0,history,0.08897139591006256,Age and pregnancy history,False
+sequence,South West Ethiopia,5.0,hospital,0.059847080674991705,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,5.0,household,0.1422761861340119,Partner and household,False
+sequence,South West Ethiopia,5.0,information,0.09728923094826906,Information and media,True
+sequence,South West Ethiopia,5.0,insurance,0.02147297659904935,Health insurance,True
+sequence,South West Ethiopia,5.0,intention,0.032394998261756444,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,5.0,place,0.02272715660075839,Region,False
+sequence,South West Ethiopia,5.0,urban,0.013188718114657893,Urban or rural,False
+sequence,South West Ethiopia,5.0,wealth,0.12158726604565559,Household wealth,False
+sequence,South West Ethiopia,5.0,work,0.03206677715075425,Her work,False
+sequence,Tigray,5.0,agency,0.12306624178982253,Women's say in decisions,True
+sequence,Tigray,5.0,barriers,0.05869636875150093,Barriers to reaching care,True
+sequence,Tigray,5.0,culture,0.04875931197448532,Language and religion,False
+sequence,Tigray,5.0,education,0.03573300195685473,Her education,False
+sequence,Tigray,5.0,healthpost,0.0943274408969703,Health post access,True
+sequence,Tigray,5.0,history,0.06878136917171251,Age and pregnancy history,False
+sequence,Tigray,5.0,hospital,0.06894324803896427,Distance to a hospital or health centre,True
+sequence,Tigray,5.0,household,0.14352588060597504,Partner and household,False
+sequence,Tigray,5.0,information,0.12125956968048356,Information and media,True
+sequence,Tigray,5.0,insurance,0.02779277631499398,Health insurance,True
+sequence,Tigray,5.0,intention,0.03039003185294112,Wanted pregnancy and family size,True
+sequence,Tigray,5.0,place,0.022901281830363454,Region,False
+sequence,Tigray,5.0,urban,0.011097116798789728,Urban or rural,False
+sequence,Tigray,5.0,wealth,0.11531093239873,Household wealth,False
+sequence,Tigray,5.0,work,0.029415430172131638,Her work,False
+sequence,Ethiopia,6.0,agency,0.1366560720671952,Women's say in decisions,True
+sequence,Ethiopia,6.0,barriers,0.05880515657665239,Barriers to reaching care,True
+sequence,Ethiopia,6.0,culture,0.036321810725284516,Language and religion,False
+sequence,Ethiopia,6.0,education,0.040659874023753886,Her education,False
+sequence,Ethiopia,6.0,healthpost,0.10280914196935427,Health post access,True
+sequence,Ethiopia,6.0,history,0.07927269026479997,Age and pregnancy history,False
+sequence,Ethiopia,6.0,hospital,0.05695293734990022,Distance to a hospital or health centre,True
+sequence,Ethiopia,6.0,household,0.14165018155325562,Partner and household,False
+sequence,Ethiopia,6.0,information,0.10302535360425208,Information and media,True
+sequence,Ethiopia,6.0,insurance,0.023539806732320298,Health insurance,True
+sequence,Ethiopia,6.0,intention,0.03047584853782162,Wanted pregnancy and family size,True
+sequence,Ethiopia,6.0,place,0.021527161383796026,Region,False
+sequence,Ethiopia,6.0,urban,0.013616176844001258,Urban or rural,False
+sequence,Ethiopia,6.0,wealth,0.12333047127715697,Household wealth,False
+sequence,Ethiopia,6.0,work,0.03135731848043408,Her work,False
+sequence,Addis Ababa,6.0,agency,0.15115196714956694,Women's say in decisions,True
+sequence,Addis Ababa,6.0,barriers,0.06657350540542181,Barriers to reaching care,True
+sequence,Addis Ababa,6.0,culture,0.03402121884898254,Language and religion,False
+sequence,Addis Ababa,6.0,education,0.039911203598642614,Her education,False
+sequence,Addis Ababa,6.0,healthpost,0.09909740627186787,Health post access,True
+sequence,Addis Ababa,6.0,history,0.07104579545224571,Age and pregnancy history,False
+sequence,Addis Ababa,6.0,hospital,0.05155500252850047,Distance to a hospital or health centre,True
+sequence,Addis Ababa,6.0,household,0.1519939705679197,Partner and household,False
+sequence,Addis Ababa,6.0,information,0.10330820328810214,Information and media,True
+sequence,Addis Ababa,6.0,insurance,0.03116100972080335,Health insurance,True
+sequence,Addis Ababa,6.0,intention,0.02914020041399757,Wanted pregnancy and family size,True
+sequence,Addis Ababa,6.0,place,0.011889612818110308,Region,False
+sequence,Addis Ababa,6.0,urban,0.008665411432714269,Urban or rural,False
+sequence,Addis Ababa,6.0,wealth,0.12028460514679643,Household wealth,False
+sequence,Addis Ababa,6.0,work,0.030200885940602794,Her work,False
+sequence,Afar,6.0,agency,0.13513565536874278,Women's say in decisions,True
+sequence,Afar,6.0,barriers,0.05621142053362426,Barriers to reaching care,True
+sequence,Afar,6.0,culture,0.047123205542580406,Language and religion,False
+sequence,Afar,6.0,education,0.03636542541526418,Her education,False
+sequence,Afar,6.0,healthpost,0.09686622954605097,Health post access,True
+sequence,Afar,6.0,history,0.09500039665690206,Age and pregnancy history,False
+sequence,Afar,6.0,hospital,0.05541925164558474,Distance to a hospital or health centre,True
+sequence,Afar,6.0,household,0.13066061104465224,Partner and household,False
+sequence,Afar,6.0,information,0.09217525418350983,Information and media,True
+sequence,Afar,6.0,insurance,0.01850803966330171,Health insurance,True
+sequence,Afar,6.0,intention,0.032122243204454046,Wanted pregnancy and family size,True
+sequence,Afar,6.0,place,0.06557244639745059,Region,False
+sequence,Afar,6.0,urban,0.010403681888886941,Urban or rural,False
+sequence,Afar,6.0,wealth,0.09867423561631146,Household wealth,False
+sequence,Afar,6.0,work,0.029761900727072407,Her work,False
+sequence,Amhara,6.0,agency,0.13744398623006493,Women's say in decisions,True
+sequence,Amhara,6.0,barriers,0.058611218801150854,Barriers to reaching care,True
+sequence,Amhara,6.0,culture,0.03730179387161121,Language and religion,False
+sequence,Amhara,6.0,education,0.041337148183510655,Her education,False
+sequence,Amhara,6.0,healthpost,0.11098433953294655,Health post access,True
+sequence,Amhara,6.0,history,0.07935675763415857,Age and pregnancy history,False
+sequence,Amhara,6.0,hospital,0.053637483209261684,Distance to a hospital or health centre,True
+sequence,Amhara,6.0,household,0.14432442048969119,Partner and household,False
+sequence,Amhara,6.0,information,0.10371573964131957,Information and media,True
+sequence,Amhara,6.0,insurance,0.0239943869578177,Health insurance,True
+sequence,Amhara,6.0,intention,0.03135599591122228,Wanted pregnancy and family size,True
+sequence,Amhara,6.0,place,0.010994446308544154,Region,False
+sequence,Amhara,6.0,urban,0.013998788409017677,Urban or rural,False
+sequence,Amhara,6.0,wealth,0.1225181338180836,Household wealth,False
+sequence,Amhara,6.0,work,0.0304253659790868,Her work,False
+sequence,Benishangul-Gumuz,6.0,agency,0.14026901186041887,Women's say in decisions,True
+sequence,Benishangul-Gumuz,6.0,barriers,0.06097096296806828,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,6.0,culture,0.03145088891907893,Language and religion,False
+sequence,Benishangul-Gumuz,6.0,education,0.03862088138928497,Her education,False
+sequence,Benishangul-Gumuz,6.0,healthpost,0.10687914340070392,Health post access,True
+sequence,Benishangul-Gumuz,6.0,history,0.08499466144713058,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,6.0,hospital,0.051520835363374796,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,6.0,household,0.14455575012656163,Partner and household,False
+sequence,Benishangul-Gumuz,6.0,information,0.09426712163496583,Information and media,True
+sequence,Benishangul-Gumuz,6.0,insurance,0.022345963560358013,Health insurance,True
+sequence,Benishangul-Gumuz,6.0,intention,0.03017846546103879,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,6.0,place,0.02961587035217493,Region,False
+sequence,Benishangul-Gumuz,6.0,urban,0.012239641105535583,Urban or rural,False
+sequence,Benishangul-Gumuz,6.0,wealth,0.12049558194913744,Household wealth,False
+sequence,Benishangul-Gumuz,6.0,work,0.03159521533427461,Her work,False
+sequence,Central Ethiopia,6.0,agency,0.12575498242005886,Women's say in decisions,True
+sequence,Central Ethiopia,6.0,barriers,0.06212649634324254,Barriers to reaching care,True
+sequence,Central Ethiopia,6.0,culture,0.03127300956068653,Language and religion,False
+sequence,Central Ethiopia,6.0,education,0.0331572031170392,Her education,False
+sequence,Central Ethiopia,6.0,healthpost,0.10818478698084429,Health post access,True
+sequence,Central Ethiopia,6.0,history,0.061817775851713185,Age and pregnancy history,False
+sequence,Central Ethiopia,6.0,hospital,0.07685938302588995,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,6.0,household,0.1521735661754986,Partner and household,False
+sequence,Central Ethiopia,6.0,information,0.13686645028581748,Information and media,True
+sequence,Central Ethiopia,6.0,insurance,0.021096321788913453,Health insurance,True
+sequence,Central Ethiopia,6.0,intention,0.029863836278414137,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,6.0,place,0.009059783440981673,Region,False
+sequence,Central Ethiopia,6.0,urban,0.010666475808246695,Urban or rural,False
+sequence,Central Ethiopia,6.0,wealth,0.1101943245522647,Household wealth,False
+sequence,Central Ethiopia,6.0,work,0.030905606496842382,Her work,False
+sequence,Dire Dawa,6.0,agency,0.13978369646087993,Women's say in decisions,True
+sequence,Dire Dawa,6.0,barriers,0.059190037276224974,Barriers to reaching care,True
+sequence,Dire Dawa,6.0,culture,0.036930845838181334,Language and religion,False
+sequence,Dire Dawa,6.0,education,0.03822178100652109,Her education,False
+sequence,Dire Dawa,6.0,healthpost,0.09710879047600993,Health post access,True
+sequence,Dire Dawa,6.0,history,0.0780007569602762,Age and pregnancy history,False
+sequence,Dire Dawa,6.0,hospital,0.056623945611890436,Distance to a hospital or health centre,True
+sequence,Dire Dawa,6.0,household,0.140806750567318,Partner and household,False
+sequence,Dire Dawa,6.0,information,0.09964281433867857,Information and media,True
+sequence,Dire Dawa,6.0,insurance,0.025820048148299104,Health insurance,True
+sequence,Dire Dawa,6.0,intention,0.02906222854834986,Wanted pregnancy and family size,True
+sequence,Dire Dawa,6.0,place,0.03703519204612196,Region,False
+sequence,Dire Dawa,6.0,urban,0.010677420074894493,Urban or rural,False
+sequence,Dire Dawa,6.0,wealth,0.12198855372069917,Household wealth,False
+sequence,Dire Dawa,6.0,work,0.029107140133017063,Her work,False
+sequence,Gambella,6.0,agency,0.13886404612878014,Women's say in decisions,True
+sequence,Gambella,6.0,barriers,0.06328530774312126,Barriers to reaching care,True
+sequence,Gambella,6.0,culture,0.032458665010796216,Language and religion,False
+sequence,Gambella,6.0,education,0.039191683107457354,Her education,False
+sequence,Gambella,6.0,healthpost,0.10040472150530386,Health post access,True
+sequence,Gambella,6.0,history,0.07958413373615962,Age and pregnancy history,False
+sequence,Gambella,6.0,hospital,0.05672370720634621,Distance to a hospital or health centre,True
+sequence,Gambella,6.0,household,0.1450941479763756,Partner and household,False
+sequence,Gambella,6.0,information,0.1032004066194015,Information and media,True
+sequence,Gambella,6.0,insurance,0.023366676002037567,Health insurance,True
+sequence,Gambella,6.0,intention,0.030932835166557485,Wanted pregnancy and family size,True
+sequence,Gambella,6.0,place,0.01945081676447437,Region,False
+sequence,Gambella,6.0,urban,0.011822201622194193,Urban or rural,False
+sequence,Gambella,6.0,wealth,0.12388652349466876,Household wealth,False
+sequence,Gambella,6.0,work,0.03173413068006537,Her work,False
+sequence,Harari,6.0,agency,0.138069139423622,Women's say in decisions,True
+sequence,Harari,6.0,barriers,0.05309953666908801,Barriers to reaching care,True
+sequence,Harari,6.0,culture,0.03754207092255805,Language and religion,False
+sequence,Harari,6.0,education,0.03951539883444142,Her education,False
+sequence,Harari,6.0,healthpost,0.10690945530275327,Health post access,True
+sequence,Harari,6.0,history,0.08248734296574327,Age and pregnancy history,False
+sequence,Harari,6.0,hospital,0.053389739598911655,Distance to a hospital or health centre,True
+sequence,Harari,6.0,household,0.14807515645914124,Partner and household,False
+sequence,Harari,6.0,information,0.09952591001652772,Information and media,True
+sequence,Harari,6.0,insurance,0.024612241777018255,Health insurance,True
+sequence,Harari,6.0,intention,0.029153816273956,Wanted pregnancy and family size,True
+sequence,Harari,6.0,place,0.016776576200714027,Region,False
+sequence,Harari,6.0,urban,0.012694273500219599,Urban or rural,False
+sequence,Harari,6.0,wealth,0.12917749603485773,Household wealth,False
+sequence,Harari,6.0,work,0.02897184687253914,Her work,False
+sequence,Oromia,6.0,agency,0.13951835722427922,Women's say in decisions,True
+sequence,Oromia,6.0,barriers,0.05709973171350438,Barriers to reaching care,True
+sequence,Oromia,6.0,culture,0.03833670693690812,Language and religion,False
+sequence,Oromia,6.0,education,0.0426675925358778,Her education,False
+sequence,Oromia,6.0,healthpost,0.10080873479229603,Health post access,True
+sequence,Oromia,6.0,history,0.08217869977041703,Age and pregnancy history,False
+sequence,Oromia,6.0,hospital,0.052735245935252584,Distance to a hospital or health centre,True
+sequence,Oromia,6.0,household,0.13815749011776018,Partner and household,False
+sequence,Oromia,6.0,information,0.09382426276747886,Information and media,True
+sequence,Oromia,6.0,insurance,0.023249852430900383,Health insurance,True
+sequence,Oromia,6.0,intention,0.029663555356946654,Wanted pregnancy and family size,True
+sequence,Oromia,6.0,place,0.027768934695617937,Region,False
+sequence,Oromia,6.0,urban,0.014780470957225362,Urban or rural,False
+sequence,Oromia,6.0,wealth,0.1264252969343841,Household wealth,False
+sequence,Oromia,6.0,work,0.0327850677103984,Her work,False
+sequence,Sidama,6.0,agency,0.12477665546802742,Women's say in decisions,True
+sequence,Sidama,6.0,barriers,0.06512460136281689,Barriers to reaching care,True
+sequence,Sidama,6.0,culture,0.026683852725703304,Language and religion,False
+sequence,Sidama,6.0,education,0.03730719192239066,Her education,False
+sequence,Sidama,6.0,healthpost,0.10049212297648445,Health post access,True
+sequence,Sidama,6.0,history,0.06696670211381131,Age and pregnancy history,False
+sequence,Sidama,6.0,hospital,0.07270070008924621,Distance to a hospital or health centre,True
+sequence,Sidama,6.0,household,0.13730230242269578,Partner and household,False
+sequence,Sidama,6.0,information,0.1284363175435823,Information and media,True
+sequence,Sidama,6.0,insurance,0.023920442073754312,Health insurance,True
+sequence,Sidama,6.0,intention,0.031867677652366394,Wanted pregnancy and family size,True
+sequence,Sidama,6.0,place,0.023152433369711418,Region,False
+sequence,Sidama,6.0,urban,0.011795336724277763,Urban or rural,False
+sequence,Sidama,6.0,wealth,0.11736884347567225,Household wealth,False
+sequence,Sidama,6.0,work,0.03210481681893889,Her work,False
+sequence,Somali,6.0,agency,0.14219884847130124,Women's say in decisions,True
+sequence,Somali,6.0,barriers,0.05653505130925952,Barriers to reaching care,True
+sequence,Somali,6.0,culture,0.027546270033476112,Language and religion,False
+sequence,Somali,6.0,education,0.048979219932209654,Her education,False
+sequence,Somali,6.0,healthpost,0.0881150836928149,Health post access,True
+sequence,Somali,6.0,history,0.09362795003297877,Age and pregnancy history,False
+sequence,Somali,6.0,hospital,0.049856580475161824,Distance to a hospital or health centre,True
+sequence,Somali,6.0,household,0.13714723595168876,Partner and household,False
+sequence,Somali,6.0,information,0.08463121470704196,Information and media,True
+sequence,Somali,6.0,insurance,0.017244127106652827,Health insurance,True
+sequence,Somali,6.0,intention,0.031019668805384638,Wanted pregnancy and family size,True
+sequence,Somali,6.0,place,0.020790471515169676,Region,False
+sequence,Somali,6.0,urban,0.02063303703329147,Urban or rural,False
+sequence,Somali,6.0,wealth,0.15066698086076993,Household wealth,False
+sequence,Somali,6.0,work,0.031008260373079143,Her work,False
+sequence,South Ethiopia,6.0,agency,0.13026952868867492,Women's say in decisions,True
+sequence,South Ethiopia,6.0,barriers,0.059703404851093246,Barriers to reaching care,True
+sequence,South Ethiopia,6.0,culture,0.02941808942823482,Language and religion,False
+sequence,South Ethiopia,6.0,education,0.037650512399702636,Her education,False
+sequence,South Ethiopia,6.0,healthpost,0.10147322376665625,Health post access,True
+sequence,South Ethiopia,6.0,history,0.07719187897287363,Age and pregnancy history,False
+sequence,South Ethiopia,6.0,hospital,0.06522117011917804,Distance to a hospital or health centre,True
+sequence,South Ethiopia,6.0,household,0.14390949035323963,Partner and household,False
+sequence,South Ethiopia,6.0,information,0.11519872486201828,Information and media,True
+sequence,South Ethiopia,6.0,insurance,0.021150505115371948,Health insurance,True
+sequence,South Ethiopia,6.0,intention,0.03191363698827224,Wanted pregnancy and family size,True
+sequence,South Ethiopia,6.0,place,0.022022869725809677,Region,False
+sequence,South Ethiopia,6.0,urban,0.012195086275172492,Urban or rural,False
+sequence,South Ethiopia,6.0,wealth,0.12328834264138716,Household wealth,False
+sequence,South Ethiopia,6.0,work,0.02939353843335135,Her work,False
+sequence,South West Ethiopia,6.0,agency,0.14014454044917385,Women's say in decisions,True
+sequence,South West Ethiopia,6.0,barriers,0.057628339706067025,Barriers to reaching care,True
+sequence,South West Ethiopia,6.0,culture,0.02842593448297837,Language and religion,False
+sequence,South West Ethiopia,6.0,education,0.038872967359105996,Her education,False
+sequence,South West Ethiopia,6.0,healthpost,0.10887183930722631,Health post access,True
+sequence,South West Ethiopia,6.0,history,0.0941244325681515,Age and pregnancy history,False
+sequence,South West Ethiopia,6.0,hospital,0.05639169611107764,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,6.0,household,0.13999885495306486,Partner and household,False
+sequence,South West Ethiopia,6.0,information,0.09151097610727014,Information and media,True
+sequence,South West Ethiopia,6.0,insurance,0.02281790102587033,Health insurance,True
+sequence,South West Ethiopia,6.0,intention,0.030771313215549972,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,6.0,place,0.023236235279291022,Region,False
+sequence,South West Ethiopia,6.0,urban,0.013121954650229075,Urban or rural,False
+sequence,South West Ethiopia,6.0,wealth,0.12143762773292392,Household wealth,False
+sequence,South West Ethiopia,6.0,work,0.03264538547357344,Her work,False
+sequence,Tigray,6.0,agency,0.12251230094137008,Women's say in decisions,True
+sequence,Tigray,6.0,barriers,0.059849676128455175,Barriers to reaching care,True
+sequence,Tigray,6.0,culture,0.047390905401627326,Language and religion,False
+sequence,Tigray,6.0,education,0.03404087985751356,Her education,False
+sequence,Tigray,6.0,healthpost,0.09426788002612087,Health post access,True
+sequence,Tigray,6.0,history,0.06788433894896997,Age and pregnancy history,False
+sequence,Tigray,6.0,hospital,0.07239053950443487,Distance to a hospital or health centre,True
+sequence,Tigray,6.0,household,0.14367710512339396,Partner and household,False
+sequence,Tigray,6.0,information,0.1255258442648444,Information and media,True
+sequence,Tigray,6.0,insurance,0.02837130037430263,Health insurance,True
+sequence,Tigray,6.0,intention,0.030322800686969527,Wanted pregnancy and family size,True
+sequence,Tigray,6.0,place,0.02408452513020261,Region,False
+sequence,Tigray,6.0,urban,0.010145947894425881,Urban or rural,False
+sequence,Tigray,6.0,wealth,0.11027933144556114,Household wealth,False
+sequence,Tigray,6.0,work,0.02925662813332852,Her work,False
+sequence,Ethiopia,7.0,agency,0.13610893494665413,Women's say in decisions,True
+sequence,Ethiopia,7.0,barriers,0.05823040519725872,Barriers to reaching care,True
+sequence,Ethiopia,7.0,culture,0.03615647204715308,Language and religion,False
+sequence,Ethiopia,7.0,education,0.038624072164555455,Her education,False
+sequence,Ethiopia,7.0,healthpost,0.10977847739222575,Health post access,True
+sequence,Ethiopia,7.0,history,0.08277083638671706,Age and pregnancy history,False
+sequence,Ethiopia,7.0,hospital,0.05651219341290554,Distance to a hospital or health centre,True
+sequence,Ethiopia,7.0,household,0.14020380572650915,Partner and household,False
+sequence,Ethiopia,7.0,information,0.10229205465321695,Information and media,True
+sequence,Ethiopia,7.0,insurance,0.023291284902728162,Health insurance,True
+sequence,Ethiopia,7.0,intention,0.028993646295221588,Wanted pregnancy and family size,True
+sequence,Ethiopia,7.0,place,0.02241676586465218,Region,False
+sequence,Ethiopia,7.0,urban,0.012488519372056993,Urban or rural,False
+sequence,Ethiopia,7.0,wealth,0.12193628753527395,Household wealth,False
+sequence,Ethiopia,7.0,work,0.030196241660375326,Her work,False
+sequence,Addis Ababa,7.0,agency,0.14863222970278997,Women's say in decisions,True
+sequence,Addis Ababa,7.0,barriers,0.06521494888163089,Barriers to reaching care,True
+sequence,Addis Ababa,7.0,culture,0.03381377675465137,Language and religion,False
+sequence,Addis Ababa,7.0,education,0.04000918674971936,Her education,False
+sequence,Addis Ababa,7.0,healthpost,0.10207431508659766,Health post access,True
+sequence,Addis Ababa,7.0,history,0.07358458356115645,Age and pregnancy history,False
+sequence,Addis Ababa,7.0,hospital,0.048972980554658305,Distance to a hospital or health centre,True
+sequence,Addis Ababa,7.0,household,0.15199458584444428,Partner and household,False
+sequence,Addis Ababa,7.0,information,0.10236848307969926,Information and media,True
+sequence,Addis Ababa,7.0,insurance,0.030017425084050718,Health insurance,True
+sequence,Addis Ababa,7.0,intention,0.028449572905048213,Wanted pregnancy and family size,True
+sequence,Addis Ababa,7.0,place,0.012665378917357667,Region,False
+sequence,Addis Ababa,7.0,urban,0.0088929521180184,Urban or rural,False
+sequence,Addis Ababa,7.0,wealth,0.1244174314793006,Household wealth,False
+sequence,Addis Ababa,7.0,work,0.028892148309301622,Her work,False
+sequence,Afar,7.0,agency,0.1375974644793595,Women's say in decisions,True
+sequence,Afar,7.0,barriers,0.055098962729237214,Barriers to reaching care,True
+sequence,Afar,7.0,culture,0.05104092296614913,Language and religion,False
+sequence,Afar,7.0,education,0.03189479221106802,Her education,False
+sequence,Afar,7.0,healthpost,0.0997584940952066,Health post access,True
+sequence,Afar,7.0,history,0.10642995268629798,Age and pregnancy history,False
+sequence,Afar,7.0,hospital,0.05183621546629038,Distance to a hospital or health centre,True
+sequence,Afar,7.0,household,0.1251598755603969,Partner and household,False
+sequence,Afar,7.0,information,0.08328249056342012,Information and media,True
+sequence,Afar,7.0,insurance,0.0166515968993688,Health insurance,True
+sequence,Afar,7.0,intention,0.03019100692887799,Wanted pregnancy and family size,True
+sequence,Afar,7.0,place,0.08913917631450184,Region,False
+sequence,Afar,7.0,urban,0.00861584407797637,Urban or rural,False
+sequence,Afar,7.0,wealth,0.08656539626843583,Household wealth,False
+sequence,Afar,7.0,work,0.026737805059980215,Her work,False
+sequence,Amhara,7.0,agency,0.13701072186205165,Women's say in decisions,True
+sequence,Amhara,7.0,barriers,0.05748856066864824,Barriers to reaching care,True
+sequence,Amhara,7.0,culture,0.0369487615323606,Language and religion,False
+sequence,Amhara,7.0,education,0.04043151582875718,Her education,False
+sequence,Amhara,7.0,healthpost,0.11915246303018848,Health post access,True
+sequence,Amhara,7.0,history,0.08367027018696263,Age and pregnancy history,False
+sequence,Amhara,7.0,hospital,0.051534783338692956,Distance to a hospital or health centre,True
+sequence,Amhara,7.0,household,0.141848238096537,Partner and household,False
+sequence,Amhara,7.0,information,0.10109554084822236,Information and media,True
+sequence,Amhara,7.0,insurance,0.024116071481509873,Health insurance,True
+sequence,Amhara,7.0,intention,0.030053797333797348,Wanted pregnancy and family size,True
+sequence,Amhara,7.0,place,0.010312404499809278,Region,False
+sequence,Amhara,7.0,urban,0.013192900510609073,Urban or rural,False
+sequence,Amhara,7.0,wealth,0.12342234041515714,Household wealth,False
+sequence,Amhara,7.0,work,0.029721627416875784,Her work,False
+sequence,Benishangul-Gumuz,7.0,agency,0.14102488606013777,Women's say in decisions,True
+sequence,Benishangul-Gumuz,7.0,barriers,0.061229468395061125,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,7.0,culture,0.02998446884570818,Language and religion,False
+sequence,Benishangul-Gumuz,7.0,education,0.035928651958537935,Her education,False
+sequence,Benishangul-Gumuz,7.0,healthpost,0.11835140810569783,Health post access,True
+sequence,Benishangul-Gumuz,7.0,history,0.08991807747925418,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,7.0,hospital,0.04971800274689216,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,7.0,household,0.14419540659645247,Partner and household,False
+sequence,Benishangul-Gumuz,7.0,information,0.08946343663226214,Information and media,True
+sequence,Benishangul-Gumuz,7.0,insurance,0.02102399034370258,Health insurance,True
+sequence,Benishangul-Gumuz,7.0,intention,0.02847537384750548,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,7.0,place,0.03278270908292691,Region,False
+sequence,Benishangul-Gumuz,7.0,urban,0.011110698992428007,Urban or rural,False
+sequence,Benishangul-Gumuz,7.0,wealth,0.11640146788025582,Household wealth,False
+sequence,Benishangul-Gumuz,7.0,work,0.030391952800394546,Her work,False
+sequence,Central Ethiopia,7.0,agency,0.12096827853339043,Women's say in decisions,True
+sequence,Central Ethiopia,7.0,barriers,0.06200310628898018,Barriers to reaching care,True
+sequence,Central Ethiopia,7.0,culture,0.031029048145011475,Language and religion,False
+sequence,Central Ethiopia,7.0,education,0.029604937927053713,Her education,False
+sequence,Central Ethiopia,7.0,healthpost,0.11560969081805499,Health post access,True
+sequence,Central Ethiopia,7.0,history,0.059746324425473084,Age and pregnancy history,False
+sequence,Central Ethiopia,7.0,hospital,0.07998771224025661,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,7.0,household,0.1545457900658422,Partner and household,False
+sequence,Central Ethiopia,7.0,information,0.14414096288622677,Information and media,True
+sequence,Central Ethiopia,7.0,insurance,0.02104777130720629,Health insurance,True
+sequence,Central Ethiopia,7.0,intention,0.02935096118674024,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,7.0,place,0.007061788395489645,Region,False
+sequence,Central Ethiopia,7.0,urban,0.008742336593222249,Urban or rural,False
+sequence,Central Ethiopia,7.0,wealth,0.10629587757628507,Household wealth,False
+sequence,Central Ethiopia,7.0,work,0.029865419012086964,Her work,False
+sequence,Dire Dawa,7.0,agency,0.13993059590573234,Women's say in decisions,True
+sequence,Dire Dawa,7.0,barriers,0.057542436779570307,Barriers to reaching care,True
+sequence,Dire Dawa,7.0,culture,0.036048336257383504,Language and religion,False
+sequence,Dire Dawa,7.0,education,0.03621198619294718,Her education,False
+sequence,Dire Dawa,7.0,healthpost,0.10245609682736018,Health post access,True
+sequence,Dire Dawa,7.0,history,0.08087954489242234,Age and pregnancy history,False
+sequence,Dire Dawa,7.0,hospital,0.05447547608005217,Distance to a hospital or health centre,True
+sequence,Dire Dawa,7.0,household,0.13867953329634614,Partner and household,False
+sequence,Dire Dawa,7.0,information,0.09664840812336538,Information and media,True
+sequence,Dire Dawa,7.0,insurance,0.025142900082316132,Health insurance,True
+sequence,Dire Dawa,7.0,intention,0.027717091593958635,Wanted pregnancy and family size,True
+sequence,Dire Dawa,7.0,place,0.04653113728901812,Region,False
+sequence,Dire Dawa,7.0,urban,0.00976863802794837,Urban or rural,False
+sequence,Dire Dawa,7.0,wealth,0.12106024176034588,Household wealth,False
+sequence,Dire Dawa,7.0,work,0.026907581127010936,Her work,False
+sequence,Gambella,7.0,agency,0.13724826122055103,Women's say in decisions,True
+sequence,Gambella,7.0,barriers,0.06478988037791208,Barriers to reaching care,True
+sequence,Gambella,7.0,culture,0.033017040080001336,Language and religion,False
+sequence,Gambella,7.0,education,0.03624354459301726,Her education,False
+sequence,Gambella,7.0,healthpost,0.10863119800278039,Health post access,True
+sequence,Gambella,7.0,history,0.08074999601120175,Age and pregnancy history,False
+sequence,Gambella,7.0,hospital,0.05608900500048522,Distance to a hospital or health centre,True
+sequence,Gambella,7.0,household,0.14824242106387492,Partner and household,False
+sequence,Gambella,7.0,information,0.10250864187695341,Information and media,True
+sequence,Gambella,7.0,insurance,0.022745097743650973,Health insurance,True
+sequence,Gambella,7.0,intention,0.030092398305412067,Wanted pregnancy and family size,True
+sequence,Gambella,7.0,place,0.017537696246315217,Region,False
+sequence,Gambella,7.0,urban,0.010525045254197582,Urban or rural,False
+sequence,Gambella,7.0,wealth,0.12071265815451021,Household wealth,False
+sequence,Gambella,7.0,work,0.03086711402301981,Her work,False
+sequence,Harari,7.0,agency,0.13772717586125013,Women's say in decisions,True
+sequence,Harari,7.0,barriers,0.050699612110437955,Barriers to reaching care,True
+sequence,Harari,7.0,culture,0.037046687618202546,Language and religion,False
+sequence,Harari,7.0,education,0.03798866175157119,Her education,False
+sequence,Harari,7.0,healthpost,0.11504606909391735,Health post access,True
+sequence,Harari,7.0,history,0.08537610587127292,Age and pregnancy history,False
+sequence,Harari,7.0,hospital,0.05168017427647994,Distance to a hospital or health centre,True
+sequence,Harari,7.0,household,0.14775856532486256,Partner and household,False
+sequence,Harari,7.0,information,0.09934520126420221,Information and media,True
+sequence,Harari,7.0,insurance,0.02477788432915544,Health insurance,True
+sequence,Harari,7.0,intention,0.027418209372169964,Wanted pregnancy and family size,True
+sequence,Harari,7.0,place,0.015833893093626733,Region,False
+sequence,Harari,7.0,urban,0.011567851942251996,Urban or rural,False
+sequence,Harari,7.0,wealth,0.13034108306278225,Household wealth,False
+sequence,Harari,7.0,work,0.0273928204081041,Her work,False
+sequence,Oromia,7.0,agency,0.14093346690071756,Women's say in decisions,True
+sequence,Oromia,7.0,barriers,0.05641420934979978,Barriers to reaching care,True
+sequence,Oromia,7.0,culture,0.038222004697547725,Language and religion,False
+sequence,Oromia,7.0,education,0.040471911959489335,Her education,False
+sequence,Oromia,7.0,healthpost,0.10807938815032515,Health post access,True
+sequence,Oromia,7.0,history,0.08638525799220284,Age and pregnancy history,False
+sequence,Oromia,7.0,hospital,0.0516380397290833,Distance to a hospital or health centre,True
+sequence,Oromia,7.0,household,0.13553259024454822,Partner and household,False
+sequence,Oromia,7.0,information,0.09115956407580343,Information and media,True
+sequence,Oromia,7.0,insurance,0.022958967544403762,Health insurance,True
+sequence,Oromia,7.0,intention,0.027567846839471766,Wanted pregnancy and family size,True
+sequence,Oromia,7.0,place,0.03044786696588624,Region,False
+sequence,Oromia,7.0,urban,0.013689910171774093,Urban or rural,False
+sequence,Oromia,7.0,wealth,0.12506672601099195,Household wealth,False
+sequence,Oromia,7.0,work,0.031432244505711394,Her work,False
+sequence,Sidama,7.0,agency,0.11935008100351206,Women's say in decisions,True
+sequence,Sidama,7.0,barriers,0.06669830096290866,Barriers to reaching care,True
+sequence,Sidama,7.0,culture,0.024543461416291504,Language and religion,False
+sequence,Sidama,7.0,education,0.03422261283129919,Her education,False
+sequence,Sidama,7.0,healthpost,0.10568942122007974,Health post access,True
+sequence,Sidama,7.0,history,0.06531932763697582,Age and pregnancy history,False
+sequence,Sidama,7.0,hospital,0.07941883610145153,Distance to a hospital or health centre,True
+sequence,Sidama,7.0,household,0.13811716594965082,Partner and household,False
+sequence,Sidama,7.0,information,0.13820662453138274,Information and media,True
+sequence,Sidama,7.0,insurance,0.0237590933109118,Health insurance,True
+sequence,Sidama,7.0,intention,0.03192956782612222,Wanted pregnancy and family size,True
+sequence,Sidama,7.0,place,0.020521020957578535,Region,False
+sequence,Sidama,7.0,urban,0.009605609378450126,Urban or rural,False
+sequence,Sidama,7.0,wealth,0.11119710517109235,Household wealth,False
+sequence,Sidama,7.0,work,0.031421777655790156,Her work,False
+sequence,Somali,7.0,agency,0.14153627386824089,Women's say in decisions,True
+sequence,Somali,7.0,barriers,0.05729131444995893,Barriers to reaching care,True
+sequence,Somali,7.0,culture,0.025393683310213196,Language and religion,False
+sequence,Somali,7.0,education,0.047230555212296285,Her education,False
+sequence,Somali,7.0,healthpost,0.0944488888333403,Health post access,True
+sequence,Somali,7.0,history,0.10024623484920196,Age and pregnancy history,False
+sequence,Somali,7.0,hospital,0.04883719037626457,Distance to a hospital or health centre,True
+sequence,Somali,7.0,household,0.13656855373286142,Partner and household,False
+sequence,Somali,7.0,information,0.08198480402446964,Information and media,True
+sequence,Somali,7.0,insurance,0.015882588767139546,Health insurance,True
+sequence,Somali,7.0,intention,0.03003165971928975,Wanted pregnancy and family size,True
+sequence,Somali,7.0,place,0.020935656410026468,Region,False
+sequence,Somali,7.0,urban,0.0199182497978055,Urban or rural,False
+sequence,Somali,7.0,wealth,0.14985911321788362,Household wealth,False
+sequence,Somali,7.0,work,0.02983523335864485,Her work,False
+sequence,South Ethiopia,7.0,agency,0.12673473553872613,Women's say in decisions,True
+sequence,South Ethiopia,7.0,barriers,0.05981692447605839,Barriers to reaching care,True
+sequence,South Ethiopia,7.0,culture,0.02910982686064702,Language and religion,False
+sequence,South Ethiopia,7.0,education,0.034890962516469996,Her education,False
+sequence,South Ethiopia,7.0,healthpost,0.10837937651102303,Health post access,True
+sequence,South Ethiopia,7.0,history,0.07841531897015497,Age and pregnancy history,False
+sequence,South Ethiopia,7.0,hospital,0.06671118474985736,Distance to a hospital or health centre,True
+sequence,South Ethiopia,7.0,household,0.1454354395559867,Partner and household,False
+sequence,South Ethiopia,7.0,information,0.1190033437346042,Information and media,True
+sequence,South Ethiopia,7.0,insurance,0.020585927618714115,Health insurance,True
+sequence,South Ethiopia,7.0,intention,0.031054089346328508,Wanted pregnancy and family size,True
+sequence,South Ethiopia,7.0,place,0.01978046386892971,Region,False
+sequence,South Ethiopia,7.0,urban,0.010722070305012807,Urban or rural,False
+sequence,South Ethiopia,7.0,wealth,0.1212880253893623,Household wealth,False
+sequence,South Ethiopia,7.0,work,0.028072308532917534,Her work,False
+sequence,South West Ethiopia,7.0,agency,0.14596094348851593,Women's say in decisions,True
+sequence,South West Ethiopia,7.0,barriers,0.05700995633182796,Barriers to reaching care,True
+sequence,South West Ethiopia,7.0,culture,0.02703633916450186,Language and religion,False
+sequence,South West Ethiopia,7.0,education,0.035885057944175396,Her education,False
+sequence,South West Ethiopia,7.0,healthpost,0.11761079614218788,Health post access,True
+sequence,South West Ethiopia,7.0,history,0.10548739917561128,Age and pregnancy history,False
+sequence,South West Ethiopia,7.0,hospital,0.05350157860972701,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,7.0,household,0.1377986514312178,Partner and household,False
+sequence,South West Ethiopia,7.0,information,0.08481889988943862,Information and media,True
+sequence,South West Ethiopia,7.0,insurance,0.022668930355896358,Health insurance,True
+sequence,South West Ethiopia,7.0,intention,0.028042179370592474,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,7.0,place,0.02264272774959349,Region,False
+sequence,South West Ethiopia,7.0,urban,0.011954509996566592,Urban or rural,False
+sequence,South West Ethiopia,7.0,wealth,0.11762255374211714,Household wealth,False
+sequence,South West Ethiopia,7.0,work,0.03195947746130945,Her work,False
+sequence,Tigray,7.0,agency,0.11654172209757618,Women's say in decisions,True
+sequence,Tigray,7.0,barriers,0.05925122165319757,Barriers to reaching care,True
+sequence,Tigray,7.0,culture,0.050231631233692474,Language and religion,False
+sequence,Tigray,7.0,education,0.030797191985081972,Her education,False
+sequence,Tigray,7.0,healthpost,0.09800246628792202,Health post access,True
+sequence,Tigray,7.0,history,0.06703857872157343,Age and pregnancy history,False
+sequence,Tigray,7.0,hospital,0.07724227790487544,Distance to a hospital or health centre,True
+sequence,Tigray,7.0,household,0.14482157137200727,Partner and household,False
+sequence,Tigray,7.0,information,0.13318650299344936,Information and media,True
+sequence,Tigray,7.0,insurance,0.029056009220996864,Health insurance,True
+sequence,Tigray,7.0,intention,0.02943873149582956,Wanted pregnancy and family size,True
+sequence,Tigray,7.0,place,0.023511267379075593,Region,False
+sequence,Tigray,7.0,urban,0.008144233344297216,Urban or rural,False
+sequence,Tigray,7.0,wealth,0.10495811480596094,Household wealth,False
+sequence,Tigray,7.0,work,0.027778478716766405,Her work,False
+sequence,Ethiopia,8.0,agency,0.138124615857181,Women's say in decisions,True
+sequence,Ethiopia,8.0,barriers,0.06075678078830949,Barriers to reaching care,True
+sequence,Ethiopia,8.0,culture,0.0343582260577631,Language and religion,False
+sequence,Ethiopia,8.0,education,0.043102263295016596,Her education,False
+sequence,Ethiopia,8.0,healthpost,0.09920241093718837,Health post access,True
+sequence,Ethiopia,8.0,history,0.0700287216114705,Age and pregnancy history,False
+sequence,Ethiopia,8.0,hospital,0.0574202258450093,Distance to a hospital or health centre,True
+sequence,Ethiopia,8.0,household,0.14391871919899996,Partner and household,False
+sequence,Ethiopia,8.0,information,0.11069038140308,Information and media,True
+sequence,Ethiopia,8.0,insurance,0.024440504755189687,Health insurance,True
+sequence,Ethiopia,8.0,intention,0.032366171894185024,Wanted pregnancy and family size,True
+sequence,Ethiopia,8.0,place,0.019242879369578372,Region,False
+sequence,Ethiopia,8.0,urban,0.01483115776970154,Urban or rural,False
+sequence,Ethiopia,8.0,wealth,0.12114372678786786,Household wealth,False
+sequence,Ethiopia,8.0,work,0.030373214354034544,Her work,False
+sequence,Addis Ababa,8.0,agency,0.17381074329681645,Women's say in decisions,True
+sequence,Addis Ababa,8.0,barriers,0.07935949509761113,Barriers to reaching care,True
+sequence,Addis Ababa,8.0,culture,0.029250014268994803,Language and religion,False
+sequence,Addis Ababa,8.0,education,0.03798225654933631,Her education,False
+sequence,Addis Ababa,8.0,healthpost,0.0914582643862324,Health post access,True
+sequence,Addis Ababa,8.0,history,0.06246431437977052,Age and pregnancy history,False
+sequence,Addis Ababa,8.0,hospital,0.0505263064094296,Distance to a hospital or health centre,True
+sequence,Addis Ababa,8.0,household,0.15220404857929457,Partner and household,False
+sequence,Addis Ababa,8.0,information,0.10011379380760739,Information and media,True
+sequence,Addis Ababa,8.0,insurance,0.04250642242603319,Health insurance,True
+sequence,Addis Ababa,8.0,intention,0.030489593409827483,Wanted pregnancy and family size,True
+sequence,Addis Ababa,8.0,place,0.00750729963445952,Region,False
+sequence,Addis Ababa,8.0,urban,0.006068503763973105,Urban or rural,False
+sequence,Addis Ababa,8.0,wealth,0.10288651976885568,Household wealth,False
+sequence,Addis Ababa,8.0,work,0.03337242427470762,Her work,False
+sequence,Afar,8.0,agency,0.12954075908332188,Women's say in decisions,True
+sequence,Afar,8.0,barriers,0.057207800498684326,Barriers to reaching care,True
+sequence,Afar,8.0,culture,0.0382397095773778,Language and religion,False
+sequence,Afar,8.0,education,0.043820300951300094,Her education,False
+sequence,Afar,8.0,healthpost,0.09712005858900648,Health post access,True
+sequence,Afar,8.0,history,0.08156632244716615,Age and pregnancy history,False
+sequence,Afar,8.0,hospital,0.060669610825998,Distance to a hospital or health centre,True
+sequence,Afar,8.0,household,0.13603529928698183,Partner and household,False
+sequence,Afar,8.0,information,0.110291494772835,Information and media,True
+sequence,Afar,8.0,insurance,0.02295458982694775,Health insurance,True
+sequence,Afar,8.0,intention,0.03318381763479392,Wanted pregnancy and family size,True
+sequence,Afar,8.0,place,0.03411952409098827,Region,False
+sequence,Afar,8.0,urban,0.011455913837152961,Urban or rural,False
+sequence,Afar,8.0,wealth,0.11133325951939224,Household wealth,False
+sequence,Afar,8.0,work,0.03246153801478764,Her work,False
+sequence,Amhara,8.0,agency,0.13939154815925386,Women's say in decisions,True
+sequence,Amhara,8.0,barriers,0.061985276565564365,Barriers to reaching care,True
+sequence,Amhara,8.0,culture,0.03084801035985197,Language and religion,False
+sequence,Amhara,8.0,education,0.042021565768145086,Her education,False
+sequence,Amhara,8.0,healthpost,0.10707767434287375,Health post access,True
+sequence,Amhara,8.0,history,0.06799770050904508,Age and pregnancy history,False
+sequence,Amhara,8.0,hospital,0.056769631044121534,Distance to a hospital or health centre,True
+sequence,Amhara,8.0,household,0.15193390711691615,Partner and household,False
+sequence,Amhara,8.0,information,0.1179584413616825,Information and media,True
+sequence,Amhara,8.0,insurance,0.02326814169925646,Health insurance,True
+sequence,Amhara,8.0,intention,0.03428852157719865,Wanted pregnancy and family size,True
+sequence,Amhara,8.0,place,0.00862090445758265,Region,False
+sequence,Amhara,8.0,urban,0.0161465339820959,Urban or rural,False
+sequence,Amhara,8.0,wealth,0.11441600502598716,Household wealth,False
+sequence,Amhara,8.0,work,0.02727613696475263,Her work,False
+sequence,Benishangul-Gumuz,8.0,agency,0.14132267439585428,Women's say in decisions,True
+sequence,Benishangul-Gumuz,8.0,barriers,0.06057558975138537,Barriers to reaching care,True
+sequence,Benishangul-Gumuz,8.0,culture,0.031060045424954823,Language and religion,False
+sequence,Benishangul-Gumuz,8.0,education,0.04202969354964646,Her education,False
+sequence,Benishangul-Gumuz,8.0,healthpost,0.09662550244584027,Health post access,True
+sequence,Benishangul-Gumuz,8.0,history,0.0744552312796174,Age and pregnancy history,False
+sequence,Benishangul-Gumuz,8.0,hospital,0.05381549107925773,Distance to a hospital or health centre,True
+sequence,Benishangul-Gumuz,8.0,household,0.14395039689487144,Partner and household,False
+sequence,Benishangul-Gumuz,8.0,information,0.10842816337787257,Information and media,True
+sequence,Benishangul-Gumuz,8.0,insurance,0.02754680123591446,Health insurance,True
+sequence,Benishangul-Gumuz,8.0,intention,0.032844298476418794,Wanted pregnancy and family size,True
+sequence,Benishangul-Gumuz,8.0,place,0.02174111508486372,Region,False
+sequence,Benishangul-Gumuz,8.0,urban,0.01299164154831967,Urban or rural,False
+sequence,Benishangul-Gumuz,8.0,wealth,0.1229334640696867,Household wealth,False
+sequence,Benishangul-Gumuz,8.0,work,0.02967988731277091,Her work,False
+sequence,Central Ethiopia,8.0,agency,0.12878619626136784,Women's say in decisions,True
+sequence,Central Ethiopia,8.0,barriers,0.06355777428842842,Barriers to reaching care,True
+sequence,Central Ethiopia,8.0,culture,0.031222846457652453,Language and religion,False
+sequence,Central Ethiopia,8.0,education,0.03748204112995321,Her education,False
+sequence,Central Ethiopia,8.0,healthpost,0.10382068670053085,Health post access,True
+sequence,Central Ethiopia,8.0,history,0.05904463651129077,Age and pregnancy history,False
+sequence,Central Ethiopia,8.0,hospital,0.06826909697813179,Distance to a hospital or health centre,True
+sequence,Central Ethiopia,8.0,household,0.1506629865424841,Partner and household,False
+sequence,Central Ethiopia,8.0,information,0.1325389649956895,Information and media,True
+sequence,Central Ethiopia,8.0,insurance,0.023301524169532,Health insurance,True
+sequence,Central Ethiopia,8.0,intention,0.029745025370718714,Wanted pregnancy and family size,True
+sequence,Central Ethiopia,8.0,place,0.011082882181913228,Region,False
+sequence,Central Ethiopia,8.0,urban,0.014244170917417299,Urban or rural,False
+sequence,Central Ethiopia,8.0,wealth,0.11546170420845384,Household wealth,False
+sequence,Central Ethiopia,8.0,work,0.03077946465959575,Her work,False
+sequence,Dire Dawa,8.0,agency,0.14754042411862653,Women's say in decisions,True
+sequence,Dire Dawa,8.0,barriers,0.06634123529303572,Barriers to reaching care,True
+sequence,Dire Dawa,8.0,culture,0.03562139841057778,Language and religion,False
+sequence,Dire Dawa,8.0,education,0.040529441576387354,Her education,False
+sequence,Dire Dawa,8.0,healthpost,0.09179374628447395,Health post access,True
+sequence,Dire Dawa,8.0,history,0.07174405490765041,Age and pregnancy history,False
+sequence,Dire Dawa,8.0,hospital,0.057090261782886675,Distance to a hospital or health centre,True
+sequence,Dire Dawa,8.0,household,0.1439930652599164,Partner and household,False
+sequence,Dire Dawa,8.0,information,0.10746571522638648,Information and media,True
+sequence,Dire Dawa,8.0,insurance,0.030351894771769358,Health insurance,True
+sequence,Dire Dawa,8.0,intention,0.031230472302866068,Wanted pregnancy and family size,True
+sequence,Dire Dawa,8.0,place,0.02235791042757104,Region,False
+sequence,Dire Dawa,8.0,urban,0.010515037626604362,Urban or rural,False
+sequence,Dire Dawa,8.0,wealth,0.11248187177315334,Household wealth,False
+sequence,Dire Dawa,8.0,work,0.03094347058780869,Her work,False
+sequence,Gambella,8.0,agency,0.139271395111856,Women's say in decisions,True
+sequence,Gambella,8.0,barriers,0.06524456976435968,Barriers to reaching care,True
+sequence,Gambella,8.0,culture,0.034390976370322277,Language and religion,False
+sequence,Gambella,8.0,education,0.038272699290812104,Her education,False
+sequence,Gambella,8.0,healthpost,0.09537024457820686,Health post access,True
+sequence,Gambella,8.0,history,0.07073676119387011,Age and pregnancy history,False
+sequence,Gambella,8.0,hospital,0.05878431348608782,Distance to a hospital or health centre,True
+sequence,Gambella,8.0,household,0.13925341363459592,Partner and household,False
+sequence,Gambella,8.0,information,0.11238819447272481,Information and media,True
+sequence,Gambella,8.0,insurance,0.02689213516574182,Health insurance,True
+sequence,Gambella,8.0,intention,0.03171053178254217,Wanted pregnancy and family size,True
+sequence,Gambella,8.0,place,0.02417816807270295,Region,False
+sequence,Gambella,8.0,urban,0.010839900212323216,Urban or rural,False
+sequence,Gambella,8.0,wealth,0.12167715145495005,Household wealth,False
+sequence,Gambella,8.0,work,0.03098954542582459,Her work,False
+sequence,Harari,8.0,agency,0.1426785052352243,Women's say in decisions,True
+sequence,Harari,8.0,barriers,0.06134220201368839,Barriers to reaching care,True
+sequence,Harari,8.0,culture,0.035965985728427886,Language and religion,False
+sequence,Harari,8.0,education,0.039987346491854134,Her education,False
+sequence,Harari,8.0,healthpost,0.10624259724415819,Health post access,True
+sequence,Harari,8.0,history,0.07396715244830214,Age and pregnancy history,False
+sequence,Harari,8.0,hospital,0.054593326432874345,Distance to a hospital or health centre,True
+sequence,Harari,8.0,household,0.1453951695812153,Partner and household,False
+sequence,Harari,8.0,information,0.10331442920352518,Information and media,True
+sequence,Harari,8.0,insurance,0.02323026257198848,Health insurance,True
+sequence,Harari,8.0,intention,0.0313994006069938,Wanted pregnancy and family size,True
+sequence,Harari,8.0,place,0.019936487599639296,Region,False
+sequence,Harari,8.0,urban,0.012628180242796902,Urban or rural,False
+sequence,Harari,8.0,wealth,0.12029007210013846,Household wealth,False
+sequence,Harari,8.0,work,0.029028883939539864,Her work,False
+sequence,Oromia,8.0,agency,0.13834529304887566,Women's say in decisions,True
+sequence,Oromia,8.0,barriers,0.05825369952028382,Barriers to reaching care,True
+sequence,Oromia,8.0,culture,0.037728257083250755,Language and religion,False
+sequence,Oromia,8.0,education,0.04535106956175203,Her education,False
+sequence,Oromia,8.0,healthpost,0.09783897319069562,Health post access,True
+sequence,Oromia,8.0,history,0.07271375989559263,Age and pregnancy history,False
+sequence,Oromia,8.0,hospital,0.05482111324516534,Distance to a hospital or health centre,True
+sequence,Oromia,8.0,household,0.141204504890885,Partner and household,False
+sequence,Oromia,8.0,information,0.10371650988843259,Information and media,True
+sequence,Oromia,8.0,insurance,0.02278628591226652,Health insurance,True
+sequence,Oromia,8.0,intention,0.031967327766331266,Wanted pregnancy and family size,True
+sequence,Oromia,8.0,place,0.023860238918763446,Region,False
+sequence,Oromia,8.0,urban,0.01582686475918131,Urban or rural,False
+sequence,Oromia,8.0,wealth,0.12394325052257005,Household wealth,False
+sequence,Oromia,8.0,work,0.031642852152593534,Her work,False
+sequence,Sidama,8.0,agency,0.12807284997235227,Women's say in decisions,True
+sequence,Sidama,8.0,barriers,0.06288364527533694,Barriers to reaching care,True
+sequence,Sidama,8.0,culture,0.032847993923427916,Language and religion,False
+sequence,Sidama,8.0,education,0.04135502673024577,Her education,False
+sequence,Sidama,8.0,healthpost,0.09691489079229385,Health post access,True
+sequence,Sidama,8.0,history,0.06208386901389067,Age and pregnancy history,False
+sequence,Sidama,8.0,hospital,0.061587325912436056,Distance to a hospital or health centre,True
+sequence,Sidama,8.0,household,0.13160286939193966,Partner and household,False
+sequence,Sidama,8.0,information,0.11938072400275078,Information and media,True
+sequence,Sidama,8.0,insurance,0.02689470065601441,Health insurance,True
+sequence,Sidama,8.0,intention,0.03079486457593133,Wanted pregnancy and family size,True
+sequence,Sidama,8.0,place,0.03155146785925738,Region,False
+sequence,Sidama,8.0,urban,0.014592265613506796,Urban or rural,False
+sequence,Sidama,8.0,wealth,0.1276663570729607,Household wealth,False
+sequence,Sidama,8.0,work,0.031771151363890034,Her work,False
+sequence,Somali,8.0,agency,0.14795811415932972,Women's say in decisions,True
+sequence,Somali,8.0,barriers,0.05790655122760743,Barriers to reaching care,True
+sequence,Somali,8.0,culture,0.02801775577020006,Language and religion,False
+sequence,Somali,8.0,education,0.05258252670707244,Her education,False
+sequence,Somali,8.0,healthpost,0.08159014214550847,Health post access,True
+sequence,Somali,8.0,history,0.0851488716800965,Age and pregnancy history,False
+sequence,Somali,8.0,hospital,0.05173091721613676,Distance to a hospital or health centre,True
+sequence,Somali,8.0,household,0.13823686944820116,Partner and household,False
+sequence,Somali,8.0,information,0.08972055998235466,Information and media,True
+sequence,Somali,8.0,insurance,0.019937040511256707,Health insurance,True
+sequence,Somali,8.0,intention,0.030081141705703054,Wanted pregnancy and family size,True
+sequence,Somali,8.0,place,0.01880096499506495,Region,False
+sequence,Somali,8.0,urban,0.016672877796533987,Urban or rural,False
+sequence,Somali,8.0,wealth,0.14934075174930259,Household wealth,False
+sequence,Somali,8.0,work,0.03227491590838468,Her work,False
+sequence,South Ethiopia,8.0,agency,0.13085913268002514,Women's say in decisions,True
+sequence,South Ethiopia,8.0,barriers,0.059083977394837936,Barriers to reaching care,True
+sequence,South Ethiopia,8.0,culture,0.031625723482087115,Language and religion,False
+sequence,South Ethiopia,8.0,education,0.04095449241089414,Her education,False
+sequence,South Ethiopia,8.0,healthpost,0.09926366287663295,Health post access,True
+sequence,South Ethiopia,8.0,history,0.06980837792228244,Age and pregnancy history,False
+sequence,South Ethiopia,8.0,hospital,0.06310358676140124,Distance to a hospital or health centre,True
+sequence,South Ethiopia,8.0,household,0.1390489915979801,Partner and household,False
+sequence,South Ethiopia,8.0,information,0.11680479633745776,Information and media,True
+sequence,South Ethiopia,8.0,insurance,0.022905564118223934,Health insurance,True
+sequence,South Ethiopia,8.0,intention,0.032477615359899806,Wanted pregnancy and family size,True
+sequence,South Ethiopia,8.0,place,0.026069810669244693,Region,False
+sequence,South Ethiopia,8.0,urban,0.013789469320724291,Urban or rural,False
+sequence,South Ethiopia,8.0,wealth,0.12481210219325595,Household wealth,False
+sequence,South Ethiopia,8.0,work,0.029392695859424764,Her work,False
+sequence,South West Ethiopia,8.0,agency,0.12874179778415157,Women's say in decisions,True
+sequence,South West Ethiopia,8.0,barriers,0.05791882384783794,Barriers to reaching care,True
+sequence,South West Ethiopia,8.0,culture,0.027697008832965053,Language and religion,False
+sequence,South West Ethiopia,8.0,education,0.04328117839759918,Her education,False
+sequence,South West Ethiopia,8.0,healthpost,0.1066993731374462,Health post access,True
+sequence,South West Ethiopia,8.0,history,0.07209969282598834,Age and pregnancy history,False
+sequence,South West Ethiopia,8.0,hospital,0.06378509587244914,Distance to a hospital or health centre,True
+sequence,South West Ethiopia,8.0,household,0.14180467136586689,Partner and household,False
+sequence,South West Ethiopia,8.0,information,0.11369226634946107,Information and media,True
+sequence,South West Ethiopia,8.0,insurance,0.021715444250550518,Health insurance,True
+sequence,South West Ethiopia,8.0,intention,0.03668019529055145,Wanted pregnancy and family size,True
+sequence,South West Ethiopia,8.0,place,0.01627543220285198,Region,False
+sequence,South West Ethiopia,8.0,urban,0.013879699233018546,Urban or rural,False
+sequence,South West Ethiopia,8.0,wealth,0.12362166833362251,Household wealth,False
+sequence,South West Ethiopia,8.0,work,0.03210764990432415,Her work,False
+sequence,Tigray,8.0,agency,0.1272548748698541,Women's say in decisions,True
+sequence,Tigray,8.0,barriers,0.06119531273813168,Barriers to reaching care,True
+sequence,Tigray,8.0,culture,0.04311897848844314,Language and religion,False
+sequence,Tigray,8.0,education,0.03871478496811464,Her education,False
+sequence,Tigray,8.0,healthpost,0.09105089680809864,Health post access,True
+sequence,Tigray,8.0,history,0.06423222753549866,Age and pregnancy history,False
+sequence,Tigray,8.0,hospital,0.06451593766116764,Distance to a hospital or health centre,True
+sequence,Tigray,8.0,household,0.14031817227498497,Partner and household,False
+sequence,Tigray,8.0,information,0.11951792327910776,Information and media,True
+sequence,Tigray,8.0,insurance,0.031460157759777535,Health insurance,True
+sequence,Tigray,8.0,intention,0.030970959064965307,Wanted pregnancy and family size,True
+sequence,Tigray,8.0,place,0.025615447159524407,Region,False
+sequence,Tigray,8.0,urban,0.012492025418812317,Urban or rural,False
+sequence,Tigray,8.0,wealth,0.11973630034429404,Household wealth,False
+sequence,Tigray,8.0,work,0.029806002527088017,Her work,False
