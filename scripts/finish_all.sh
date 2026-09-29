@@ -11,6 +11,7 @@ echo "[finish] studio data";           $PY scripts/run_regional_eda.py | tail -1
                                        && $PY scripts/run_scenarios.py | tail -1 \
                                        && $PY scripts/run_time_series.py | tail -1 \
                                        && $PY scripts/run_clinic_screener.py | tail -1 \
+                                       && $PY scripts/build_lab_profiles.py | tail -1 \
                                        && $PY scripts/export_viz_data.py
 echo "[finish] checks";                $PY -u scripts/run_tests.py | tail -8
 # Built into a separate folder so a running `next dev` (which owns .next) keeps

@@ -14,6 +14,8 @@ reported, not faked.
   app/public/data/scenarios.json the planner's levers: g-computation over 128 combinations
   app/public/data/series.json    ANC by quarter and half-year of birth, and the screener
   app/public/samples/*.csv       sample files for "Your data" (survey-derived and synthetic)
+  app/public/data/lab.json       the Model lab: attention, drop-off curves, composite profiles
+  app/public/data/nets.json      the two networks' weights, for the browser forward pass
 """
 
 from __future__ import annotations
@@ -28,7 +30,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from anc8.concepts import CONCEPTS  # noqa: E402
+from anc8.concepts import CONCEPTS, concept_of  # noqa: E402
 from anc8.reference import EDHS_ANC4_BY_REGION, EDHS_ANC4_NATIONAL  # noqa: E402
 
 OUT = ROOT / "app" / "public" / "data"
@@ -265,6 +267,39 @@ def series_block() -> dict | None:
     return out
 
 
+def lab_block() -> dict | None:
+    need = ["attention_concepts.csv", "dropoff_curves.csv", "contact_distribution_heldout.csv",
+            "weights.json", "profiles.json"]
+    missing = [n for n in need if not (DEEP / n).exists()]
+    if missing:
+        print(f"  lab: skipped ({missing}); run run_deep_models.py and build_lab_profiles.py")
+        return None
+    att = pd.read_csv(DEEP / "attention_concepts.csv")
+    concepts = [c["key"] for c in CONCEPTS]
+    ladder = {r: g.set_index("concept").attention.reindex(concepts).fillna(0).tolist()
+              for r, g in att[att.model == "ladder"].groupby("region")}
+    seq = {}
+    for r, g in att[att.model == "sequence"].groupby("region"):
+        piv = g.pivot_table(index="step", columns="concept", values="attention").reindex(columns=concepts).fillna(0)
+        seq[r] = piv.sort_index().to_numpy().tolist()
+    drop = pd.read_csv(DEEP / "dropoff_curves.csv")
+    weights = json.loads((DEEP / "weights.json").read_text(encoding="utf-8"))
+    prep = weights["ladder"]["prep"]
+    tokens = prep["numeric"] + prep["categorical"]
+    # the networks' weights go out as their own file, loaded only by the lab
+    (OUT / "nets.json").write_text(json.dumps(weights, separators=(",", ":")), encoding="utf-8")
+    print(f"  wrote app/public/data/nets.json  ({(OUT / 'nets.json').stat().st_size / 1024:.0f} KB)")
+    return {
+        "concepts": [{"key": c["key"], "label": c["label"], "modifiable": c["modifiable"]} for c in CONCEPTS],
+        "token_concept": [concepts.index(concept_of(t)) if concept_of(t) in concepts else -1 for t in tokens],
+        "tokens": tokens,
+        "attention": {"ladder": ladder, "sequence": seq},
+        "dropoff": {r: g[["contact", "predicted", "observed"]].to_dict("records") for r, g in drop.groupby("region")},
+        "distribution": pd.read_csv(DEEP / "contact_distribution_heldout.csv").to_dict("records"),
+        "profiles": json.loads((DEEP / "profiles.json").read_text(encoding="utf-8")),
+    }
+
+
 def write(name: str, data) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
@@ -278,6 +313,9 @@ def main():
     if reg:
         write("regions.json", reg)
     write("explore.json", explore_block())
+    lab = lab_block()
+    if lab:
+        write("lab.json", lab)
     se = series_block()
     if se:
         write("series.json", se)

@@ -801,6 +801,51 @@ fs.writeFileSync(process.argv[4], JSON.stringify({p, best: a[0].key,
               f"best {res['best']}, error {res['top']:.2f} against last-value {res['naive']:.2f}")
         check("the forecast backtest is reproducible", res["same"])
 
+    # The two networks' browser forward pass against PyTorch, on held-out women.
+    par = ROOT / "outputs" / "deep" / "parity_heldout.npy"
+    wts = ROOT / "outputs" / "deep" / "weights.json"
+    if not (par.exists() and wts.exists()):
+        skip("network parity", "run scripts/run_deep_models.py first")
+        return
+    try:
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import run_deep_models as rdm
+        _, _, held, _, _, _ = rdm.load()
+    except Exception as exc:  # the per-woman data is not in every layout
+        skip("network parity", f"held-out women not available: {type(exc).__name__}")
+        return
+    prep = json.loads(wts.read_text(encoding="utf-8"))["ladder"]["prep"]
+    n = 200
+    recs = []
+    for _, row in held.head(n).iterrows():
+        rec = {c: (None if pd.isna(pd.to_numeric(row[c], errors="coerce")) else float(pd.to_numeric(row[c], errors="coerce")))
+               for c in prep["numeric"]}
+        rec.update({c: (None if pd.isna(row[c]) else str(row[c])) for c in prep["categorical"]})
+        recs.append(rec)
+    with tempfile.TemporaryDirectory() as t:
+        tmp = Path(t)
+        if not _compile_ts(["nets.ts"], tmp):
+            skip("network parity", "TypeScript compiler not available")
+            return
+        (tmp / "recs.json").write_text(json.dumps(recs), encoding="utf-8")
+        (tmp / "run.js").write_text(r"""
+const fs = require('fs'); const n = require('./nets.js');
+const nets = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+const recs = JSON.parse(fs.readFileSync(process.argv[3], 'utf8'));
+fs.writeFileSync(process.argv[4], JSON.stringify(recs.map(r => [n.ladder(nets, r).p, n.sequence(nets, r).p])));
+""", encoding="utf-8")
+        r = subprocess.run(["node", str(tmp / "run.js"), str(wts), str(tmp / "recs.json"), str(tmp / "out.json")],
+                           capture_output=True, text=True, cwd=tmp)
+        if r.returncode != 0:
+            check("the browser networks run", False, r.stderr[-300:])
+            return
+        got = np.array(json.loads((tmp / "out.json").read_text(encoding="utf-8")))  # (n, 2, 3)
+    ref = np.load(par)[:, :n, :].transpose(1, 0, 2)
+    worst = float(np.abs(got - ref).max())
+    # the weights are stored to six decimals, so agreement is to about 1e-5
+    check("the browser networks match PyTorch on held-out women", worst < 1e-4,
+          f"worst difference {worst:.1e} over {n} women, both networks, three rungs")
+
 
 
 def main():
