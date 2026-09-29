@@ -160,3 +160,33 @@ analysis is best read as telling them where to look.
 A research and educational tool. Not clinical advice, not validated for
 decisions about individuals, and not a substitute for local knowledge about
 why a particular woman or district is under-served.
+
+---
+
+## 11. The studio's simulations, scenarios and forecasts
+
+- **Scenarios are associations.** A lever's effect is what the model expects
+  if a woman's recorded circumstances changed; it is not the effect of a
+  programme, which could reach different women or change other things. Three
+  levers (weekly radio, removing distance and money barriers, shared
+  decisions) come out negative on at least one rung in both models; that is a
+  limit of what the survey can show, not evidence of harm. The earlier first
+  visit is partly mechanical: a woman who starts earlier has more weeks in
+  which to have contacts.
+- **The conflict model transfers one war.** Applying the Tigray shock to
+  another region assumes the same kind of disruption. The Amhara check shows
+  it does not hold for an insurgency in which services kept running; the
+  recovery lag is not identified by the data; and the survey misses displaced
+  and deceased women, so the Tigray shock itself is likely understated.
+- **Time series from one survey.** Only each woman's most recent birth is
+  recorded, so earlier periods under-represent women who have had another child
+  since, and counts are recalled less well for older births. Regional
+  half-years rest on 22 to 187 women.
+- **The screener describes women like her.** Its probabilities are for women
+  with the same answers in the survey, not a forecast of one woman; it is for
+  deciding whom to follow up, never whom to care for.
+- **Samples.** The synthetic woreda report and the synthetic register are made
+  up and labelled so; the composite women in the Model lab are aggregates
+  (the most common answer in a group of at least 25 women), not people.
+- **Attention is not importance.** Where a network attends is not a measure of
+  what matters or why a woman stops.

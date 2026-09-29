@@ -7,6 +7,7 @@ import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
 import ContentHeader from "./ContentHeader";
 import StatusBar from "./StatusBar";
+import Tour from "./Tour";
 
 interface ShellHeader {
   crumb?: string;
@@ -94,6 +95,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </div>
 
         <StatusBar />
+        <Tour />
       </div>
     </HeaderContext.Provider>
   );

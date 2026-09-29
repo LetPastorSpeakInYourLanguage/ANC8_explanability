@@ -275,6 +275,70 @@ places where it would be marked down are stated in `docs/LIMITATIONS.md`.
 
 ---
 
+## 10. The planning studio's analyses
+
+The app's visual screens rest on seven further analyses. Each reuses the
+cohorts, the development / held-out partition, the stratified PSU bootstrap and
+the survey weights described above, and writes only aggregates to the app.
+
+- **Regions** (`run_regional_eda.py`). The ladder, its losses, subgroup
+  gradients and circumstance prevalence per region and cohort, with 95%
+  intervals from 400 PSU resamples inside each region; cells under 25 women are
+  flagged. Why a region's predicted attainment differs from the national one is
+  split exactly across predictors using the Explainable Boosting Machine's
+  additive terms, then summed to fifteen planning concepts, seven of which a
+  health system can change (`src/anc8/concepts.py`). Women per year use UN
+  World Population Prospects 2024 births for 2025 times each region's weighted
+  share of recent births.
+- **Conflict** (`run_war_model.py`). A pregnancy's exposure is the average
+  disruption over its nine months; disruption is 1 while fighting lasts and
+  decays after a ceasefire with a recovery lag. A weighted logistic regression
+  on Tigray and the regions without major conflict, with region and
+  half-year-of-birth fixed effects, gives a shock per rung on the log-odds
+  scale. Run on Tigray it reproduces the difference-in-differences of section 6
+  within its interval. The recovery lag is not identified by two post-war
+  years (every lag from 0 to 48 months fits within 1.92 log-likelihood units),
+  so the simulator offers it as a setting, each lag with the shock that
+  reproduces Tigray; bands come from 200 PSU resamples at the fitted lag.
+  Amhara is held out: its baseline comes from its unexposed births, then the
+  Tigray shock is applied to its Fano-period births. It predicts the first
+  conflict half-year and then far too deep a collapse; an adaptation time
+  fitted to Amhara (about two months) describes what happened there and is
+  offered as a second pattern.
+- **Scenarios** (`run_scenarios.py`). g-computation: every woman is re-scored
+  by the Explainable Boosting Machine with a lever applied as an edit to her
+  record, under all 128 on/off combinations of seven levers, so any mix of
+  coverages is computed exactly in the browser under random reach. A lever is
+  offered by default only if the model expects every rung to rise; logistic
+  regression is reported alongside. An earlier first visit uses a separate
+  logistic regression on the ANC-entry cohort and is added on top. Bands are
+  PSU resamples of who lives where, with the model held fixed.
+- **Time** (`run_time_series.py`). The ladder by quarter and half-year of the
+  most recent birth, 2022 to 2024, weighted, with PSU-bootstrap intervals.
+- **Forecasting** (`app/src/lib/forecast.ts`). Six forecasters (last value,
+  seasonal naive, a year's average, linear trend, damped Holt, additive
+  Holt-Winters) are compared on the user's own series by rolling-origin
+  backtest; the smallest mean absolute error wins, and its bands are its own
+  backtest errors at each horizon.
+- **First-visit screener** (`run_clinic_screener.py`). A logistic regression on
+  twelve facts a clinic can record, fitted on ANC-entry development women with
+  the penalty chosen by cross-validated weighted average precision, and scored
+  once on the held-out women.
+- **Networks** (`run_deep_models.py`, `src/anc8/deep.py`). A ladder transformer
+  (one token per predictor, a summary token, two attention blocks, a head that
+  predicts ANC1+, then ANC4+ given ANC1+, then ANC8+ given ANC4+) and a
+  contact-sequence encoder-decoder (one attention block, then a GRU decoder over
+  contacts with cross-attention, trained on the contact count with the count
+  censored at nine). Both use the same folds, three seeds and the same held-out
+  women as every other model, compared by paired bootstrap.
+
+**Browser ports.** The screener, the forecasters and both networks run in the
+browser. `run_tests.py` compiles the TypeScript and checks it against Python on
+held-out women: the screener to 1e-9, the networks to 1e-4 (their weights are
+stored to six decimals; the observed difference is about 2e-6).
+
+---
+
 ## Appendix: deployment
 
 The web app's Predict tab offers every deployed model. The user chooses the

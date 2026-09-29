@@ -164,7 +164,7 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
 
       <button
         onClick={togglePresent}
-        title="Presentation mode: enlarge everything for a projector"
+        title="Presentation mode: larger type and a guided tour (arrow keys step, Esc leaves)"
         aria-pressed={present}
         className="border border-topline2 h-26 md:h-24 px-8 md:px-9 rounded-3 text-11 flex items-center gap-5 flex-none"
         style={{ background: present ? "var(--topsel)" : "var(--topfill2)", color: present ? "var(--top)" : "inherit" }}
