@@ -713,6 +713,45 @@ def test_studio():
     else:
         skip("scenarios.json", "absent; run scripts/run_scenarios.py and export_viz_data.py")
 
+    mp = base / "data" / "models.json"
+    if mp.exists():
+        mj = json.loads(mp.read_text(encoding="utf-8"))
+        an = json.loads((base / "analysis.json").read_text(encoding="utf-8")) if (base / "analysis.json").exists() else None
+        fams, cards = mj["families"], mj["cards"]
+        if an:
+            import re as _re
+            name_key = {f["name"]: k for k, f in fams.items()}
+            worst, n_cmp = 0.0, 0
+            for rung, rows in an["leaderboard"].items():
+                short = "anc" + rung[3]
+                for r in rows:
+                    if r.get("held_AP") is None:
+                        continue
+                    nm = _re.sub(r"^V1 (.+)$", r" · 21 predictors", r["model"])
+                    k = name_key.get(nm)
+                    if k and short in cards.get(k, {}):
+                        worst = max(worst, abs(cards[k][short]["ap"] - r["held_AP"]))
+                        n_cmp += 1
+            check("every leaderboard model has a card that matches its held-out AP", n_cmp > 30 and worst < 1e-4,
+                  f"{n_cmp} cards, worst gap {worst:.1e}")
+        bad_g = [f"{k}/{r}" for k, by in cards.items() for r, c in by.items()
+                 if abs(c["gains"][0]) > 1e-9 or abs(c["gains"][-1] - 1) > 1e-3
+                 or any(b < a - 1e-9 for a, b in zip(c["gains"], c["gains"][1:]))]
+        check("every gains curve starts at 0, ends at 1 and never falls", not bad_g, "; ".join(bad_g[:4]))
+        bad_r = [f"{k}/{r}" for k, by in cards.items() for r, c in by.items()
+                 if abs(c["roc"][0][-1] - 1) > 1e-6 or abs(c["roc"][1][-1] - 1) > 1e-6]
+        check("every ROC curve ends at (1, 1)", not bad_r, "; ".join(bad_r[:4]))
+        small = [f"{k}/{r}/{d}" for k, by in cards.items() for r, c in by.items()
+                 for d, rows in c["subgroups"].items() for x in rows if x["n"] < 25]
+        check("no subgroup cell has fewer than 25 women", not small, "; ".join(small[:4]))
+        nets = [k for k in ("ladder-transformer", "contact-sequence-encoder-decoder")
+                if all(r in cards.get(k, {}) for r in ("anc1", "anc4", "anc8"))]
+        check("both networks have a card at all three rungs", len(nets) == 2)
+        check("each card carries a tuning or how-built block",
+              all("tuning" in c for by in cards.values() for c in by.values()))
+    else:
+        skip("models.json", "absent; run scripts/run_model_cards.py and export_viz_data.py")
+
     # The house design system: spacing utilities outside its scale silently fall back
     # to Tailwind's default (e.g. h-54 = 216px), so they are refused here.
     src = ROOT / "app" / "src"

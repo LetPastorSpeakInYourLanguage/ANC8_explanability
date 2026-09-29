@@ -1,0 +1,22 @@
+{
+ "anc1": {
+  "best": "XGBoost",
+  "prevalence": 0.7615691189556617,
+  "n_models": 17
+ },
+ "anc4": {
+  "best": "LightGBM",
+  "prevalence": 0.5176109040661865,
+  "n_models": 17
+ },
+ "anc8": {
+  "best": "MLP",
+  "prevalence": 0.15980392199863247,
+  "n_models": 21
+ },
+ "meta": {
+  "n_development": 5518,
+  "n_heldout": 1375,
+  "resamples": 500
+ }
+}

@@ -16,6 +16,7 @@ reported, not faked.
   app/public/samples/*.csv       sample files for "Your data" (survey-derived and synthetic)
   app/public/data/lab.json       the Model lab: attention, drop-off curves, composite profiles
   app/public/data/nets.json      the two networks' weights, for the browser forward pass
+  app/public/data/models.json    the Model analysis screen: a card per model and rung
 """
 
 from __future__ import annotations
@@ -300,6 +301,14 @@ def lab_block() -> dict | None:
     }
 
 
+def models_block() -> dict | None:
+    f = ROOT / "outputs" / "model_cards" / "model_cards.json"
+    if not f.exists():
+        print("  models: skipped, run scripts/run_model_cards.py first")
+        return None
+    return json.loads(f.read_text(encoding="utf-8"))
+
+
 def write(name: str, data) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
@@ -325,6 +334,9 @@ def main():
     war = war_block()
     if war:
         write("war.json", war)
+    mc = models_block()
+    if mc:
+        write("models.json", mc)
 
 
 if __name__ == "__main__":
