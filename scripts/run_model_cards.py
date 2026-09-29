@@ -1,13 +1,19 @@
-"""One card per model and rung, for the studio's Model analysis screen.
+"""One card per model, predictor set and rung, for the studio's Model analysis screen.
 
+    python scripts/merge_library.py              # first: collect the trained library
     python scripts/run_model_cards.py            # 500 bootstrap resamples
     python scripts/run_model_cards.py --quick    # 30, for a smoke test
+
+The models are the library in outputs/library/ (scripts/train_library.py): every
+model family, its calibrated versions, the two ensembles and the two networks, on
+each of four duplicate-free predictor sets (the full pool of 86, the 21-predictor
+set, the short set and the parsimonious set), at every rung.
 
 Everything here is scored on the same 1,375 held-out women, survey-weighted, and
 everything is an aggregate: the per-woman predictions are read and joined to the
 survey design in memory, and only summaries are written.
 
-Per model and rung:
+Per model, set and rung:
 
   metrics     average precision, AUROC, Brier, calibration (intercept and slope, ICI),
               prevalence, and the lift of AP over prevalence (what chance would score).
@@ -21,10 +27,11 @@ Per model and rung:
               was chosen on the development women, with the weighted 2x2 as shares.
   subgroups   AUROC by region, wealth, mother's education and residence; a cell with
               fewer than 25 women, or a single outcome class, is dropped.
-  paired      95% interval of the AP and AUROC difference against the rung's best
-              held-out model and against logistic regression, on the same resamples.
+  paired      95% interval of the AP and AUROC difference against the best held-out
+              model and against logistic regression on the same set and rung, on the
+              same resamples.
   tuning      how the model was built: sampler, trials, folds, search space with the
-              chosen value, what tuning bought, or a one-line "how built".
+              chosen value, or a one-line "how built".
 
 Writes outputs/model_cards/model_cards.json and summary.json.
 """
@@ -40,7 +47,6 @@ import warnings
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 from sklearn.metrics import average_precision_score, precision_recall_curve, roc_auc_score, roc_curve
 
 warnings.filterwarnings("ignore")
@@ -48,16 +54,13 @@ warnings.filterwarnings("ignore")
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from anc8 import design, metrics  # noqa: E402
+from anc8 import design, library as lib, metrics  # noqa: E402
 from anc8 import models as zoo  # noqa: E402
-from anc8.deep import TrainConfig  # noqa: E402
 
-ENHANCED = ROOT / "outputs" / "enhanced"
-DEEP = ROOT / "outputs" / "deep"
+LIBRARY = ROOT / "outputs" / "library"
 OUT = ROOT / "outputs" / "model_cards"
 RUNGS = {"anc1plus": "anc1", "anc4plus": "anc4", "anc8plus": "anc8"}
-RUNG_COL = {"anc1plus": 0, "anc4plus": 1, "anc8plus": 2}
-NETS = {"Ladder transformer": 0, "Contact-sequence encoder-decoder": 1}
+NETS = set(lib.NETS.values())
 MIN_CELL = 25
 SEED = 2026
 DIMS = [("region", "region"), ("wealth_quintile", "wealth"),
@@ -69,15 +72,12 @@ def log(m):
 
 
 # ------------------------------------------------------------------ naming
-def display_name(model: str) -> str:
-    m = re.match(r"^V1 (.+)$", model)
-    return f"{m.group(1)} · 21 predictors" if m else model
-
-
 def key_of(model: str) -> str:
-    v1 = model.startswith("V1 ")
-    s = re.sub(r"[^a-z0-9]+", "-", model.replace("V1 ", "").lower()).strip("-")
-    return s + ("-21" if v1 else "")
+    return re.sub(r"[^a-z0-9]+", "-", model.lower()).strip("-")
+
+
+def card_key(set_: str, model: str) -> str:
+    return f"{set_}.{key_of(model)}"
 
 
 def base_of(model: str) -> str:
@@ -85,8 +85,6 @@ def base_of(model: str) -> str:
 
 
 LINEAR = ("Logistic regression", "Elastic net logistic", "Spline logistic")
-TREES = ("Random Forest", "Extra Trees", "XGBoost", "LightGBM", "CatBoost",
-         "HistGradientBoosting", "Explainable Boosting")
 
 WHAT = {
     "Logistic regression": "A weighted sum of the predictors, turned into a chance. The plain baseline.",
@@ -96,21 +94,19 @@ WHAT = {
     "Extra Trees": "Random forest with random split points: faster, smoother.",
     "XGBoost": "Trees added one at a time, each correcting the last. The usual accuracy leader.",
     "LightGBM": "Gradient boosting that grows trees leaf by leaf; quick on wide tables.",
-    "CatBoost": "Gradient boosting built to handle categories directly.",
+    "CatBoost": "Gradient boosting built to handle categories directly, each category on its own.",
     "HistGradientBoosting": "Scikit-learn's boosting on binned predictors.",
     "Explainable Boosting": "Boosting kept additive: one curve per predictor, so every score can be read.",
     "MLP": "A small feed-forward neural network.",
     "Ladder transformer": "A network with attention across predictors that scores all three rungs at once.",
     "Contact-sequence encoder-decoder": "A network that walks the visits in order and stops where care stops.",
-    "Stacked ensemble": "A logistic blend of the other models' predictions.",
+    "Stacked ensemble": "A logistic blend of the five best models' predictions on this set.",
     "Cumulative-link ensemble": "Uses the visit count itself: models several thresholds and pools them.",
-    "Parsimonious": "A short list of predictors picked by forward selection.",
 }
 
 HOW_BUILT = {
-    "Stacked ensemble": "Not tuned on its own: a logistic regression blends the tuned models' out-of-fold predictions.",
-    "Cumulative-link ensemble": "Not tuned on its own: models the contact count at several thresholds and pools the results.",
-    "Parsimonious": "Chosen by forward selection on out-of-fold AP, then fitted on the short list.",
+    "Stacked ensemble": "Not tuned on its own: a logistic regression blends the five best tuned models' out-of-fold predictions.",
+    "Cumulative-link ensemble": "Not tuned on its own: the set's best tuned model, fitted at several contact thresholds and pooled.",
 }
 
 PRE_LINEAR = "Numbers: median fill and scaling. Categories: most-frequent fill and one-hot."
@@ -119,10 +115,6 @@ PRE_TREE = "Numbers: median fill. Categories: coded as integers the trees split 
 
 def group_of(model: str) -> str:
     b = base_of(model)
-    if model.startswith("V1 "):
-        return "Reduced sets"
-    if b == "Parsimonious":
-        return "Reduced sets"
     if b in LINEAR:
         return "Linear"
     if model != b or b in ("Stacked ensemble", "Cumulative-link ensemble"):
@@ -132,24 +124,19 @@ def group_of(model: str) -> str:
     return "Trees & boosting"
 
 
-def family_of(model: str, rung: str) -> dict:
-    b = base_of(model.replace("V1 ", ""))
+def family_of(model: str, set_: str) -> dict:
+    b = base_of(model)
     what = WHAT.get(b, "")
-    if model != base_of(model):
+    if model != b:
         method = "isotonic" if "isotonic" in model else "Platt"
         what = f"{b}, recalibrated by {method} scaling fitted on inner folds."
-    if model.startswith("V1 "):
-        what = f"{what} Uses only the 21 predictors."
     pre = PRE_LINEAR if b in LINEAR or b == "MLP" else PRE_TREE
     if b in NETS:
         pre = "Numbers scaled; every predictor becomes a token the network attends over."
     if b in ("Stacked ensemble", "Cumulative-link ensemble"):
         pre = "Works on the base models' predictions."
-    if b == "Parsimonious":
-        pre = PRE_TREE
-    return {"key": key_of(model), "name": display_name(model), "group": group_of(model),
-            "what": what, "pre": pre,
-            "pool": 21 if model.startswith("V1 ") else (10 if b == "Parsimonious" else 95)}
+    return {"key": card_key(set_, model), "slug": key_of(model), "set": set_, "name": model,
+            "group": group_of(model), "what": what, "pre": pre}
 
 
 # ------------------------------------------------------------------ search spaces
@@ -181,34 +168,32 @@ def search_space(name: str) -> dict | None:
     return rec.space
 
 
-def tuning_block(model, rung, dev_row, hp, ablation, gain):
+def tuning_block(model: str, meta: dict) -> dict:
     b = base_of(model)
+    if "network" in meta:
+        return {"tuned": False, "network": meta["network"],
+                "how": "Trained, not searched: fixed settings, early stopping on held-back clusters, "
+                       "three seeds averaged in development."}
     space = search_space(b) if model == b else None
-    block = {"tuned": False}
-    if space is not None and b in hp:
-        chosen = hp[b]
-        block = {
+    if space is not None and "params" in meta:
+        chosen = meta["params"]
+        return {
             "tuned": True,
             "sampler": "Optuna TPE, seed 2026",
             "objective": "Survey-weighted average precision, out of fold",
             "folds": "5 folds; whole clusters stay together, strata balanced",
-            "trials": None if dev_row is None else int(dev_row["n_trials"]),
-            "seconds": None if dev_row is None else float(dev_row["seconds"]),
-            "space": [{"param": p, **s, "chosen": (chosen.get(p) if chosen.get(p) is not None else "none")}
-                      for p, s in space.items() if p in chosen],
+            "trials": meta.get("n_trials"),
+            "seconds": meta.get("seconds"),
+            "space": [{"param": p, **sp, "chosen": (chosen.get(p) if chosen.get(p) is not None else "none")}
+                      for p, sp in space.items() if p in chosen],
         }
-        if gain is not None:
-            block["defaults_ap"] = gain["defaults_AP"]
-            block["tuned_ap"] = gain["tuned_AP"]
-        if ablation is not None:
-            block["ablation"] = ablation
-    elif model in HOW_BUILT or b in HOW_BUILT:
-        block["how"] = HOW_BUILT.get(model, HOW_BUILT.get(b))
-    elif model != b:
-        block["how"] = f"Not tuned again: the tuned {b} model, recalibrated on inner folds."
-    elif model.startswith("V1 "):
-        block["how"] = f"The tuned {b} recipe on the 21 predictors only."
-    return block
+    if b in HOW_BUILT:
+        how = HOW_BUILT[b]
+        base = meta.get("base_models") or meta.get("base_model")
+        if base:
+            how += f" Built on: {', '.join(base) if isinstance(base, list) else base}."
+        return {"tuned": False, "how": how}
+    return {"tuned": False, "how": f"Not tuned again: the tuned {b} model, recalibrated on inner folds."}
 
 
 # ------------------------------------------------------------------ curves
@@ -284,144 +269,117 @@ def ci(a):
 
 
 # ------------------------------------------------------------------ main
+def cells_for(library: Path, set_: str, rung: str) -> dict:
+    """Every model in the library for one set and rung: {model: cell}."""
+    out = {}
+    for job in lib.jobs((set_,)):
+        for r, model in job.cells:
+            if r == rung and lib.cell_path(library, set_, r, model).exists():
+                out[model] = lib.load_cell(library, set_, r, model)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true")
+    ap.add_argument("--library", type=Path, default=LIBRARY, help="where the merged library lives")
+    ap.add_argument("--out", type=Path, default=OUT)
     args = ap.parse_args()
     n_boot = 30 if args.quick else 500
 
-    df = pd.read_pickle(ENHANCED / "ANC8_analysis_frozen_v2.pkl")
-    df["caseid"] = df.caseid.astype(str)
-    train_psus, test_psus = design.make_psu_holdout(df)
-    held_full = df[df.v021.isin(test_psus)].reset_index(drop=True)
-
-    analysis = json.loads((ROOT / "app" / "public" / "analysis.json").read_text(encoding="utf-8"))
-    gains_by = {(r["rung"], r["model"]): r for r in analysis["tuning_gain"]}
-    net_dev = pd.read_csv(DEEP / "oof_summary.csv")
-    net_perf = pd.read_csv(DEEP / "heldout_performance.csv")
-    parity = np.load(DEEP / "parity_heldout.npy")
+    dev_all, held = lib.partitions()
+    held = held.reset_index(drop=True)
+    boots = list(design.stratified_psu_bootstrap(held.v022.to_numpy(), held.v021.to_numpy(), n_boot, SEED))
 
     cards: dict = {}
     fams: dict = {}
     cross = []
     summary = {}
 
-    for rung, short in RUNGS.items():
-        pred = pd.read_csv(ENHANCED / rung / "heldout_locked_predictions_v2.csv")
-        pred["caseid"] = pred.caseid.astype(str)
-        held = held_full.set_index("caseid").loc[pred.caseid].reset_index()
-        assert len(held) == len(pred)
-        y = pred.y.to_numpy(float)
-        w = pred.w.to_numpy(float)
-        prev = float(np.average(y, weights=w))
-        target = "miss" if prev >= 0.5 else "reach"
-        share = (1 - prev) if target == "miss" else prev
-        probs = {c[6:]: pred[c].to_numpy(float) for c in pred.columns if c.startswith("prob::")}
-        for name, k in NETS.items():
-            probs[name] = parity[k][:, RUNG_COL[rung]].astype(float)
+    for set_ in lib.SETS:
+        for rung, short in RUNGS.items():
+            cells = cells_for(args.library, set_, rung)
+            if not cells:
+                log(f"{set_}/{rung}: nothing in the library yet")
+                continue
+            y = held[rung].astype(int).to_numpy().astype(float)
+            w = (held.v005 / 1e6).to_numpy()
+            prev = float(np.average(y, weights=w))
+            target = "miss" if prev >= 0.5 else "reach"
+            share = (1 - prev) if target == "miss" else prev
+            probs = {m: c["held"] for m, c in cells.items()}
+            log(f"{set_}/{rung}: {len(probs)} models, prevalence {prev:.3f}, {n_boot} resamples")
 
-        dev = pd.read_csv(ENHANCED / rung / "development_oof_performance.csv").set_index("model")
-        hp = json.loads((ENHANCED / rung / "best_hyperparameters.json").read_text())
-        thr = json.loads((ENHANCED / rung / "operating_thresholds.json").read_text())
-        abl_p = ENHANCED / rung / "hyperparameter_ablation.csv"
-        abl = pd.read_csv(abl_p) if abl_p.exists() else pd.DataFrame()
-        log(f"{rung}: {len(probs)} models, prevalence {prev:.3f}, {n_boot} resamples")
+            # bootstrap resamples, shared by every model so the differences are paired
+            boot_ap, boot_au = {}, {}
+            for m, p in probs.items():
+                a = np.empty(n_boot)
+                u = np.empty(n_boot)
+                for i, ix in enumerate(boots):
+                    yy = y[ix]
+                    if len(np.unique(yy)) < 2:
+                        a[i] = u[i] = np.nan
+                        continue
+                    a[i] = average_precision_score(yy, p[ix], sample_weight=w[ix])
+                    u[i] = roc_auc_score(yy, p[ix], sample_weight=w[ix])
+                boot_ap[m], boot_au[m] = a, u
 
-        # bootstrap resamples, shared by every model so the differences are paired
-        boots = list(design.stratified_psu_bootstrap(held.v022.to_numpy(), held.v021.to_numpy(),
-                                                     n_boot, SEED))
-        boot_ap, boot_au = {}, {}
-        for m, p in probs.items():
-            a = np.empty(n_boot)
-            u = np.empty(n_boot)
-            for i, ix in enumerate(boots):
-                yy = y[ix]
-                if len(np.unique(yy)) < 2:
-                    a[i] = u[i] = np.nan
-                    continue
-                a[i] = average_precision_score(yy, p[ix], sample_weight=w[ix])
-                u[i] = roc_auc_score(yy, p[ix], sample_weight=w[ix])
-            boot_ap[m], boot_au[m] = a, u
+            point = {m: metrics.probability_metrics(y, p, w) for m, p in probs.items()}
+            best = max(point, key=lambda m: point[m]["AP"])
+            rank_ap = {m: i + 1 for i, m in enumerate(sorted(point, key=lambda m: -point[m]["AP"]))}
+            summary.setdefault(set_, {})[short] = {"best": best, "prevalence": prev, "n_models": len(probs)}
 
-        point = {m: metrics.probability_metrics(y, p, w) for m, p in probs.items()}
-        best = max(point, key=lambda m: point[m]["AP"])
-        rank_ap = {m: i + 1 for i, m in enumerate(sorted(point, key=lambda m: -point[m]["AP"]))}
-        summary[short] = {"best": display_name(best), "prevalence": prev, "n_models": len(probs)}
+            for m, p in probs.items():
+                meta = cells[m]["meta"]
+                fam = family_of(m, set_)
+                fams[fam["key"]] = fam
+                pm = point[m]
+                dm = meta["dev_metrics"]
+                dev_ap = float(dm.get("AP_seed_mean", dm["AP"]))
+                dev_auc = float(dm["AUROC"])
+                gx = np.array(wshare_gains(y, p, w, target))
+                fx, fy = roc_points(y, p, w)
+                rx, ry = pr_points(y, p, w)
 
-        for m, p in probs.items():
-            fam = family_of(m, rung)
-            fams[fam["key"]] = fam
-            pm = point[m]
-            drow = None
-            dev_ap = dev_auc = None
-            if m in dev.index:
-                drow = dev.loc[m]
-                dev_ap, dev_auc = float(drow.AP), float(drow.AUROC)
-            elif m in NETS:
-                r = net_dev[(net_dev.model == m) & (net_dev.rung == {"anc1": "ANC1+", "anc4": "ANC4+", "anc8": "ANC8+"}[short])]
-                if len(r):
-                    dev_ap, dev_auc = float(r.AP.iloc[0]), float(r.AUROC.iloc[0])
-            gx = np.array(wshare_gains(y, p, w, target))
-            fx, fy = roc_points(y, p, w)
-            rx, ry = pr_points(y, p, w)
-            top20 = float(np.interp(0.2, np.linspace(0, 1, 21), gx))
-            top10 = float(np.interp(0.1, np.linspace(0, 1, 21), gx))
+                def paired(other):
+                    if other == m or other not in probs:
+                        return None
+                    return {"vs": other, "key": card_key(set_, other),
+                            "ap": float(point[m]["AP"] - point[other]["AP"]),
+                            "ap_ci": ci(boot_ap[m] - boot_ap[other]),
+                            "auroc": float(pm["AUROC"] - point[other]["AUROC"]),
+                            "auroc_ci": ci(boot_au[m] - boot_au[other])}
 
-            def paired(other):
-                if other == m or other not in probs:
-                    return None
-                return {"vs": display_name(other), "key": key_of(other),
-                        "ap": float(point[m]["AP"] - point[other]["AP"]),
-                        "ap_ci": ci(boot_ap[m] - boot_ap[other]),
-                        "auroc": float(pm["AUROC"] - point[other]["AUROC"]),
-                        "auroc_ci": ci(boot_au[m] - boot_au[other])}
+                card = {
+                    "ap": pm["AP"], "ap_ci": ci(boot_ap[m]), "auroc": pm["AUROC"], "auroc_ci": ci(boot_au[m]),
+                    "brier": pm["Brier"], "citl": pm["CITL"], "slope": pm["Calibration_slope"], "ici": pm["ICI"],
+                    "prevalence": prev, "target": target, "target_share": share, "lift": pm["AP"] - prev,
+                    "ratio": pm["AP"] / prev, "rank": rank_ap[m], "of": len(probs),
+                    "dev_ap": dev_ap, "dev_auroc": dev_auc, "optimism": dev_ap - pm["AP"],
+                    "top10": float(np.interp(0.1, np.linspace(0, 1, 21), gx)),
+                    "top20": float(np.interp(0.2, np.linspace(0, 1, 21), gx)),
+                    "gains": gx.tolist(),
+                    "roc": [fx.tolist(), fy.tolist()], "pr": [rx.tolist(), ry.tolist()],
+                    "calibration": calibration_deciles(y, p, w),
+                    "operating": operating_point(y, p, w, meta["threshold"]),
+                    "subgroups": subgroup_auc(y, p, w, held),
+                    "vs_best": paired(best), "vs_logistic": paired("Logistic regression"),
+                    "tuning": tuning_block(m, meta),
+                    "n_predictors": meta["n_predictors"],
+                    "predictors": meta["predictors"]["numeric"] + meta["predictors"]["categorical"],
+                }
+                cards.setdefault(fam["key"], {})[short] = card
+                cross.append({"key": fam["key"], "set": set_, "rung": short, "ap": pm["AP"],
+                              "auroc": pm["AUROC"], "brier": pm["Brier"],
+                              "slope": pm["Calibration_slope"], "lift": card["lift"]})
 
-            ab = None
-            if len(abl) and m in set(abl.model):
-                a = abl[abl.model == m]
-                ab = []
-                for par, g in a[a.parameter != "(library defaults)"].groupby("parameter"):
-                    ab.append({"param": par, "worst": float(g.AP_vs_tuned.min()),
-                               "best": float(g.AP_vs_tuned.max())})
-                ab.sort(key=lambda r: r["worst"])
-            tb = tuning_block(m, rung, drow, hp, ab, gains_by.get((rung, m)))
-            if m in NETS:
-                c = TrainConfig()
-                tb = {"tuned": False, "network": {
-                    "epochs": c.epochs, "batch": c.batch, "lr": c.lr, "weight_decay": c.weight_decay,
-                    "patience": c.patience, "val_share": c.val_share, "seeds": [2026, 2027, 2028],
-                    "layers": 2 if m == "Ladder transformer" else 1, "width": 32, "heads": 4},
-                    "how": "Trained, not searched: fixed settings, early stopping on held-back clusters, "
-                           "three seeds averaged in development."}
-
-            card = {
-                "ap": pm["AP"], "ap_ci": ci(boot_ap[m]), "auroc": pm["AUROC"], "auroc_ci": ci(boot_au[m]),
-                "brier": pm["Brier"], "citl": pm["CITL"], "slope": pm["Calibration_slope"], "ici": pm["ICI"],
-                "prevalence": prev, "target": target, "target_share": share, "lift": pm["AP"] - prev, "ratio": pm["AP"] / prev,
-                "rank": rank_ap[m], "of": len(probs),
-                "dev_ap": dev_ap, "dev_auroc": dev_auc,
-                "optimism": None if dev_ap is None else dev_ap - pm["AP"],
-                "top10": top10, "top20": top20,
-                "gains": gx.tolist(),
-                "roc": [fx.tolist(), fy.tolist()], "pr": [rx.tolist(), ry.tolist()],
-                "calibration": calibration_deciles(y, p, w),
-                "operating": operating_point(y, p, w, thr[m]) if m in thr else None,
-                "subgroups": subgroup_auc(y, p, w, held),
-                "vs_best": paired(best), "vs_logistic": paired("Logistic regression"),
-                "tuning": tb,
-            }
-            cards.setdefault(fam["key"], {})[short] = card
-            cross.append({"key": fam["key"], "rung": short, "ap": pm["AP"], "auroc": pm["AUROC"],
-                          "brier": pm["Brier"], "slope": pm["Calibration_slope"], "lift": card["lift"]})
-
-        # perfect ranking, for the gains chart
-    summary["meta"] = {"n_development": int(len(df) - len(held_full)), "n_heldout": int(len(held_full)),
-                       "resamples": n_boot}
-
-    result = {"meta": summary["meta"], "families": fams, "cards": cards, "cross": cross}
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "model_cards.json").write_text(json.dumps(result), encoding="utf-8")
-    (OUT / "summary.json").write_text(json.dumps(summary, indent=1), encoding="utf-8")
+    meta = {"n_development": int(len(dev_all)), "n_heldout": int(len(held)), "resamples": n_boot,
+            "sets": [{"key": s, "label": lib.SET_LABEL[s]} for s in lib.SETS if s in summary]}
+    result = {"meta": meta, "families": fams, "cards": cards, "cross": cross}
+    out = args.out
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "model_cards.json").write_text(json.dumps(result), encoding="utf-8")
+    (out / "summary.json").write_text(json.dumps({"meta": meta, **summary}, indent=1), encoding="utf-8")
     log(f"wrote {len(fams)} families, {sum(len(v) for v in cards.values())} cards")
 
 

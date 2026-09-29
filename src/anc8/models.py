@@ -233,6 +233,11 @@ def suggest(trial, name: str) -> dict:
 # the workers do not each claim every core and spend their time contending.
 THREADS = -1
 
+# "gpu" moves the two boosters that can use one onto CUDA: CatBoost (whose
+# categorical CTR computation is what made it the slowest model on CPU) and
+# XGBoost. Every other family is CPU-only whatever this says.
+DEVICE = "cpu"
+
 
 def build(name: str, params: dict, numeric, categorical):
     """Instantiate a full preprocessing + estimator pipeline."""
@@ -273,7 +278,8 @@ def build(name: str, params: dict, numeric, categorical):
         import xgboost as xgb
         est = xgb.XGBClassifier(
             eval_metric="logloss", tree_method="hist",
-            random_state=RANDOM_STATE, n_jobs=THREADS, **params,
+            random_state=RANDOM_STATE, n_jobs=THREADS,
+            **({"device": "cuda"} if DEVICE == "gpu" else {}), **params,
         )
     elif name == "LightGBM":
         import lightgbm as lgb
@@ -286,7 +292,15 @@ def build(name: str, params: dict, numeric, categorical):
         est = _CatBoostIntCast(
             CatBoostClassifier(
                 verbose=0, random_seed=RANDOM_STATE, cat_features=cat_idx,
-                allow_writing_files=False, **params,
+                allow_writing_files=False,
+                # Each category on its own, no combinations: with 60 categorical
+                # predictors the combinations made one fit take minutes even on a GPU.
+                max_ctr_complexity=1,
+                # CatBoost takes 95% of GPU memory by default; two jobs and a
+                # network share one card, so each takes at most 40%.
+                **({"task_type": "GPU", "devices": "0", "gpu_ram_part": 0.4} if DEVICE == "gpu"
+                   else {"thread_count": THREADS}),
+                **params,
             ),
             cat_idx,
         )

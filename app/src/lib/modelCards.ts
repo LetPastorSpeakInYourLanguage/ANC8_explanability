@@ -1,6 +1,7 @@
 /**
  * The shape of app/public/data/models.json (scripts/run_model_cards.py): one card per
- * model and rung, every number scored on the same held-out women.
+ * model, predictor set and rung, every number scored on the same held-out women.
+ * A card key is `<set>.<slug>`; the slug names the model family across sets.
  */
 
 import type { Rung } from "@/lib/studio";
@@ -72,6 +73,8 @@ export interface Card {
   vs_best: Paired | null;
   vs_logistic: Paired | null;
   tuning: Tuning;
+  n_predictors: number;
+  predictors: string[];
 }
 
 export interface Family {
@@ -80,23 +83,28 @@ export interface Family {
   group: string;
   what: string;
   pre: string;
-  pool: 95 | 21 | 10;
+  slug: string;
+  set: string;
 }
 
 export interface ModelsData {
-  meta: { n_development: number; n_heldout: number; resamples: number };
+  meta: { n_development: number; n_heldout: number; resamples: number; sets: { key: string; label: string }[] };
   families: Record<string, Family>;
   cards: Record<string, Partial<Record<Rung, Card>>>;
-  cross: { key: string; rung: Rung; ap: number; auroc: number; brier: number; slope: number; lift: number }[];
+  cross: { key: string; set: string; rung: Rung; ap: number; auroc: number; brier: number; slope: number; lift: number }[];
 }
 
-export const GROUPS = ["Linear", "Trees & boosting", "Neural", "Ensembles & calibrated", "Reduced sets"];
+export const GROUPS = ["Linear", "Trees & boosting", "Neural", "Ensembles & calibrated"];
 
-/** The best model at a rung, by held-out average precision. */
-export function bestAt(d: ModelsData, rung: Rung): string {
+/** Short labels for the predictor-set switch. */
+export const SET_SHORT: Record<string, string> = { pool: "Full pool", s21: "21 set", short: "Short set", pars: "Parsimonious" };
+
+/** The best model on a predictor set at a rung, by held-out average precision. */
+export function bestAt(d: ModelsData, rung: Rung, set: string): string {
   let best = "";
   let v = -1;
   for (const [k, by] of Object.entries(d.cards)) {
+    if (d.families[k]?.set !== set) continue;
     const c = by[rung];
     if (c && c.ap > v) {
       v = c.ap;

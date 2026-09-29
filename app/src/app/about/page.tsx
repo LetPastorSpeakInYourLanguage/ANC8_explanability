@@ -71,8 +71,8 @@ export default function AboutPage() {
   const nat = reg?.cohorts.full.national;
   const recent = reg?.cohorts.recent.national;
   const supported = scen?.levers.filter((l) => l.supported).length;
-  const seq = mod?.cards["contact-sequence-encoder-decoder"]?.anc8?.ap;
-  const xgb = mod?.cards["xgboost"]?.anc8?.ap;
+  const seq = mod?.cards["pool.contact-sequence-encoder-decoder"]?.anc8?.ap;
+  const xgb = mod?.cards["pool.xgboost"]?.anc8?.ap;
   const n = (v: number | undefined, f: (x: number) => string) => (v == null ? "…" : f(v));
 
   return (

@@ -716,24 +716,23 @@ def test_studio():
     mp = base / "data" / "models.json"
     if mp.exists():
         mj = json.loads(mp.read_text(encoding="utf-8"))
-        an = json.loads((base / "analysis.json").read_text(encoding="utf-8")) if (base / "analysis.json").exists() else None
         fams, cards = mj["families"], mj["cards"]
-        if an:
-            import re as _re
-            name_key = {f["name"]: k for k, f in fams.items()}
-            worst, n_cmp = 0.0, 0
-            for rung, rows in an["leaderboard"].items():
-                short = "anc" + rung[3]
-                for r in rows:
-                    if r.get("held_AP") is None:
-                        continue
-                    nm = _re.sub(r"^V1 (.+)$", r" · 21 predictors", r["model"])
-                    k = name_key.get(nm)
-                    if k and short in cards.get(k, {}):
-                        worst = max(worst, abs(cards[k][short]["ap"] - r["held_AP"]))
-                        n_cmp += 1
-            check("every leaderboard model has a card that matches its held-out AP", n_cmp > 30 and worst < 1e-4,
-                  f"{n_cmp} cards, worst gap {worst:.1e}")
+        # The library is complete: every model, predictor set and rung has a card.
+        sys.path.insert(0, str(ROOT / "src"))
+        from anc8 import library as _lib
+        import re as _re
+        slug = lambda m: _re.sub(r"[^a-z0-9]+", "-", m.lower()).strip("-")
+        want = [(f"{j.set}.{slug(m)}", "anc" + r[3]) for j in _lib.jobs() for r, m in j.cells]
+        gone = [f"{k}/{r}" for k, r in want if r not in cards.get(k, {})]
+        check("every model, predictor set and rung has a card", not gone,
+              f"{len(want) - len(gone)} of {len(want)}; missing {'; '.join(gone[:4])}")
+        summ = ROOT / "outputs" / "library" / "summary.csv"
+        if summ.exists():
+            lib_rows = pd.read_csv(summ)
+            gaps = [abs(cards[f"{r.set}.{slug(r.model)}"]["anc" + r.rung[3]]["ap"] - r.held_AP)
+                    for r in lib_rows.itertuples() if "anc" + r.rung[3] in cards.get(f"{r.set}.{slug(r.model)}", {})]
+            check("every card matches the library's held-out AP", len(gaps) == len(lib_rows) and max(gaps, default=0) < 1e-4,
+                  f"{len(gaps)} of {len(lib_rows)} cards, worst gap {max(gaps, default=0):.1e}")
         bad_g = [f"{k}/{r}" for k, by in cards.items() for r, c in by.items()
                  if abs(c["gains"][0]) > 1e-9 or abs(c["gains"][-1] - 1) > 1e-3
                  or any(b < a - 1e-9 for a, b in zip(c["gains"], c["gains"][1:]))]
@@ -744,9 +743,9 @@ def test_studio():
         small = [f"{k}/{r}/{d}" for k, by in cards.items() for r, c in by.items()
                  for d, rows in c["subgroups"].items() for x in rows if x["n"] < 25]
         check("no subgroup cell has fewer than 25 women", not small, "; ".join(small[:4]))
-        nets = [k for k in ("ladder-transformer", "contact-sequence-encoder-decoder")
-                if all(r in cards.get(k, {}) for r in ("anc1", "anc4", "anc8"))]
-        check("both networks have a card at all three rungs", len(nets) == 2)
+        nets = [f"{st}.{k}" for st in _lib.SETS for k in ("ladder-transformer", "contact-sequence-encoder-decoder")
+                if all(r in cards.get(f"{st}.{k}", {}) for r in ("anc1", "anc4", "anc8"))]
+        check("both networks have a card at all three rungs on every set", len(nets) == 2 * len(_lib.SETS))
         check("each card carries a tuning or how-built block",
               all("tuning" in c for by in cards.values() for c in by.values()))
     else:

@@ -34,19 +34,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "outputs" / "enhanced"
 OUT.mkdir(parents=True, exist_ok=True)
 
-# Budgets chosen so the whole run lands in ~2h rather than ~8h.
-TRIALS = {
-    "Logistic regression": 40,
-    "Elastic net logistic": 20,
-    "Spline logistic": 40,
-    "Random Forest": 50,
-    "Extra Trees": 50,
-    "XGBoost": 60,
-    "LightGBM": 60,
-    "HistGradientBoosting": 40,
-    "Explainable Boosting": 20,
-    "MLP": 30,
-}
+TRIALS = tuning.TRIALS
 
 
 def log(msg):

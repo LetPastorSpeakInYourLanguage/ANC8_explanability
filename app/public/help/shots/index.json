@@ -147,37 +147,37 @@
      250,
      88,
      1176,
-     25
+     53
     ],
     "analysis.tiles": [
      250,
-     127,
+     155,
      1176,
      91
     ],
     "analysis.curves": [
      250,
-     232,
+     260,
      657,
      348
     ],
     "analysis.calibration": [
      921,
-     232,
+     260,
      505,
      278
     ],
     "analysis.threshold": [
      250,
-     593,
+     621,
      505,
-     307
+     279
     ],
     "analysis.tuning": [
      769,
-     593,
+     621,
      657,
-     307
+     279
     ],
     "mark:status": [
      0,
@@ -201,11 +201,11 @@
   },
   "analysis.differences": {
    "w": 581,
-   "h": 112
+   "h": 78
   },
   "analysis.grid": {
    "w": 581,
-   "h": 629
+   "h": 221
   },
   "analysis.learned": {
    "w": 1176,
@@ -213,7 +213,7 @@
   },
   "analysis.picker": {
    "w": 1176,
-   "h": 25
+   "h": 53
   },
   "analysis.threshold": {
    "w": 505,
@@ -229,7 +229,7 @@
   },
   "analysis.vs-chance": {
    "w": 581,
-   "h": 755
+   "h": 313
   },
   "analysis.where-works": {
    "w": 581,
@@ -1075,19 +1075,25 @@
      250,
      193,
      1176,
-     617
+     282
     ],
     "models.by-rung": [
      250,
-     824,
+     489,
      634,
-     76
+     389
     ],
     "models.by-set": [
      898,
-     824,
+     489,
      528,
-     76
+     221
+    ],
+    "models.tuning": [
+     898,
+     724,
+     528,
+     155
     ],
     "mark:status": [
      0,
@@ -1099,11 +1105,11 @@
   },
   "models.by-rung": {
    "w": 634,
-   "h": 634
+   "h": 389
   },
   "models.by-set": {
    "w": 528,
-   "h": 166
+   "h": 221
   },
   "models.calibration": {
    "w": 581,
@@ -1115,7 +1121,7 @@
   },
   "models.dev-held": {
    "w": 1176,
-   "h": 617
+   "h": 282
   },
   "models.networks": {
    "w": 581,

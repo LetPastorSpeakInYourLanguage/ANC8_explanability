@@ -1,22 +1,93 @@
 {
- "anc1": {
-  "best": "XGBoost",
-  "prevalence": 0.7615691189556617,
-  "n_models": 17
- },
- "anc4": {
-  "best": "LightGBM",
-  "prevalence": 0.5176109040661865,
-  "n_models": 17
- },
- "anc8": {
-  "best": "MLP",
-  "prevalence": 0.15980392199863247,
-  "n_models": 21
- },
  "meta": {
   "n_development": 5518,
   "n_heldout": 1375,
-  "resamples": 500
+  "resamples": 30,
+  "sets": [
+   {
+    "key": "pool",
+    "label": "Full pool"
+   },
+   {
+    "key": "s21",
+    "label": "21-predictor set"
+   },
+   {
+    "key": "short",
+    "label": "Short set"
+   },
+   {
+    "key": "pars",
+    "label": "Parsimonious set"
+   }
+  ]
+ },
+ "pool": {
+  "anc1": {
+   "best": "LightGBM",
+   "prevalence": 0.7615691189556617,
+   "n_models": 6
+  },
+  "anc4": {
+   "best": "LightGBM",
+   "prevalence": 0.5176109040661865,
+   "n_models": 6
+  },
+  "anc8": {
+   "best": "Extra Trees",
+   "prevalence": 0.15980392199863247,
+   "n_models": 6
+  }
+ },
+ "s21": {
+  "anc1": {
+   "best": "Contact-sequence encoder-decoder",
+   "prevalence": 0.7615691189556617,
+   "n_models": 6
+  },
+  "anc4": {
+   "best": "LightGBM",
+   "prevalence": 0.5176109040661865,
+   "n_models": 6
+  },
+  "anc8": {
+   "best": "Elastic net logistic",
+   "prevalence": 0.15980392199863247,
+   "n_models": 6
+  }
+ },
+ "short": {
+  "anc1": {
+   "best": "Extra Trees",
+   "prevalence": 0.7615691189556617,
+   "n_models": 6
+  },
+  "anc4": {
+   "best": "Elastic net logistic",
+   "prevalence": 0.5176109040661865,
+   "n_models": 6
+  },
+  "anc8": {
+   "best": "Extra Trees",
+   "prevalence": 0.15980392199863247,
+   "n_models": 5
+  }
+ },
+ "pars": {
+  "anc1": {
+   "best": "Extra Trees",
+   "prevalence": 0.7615691189556617,
+   "n_models": 6
+  },
+  "anc4": {
+   "best": "Extra Trees",
+   "prevalence": 0.5176109040661865,
+   "n_models": 5
+  },
+  "anc8": {
+   "best": "Extra Trees",
+   "prevalence": 0.15980392199863247,
+   "n_models": 5
+  }
  }
 }

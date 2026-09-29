@@ -29,6 +29,24 @@ from . import models as zoo
 
 warnings.filterwarnings("ignore")
 
+# Optuna trials per family. Budgets are scaled to per-fit cost, not set
+# uniformly: the boosters cost two orders of magnitude more per out-of-fold
+# pass than logistic regression. CatBoost's budget assumes a GPU; on CPU its
+# categorical CTR computation made 12 trials cost more than every other model.
+TRIALS = {
+    "Logistic regression": 40,
+    "Elastic net logistic": 20,
+    "Spline logistic": 40,
+    "Random Forest": 50,
+    "Extra Trees": 50,
+    "XGBoost": 60,
+    "LightGBM": 60,
+    "HistGradientBoosting": 40,
+    "Explainable Boosting": 20,
+    "MLP": 30,
+    "CatBoost": 20,
+}
+
 
 def _fit(pipe, X, y, w):
     """Fit a pipeline passing survey weights through to the estimator."""
@@ -88,6 +106,10 @@ def oof_predict(name, params, X, y, w, splits, numeric, categorical, n_jobs=1):
     return oof
 
 
+# A function that receives one line per finished trial, or None for silence.
+TRIAL_LOG = None
+
+
 def tune(name, X, y, w, splits, numeric, categorical, n_trials=60, seed=2026,
          n_jobs=1):
     """Optuna search maximising survey-weighted out-of-fold Average Precision.
@@ -110,7 +132,16 @@ def tune(name, X, y, w, splits, numeric, categorical, n_trials=60, seed=2026,
         direction="maximize",
         sampler=optuna.samplers.TPESampler(seed=seed),
     )
-    study.optimize(objective, n_trials=n_trials, show_progress_bar=False)
+    callbacks = []
+    if TRIAL_LOG is not None:
+        import time as _time
+        t0 = _time.time()
+
+        def _report(study, trial):
+            TRIAL_LOG(f"  trial {trial.number + 1}/{n_trials}: AP {trial.value:.4f}, "
+                      f"best {study.best_value:.4f}, {(_time.time() - t0) / 60:.1f} min")
+        callbacks.append(_report)
+    study.optimize(objective, n_trials=n_trials, show_progress_bar=False, callbacks=callbacks)
     return study.best_params, study.best_value
 
 

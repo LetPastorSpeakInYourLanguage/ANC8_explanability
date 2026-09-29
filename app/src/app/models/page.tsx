@@ -17,7 +17,7 @@ import type { Analysis } from "@/lib/analysis";
 import { useJSON } from "@/lib/data";
 import { OUTCOME_OF, RUNG_LABEL, num, signed } from "@/lib/explore";
 import { label } from "@/lib/labels";
-import { GROUPS, bestAt, type Card, type ModelsData } from "@/lib/modelCards";
+import { GROUPS, SET_SHORT, bestAt, type Card, type ModelsData } from "@/lib/modelCards";
 import { RUNGS, useStudio, type Rung } from "@/lib/studio";
 
 const pct = (v: number, d = 0) => `${(v * 100).toFixed(d)}%`;
@@ -40,20 +40,27 @@ export default function ModelAnalysisPage() {
   const err = data.error;
   const d = data.data;
 
+  // Models are asked for by family (the slug), so switching the predictor set keeps
+  // the same model in view.
   const view = useMemo(() => {
     if (!d) return null;
-    const asked = studio.params.get("model") ?? "";
-    const best = bestAt(d, rung);
+    const sets = d.meta.sets.map((x) => x.key);
+    const setAsked = studio.params.get("set") ?? "";
+    const set = sets.includes(setAsked) ? setAsked : sets.includes("pool") ? "pool" : sets[0];
+    const slug = (studio.params.get("model") ?? "").replace(/^[a-z0-9]+\./, "");
+    const asked = slug ? `${set}.${slug}` : "";
+    const best = bestAt(d, rung, set);
     const key = d.cards[asked]?.[rung] ? asked : best;
-    const vsAsked = studio.params.get("vs") ?? "";
+    const vsSlug = studio.params.get("vs") ?? "";
+    const vsAsked = vsSlug ? `${set}.${vsSlug}` : "";
     const vsKey = vsAsked && vsAsked !== key && d.cards[vsAsked]?.[rung] ? vsAsked : "";
-    return { asked, best, key, vsKey };
+    return { set, asked, best, key, vsKey };
   }, [d, studio.params, rung]);
 
   if (err) return <Screen><InlineError message={err} /></Screen>;
   if (!d || !view) return <Screen><PanelLoading rows={8} /></Screen>;
 
-  const { key, vsKey, best, asked } = view;
+  const { set, key, vsKey, best, asked } = view;
   const fam = d.families[key];
   const card = d.cards[key][rung]!;
   const vs: Card | null = vsKey ? d.cards[vsKey][rung]! : null;
@@ -61,13 +68,14 @@ export default function ModelAnalysisPage() {
   const outcome = OUTCOME_OF[rung];
   const rl = RUNG_LABEL[rung];
 
-  const available = Object.entries(d.cards).filter(([, by]) => by[rung]).map(([k]) => k);
+  const inSet = Object.keys(d.families).filter((k) => d.families[k].set === set);
+  const available = inSet.filter((k) => d.cards[k][rung]);
   const byGroup = GROUPS.map((g) => ({
     g,
     items: available.filter((k) => d.families[k].group === g).sort((a, b) => d.cards[b][rung]!.ap - d.cards[a][rung]!.ap),
   })).filter((x) => x.items.length);
 
-  const pick = (k: string) => studio.set({ model: k });
+  const pick = (k: string) => studio.set({ model: d.families[k].slug });
   const who = card.target === "miss" ? `miss ${rl}` : `reach ${rl}`;
   const slopeTone = card.slope < 0.8 || card.slope > 1.25 ? "warn" : "good";
 
@@ -83,10 +91,13 @@ export default function ModelAnalysisPage() {
     { key: `${p.key}-au`, label: `AUROC · vs ${p.vs}`, v: p.auroc, lo: p.auroc_ci[0], hi: p.auroc_ci[1] },
   ]);
 
-  const shareKey = key === "explainable-boosting" ? "ebm" : key === "xgboost" ? "shap" : null;
+  // Importance shares come from the study's own explainable boosting and XGBoost fits on
+  // the candidate pool; only predictors this model uses are listed.
+  const shareKey = set === "pool" ? (fam.slug === "explainable-boosting" ? "ebm" : fam.slug === "xgboost" ? "shap" : null) : null;
+  const uses = new Set(card.predictors);
   const shares = shareKey && ana.data
     ? (ana.data.predictor_matrix ?? [])
-        .filter((r) => r.rung === outcome && (r[shareKey] ?? 0) > 0)
+        .filter((r) => r.rung === outcome && uses.has(r.predictor) && (r[shareKey] ?? 0) > 0)
         .sort((a, b) => (b[shareKey] ?? 0) - (a[shareKey] ?? 0))
         .slice(0, 8)
     : [];
@@ -108,13 +119,14 @@ export default function ModelAnalysisPage() {
             </optgroup>
           ))}
         </Select>
+        <Segmented label="Predictors" options={d.meta.sets.map((x) => ({ key: x.key, label: SET_SHORT[x.key] ?? x.label }))} value={set} onChange={(k) => studio.set({ set: k })} />
         <Segmented label="Rung" options={RUNGS.map((r) => ({ key: r.key, label: r.label }))} value={rung} onChange={(k) => studio.set({ rung: k })} />
         <label className="flex items-center gap-6 text-10.5 text-dim">
           Compare
           <Select
             aria-label="Compare with"
             value={vsKey}
-            onChange={(e) => studio.set({ vs: e.target.value })}
+            onChange={(e) => studio.set({ vs: e.target.value ? d.families[e.target.value].slug : "" })}
             className="w-auto min-w-[180px] h-22 text-10.5"
           >
             <option value="">nothing</option>
@@ -126,11 +138,11 @@ export default function ModelAnalysisPage() {
         <span className="flex gap-4 ml-auto">
           {best === key && <Tag tone="good">best at {rl}</Tag>}
           <Tag tone="neutral">{fam.group}</Tag>
-          {fam.pool !== 95 && <Tag tone="cross">{fam.pool} predictors</Tag>}
+          <Tag tone="cross">{card.n_predictors} predictors</Tag>
         </span>
       </div>
       {asked && asked !== key && (
-        <Note tone="accent">{d.families[asked]?.name ?? asked} was not run at {rl}. Showing {fam.name}.</Note>
+        <Note tone="accent">{d.families[asked]?.name ?? asked.replace(/^[a-z0-9]+\./, "")} is not in the library for this set at {rl}. Showing {fam.name}.</Note>
       )}
 
       <div data-help="analysis.tiles" className="grid gap-10 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
@@ -256,13 +268,13 @@ export default function ModelAnalysisPage() {
           </Panel>
 
           <Panel help="analysis.grid"
-            title="Every model, every rung"
-            how="Held-out average precision. Each column is shaded on its own, since rungs differ in difficulty. Click a row to look at that model."
+            title={`Every model, every rung · ${SET_SHORT[set] ?? set}`}
+            how="Held-out average precision on this predictor set. Each column is shaded on its own, since rungs differ in difficulty. Click a row to look at that model."
           >
             <MatrixHeat
               theme={theme}
               perColumn
-              rows={Object.keys(d.families)
+              rows={inSet
                 .sort((a, b) => (d.cards[b][rung]?.ap ?? -1) - (d.cards[a][rung]?.ap ?? -1))
                 .map((k) => ({
                   key: k,
@@ -290,7 +302,7 @@ export default function ModelAnalysisPage() {
           <StatTile label="Development women" value={d.meta.n_development.toLocaleString("en-US")} sub="tuned and cross-validated here" />
           <StatTile label="Held-out women" value={d.meta.n_heldout.toLocaleString("en-US")} sub="scored once, at the end" />
           <StatTile label={`Reach ${rl}`} value={pct(card.prevalence)} sub="weighted share; the chance level" />
-          <StatTile label="Predictors" value={fam.pool} sub={fam.pool === 95 ? "the full pool" : fam.pool === 21 ? "the short list" : "chosen by forward selection"} />
+          <StatTile label="Predictors" value={card.n_predictors} sub={d.meta.sets.find((x) => x.key === set)?.label ?? set} />
         </div>
         {shares.length > 0 && shareKey && (
           <div className="border-t border-border">

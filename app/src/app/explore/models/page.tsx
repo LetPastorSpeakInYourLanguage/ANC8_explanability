@@ -7,17 +7,16 @@ import MatrixHeat from "@/components/charts/MatrixHeat";
 import { AXIS, ChartBox, GRID, SeriesLegend, TipPanel, tip } from "@/components/charts/rc";
 import { useRenderTheme } from "@/components/shell/theme-provider";
 import { DataNote, InlineError, Note, Panel, PanelLoading, Screen, Segmented, StatTile, Tag } from "@/components/studio/ui";
-import type { Analysis, LeaderboardRow } from "@/lib/analysis";
+import type { Analysis } from "@/lib/analysis";
 import { useJSON } from "@/lib/data";
 import {
-  NETWORKS, OUTCOME_OF, RUNG_LABEL, RUNG_OF, modelName, num, poolOf, setName, signed,
+  NETWORKS, OUTCOME_OF, RUNG_LABEL, RUNG_OF, num, signed,
   type ExploreData, type Outcome,
 } from "@/lib/explore";
-import { cohortRungs } from "@/lib/regionsData";
-import { COHORTS, RUNGS, useStudio } from "@/lib/studio";
+import { SET_SHORT, type ModelsData } from "@/lib/modelCards";
+import { RUNGS, useStudio } from "@/lib/studio";
 
 const OUTCOMES: Outcome[] = ["anc1plus", "anc4plus", "anc8plus"];
-const nz = (v: number | null | undefined) => (v == null || v === 0 ? null : v);
 
 type Measure = "AP" | "AUROC" | "lift" | "Brier";
 const MEASURES: { key: Measure; label: string; title: string }[] = [
@@ -35,7 +34,6 @@ const CAL_COLOR: Record<string, string> = {
 interface ModelRow {
   model: string;
   name: string;
-  pool: "95" | "21";
   network: boolean;
   held: Partial<Record<"AP" | "AUROC" | "Brier", number>>;
   dev: number | null;
@@ -46,6 +44,7 @@ export default function ModelsPage() {
   const theme = useRenderTheme();
   const ana = useJSON<Analysis>("/analysis.json");
   const exp = useJSON<ExploreData>("/data/explore.json");
+  const lib = useJSON<ModelsData>("/data/models.json");
   const [measure, setMeasure] = useState<Measure>("AP");
   const [ablModel, setAblModel] = useState("XGBoost");
   const [calFocus, setCalFocus] = useState<string | null>(null);
@@ -53,32 +52,31 @@ export default function ModelsPage() {
   const rung = studio.rung;
   const outcome = OUTCOME_OF[rung];
 
-  // Every model at every rung: the tree and linear models from the leaderboard plus
-  // the two networks, all scored on the same 1,375 held-out women.
+  // The model library on one predictor set: every model at every rung, all scored on
+  // the same 1,375 held-out women.
+  const sets = lib.data?.meta.sets.map((x) => x.key) ?? [];
+  const setAsked = studio.params.get("set") ?? "";
+  const set = sets.includes(setAsked) ? setAsked : sets.includes("pool") ? "pool" : sets[0] ?? "pool";
   const models = useMemo(() => {
     const out: Record<Outcome, ModelRow[]> = { anc1plus: [], anc4plus: [], anc8plus: [] };
-    if (!ana.data) return out;
+    const d = lib.data;
+    if (!d) return out;
     for (const o of OUTCOMES) {
-      out[o] = (ana.data.leaderboard[o] ?? []).map((r: LeaderboardRow) => ({
-        model: r.model,
-        name: modelName(r.model),
-        pool: poolOf(r.generation),
-        network: false,
-        held: { AP: r.held_AP ?? undefined, AUROC: r.held_AUROC ?? undefined, Brier: r.held_Brier ?? undefined },
-        dev: nz(r.dev_AP),
-      }));
-      for (const n of NETWORKS) {
-        const h = exp.data?.networks?.heldout.find((r) => r.rung === o && r.model === n);
-        const d = exp.data?.networks?.development.find((r) => r.rung === o && r.model === n);
-        if (h) out[o].push({ model: n, name: n, pool: "95", network: true, held: { AP: h.AP, AUROC: h.AUROC, Brier: h.Brier }, dev: d?.AP ?? null });
+      for (const [k, f] of Object.entries(d.families)) {
+        const c = f.set === set ? d.cards[k][RUNG_OF[o]] : undefined;
+        if (!c) continue;
+        out[o].push({
+          model: f.slug, name: f.name, network: NETWORKS.includes(f.name),
+          held: { AP: c.ap, AUROC: c.auroc, Brier: c.brier }, dev: c.dev_ap,
+        });
       }
     }
     return out;
-  }, [ana.data, exp.data]);
+  }, [lib.data, set]);
 
-  const err = ana.error ?? exp.error;
+  const err = ana.error ?? exp.error ?? lib.error;
   if (err) return <Screen><InlineError message={err} /></Screen>;
-  if (!ana.data) return <Screen><PanelLoading rows={8} /></Screen>;
+  if (!ana.data || !lib.data) return <Screen><PanelLoading rows={8} /></Screen>;
   const a = ana.data;
   const prev = (o: Outcome) => a.outcomes[o].weighted_prevalence;
 
@@ -93,6 +91,15 @@ export default function ModelsPage() {
       onChange={(k) => studio.set({ rung: k })}
     />
   );
+  const setPicker = (
+    <Segmented
+      label="Predictors"
+      options={lib.data.meta.sets.map((x) => ({ key: x.key, label: SET_SHORT[x.key] ?? x.label }))}
+      value={set}
+      onChange={(k) => studio.set({ set: k })}
+    />
+  );
+  const setLabel = SET_SHORT[set] ?? set;
 
   // model x rung grid
   const names = [...new Set(OUTCOMES.flatMap((o) => models[o].map((m) => m.name)))];
@@ -109,17 +116,32 @@ export default function ModelsPage() {
     }))
     .sort((x, y) => (y.values[outcome] ?? -9) * (measure === "Brier" ? -1 : 1) - (x.values[outcome] ?? -9) * (measure === "Brier" ? -1 : 1));
 
-  // model x predictor set, for the current cohort
-  const cohort = cohortRungs(studio.cohort).includes(rung) ? studio.cohort : "full";
-  const fvh = a.feature_value?.[cohort]?.[outcome]?.heldout ?? [];
-  const sets = ["tier 1", "tier 1+2", "original 21", "all 88"].filter((s) => fvh.some((r) => r.set === s));
-  const fams = [...new Set(fvh.map((r) => r.model))];
+  // model x predictor set at this rung, from the library
+  const L = lib.data;
+  const fams = Object.values(L.families);
+  const slugs = [...new Set(fams.map((f) => f.slug))];
+  const cellOf = (slug: string, s: string) => L.cards[`${s}.${slug}`]?.[rung];
+  const bySet = slugs
+    .map((slug) => ({
+      key: slug,
+      label: fams.find((f) => f.slug === slug)!.name,
+      values: Object.fromEntries(sets.map((s) => [s, cellOf(slug, s)?.ap ?? null])),
+    }))
+    .sort((x, y) => (y.values[set] ?? -1) - (x.values[set] ?? -1));
+  const setCols = sets.map((s) => {
+    const n = slugs.map((slug) => cellOf(slug, s)?.n_predictors).find((v) => v != null);
+    return { key: s, label: `${SET_SHORT[s] ?? s}${n != null ? ` (${n})` : ""}` };
+  });
+  const tunedRows = models[outcome].filter((m) => !m.network && m.dev != null && m.held.AP != null);
+  const drop = tunedRows.length ? tunedRows.reduce((t, m) => t + (m.dev! - m.held.AP!), 0) / tunedRows.length : null;
 
   const tuning = (a.tuning_gain ?? []).filter((r) => r.rung === outcome);
   const abl = a.ablation?.[outcome]?.[ablModel];
   const hp = a.hyperparameters?.[outcome]?.[ablModel] ?? {};
 
-  const cal = a.calibration?.[outcome] ?? {};
+  const cal: Record<string, { predicted: number; observed: number; n: number }[]> = Object.fromEntries(
+    CAL_MODELS.map((m) => [m, cellOf(fams.find((f) => f.name === m)?.slug ?? "", set)?.calibration ?? []]),
+  );
   const calModels = CAL_MODELS.filter((m) => cal[m]?.length);
   const dca = a.decision_curve?.[outcome] ?? [];
   const dcaName = dca[0]?.model_name ?? "Model";
@@ -149,15 +171,15 @@ export default function ModelsPage() {
       </div>
 
       <Panel help="models.dev-held"
-        title={`Every model, development against held-out · ${RUNG_LABEL[rung]}`}
+        title={`Every model, development against held-out · ${setLabel} · ${RUNG_LABEL[rung]}`}
         how="Rings: cross-validated accuracy on the 5,518 development women, which the tuning saw. Dots: accuracy on the 1,375 held-out women, which nothing saw until the end. A long line from ring to dot is optimism. Networks are drawn in orange. The dashed line is chance."
-        actions={rungPicker}
+        actions={<span className="flex flex-wrap gap-6">{setPicker}{rungPicker}</span>}
       >
         <DotRows
           rows={rows.map((m) => ({
             key: m.name,
             label: m.name,
-            tag: m.network ? <Tag tone="warn">network</Tag> : m.pool === "21" ? <Tag tone="cross">21</Tag> : undefined,
+            tag: m.network ? <Tag tone="warn">network</Tag> : undefined,
             values: { dev: m.dev, held: m.network ? null : m.held.AP, net: m.network ? m.held.AP : null },
             display: num(m.held.AP),
           }))}
@@ -170,13 +192,13 @@ export default function ModelsPage() {
           format={(v) => v.toFixed(2)}
           labelWidth={250}
         />
-        {a.optimism?.[outcome] && (
+        {drop != null && (
           <div className="px-14 pb-12">
-            <Note tone={a.optimism[outcome].mean_drop > 0.03 ? "warn" : "accent"}>
-              Across the {a.optimism[outcome].n_models} tuned models, held-out accuracy was{" "}
-              {a.optimism[outcome].mean_drop > 0
-                ? `${num(a.optimism[outcome].mean_drop)} below development on average: the held-out women are harder at this rung, so compare models on the dots, not the rings.`
-                : `${num(-a.optimism[outcome].mean_drop)} above development on average: no sign that tuning overfitted.`}
+            <Note tone={drop > 0.03 ? "warn" : "accent"}>
+              Across the {tunedRows.length} models on this set, held-out accuracy was{" "}
+              {drop > 0
+                ? `${num(drop)} below development on average: the held-out women are harder at this rung, so compare models on the dots, not the rings.`
+                : `${num(-drop)} above development on average: no sign that tuning overfitted.`}
             </Note>
           </div>
         )}
@@ -185,8 +207,8 @@ export default function ModelsPage() {
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
         <Panel help="models.by-rung"
-          title="Model by rung"
-          how="Held-out scores for every model at every rung. Each column is shaded on its own (rungs differ in how hard they are), so read a column from dark to light to see the ranking at that rung. Blank: the model was not run at that rung."
+          title={`Model by rung · ${setLabel}`}
+          how="Held-out scores for every model at every rung, on this predictor set. Each column is shaded on its own (rungs differ in how hard they are), so read a column from dark to light to see the ranking at that rung."
           actions={<Segmented label="Measure" options={MEASURES} value={measure} onChange={setMeasure} />}
         >
           <MatrixHeat
@@ -205,20 +227,18 @@ export default function ModelsPage() {
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
           <Panel help="models.by-set"
-            title={`Model by predictor count · ${RUNG_LABEL[rung]}`}
-            how={`Held-out average precision for four model families, each trained on predictor sets of different sizes (${COHORTS.find((c) => c.key === cohort)!.label.toLowerCase()}). One shading for the whole grid, so any two cells compare. A small set that holds its colour is the cheaper tool.`}
+            title={`Model by predictor set · ${RUNG_LABEL[rung]}`}
+            how="Held-out average precision for every model on each predictor set, all free of duplicate predictors. One shading for the whole grid, so any two cells compare. A small set that holds its colour is the cheaper tool. Click a column to show that set."
           >
-            {fvh.length ? (
+            {bySet.length ? (
               <MatrixHeat
                 theme={theme}
-                rows={fams.map((f) => ({
-                  key: f,
-                  label: f,
-                  values: Object.fromEntries(sets.map((s) => [s, fvh.find((r) => r.model === f && r.set === s)?.AP ?? null])),
-                }))}
-                cols={sets.map((s) => ({ key: s, label: setName(s, fvh.find((r) => r.set === s)?.n_predictors) }))}
+                rows={bySet}
+                cols={setCols}
                 format={(v) => v.toFixed(3)}
-                labelWidth={120}
+                activeCol={set}
+                onCol={(k) => studio.set({ set: k })}
+                labelWidth={200}
                 cellWidth={70}
               />
             ) : (

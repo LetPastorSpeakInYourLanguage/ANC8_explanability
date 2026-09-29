@@ -292,7 +292,7 @@ export const EXPLORE: HelpTopic[] = [
         read: [
           "A long line from ring to dot is optimism: the model looked better during building than it is.",
           "Rank models by the dots.",
-          "Networks are orange and tagged; models using only 21 predictors are tagged \"21\".",
+          "Networks are orange and tagged. Every row is on the predictor set chosen above.",
           "The dashed line is chance. The note underneath says whether held-out accuracy fell or rose overall.",
         ],
         terms: ["optimism", "cv", "heldout"],
@@ -304,17 +304,18 @@ export const EXPLORE: HelpTopic[] = [
         read: [
           "Each column is shaded on its own (rungs differ in difficulty): read a column from dark to light for the ranking at that rung.",
           "**Measure**: average precision, the gain over chance, AUROC, or the Brier score (for Brier, lower is better).",
-          "Blank: the model was not run at that rung.",
+          "Every model is on the predictor set chosen above.",
         ],
         terms: ["ap", "lift", "auroc", "brier"],
       },
       {
         id: "by-set",
-        title: "Model by predictor count",
-        shows: "Held-out average precision for four model families, each trained on predictor sets of different sizes.",
+        title: "Model by predictor set",
+        shows: "Held-out average precision for every model on each of the four predictor sets, at this rung. The number of predictors is in each column title.",
         read: [
           "One shading for the whole grid, so any two cells compare.",
           "A small set that holds its colour is the cheaper tool: fewer questions for the same accuracy.",
+          "Click a column to show that set on the rest of the page.",
         ],
       },
       {

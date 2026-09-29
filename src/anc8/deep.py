@@ -1,4 +1,4 @@
-"""Neural networks for the ANC ladder (PyTorch, CPU).
+"""Neural networks for the ANC ladder (PyTorch; CPU by default, CUDA when `DEVICE` says so).
 
 Two networks, each built where a network can do something the tree models cannot:
 
@@ -36,6 +36,10 @@ import torch
 from torch import nn
 
 torch.set_num_threads(max(1, torch.get_num_threads()))
+
+# Where training and prediction run. The library runner sets it to cuda on a GPU
+# machine; everything else leaves it on the CPU.
+DEVICE = torch.device("cpu")
 
 MAX_CONTACT = 9  # counts of 9 or more are one class, "nine or more"
 
@@ -202,7 +206,7 @@ class ContactSequenceNet(nn.Module):
 
 def survival(cont: torch.Tensor) -> torch.Tensor:
     """S[:, k] = P(count >= k) for k = 0..steps, from the continuation probabilities."""
-    ones = torch.ones(cont.shape[0], 1, dtype=cont.dtype)
+    ones = torch.ones(cont.shape[0], 1, dtype=cont.dtype, device=cont.device)
     return torch.cat([ones, torch.cumprod(cont, dim=1)], dim=1)
 
 
@@ -211,7 +215,7 @@ def sequence_nll(cont: torch.Tensor, counts: torch.Tensor, w: torch.Tensor) -> t
     eps = 1e-7
     logc = torch.log(cont.clamp(eps, 1 - eps))
     log1m = torch.log((1 - cont).clamp(eps, 1 - eps))
-    csum = torch.cat([torch.zeros(cont.shape[0], 1), torch.cumsum(logc, dim=1)], dim=1)
+    csum = torch.cat([torch.zeros(cont.shape[0], 1, device=cont.device), torch.cumsum(logc, dim=1)], dim=1)
     c = counts.clamp(max=cont.shape[1]).long()
     ll = csum.gather(1, c.unsqueeze(1)).squeeze(1)
     stop = c < cont.shape[1]
@@ -251,7 +255,7 @@ def train_one(kind: str, prep: Prep, fit_df: pd.DataFrame, val_df: pd.DataFrame,
     rng = np.random.default_rng(seed)
     arch = arch or {}
     Model = LadderTransformer if kind == "ladder" else ContactSequenceNet
-    model = Model(len(prep.numeric), prep.cardinalities, **arch)
+    model = Model(len(prep.numeric), prep.cardinalities, **arch).to(DEVICE)
     opt = torch.optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
 
     def tensors(df):
@@ -259,7 +263,7 @@ def train_one(kind: str, prep: Prep, fit_df: pd.DataFrame, val_df: pd.DataFrame,
         y = torch.tensor(df[["anc1plus", "anc4plus", "anc8plus"]].to_numpy(np.float32))
         c = torch.tensor(df["anc_contacts"].fillna(0).to_numpy(np.float32))
         w = torch.tensor((df["v005"] / 1e6).to_numpy(np.float32))
-        return xn, xm, xc, y, c, w
+        return tuple(t.to(DEVICE) for t in (xn, xm, xc, y, c, w))
 
     tr, va = tensors(fit_df), tensors(val_df)
 
@@ -274,6 +278,7 @@ def train_one(kind: str, prep: Prep, fit_df: pd.DataFrame, val_df: pd.DataFrame,
         model.train()
         for b in _batches(len(fit_df), cfg.batch, rng):
             opt.zero_grad()
+            b = torch.as_tensor(b, device=DEVICE)
             loss = loss_of(tuple(t[b] for t in tr))
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -293,20 +298,40 @@ def train_one(kind: str, prep: Prep, fit_df: pd.DataFrame, val_df: pd.DataFrame,
     return model, {"best_val_loss": best, "epochs": epoch + 1}
 
 
+def inner_split(frame: pd.DataFrame, share: float, seed: int):
+    """Hold back a share of PSUs (within the training rows) for early stopping."""
+    rng = np.random.default_rng(seed)
+    psus = frame.v021.unique()
+    val = set(rng.choice(psus, size=max(1, int(round(share * len(psus)))), replace=False))
+    m = frame.v021.isin(val).to_numpy()
+    return frame[~m].reset_index(drop=True), frame[m].reset_index(drop=True)
+
+
+def fit(kind, frame, numeric, categorical, seed, cfg):
+    """One network on `frame`: preprocessing fitted on its training clusters,
+    early stopping on the held-back ones."""
+    tr, va = inner_split(frame, cfg.val_share, seed)
+    prep = Prep(numeric, categorical).fit(tr)
+    model, info = train_one(kind, prep, tr, va, seed, cfg)
+    return model, prep, info
+
+
 @torch.no_grad()
 def predict(model, prep: Prep, df: pd.DataFrame, attention=False):
     """Ladder probabilities (n, 3) for ANC1+/4+/8+, plus attention if asked.
 
     For the sequence net the attention is (n, steps, predictors) and the survival
     curve S (n, steps + 1) is returned as well."""
-    xn, xm, xc = prep.transform(df)
+    xn, xm, xc = (t.to(DEVICE) for t in prep.transform(df))
     model.eval()
     if isinstance(model, LadderTransformer):
         p, a = model(xn, xm, xc, return_attention=True)
+        p, a = p.cpu(), a.cpu()
         return (p.numpy(), a.numpy()) if attention else p.numpy()
     cont, a = model(xn, xm, xc, return_attention=True)
     S = survival(cont)
     p = torch.stack([S[:, 1], S[:, 4], S[:, 8]], dim=1)
+    p, a, S = p.cpu(), a.cpu(), S.cpu()
     return (p.numpy(), a.numpy(), S.numpy()) if attention else p.numpy()
 
 

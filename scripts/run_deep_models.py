@@ -64,20 +64,7 @@ def load():
     return df, dev, held, splits, numeric, categorical
 
 
-def inner_split(frame: pd.DataFrame, share: float, seed: int):
-    """Hold back a share of PSUs (within the training rows) for early stopping."""
-    rng = np.random.default_rng(seed)
-    psus = frame.v021.unique()
-    val = set(rng.choice(psus, size=max(1, int(round(share * len(psus)))), replace=False))
-    m = frame.v021.isin(val).to_numpy()
-    return frame[~m].reset_index(drop=True), frame[m].reset_index(drop=True)
-
-
-def fit(kind, frame, numeric, categorical, seed, cfg):
-    tr, va = inner_split(frame, cfg.val_share, seed)
-    prep = deep.Prep(numeric, categorical).fit(tr)
-    model, info = deep.train_one(kind, prep, tr, va, seed, cfg)
-    return model, prep, info
+fit = deep.fit
 
 
 def weighted_metrics(y, p, w):

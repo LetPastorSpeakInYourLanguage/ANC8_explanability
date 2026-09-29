@@ -37,8 +37,8 @@ export const MODELS: HelpTopic[] = [
           "**Predictors**: which predictor set the model was trained on. **Full pool** is every candidate predictor; **21 set** the 21-predictor set; **Short set** the strongest few that clear the bar at this rung; **Parsimonious** a small set chosen to keep accuracy with fewer questions. Switching the set keeps the same kind of model in view.",
           "**ANC1+ | ANC4+ | ANC8+**: the rung.",
           "**Compare**: a second model, on the same predictor set, to draw beside the first.",
-          "Tags at the right: \"best at\" the rung if it is the top model, its kind, and its number of predictors if it is not the full pool.",
-          "If a model was not run at the chosen rung, a note says so and the best model is shown instead.",
+          "Tags at the right: \"best at\" the rung if it is the top model, its kind, and its number of predictors.",
+          "If a model is not in the library for the chosen set and rung, a note says so and the best model is shown instead.",
         ],
         terms: ["trees", "logistic", "network"],
       },
@@ -151,7 +151,6 @@ export const MODELS: HelpTopic[] = [
         shows: "Held-out average precision for every model on the chosen predictor set, at the three rungs.",
         read: [
           "Each column is shaded on its own, since rungs differ in difficulty.",
-          "Blank: the model was not run at that rung.",
           "Click a row to look at that model; click a column title to switch rung.",
         ],
       },
