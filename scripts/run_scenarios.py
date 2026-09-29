@@ -1,14 +1,20 @@
 """What-if scenarios for the planner: g-computation with the fitted rung models.
 
-    python scripts/run_scenarios.py            # 200 bootstrap resamples
-    python scripts/run_scenarios.py --quick    # 20
+    python scripts/run_scenarios.py                            # both models, 200 resamples
+    python scripts/run_scenarios.py --models logistic          # logistic regression only
+    python scripts/run_scenarios.py --quick                    # 20 resamples
 
 A lever is something a health system can change, written as an edit to each woman's
 record: "a health post within 30 minutes" sets her travel time to at most 30
-minutes; "insured" sets her insurance to yes. Every woman is re-scored by the
-explainable boosting model for each rung with the lever applied, and the average
-change in her predicted chance, by region, is the lever's effect (g-computation, or
-standardisation). Women already in the better state are unchanged.
+minutes; "insured" sets her insurance to yes. Every woman is re-scored with the lever
+applied, and the average change in her predicted chance, by region, is the lever's
+effect (g-computation, or standardisation). Women already in the better state are
+unchanged.
+
+Two models score the women, each the library's model on the full candidate pool
+(scripts/fit_library_models.py): explainable boosting and logistic regression. Both
+are computed in full, so the studio can show either and the difference between them;
+"primary" names the one the planner opens with.
 
 Levers combine exactly. With seven levers there are 128 on/off combinations; each
 woman is scored under every one. If a planner reaches a share f_i of the women each
@@ -24,8 +30,7 @@ It is fitted here on the ANC-entry cohort (logistic regression, all predictors p
 early_anc) and applies to women who start ANC; it is added on top of the others.
 
 Uncertainty: stratified PSU bootstrap of each region's average effect with the
-model held fixed (who lives where), plus the same effects from the logistic
-regression as a check that the answer is not one model's quirk.
+model held fixed (who lives where).
 
 All of this is association-based: it says what the model expects if women's
 circumstances changed, not what an intervention would cause.
@@ -52,9 +57,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from anc8 import cohorts, design  # noqa: E402
+from anc8 import cohorts, design, library as lib, selection as sel  # noqa: E402
 
 ENHANCED = ROOT / "outputs" / "enhanced"
+LIBRARY_MODELS = ROOT / "outputs" / "library" / "models"
+LEVER_MODELS = {"ebm": "Explainable Boosting", "logistic": "Logistic regression"}
 OUT = ROOT / "outputs" / "scenarios"
 RUNGS = {"anc1plus": "anc1", "anc4plus": "anc4", "anc8plus": "anc8"}
 SEED = 2026
@@ -90,6 +97,8 @@ def _hospital(d):
     _set(d, m, "s1101", 60.0)
     _set(d, m, "travel_hospital_log", np.log1p(60.0))
     _set(d, m, "travel_hospital_topcoded", 0.0)
+    if "travel_time_min" in d:  # the clean pool keeps this one of the exact twins
+        _set(d, d.travel_time_min > 60, "travel_time_min", 60)
     if "v115" in d:
         _set(d, m & (d.v115 < 998) & (d.v115 > 60), "v115", 60)
     return m
@@ -114,6 +123,10 @@ def _information(d):
     m = d.v158 < 2
     _set(d, m, "v158", 2)
     _set(d, m, "radio_weekly", 1.0)
+    # The 21-set's media count is the number of weekly sources (radio, TV, newspaper):
+    # a woman who starts listening weekly has one more, or her record contradicts itself.
+    if "traditional_media_weekly_count" in d:
+        d.loc[m, "traditional_media_weekly_count"] = d.loc[m, "traditional_media_weekly_count"] + 1
     return m
 
 
@@ -179,9 +192,8 @@ def early_visit(full: pd.DataFrame, n_boot: int) -> dict:
     from sklearn.pipeline import Pipeline
     from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-    blob = joblib_load(ENHANCED / "anc8plus" / "enhanced_models.joblib")
-    numeric, categorical = blob["numeric"], blob["categorical"]
-    e = cohorts.load("entry")
+    numeric, categorical = (list(x) for x in lib.clean_pool())
+    e = lib.raw_frame("entry")
     w = (e.v005 / 1e6).to_numpy()
     dev = (e.partition == "development").to_numpy()
     X = model_matrix(e, numeric, categorical)
@@ -231,12 +243,13 @@ def joblib_load(p):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true")
+    ap.add_argument("--models", nargs="*", choices=list(LEVER_MODELS), default=list(LEVER_MODELS))
     args = ap.parse_args()
     n_boot = 20 if args.quick else 200
     t0 = time.time()
     OUT.mkdir(parents=True, exist_ok=True)
 
-    full = cohorts.load("full")
+    full = lib.raw_frame()
     w = (full.v005 / 1e6).to_numpy()
     regions = sorted(full.region.astype(str).unique())
     reg_idx = pd.Categorical(full.region.astype(str), categories=regions).codes
@@ -253,7 +266,9 @@ def main():
     subsets = list(itertools.product([0, 1], repeat=len(LEVERS)))
     out = {"levers": [{k: v for k, v in lv.items() if k != "apply"} for lv in LEVERS],
            "regions": names, "subsets": ["".join(map(str, s)) for s in subsets],
-           "eligible": eligible, "rungs": {}, "bootstrap_resamples": n_boot}
+           "eligible": eligible, "bootstrap_resamples": n_boot,
+           "primary": args.models[0], "model_labels": {k: LEVER_MODELS[k] for k in args.models},
+           "by_model": {k: {"rungs": {}} for k in args.models}}
 
     frames = {}
     for s in subsets:
@@ -263,12 +278,11 @@ def main():
                 lv["apply"](d)
         frames[s] = d
 
-    for outcome, rung in RUNGS.items():
-        blob = joblib_load(ENHANCED / outcome / "enhanced_models.joblib")
+    for (outcome, rung), key in itertools.product(RUNGS.items(), args.models):
+        blob = joblib_load(LIBRARY_MODELS / f"pool_{outcome}.joblib")
         numeric, categorical = blob["numeric"], blob["categorical"]
-        ebm = blob["models"]["Explainable Boosting"]
-        lr = blob["models"].get("Logistic regression")
-        P = np.column_stack([ebm.predict_proba(model_matrix(frames[s], numeric, categorical))[:, 1] for s in subsets])
+        model = blob["models"][LEVER_MODELS[key]]
+        P = np.column_stack([model.predict_proba(model_matrix(frames[s], numeric, categorical))[:, 1] for s in subsets])
         means = weighted_by_region(P, w, reg_idx, len(regions))  # (regions+1, 128)
         singles = [subsets.index(tuple(int(j == i) for j in range(len(LEVERS)))) for i in range(len(LEVERS))]
         all_on = subsets.index(tuple([1] * len(LEVERS)))
@@ -303,24 +317,19 @@ def main():
         B = np.array(boots)  # (boot, regions+1, levers+1)
         lo, hi = np.nanpercentile(B, 2.5, 0), np.nanpercentile(B, 97.5, 0)
 
-        check = None
-        if lr is not None:
-            PL0 = lr.predict_proba(model_matrix(frames[subsets[0]], numeric, categorical))[:, 1]
-            lr_gain = np.column_stack([
-                lr.predict_proba(model_matrix(frames[subsets[j]], numeric, categorical))[:, 1] - PL0
-                for j in singles + [all_on]])
-            check = weighted_by_region(lr_gain, w, reg_idx, len(regions)).tolist()
-
-        out["rungs"][rung] = {
+        block = {
             "means": np.round(means, 5).tolist(),
             "gain": weighted_by_region(gains, w, reg_idx, len(regions)).tolist(),
             "lo": lo.tolist(), "hi": hi.tolist(),
-            "logistic_check": check,
             "targeted": targeted,
         }
-        nat = out["rungs"][rung]["gain"][-1]
-        log(f"{rung}: " + ", ".join(f"{lv['key']} {g * 100:+.2f}" for lv, g in zip(LEVERS, nat))
+        out["by_model"][key]["rungs"][rung] = block
+        nat = block["gain"][-1]
+        log(f"{rung} ({key}): " + ", ".join(f"{lv['key']} {g * 100:+.2f}" for lv, g in zip(LEVERS, nat))
             + f", all {nat[-1] * 100:+.2f} pt")
+
+    # the planner reads `rungs`: the primary model's
+    out["rungs"] = out["by_model"][out["primary"]]["rungs"]
 
     log("earlier first visit (ANC-entry model)")
     out["early_visit"] = early_visit(full, n_boot)

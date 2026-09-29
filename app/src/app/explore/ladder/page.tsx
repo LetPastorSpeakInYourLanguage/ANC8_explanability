@@ -17,6 +17,7 @@ import { DOMAIN_COLORS, label } from "@/lib/labels";
 import { REGION_NAMES } from "@/lib/regions";
 import { cohortRungs, REACH_OF, type RegionsData, type SubgroupRow } from "@/lib/regionsData";
 import { COHORTS, useStudio, type Rung } from "@/lib/studio";
+import { MODEL_ABBR, type Explained } from "@/lib/modelCards";
 
 const BAND = (k: number) => (k === 0 ? "var(--bad)" : k < 4 ? "var(--rung1)" : k < 8 ? "var(--rung4)" : "var(--rung8)");
 const BANDS = [
@@ -28,12 +29,9 @@ const BANDS = [
 
 const reach = (r: SubgroupRow, k: Rung) => (k === "anc1" ? r.reach1 : k === "anc4" ? r.reach4 : r.reach8);
 
-type Method = "EBM" | "SHAP" | "drop-one";
-const METHODS: { key: Method; label: string; title: string }[] = [
-  { key: "EBM", label: "EBM", title: "Share of the explainable boosting model's total effect" },
-  { key: "SHAP", label: "SHAP", title: "Share of mean absolute SHAP value" },
-  { key: "drop-one", label: "Drop-one", title: "Share of the accuracy lost when the domain is removed" },
-];
+// A library model's name (the domain's share of what it uses, full pool), or drop-one.
+type Method = string;
+const DROP = "drop-one";
 
 export default function LadderPage() {
   const studio = useStudio();
@@ -41,8 +39,14 @@ export default function LadderPage() {
   const reg = useJSON<RegionsData>("/data/regions.json");
   const exp = useJSON<ExploreData>("/data/explore.json");
   const ana = useJSON<Analysis>("/analysis.json");
+  const explained = useJSON<Explained>("/data/explain.json");
   const [dim, setDim] = useState("Wealth");
-  const [method, setMethod] = useState<Method>("EBM");
+  const METHODS = [
+    ...(explained.data?.models ?? []).map((m) => ({ key: m, label: MODEL_ABBR[m] ?? m, title: `The domain's share of what ${m} uses (full pool)` })),
+    { key: DROP, label: "Drop-one", title: "Share of the accuracy lost when the domain is removed" },
+  ];
+  const [picked, setMethod] = useState<Method>("");
+  const method = METHODS.some((m) => m.key === picked) ? picked : METHODS[0]?.key ?? DROP;
   const [focus, setFocus] = useState<string | null>(null);
 
   const place = studio.region || "Ethiopia";
@@ -75,7 +79,15 @@ export default function LadderPage() {
   const rungs = cohortRungs(cohort);
 
   const domainData = useMemo(() => {
-    const rows = ana.data?.ladder?.domain_rollup?.filter((r) => r.method === method) ?? [];
+    const pool = explained.data?.pool;
+    const rows: Record<string, unknown>[] = method === DROP || !pool
+      ? (ana.data?.ladder?.domain_rollup?.filter((r) => r.method === "drop-one") ?? [])
+      : Object.keys(pool.anc8?.domains ?? {}).map((dmn) => ({
+          domain: dmn,
+          anc1plus: pool.anc1?.domains[dmn]?.[method] ?? 0,
+          anc4plus: pool.anc4?.domains[dmn]?.[method] ?? 0,
+          anc8plus: pool.anc8?.domains[dmn]?.[method] ?? 0,
+        }));
     const domains = rows.map((r) => String(r.domain));
     const data = (["anc1plus", "anc4plus", "anc8plus"] as const).map((o) => ({
       rung: RUNG_LABEL[o],
@@ -85,7 +97,7 @@ export default function LadderPage() {
     const ticks = niceTicks(0, top, 4);
     if (ticks[ticks.length - 1] < top) ticks.push(+(ticks[ticks.length - 1] + (ticks[1] - ticks[0])).toFixed(10));
     return { domains, data, ticks };
-  }, [ana.data, method]);
+  }, [ana.data, explained.data, method]);
 
   const err = reg.error ?? exp.error ?? ana.error;
   if (err) return <Screen><InlineError message={err} /></Screen>;

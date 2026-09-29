@@ -130,7 +130,10 @@ def score_logistic(model: dict, x: np.ndarray) -> float:
 def _walk(tree: dict, x: np.ndarray) -> float:
     """Descend one CART tree to its leaf.
 
-    sklearn encodes a leaf as children_left == -1.
+    sklearn encodes a leaf as children_left == -1. A fitted sklearn tree casts its
+    input to float32 before comparing it with the (float64) split point, so the
+    value is rounded the same way here: a value that rounds onto a split point
+    goes the way sklearn sends it.
     """
     left = tree["children_left"]
     right = tree["children_right"]
@@ -140,7 +143,8 @@ def _walk(tree: dict, x: np.ndarray) -> float:
 
     node = 0
     while left[node] != -1:
-        node = left[node] if x[feature[node]] <= threshold[node] else right[node]
+        v = float(np.float32(x[feature[node]]))
+        node = left[node] if v <= threshold[node] else right[node]
     return value[node]
 
 
@@ -216,24 +220,27 @@ def score_lightgbm(model: dict, x: np.ndarray) -> float:
     return float(_sigmoid(total))
 
 
-def _ebm_term_contribution(term: dict, x: np.ndarray) -> float:
-    """The log-odds contribution of one additive term for one woman."""
-    v = x[term["feature"]]
-    scores = term["scores"]
-
-    if term["kind"] == "nominal":
-        # Bin 0 is interpret's missing bin, which is also where an unseen
-        # level lands.
+def _ebm_bin(spec: dict, v: float) -> int:
+    """A value's bin: 0 is missing (and an unseen level), then the intervals."""
+    if spec["kind"] == "nominal":
         key = str(int(v)) if float(v).is_integer() else str(v)
-        idx = term["mapping"].get(key, 0)
-    elif not np.isfinite(v):
-        idx = 0
-    else:
-        # n cut points define n+1 intervals, offset by one for the missing bin
-        # that sits at index 0.
-        idx = int(np.searchsorted(np.asarray(term["cuts"], dtype=float),
-                                  v, side="right")) + 1
+        return spec["mapping"].get(key, 0)
+    if not np.isfinite(v):
+        return 0
+    # n cut points define n+1 intervals, offset by one for the missing bin
+    # that sits at index 0.
+    return int(np.searchsorted(np.asarray(spec["cuts"], dtype=float), v, side="right")) + 1
 
+
+def _ebm_term_contribution(term: dict, x: np.ndarray) -> float:
+    """The log-odds contribution of one term (a feature, or a pair) for one woman."""
+    scores = term["scores"]
+    if term["kind"] == "pair":
+        i = min(_ebm_bin(term["dims"][0], x[term["features"][0]]), len(scores) - 1)
+        row = scores[i]
+        j = min(_ebm_bin(term["dims"][1], x[term["features"][1]]), len(row) - 1)
+        return float(row[j])
+    idx = _ebm_bin(term, x[term["feature"]])
     return float(scores[min(idx, len(scores) - 1)])
 
 
@@ -261,14 +268,14 @@ def explain_ebm(model: dict, x: np.ndarray, names, top: int = 8) -> list:
     Returned on the log-odds scale, positive meaning the value pushes towards
     attaining ANC8+.
     """
-    rows = []
+    by: dict = {}
     for term in model["terms"]:
-        f = term["feature"]
-        rows.append({
-            "predictor": names[f] if f < len(names) else f"feature_{f}",
-            "contribution": _ebm_term_contribution(term, x),
-        })
-
+        c = _ebm_term_contribution(term, x)
+        feats = term["features"] if term["kind"] == "pair" else [term["feature"]]
+        for f in feats:  # a pair's contribution is split equally between its two
+            name = names[f] if f < len(names) else f"feature_{f}"
+            by[name] = by.get(name, 0.0) + c / len(feats)
+    rows = [{"predictor": k, "contribution": v} for k, v in by.items()]
     rows.sort(key=lambda r: abs(r["contribution"]), reverse=True)
     return rows[:top]
 

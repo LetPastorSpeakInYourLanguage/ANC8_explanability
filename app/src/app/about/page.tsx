@@ -108,7 +108,6 @@ export default function AboutPage() {
             <Row to="/explore/cohorts" go="Cohorts" text="Contact counts are recalled, and older births are recalled less well." />
             <Row to="/war" go="Conflict simulator" text="Conflict elsewhere is assumed to act as it did in Tigray." />
             <Row to="/your-data?mode=register" go="First-visit screener" text="A score describes women like her, not her." />
-            <Row to="/lab" go="Model lab" text="Attention shows what a network used, not what matters." />
           </Panel>
 
           <Panel help="about.reports" title="Full reports" how="The written study, for reviewers. Plain Markdown files.">

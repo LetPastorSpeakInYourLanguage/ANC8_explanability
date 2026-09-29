@@ -13,7 +13,8 @@ import {
   NETWORKS, OUTCOME_OF, RUNG_LABEL, RUNG_OF, num, signed,
   type ExploreData, type Outcome,
 } from "@/lib/explore";
-import { MODELS_INDEX, SETS, SET_SHORT, setFile, type ModelsIndex, type ModelsSet } from "@/lib/modelCards";
+import { label } from "@/lib/labels";
+import { MODELS_INDEX, SETS, SET_SHORT, setFile, type Explained, type ModelsIndex, type ModelsSet } from "@/lib/modelCards";
 import { RUNGS, useStudio } from "@/lib/studio";
 
 const OUTCOMES: Outcome[] = ["anc1plus", "anc4plus", "anc8plus"];
@@ -26,9 +27,8 @@ const MEASURES: { key: Measure; label: string; title: string }[] = [
   { key: "Brier", label: "Brier", title: "Mean squared error of the probabilities (lower is better)" },
 ];
 
-const CAL_MODELS = ["XGBoost", "Explainable Boosting", "Logistic regression", "MLP"];
 const CAL_COLOR: Record<string, string> = {
-  XGBoost: "var(--cross)", "Explainable Boosting": "var(--good)", "Logistic regression": "var(--accent)", MLP: "var(--warn)",
+  XGBoost: "var(--cross)", "Explainable Boosting": "var(--good)", "Logistic regression": "var(--accent)", "Random Forest": "var(--warn)",
 };
 
 interface ModelRow {
@@ -44,6 +44,7 @@ export default function ModelsPage() {
   const theme = useRenderTheme();
   const ana = useJSON<Analysis>("/analysis.json");
   const exp = useJSON<ExploreData>("/data/explore.json");
+  const explained = useJSON<Explained>("/data/explain.json");
   const lib = useJSON<ModelsIndex>(MODELS_INDEX);
   const [measure, setMeasure] = useState<Measure>("AP");
   const [ablModel, setAblModel] = useState("XGBoost");
@@ -136,22 +137,40 @@ export default function ModelsPage() {
   const tunedRows = models[outcome].filter((m) => !m.network && m.dev != null && m.held.AP != null);
   const drop = tunedRows.length ? tunedRows.reduce((t, m) => t + (m.dev! - m.held.AP!), 0) / tunedRows.length : null;
 
-  const tuning = (a.tuning_gain ?? []).filter((r) => r.rung === outcome);
-  const abl = a.ablation?.[outcome]?.[ablModel];
-  const hp = a.hyperparameters?.[outcome]?.[ablModel] ?? {};
+  // what tuning bought, and which settings matter: the lineup's models on the full pool
+  const tuneBy = L.tuning?.[rung] ?? {};
+  const tuning = Object.entries(tuneBy)
+    .filter(([, t]) => t.defaults_ap != null && t.tuned_ap != null)
+    .map(([model, t]) => ({ model, defaults_AP: t.defaults_ap!, tuned_AP: t.tuned_ap!, gain: t.tuned_ap! - t.defaults_ap! }));
+  const abl = tuneBy[ablModel] ?? tuneBy[Object.keys(tuneBy)[0]];
+  const ablName = tuneBy[ablModel] ? ablModel : Object.keys(tuneBy)[0] ?? ablModel;
+  const CAL_MODELS = L.meta.models ?? [];
 
   const cal: Record<string, { predicted: number; observed: number; n: number }[]> = Object.fromEntries(
     CAL_MODELS.map((m) => [m, setCards.data?.cards[`${set}.${fams.find((f) => f.name === m)?.slug}`]?.[rung]?.calibration ?? []]),
   );
   const calModels = CAL_MODELS.filter((m) => cal[m]?.length);
-  const dca = a.decision_curve?.[outcome] ?? [];
-  const dcaName = dca[0]?.model_name ?? "Model";
-  const dcaMax = Math.max(0.01, ...dca.map((r) => Math.max(r.model, r.treat_all, r.v1_xgboost ?? 0)));
+  // decision curve: this set's best model on held-out women, against logistic regression
+  const baseCards = CAL_MODELS
+    .map((m) => ({ m, c: setCards.data?.cards[`${set}.${fams.find((f) => f.name === m)?.slug}`]?.[rung] }))
+    .filter((x) => x.c?.decision);
+  const bestBase = [...baseCards].sort((x, y) => (y.c!.ap) - (x.c!.ap))[0];
+  const lrCard = baseCards.find((x) => x.m === "Logistic regression");
+  const other = lrCard && bestBase && lrCard.m !== bestBase.m ? lrCard : undefined;
+  const dca = bestBase
+    ? bestBase.c!.decision!.t.map((t, i) => ({
+        threshold: t, model: bestBase.c!.decision!.model[i], treat_all: bestBase.c!.decision!.all[i], treat_none: 0,
+        other: other ? other.c!.decision!.model[i] : undefined,
+      }))
+    : [];
+  const dcaName = bestBase?.m ?? "Model";
+  const otherName = other?.m ?? "";
+  const dcaMax = Math.max(0.01, ...dca.map((r) => Math.max(r.model, r.treat_all, r.other ?? 0)));
   const dcaTicks = niceTicks(0, dcaMax, 4);
   if (dcaTicks[dcaTicks.length - 1] < dcaMax) dcaTicks.push(+(2 * dcaTicks[dcaTicks.length - 1] - dcaTicks[dcaTicks.length - 2]).toFixed(10));
 
-  const nets = exp.data?.networks;
-  const paired = nets?.paired.filter((r) => r.rung === outcome) ?? [];
+  const leanRows = explained.data?.sets[set]?.[rung] ?? [];
+  const leanModels = explained.data?.models ?? [];
 
   return (
     <Screen>
@@ -173,7 +192,7 @@ export default function ModelsPage() {
 
       <Panel help="models.dev-held"
         title={`Every model, development against held-out · ${setLabel} · ${RUNG_LABEL[rung]}`}
-        how="Rings: cross-validated accuracy on the 5,518 development women, which the tuning saw. Dots: accuracy on the 1,375 held-out women, which nothing saw until the end. A long line from ring to dot is optimism. Networks are drawn in orange. The dashed line is chance."
+        how="Rings: cross-validated accuracy on the 5,518 development women, which the tuning saw. Dots: accuracy on the 1,375 held-out women, which nothing saw until the end. A long line from ring to dot is optimism. The dashed line is chance."
         actions={<span className="flex flex-wrap gap-6">{setPicker}{rungPicker}</span>}
       >
         <DotRows
@@ -187,7 +206,7 @@ export default function ModelsPage() {
           series={[
             { key: "dev", label: "Development (cross-validated)", color: "var(--dim)", hollow: true },
             { key: "held", label: "Held-out women", color: "var(--accent)" },
-            { key: "net", label: "Held-out, network", color: "var(--net)" },
+            ...(rows.some((m) => m.network) ? [{ key: "net", label: "Held-out, network", color: "var(--net)" }] : []),
           ]}
           reference={{ value: prev(outcome), label: "Chance" }}
           format={(v) => v.toFixed(2)}
@@ -252,7 +271,7 @@ export default function ModelsPage() {
             how="Rings: the model with its library defaults. Dots: after tuning (development accuracy). Most of the gain is small; the models are close before and after."
           >
             <DotRows
-              rows={tuning
+              rows={[...tuning]
                 .sort((x, y) => y.gain - x.gain)
                 .map((r) => ({
                   key: r.model,
@@ -273,13 +292,13 @@ export default function ModelsPage() {
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
         <Panel help="models.settings"
-          title={`Which settings matter · ${ablModel}`}
+          title={`Which settings matter · ${ablName}`}
           how="Each tuned setting was moved one step down and one step up while the others stayed fixed. The bar spans the change in development accuracy: left of zero means the tuned value was better. A short bar near zero is a setting the model does not care about. The tuned value is under each name."
           actions={
             <Segmented
               label="Model"
-              options={Object.keys(a.ablation?.[outcome] ?? {}).map((m) => ({ key: m, label: m === "Explainable Boosting" ? "EBM" : m === "Logistic regression" ? "Logistic" : m }))}
-              value={ablModel}
+              options={Object.keys(tuneBy).map((m) => ({ key: m, label: m === "Explainable Boosting" ? "EBM" : m === "Logistic regression" ? "Logistic" : m }))}
+              value={ablName}
               onChange={setAblModel}
             />
           }
@@ -287,12 +306,12 @@ export default function ModelsPage() {
           {abl ? (
             <>
               <DotRows
-                rows={abl.parameters.map((p) => ({
+                rows={abl.params.map((p) => ({
                   key: p.parameter,
                   label: p.parameter.replace(/_/g, " "),
-                  sub: hp[p.parameter] != null ? `tuned: ${fmtParam(hp[p.parameter])}` : undefined,
-                  values: { worst: p.worst_AP_drop, best: p.best_AP_gain },
-                  display: signed(p.worst_AP_drop),
+                  sub: `tuned: ${fmtParam(Number.isNaN(Number(p.tuned)) ? p.tuned : Number(p.tuned))}`,
+                  values: { worst: p.worst, best: p.best },
+                  display: signed(p.worst),
                 }))}
                 series={[
                   { key: "worst", label: "Worse of the two neighbours", color: "var(--bad)" },
@@ -304,7 +323,7 @@ export default function ModelsPage() {
               />
               <div className="px-14 pb-12">
                 <Note tone="accent">
-                  Defaults {num(abl.defaults_AP)} → tuned {num(abl.tuned_AP)} ({signed(abl.gain)} average precision, development).
+                  Defaults {num(abl.defaults_ap)} → tuned {num(abl.tuned_ap)} ({signed((abl.tuned_ap ?? 0) - (abl.defaults_ap ?? 0))} average precision, development, full pool).
                 </Note>
               </div>
             </>
@@ -382,7 +401,7 @@ export default function ModelsPage() {
                         title={`Act at ${Math.round(d.threshold * 100)}% risk`}
                         rows={[
                           { label: dcaName, value: num(d.model), color: "var(--accent)" },
-                          ...(d.v1_xgboost != null ? [{ label: "XGBoost · 21 predictors", value: num(d.v1_xgboost), color: "var(--cross)" }] : []),
+                          ...(d.other != null ? [{ label: otherName, value: num(d.other), color: "var(--cross)" }] : []),
                           { label: "Act on everyone", value: num(d.treat_all), color: "var(--faint)" },
                         ]}
                       />
@@ -390,8 +409,8 @@ export default function ModelsPage() {
                   />
                   <Line dataKey="treat_none" stroke="var(--border2)" strokeWidth={1.5} dot={false} isAnimationActive={false} />
                   <Line dataKey="treat_all" stroke="var(--faint)" strokeDasharray="4 3" strokeWidth={1.5} dot={false} isAnimationActive={false} />
-                  {dca[0]?.v1_xgboost != null && (
-                    <Line dataKey="v1_xgboost" stroke="var(--cross)" strokeWidth={1.5} dot={false} isAnimationActive={false} />
+                  {dca[0]?.other != null && (
+                    <Line dataKey="other" stroke="var(--cross)" strokeWidth={1.5} dot={false} isAnimationActive={false} />
                   )}
                   <Line dataKey="model" stroke="var(--accent)" strokeWidth={2.25} dot={false} isAnimationActive={false} />
                 </LineChart>
@@ -399,7 +418,7 @@ export default function ModelsPage() {
               <SeriesLegend
                 items={[
                   { key: "m", label: dcaName, color: "var(--accent)" },
-                  ...(dca[0]?.v1_xgboost != null ? [{ key: "x", label: "XGBoost · 21 predictors", color: "var(--cross)" }] : []),
+                  ...(dca[0]?.other != null ? [{ key: "x", label: otherName, color: "var(--cross)" }] : []),
                   { key: "all", label: "Act on everyone", color: "var(--faint)", dashed: true },
                   { key: "none", label: "Act on no one", color: "var(--border2)" },
                 ]}
@@ -410,45 +429,19 @@ export default function ModelsPage() {
           )}
         </Panel>
 
-        <Panel help="models.networks"
-          title={`Networks against the trees · ${RUNG_LABEL[rung]}`}
-          how="The difference in held-out average precision between each network and a reference model, measured on the same women and resampled 1,000 times. The bar is the 95% interval: a bar that crosses zero is a tie. Right of zero, the network is better."
+        <Panel help="models.lean"
+          title={`What the models lean on · ${setLabel} · ${RUNG_LABEL[rung]}`}
+          how="Each predictor's share of what each model uses, on the held-out women: logistic regression and explainable boosting split their own predictions exactly; the tree models by SHAP. Rows are the predictors the models agree on most, best first. One shading for the whole grid."
         >
-          {paired.length ? (
-            <>
-              <DotRows
-                rows={paired.map((r) => ({
-                  key: `${r.network}|${r.reference}`,
-                  label: `vs ${r.reference}`,
-                  sub: r.network,
-                  values: { d: r.d_AP },
-                  lo: { d: r.d_AP_lo },
-                  hi: { d: r.d_AP_hi },
-                  display: signed(r.d_AP),
-                }))}
-                series={[{ key: "d", label: "Difference", color: "var(--net)" }]}
-                reference={{ value: 0, label: "No difference" }}
-                format={(v) => signed(v, 2)}
-                labelWidth={220}
-                showLegend={false}
-              />
-              {nets?.ladder_violations && (
-                <div className="grid grid-cols-3 border-t border-border">
-                  {Object.entries(nets.ladder_violations).map(([k, v]) => (
-                    <div key={k} className="px-12 py-9 border-r border-border last:border-r-0 min-w-0">
-                      <div className={`font-mono text-15 font-semibold ${v > 0 ? "text-bad" : "text-good"}`}>{(v * 100).toFixed(1)}%</div>
-                      <div className="text-9.5 text-dim leading-snug">{k}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <div className="px-14 py-10">
-                <Note tone="accent">
-                  The row of numbers: held-out women whose predictions break the ladder (a higher chance of ANC8+ than of ANC4+). Three
-                  separate tree models can do this; both networks predict the rungs jointly and never do.
-                </Note>
-              </div>
-            </>
+          {leanRows.length ? (
+            <MatrixHeat
+              theme={theme}
+              rows={leanRows.map((r) => ({ key: r.predictor, label: label(r.predictor), values: r.shares }))}
+              cols={leanModels.map((m) => ({ key: m, label: m === "Explainable Boosting" ? "EBM" : m === "Logistic regression" ? "Logistic" : m }))}
+              format={(v) => `${(v * 100).toFixed(0)}%`}
+              labelWidth={200}
+              cellWidth={70}
+            />
           ) : (
             <PanelLoading rows={6} />
           )}

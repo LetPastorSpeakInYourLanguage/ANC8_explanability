@@ -19,7 +19,7 @@ import { RUNG_COLOR, RUNG_LABEL, pct, signed } from "@/lib/explore";
 import { REGION_NAMES } from "@/lib/regions";
 import type { RegionsData } from "@/lib/regionsData";
 import {
-  EARLY, S_RUNGS, allocate, eligibleShare, formatCoverage, leverWeight, parseCoverage, project,
+  EARLY, MODEL_SHORT, S_RUNGS, allocate, eligibleShare, forModel, formatCoverage, leverWeight, parseCoverage, project,
   type Coverage, type SRung, type ScenarioData,
 } from "@/lib/scenario";
 import { useStudio } from "@/lib/studio";
@@ -55,10 +55,14 @@ export default function PlannerPage() {
   const setCov = (k: string, v: number) => studio.set({ lv: formatCoverage({ ...cov, [k]: v }) });
   const rung: SRung = studio.rung;
   const scope = studio.region || "Ethiopia";
+  // Which model scores the levers: explainable boosting or logistic regression.
+  const models = Object.keys(sc.data?.by_model ?? {});
+  const lmAsked = studio.params.get("lm") ?? "";
+  const lm = models.includes(lmAsked) ? lmAsked : sc.data?.primary ?? models[0] ?? "";
 
   const view = useMemo(() => {
     if (!sc.data || !reg.data) return null;
-    const d = sc.data;
+    const d = forModel(sc.data, lm);
     const now = (r: string | null) => {
       const c = r ? reg.data!.cohorts.recent.regions[r] : reg.data!.cohorts.recent.national;
       return { anc1: c.reach1, anc4: c.reach4, anc8: c.reach8 };
@@ -71,14 +75,26 @@ export default function PlannerPage() {
     const gained = Object.fromEntries(
       S_RUNGS.map((k) => [k, REGION_NAMES.reduce((s, r) => s + byRegion[r].change[k] * births[r], 0)]),
     ) as Record<SRung, number>;
-    return { byRegion, national, births, gained };
+    // the same scenario under every lever model, for the comparison
+    const byModel = Object.fromEntries(models.map((m) => {
+      const dm = forModel(sc.data!, m);
+      return [m, {
+        national: project(dm, dm.regions.length - 1, now(null), cov),
+        byRegion: Object.fromEntries(REGION_NAMES.map((r) => [r, project(dm, dm.regions.indexOf(r), now(r), cov)])),
+      }];
+    }));
+    return { byRegion, national, births, gained, byModel };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sc.data, reg.data, studio.params.get("lv")]);
+  }, [sc.data, reg.data, studio.params.get("lv"), lm]);
 
   const err = sc.error ?? reg.error ?? geo.error;
   if (err) return <Screen><InlineError message={err} /></Screen>;
   if (!sc.data || !reg.data || !view) return <Screen><PanelLoading rows={10} /></Screen>;
-  const d = sc.data;
+  const d = forModel(sc.data, lm);
+  const modelPicker = models.length > 1 ? (
+    <Segmented label="Levers from" options={models.map((m) => ({ key: m, label: m === "ebm" ? "Boosting" : "Logistic", title: MODEL_SHORT[m] }))}
+      value={lm} onChange={(k) => studio.set({ lm: k })} />
+  ) : null;
   const ri = d.regions.indexOf(scope);
   const P = studio.region ? view.byRegion[studio.region] : view.national;
 
@@ -129,12 +145,15 @@ export default function PlannerPage() {
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,430px)_minmax(0,1fr)]">
         <Panel help="planner.levers"
           title={`Levers · ${scope}`}
-          how="Each slider is the share of the women a lever could move who are actually reached. Under each lever: who it applies to in the current scope, and its weight, the change the model expects on each rung if all of them are reached (with the 95% band). Levers combine exactly, not by adding up. Association-based: what the model expects if circumstances changed, not what a programme would cause."
+          how="Each slider is the share of the women a lever could move who are actually reached. Under each lever: who it applies to in the current scope, and its weight, the change the model expects on each rung if all of them are reached (with the 95% band). Levers combine exactly, not by adding up. The switch chooses the model that scores them. Association-based: what the model expects if circumstances changed, not what a programme would cause."
           actions={
+            <span className="flex items-center gap-8">
+            {modelPicker}
             <button type="button" onClick={() => studio.set({ lv: undefined })} className="text-faint hover:text-accent"
               title="Clear all levers" aria-label="Clear all levers">
               <RotateCcw className="size-12" />
             </button>
+            </span>
           }
         >
           <div className="flex flex-col">
@@ -245,7 +264,40 @@ export default function PlannerPage() {
         </div>
       </div>
 
-      <FixedVsAdjustable reg={reg.data} sc={d} rung={rung} region={studio.region} cov={cov} setCov={setCov} />
+      {models.length > 1 && (
+        <Panel help="planner.models"
+          title={`The two models side by side · ${scope} · ${RUNG_LABEL[rung]}`}
+          how="Each lever's weight (the change on the chosen rung if every woman it applies to is reached) under explainable boosting and under logistic regression, in the current scope. Close dots: the models agree. The last row is your current scenario under both. Where they part, the answer rests on how the model bends, not on the data alone."
+        >
+          <DotRows
+            rows={[
+              ...sc.data.levers.map((l) => {
+                const vals = Object.fromEntries(models.map((m) => [m, leverWeight(forModel(sc.data!, m), l.key, ri)[rung]?.v ?? null]));
+                const [a, b] = models.map((m) => vals[m]);
+                return {
+                  key: l.key, label: l.label,
+                  sub: a != null && b != null && (a > 0) !== (b > 0) ? `the models disagree on direction at ${RUNG_LABEL[rung]}` : undefined,
+                  values: vals,
+                  display: a != null && b != null ? pts(a - b, 2) : "–",
+                };
+              }),
+              ...(active ? [{
+                key: "scenario", label: "Your scenario",
+                values: Object.fromEntries(models.map((m) => [m,
+                  studio.region ? view.byModel[m].byRegion[studio.region].change[rung] : view.byModel[m].national.change[rung]])),
+                display: "",
+              }] : []),
+            ]}
+            series={models.map((m, i) => ({ key: m, label: MODEL_SHORT[m], color: i === 0 ? "var(--accent)" : "var(--cross)", hollow: m !== lm }))}
+            reference={{ value: 0, label: "No change" }}
+            format={(v) => pts(v, 1)}
+            labelWidth={230}
+          />
+          <DataNote>Solid: the model the page is using; change it with the switch on the Levers panel. At the right: explainable boosting minus logistic regression, in points.</DataNote>
+        </Panel>
+      )}
+
+      <FixedVsAdjustable reg={reg.data} sc={d} rung={rung} region={studio.region} cov={cov} setCov={setCov} model={lm} />
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
         <Panel help="planner.budget"
@@ -367,7 +419,7 @@ export default function PlannerPage() {
 
       <Panel help="planner.unsupported"
         title="Levers the data do not support"
-        how="Levers where the model expects at least one rung to fall, not rise, when the lever is applied. Both models (explainable boosting and logistic regression) are shown. These are associations: women who listen to the radio weekly, for example, are no more likely to use ANC in this survey, once everything else about them is known. They are not evidence that the programmes would harm; they are evidence that the survey cannot show they would help."
+        how="Levers where the chosen model expects at least one rung to fall, not rise, when the lever is applied. Every lever model is shown. These are associations: women who listen to the radio weekly, for example, are no more likely to use ANC in this survey, once everything else about them is known. They are not evidence that the programmes would harm; they are evidence that the survey cannot show they would help."
       >
         <Table
           minWidth={620}
@@ -376,16 +428,16 @@ export default function PlannerPage() {
           columns={[
             { header: "Lever", cell: (l) => l.label },
             ...S_RUNGS.map((k) => ({
-              header: `${RUNG_LABEL[k]} · EBM / LR`,
+              header: `${RUNG_LABEL[k]} · ${models.map((m) => (m === "ebm" ? "EBM" : "LR")).join(" / ")}`,
               mono: true,
               cell: (l: (typeof unsupported)[number]) => {
-                const i = d.levers.indexOf(l);
-                const e = d.rungs[k].gain[d.regions.length - 1][i];
-                const lr = d.rungs[k].logistic_check?.[d.regions.length - 1][i];
+                const i = d.levers.findIndex((x) => x.key === l.key);
+                const vals = models.map((m) => sc.data!.by_model![m].rungs[k].gain[d.regions.length - 1][i]);
                 return (
                   <span>
-                    <span className={e < 0 ? "text-bad" : ""}>{pts(e)}</span>
-                    <span className="text-faint"> / {lr != null ? pts(lr) : "–"}</span>
+                    {vals.map((v, j) => (
+                      <span key={j} className={j === 0 ? (v < 0 ? "text-bad" : "") : "text-faint"}>{j > 0 ? " / " : ""}{pts(v)}</span>
+                    ))}
                   </span>
                 );
               },

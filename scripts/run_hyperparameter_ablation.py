@@ -1,6 +1,11 @@
 """How much does each hyperparameter actually matter?
 
-    python scripts/run_hyperparameter_ablation.py --outcome anc8plus
+    python scripts/run_hyperparameter_ablation.py                       # every rung
+    python scripts/run_hyperparameter_ablation.py --outcome anc8plus --set pool
+
+For the four library models (logistic regression, random forest, XGBoost and
+explainable boosting) on a predictor set (the full candidate pool by default),
+with the settings the library's search chose (scripts/train_library.py).
 
 Tuning consumed most of the compute in this project, and the honest finding
 from the held-out evaluation was that it bought very little: every model's
@@ -40,13 +45,11 @@ warnings.filterwarnings("ignore")
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from anc8 import design, outcomes, tuning  # noqa: E402
+from anc8 import library as lib, outcomes, tuning  # noqa: E402
 
-ENHANCED = ROOT / "outputs" / "enhanced"
-
-# Models worth ablating: the two that led development, plus one linear arm as a
-# contrast. Ablating all ten would cost more than the original tuning did.
-MODELS = ["XGBoost", "Explainable Boosting", "Logistic regression"]
+LIBRARY_ROOT = Path("G:/My Drive/ANC8_training")
+OUT = ROOT / "outputs" / "library" / "tuning"
+MODELS = lib.LINEUPS["four"]
 
 # How each parameter is perturbed away from its tuned value. Multiplicative for
 # scale parameters, additive for depths and counts.
@@ -115,38 +118,29 @@ def perturb(name, value, factor):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--outcome", default="anc8plus", choices=outcomes.LADDER)
+    ap.add_argument("--outcome", nargs="*", default=list(outcomes.LADDER), choices=outcomes.LADDER)
+    ap.add_argument("--set", default="pool", choices=lib.SETS)
+    ap.add_argument("--root", type=Path, default=LIBRARY_ROOT, help="the library's results folder")
     args = ap.parse_args()
-    OUTCOME = args.outcome
-    OUT_DIR = ENHANCED / OUTCOME
+    OUT.mkdir(parents=True, exist_ok=True)
+    for outcome in args.outcome:
+        run(outcome, args.set, args.root)
 
-    log(f"outcome: {outcomes.describe(OUTCOME)}")
 
-    df = pd.read_pickle(ENHANCED / "ANC8_analysis_frozen_v2.pkl")
-    spec = json.load(open(ENHANCED / "feature_spec_v2.json"))
-    numeric, categorical = spec["numeric_predictors"], spec["categorical_predictors"]
-    best = json.load(open(OUT_DIR / "best_hyperparameters.json"))
-
-    train_psus, _ = design.make_psu_holdout(df)
-    dev = df[df.v021.isin(train_psus)].reset_index(drop=True)
-    splits = design.folds_to_splits(design.make_psu_stratum_folds(dev))
-
-    X = dev[numeric + categorical].copy()
-    for c in categorical:
-        X[c] = X[c].astype(str)
-    y = dev[OUTCOME].astype(int).to_numpy()
-    w = (dev.v005 / 1e6).to_numpy()
+def run(OUTCOME, set_, root):
+    log(f"outcome: {outcomes.describe(OUTCOME)}, predictor set {set_}")
+    d = lib.data(set_, OUTCOME)
+    X, y, w, splits = d.X_dev, d.y_dev, d.w_dev, d.splits
+    numeric, categorical = d.numeric, d.categorical
 
     def evaluate(model, params):
-        p = tuning.oof_predict(model, params, X, y, w, splits, numeric, categorical)
+        p = tuning.oof_predict(model, params, X, y, w, splits, numeric, categorical, n_jobs=5)
         return (average_precision_score(y, p, sample_weight=w),
                 roc_auc_score(y, p, sample_weight=w))
 
     rows = []
     for model in MODELS:
-        if model not in best:
-            continue
-        tuned = dict(best[model])
+        tuned = dict(lib.load_cell(root, set_, OUTCOME, model)["meta"]["params"])
 
         log(f"\n{model}")
         tuned_ap, tuned_auc = evaluate(model, tuned)
@@ -187,7 +181,9 @@ def main():
                      "AP": tuned_ap, "AUROC": tuned_auc, "AP_vs_tuned": 0.0})
 
     res = pd.DataFrame(rows)
-    res.to_csv(OUT_DIR / "hyperparameter_ablation.csv", index=False)
+    res.insert(0, "set", set_)
+    res.insert(1, "rung", OUTCOME)
+    res.to_csv(OUT / f"ablation_{set_}_{OUTCOME}.csv", index=False)
 
     # ---- what the ablation says -------------------------------------------
     print()
@@ -219,7 +215,7 @@ def main():
     print("Read these against the held-out reality: every model's development AP")
     print("ran ~0.08 above its held-out AP. A tuning gain smaller than that gap is")
     print("not evidence that the tuned model generalises better.")
-    log(f"\nwrote {OUT_DIR / 'hyperparameter_ablation.csv'}")
+    log(f"\nwrote {OUT / f'ablation_{set_}_{OUTCOME}.csv'}")
 
 
 if __name__ == "__main__":

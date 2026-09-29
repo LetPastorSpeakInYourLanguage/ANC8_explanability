@@ -314,7 +314,7 @@ export default function ModelAnalysisPage() {
               referenceLabel=""
               labelWidth={190}
             />
-            <DataNote>Share of total importance{shareKey === "shap" ? " (SHAP)" : " (the model's own terms)"}.</DataNote>
+            <DataNote>Share of total importance on held-out women{shareKey === "shap" ? " (SHAP)" : shareKey === "logistic" ? " (its exact log-odds, by predictor)" : " (the model's own terms, exact)"}.</DataNote>
           </div>
         )}
         <div className="border-t border-border px-14 py-10 flex flex-wrap gap-x-16 gap-y-4 text-10.5">

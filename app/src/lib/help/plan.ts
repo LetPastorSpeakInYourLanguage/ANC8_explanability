@@ -218,13 +218,14 @@ export const PLAN: HelpTopic[] = [
         title: "Why the rung differs from Ethiopia",
         shows: "Bars that split the difference between the region and the country into groups of circumstances.",
         read: [
-          "An explainable model predicts each woman's chance as a sum of one part per circumstance, so the region's difference from Ethiopia splits exactly into those parts.",
+          "An additive model predicts each woman's chance as a sum of one part per circumstance, so the region's difference from Ethiopia splits exactly into those parts.",
+          "The **Boosting | Logistic** switch picks the model: explainable boosting (curved parts) or logistic regression (straight-line parts). It is the same switch as the planner's.",
           "Bars to the left pull the region below Ethiopia; to the right, lift it above.",
           "Blue-dotted, darker bars are circumstances a health system can change; faded ones it cannot (wealth, schooling, age).",
           "The figures at the top right: the model's prediction for the region against Ethiopia's.",
         ],
         watch: "This is the model's arithmetic, not proof of cause.",
-        terms: ["ebm", "modifiable"],
+        terms: ["ebm", "logistic", "modifiable"],
       },
       {
         id: "region-behind",
@@ -317,11 +318,23 @@ export const PLAN: HelpTopic[] = [
           "Under each lever's name: what share of women it applies to here (for example, the share who are uninsured, for insurance).",
           "Under the slider, the lever's **weight** on each rung: the change the model expects if **every** eligible woman were reached, with a small bar and its 95% band. Most move a rung by under a point; the earlier first visit moves ANC8+ by far more.",
           "Sliders combine exactly, not by simple adding: two levers that reach the same women do not double-count.",
+          "The **Boosting | Logistic** switch in the title chooses the model that scores the levers: explainable boosting or logistic regression. Everything on the page follows it.",
           "The circular arrow in the title clears all levers.",
           "**Show the levers the data do not support** adds the levers where the model expects at least one rung to fall; they are there for honesty, marked \"not supported\".",
         ],
         watch: "Association-based: what the model expects if women's circumstances changed, not what a programme would cause.",
         terms: ["lever", "eligible", "g-computation", "association"],
+      },
+      {
+        id: "models",
+        title: "The two models side by side",
+        shows: "Each lever's weight on the chosen rung under explainable boosting and under logistic regression, in the current scope, and your current scenario under both.",
+        read: [
+          "Solid dot: the model the page is using; hollow: the other. Close dots: the models agree.",
+          "At the right, the gap between them in points. A note under a lever says when they disagree on its direction.",
+          "Where the two part, the answer depends on how the model bends, not on the data alone: read that lever with care.",
+        ],
+        terms: ["ebm", "logistic", "lever"],
       },
       {
         id: "where",
@@ -388,9 +401,9 @@ export const PLAN: HelpTopic[] = [
       {
         id: "unsupported",
         title: "Levers the data do not support",
-        shows: "The levers where the model expects at least one rung to fall, not rise, when applied, with both models' estimates.",
+        shows: "The levers where the chosen model expects at least one rung to fall, not rise, when applied, with every lever model's estimates.",
         read: [
-          "Each cell: the change at full reach from the explainable boosting model / from logistic regression.",
+          "Each cell: the change at full reach from explainable boosting / from logistic regression.",
           "These do not show the programmes would harm. They show the survey cannot show they would help: women who listen to the radio weekly, for example, are no more likely to complete care once everything else about them is known.",
         ],
         terms: ["association", "logistic", "ebm"],

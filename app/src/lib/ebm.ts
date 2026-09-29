@@ -26,13 +26,19 @@
  * model would be worse than no re-implementation at all.
  */
 
-export type EbmTerm = {
-  feature: number;
+export type EbmBins = {
   kind: "continuous" | "nominal";
   cuts?: number[];
   mapping?: Record<string, number>;
-  scores: number[];
 };
+
+/** One feature's term: a step function over its bins. */
+export type EbmSingle = EbmBins & { feature: number; scores: number[] };
+
+/** A pair term: a table over two features' bins. */
+export type EbmPair = { kind: "pair"; features: [number, number]; dims: [EbmBins, EbmBins]; scores: number[][] };
+
+export type EbmTerm = EbmSingle | EbmPair;
 
 export type EbmModel = {
   kind: "ebm";
@@ -179,30 +185,31 @@ export function encodedNames(spec: Preprocessor): string[] {
  *   1..n         the n+1 intervals defined by n cut points
  *   last         unseen / out of range
  */
-function termContribution(term: EbmTerm, x: number[]): number {
-  const v = x[term.feature];
-  const scores = term.scores;
-
-  let idx: number;
-  if (term.kind === "nominal") {
+function binOf(spec: EbmBins, v: number): number {
+  if (spec.kind === "nominal") {
     const key = Number.isInteger(v) ? String(v) : String(v);
-    idx = term.mapping?.[key] ?? 0;
-  } else if (!Number.isFinite(v)) {
-    idx = 0;
-  } else {
-    // searchsorted(cuts, v, side="right") + 1
-    const cuts = term.cuts ?? [];
-    let lo = 0;
-    let hi = cuts.length;
-    while (lo < hi) {
-      const mid = (lo + hi) >> 1;
-      if (v < cuts[mid]) hi = mid;
-      else lo = mid + 1;
-    }
-    idx = lo + 1;
+    return spec.mapping?.[key] ?? 0;
   }
+  if (!Number.isFinite(v)) return 0;
+  // searchsorted(cuts, v, side="right") + 1
+  const cuts = spec.cuts ?? [];
+  let lo = 0;
+  let hi = cuts.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (v < cuts[mid]) hi = mid;
+    else lo = mid + 1;
+  }
+  return lo + 1;
+}
 
-  return scores[Math.min(idx, scores.length - 1)];
+function termContribution(term: EbmTerm, x: number[]): number {
+  if (term.kind === "pair") {
+    const i = Math.min(binOf(term.dims[0], x[term.features[0]]), term.scores.length - 1);
+    const row = term.scores[i];
+    return row[Math.min(binOf(term.dims[1], x[term.features[1]]), row.length - 1)];
+  }
+  return term.scores[Math.min(binOf(term, x[term.feature]), term.scores.length - 1)];
 }
 
 /**
@@ -239,14 +246,19 @@ export function score(bundle: Bundle, modelName: string, row: Answers): Scored {
       ...spec.categorical,
       ...(spec.extra ?? []),
     ];
+    // A pair term's contribution is split equally between its two predictors, so the
+    // bars still sum exactly to the log-odds.
+    const by = new Map<string, number>();
     for (const term of model.terms) {
       const c = termContribution(term, x);
       total += c;
-      contributions.push({
-        predictor: names[term.feature] ?? `feature_${term.feature}`,
-        contribution: c,
-      });
+      const feats = term.kind === "pair" ? term.features : [term.feature];
+      for (const f of feats) {
+        const name = names[f] ?? `feature_${f}`;
+        by.set(name, (by.get(name) ?? 0) + c / feats.length);
+      }
     }
+    by.forEach((contribution, predictor) => contributions.push({ predictor, contribution }));
   } else {
     throw new Error("browser scoring supports additive models only");
   }
@@ -286,7 +298,7 @@ export function shapeFunction(
   const f = names.indexOf(predictor);
   if (f < 0) return null;
 
-  const term = model.terms.find((t) => t.feature === f);
+  const term = model.terms.find((t): t is EbmSingle => t.kind !== "pair" && t.feature === f);
   if (!term) return null;
 
   if (term.kind === "nominal") {

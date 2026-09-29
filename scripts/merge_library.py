@@ -36,11 +36,16 @@ def main():
     want_dev, want_held = lib._digest(dev.caseid), lib._digest(held.caseid)
 
     rows, missing = [], []
-    for job in lib.jobs():
+    need = {m for m in lib.LINEUPS["four"]} | {lib.calibrated_name(m, c) for m in lib.LINEUPS["four"]
+                                               for c in lib.CALIBRATIONS}
+    everything = lib.jobs() + [j for ln in lib.LINEUPS for j in lib.lineup_jobs(ln)]
+    for job in everything:
         for rung, model in job.cells:
             src = lib.cell_path(args.root, job.set, rung, model)
             if not src.exists():
-                missing.append(f"{job.set}/{rung}/{model}")
+                # every family is on record, but only the lineups' cells must be there
+                if model in need or job.lineup:
+                    missing.append(f"{job.set}/{rung}/{model}")
                 continue
             dst = lib.cell_path(OUT, job.set, rung, model)
             dst.parent.mkdir(parents=True, exist_ok=True)

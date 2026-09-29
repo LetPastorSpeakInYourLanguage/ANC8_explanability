@@ -113,9 +113,11 @@ def regions_block() -> dict | None:
         profile.setdefault(x.cohort, {}).setdefault(x.region, {})[x.key] = x.value
 
     drv = pd.read_csv(REGIONAL / "drivers_concepts_by_region.csv")
-    drivers: dict = {}
-    for rung, g in drv.groupby("rung"):
-        drivers[rung] = {
+    if "model" not in drv:
+        drv["model"] = "ebm"
+    drivers_by_model: dict = {}
+    for (model, rung), g in drv[drv.model.isin(lever_models())].groupby(["model", "rung"]):
+        drivers_by_model.setdefault(model, {})[rung] = {
             "national_predicted": float(g.national_predicted.iloc[0]),
             "regions": {
                 region: {
@@ -125,6 +127,8 @@ def regions_block() -> dict | None:
                 for region, gg in g.groupby("region")
             },
         }
+    drivers_primary = "ebm" if "ebm" in drivers_by_model else "logistic"
+    drivers = drivers_by_model[drivers_primary]
 
     gap: dict = {}
     gp = WARTIME / "regional_gap_by_cohort.csv"
@@ -145,6 +149,8 @@ def regions_block() -> dict | None:
         "profile_meta": profile_meta,
         "profile": profile,
         "drivers": drivers,
+        "drivers_primary": drivers_primary,
+        "drivers_by_model": drivers_by_model,
         "gap": gap,
         "min_n": json.loads((REGIONAL / "summary.json").read_text())["min_n"],
     }
@@ -223,24 +229,38 @@ def war_block() -> dict | None:
     }
 
 
+def lever_models() -> list[str]:
+    """The lever models this build carries: explainable boosting only with the four-model lineup."""
+    f = ROOT / "outputs" / "model_cards" / "model_cards.json"
+    models = json.loads(f.read_text(encoding="utf-8"))["meta"].get("models", []) if f.exists() else []
+    return ["ebm", "logistic"] if (not models or "Explainable Boosting" in models) else ["logistic"]
+
+
 def scenarios_block() -> dict | None:
     f = SCEN / "scenarios.json"
     if not f.exists():
         print("  scenarios: skipped, run scripts/run_scenarios.py first")
         return None
     m = json.loads(f.read_text(encoding="utf-8"))
+    keep = [k for k in lever_models() if k in m.get("by_model", {})]
+    m["by_model"] = {k: m["by_model"][k] for k in keep}
+    m["model_labels"] = {k: m["model_labels"][k] for k in keep}
+    if m["primary"] not in keep:
+        m["primary"] = keep[0]
+    m["rungs"] = m["by_model"][m["primary"]]["rungs"]
     rungs = ("anc1", "anc4", "anc8")
     # A lever is offered by default only where the data back it: the model expects
     # every rung to rise when it is applied. The others are shown, with their numbers,
-    # as levers the data do not support.
+    # as levers the data do not support. Each lever model is judged on its own.
     for i, lv in enumerate(m["levers"]):
-        ebm = [m["rungs"][r]["gain"][-1][i] for r in rungs]
-        lr = [m["rungs"][r]["logistic_check"][-1][i] for r in rungs if m["rungs"][r]["logistic_check"]]
-        lv["supported"] = all(g > 0 for g in ebm)
-        lv["models_agree"] = all((a > 0) == (b > 0) for a, b in zip(ebm, lr))
+        gains = {k: [m["by_model"][k]["rungs"][r]["gain"][-1][i] for r in rungs] for k in keep}
+        lv["supported_by"] = {k: all(g > 0 for g in v) for k, v in gains.items()}
+        lv["supported"] = lv["supported_by"][m["primary"]]
+        signs = [tuple(g > 0 for g in v) for v in gains.values()]
+        lv["models_agree"] = all(x == signs[0] for x in signs)
     return {
-        "method": ("g-computation: every woman re-scored by the explainable boosting model with the "
-                   "lever applied; association-based, not a causal estimate"),
+        "method": ("g-computation: every woman re-scored by the chosen model with the lever applied; "
+                   "association-based, not a causal estimate"),
         **m,
     }
 
@@ -317,6 +337,42 @@ def sig(obj, digits=5):
     return float(f"{f:.{digits}g}") if np.isfinite(f) else None
 
 
+def explain_block(models: list[str]) -> dict | None:
+    """What each lineup model leans on, per set and rung (scripts/run_explainability.py):
+    the twelve predictors with the best mean rank across the models, with every
+    model's share, and each model's direction by level."""
+    f = ROOT / "outputs" / "explain" / "agreement.csv"
+    if not f.exists():
+        print("  explain: skipped, run scripts/run_explainability.py first")
+        return None
+    a = pd.read_csv(f)
+    out: dict = {"models": models, "sets": {}}
+    for (st, rung), g in a.groupby(["set", "rung"]):
+        ranks = g[[m for m in models if m in g]].rank(ascending=False)
+        g = g.assign(mean_rank=ranks.mean(axis=1), top5=(ranks <= 5).sum(axis=1)).sort_values("mean_rank").head(12)
+        out["sets"].setdefault(st, {})[RUNG_OF[rung]] = [
+            {"predictor": r["predictor"], "mean_rank": float(r["mean_rank"]), "top5": int(r["top5"]),
+             "shares": {m: float(r[m]) for m in models if m in r}}
+            for r in g.to_dict("records")]
+
+    # Every predictor of the full pool at every rung, and the same summed to domains,
+    # for the Predictor selection and Ladder screens.
+    from anc8 import ladder, library as lib
+    imp = pd.read_csv(ROOT / "outputs" / "explain" / "importance.csv")
+    imp = imp[(imp.set == "pool") & imp.model.isin(models)]
+    in21 = set(sum((list(x) for x in lib.predictors("s21", "anc8plus")), []))
+    out["pool"] = {}
+    for rung, g in imp.groupby("rung"):
+        wide = g.pivot(index="predictor", columns="model", values="share").fillna(0)
+        dom = wide.assign(domain=[ladder.domain_of(x) for x in wide.index]).groupby("domain").sum()
+        out["pool"][RUNG_OF[rung]] = {
+            "predictors": {x: {"domain": ladder.domain_of(x), "in21": x in in21,
+                               "shares": {m: float(wide.loc[x, m]) for m in wide.columns}} for x in wide.index},
+            "domains": {d: {m: float(dom.loc[d, m]) for m in wide.columns} for d in dom.index},
+        }
+    return out
+
+
 def models_block() -> dict | None:
     f = ROOT / "outputs" / "model_cards" / "model_cards.json"
     if not f.exists():
@@ -339,9 +395,6 @@ def main():
     if reg:
         write("regions.json", reg)
     write("explore.json", explore_block())
-    lab = lab_block()
-    if lab:
-        write("lab.json", lab)
     se = series_block()
     if se:
         write("series.json", se)
@@ -353,13 +406,16 @@ def main():
         write("war.json", war)
     mc = models_block()
     if mc:
+        ex = explain_block(mc["meta"].get("models", []))
+        if ex:
+            write("explain.json", ex)
         # A small index for the rankings and heatmaps, and the full cards one predictor
         # set per file, fetched only when that set is on screen.
         keep = ("ap", "ap_ci", "auroc", "auroc_ci", "brier", "slope", "lift", "prevalence",
                 "dev_ap", "rank", "of", "n_predictors")
         summary = {k: {r: {f: c[f] for f in keep} for r, c in by.items()} for k, by in mc["cards"].items()}
         write("models/index.json", {"meta": mc["meta"], "families": mc["families"], "summary": summary,
-                                    "cross": mc["cross"]}, rounder=sig)
+                                    "cross": mc["cross"], "tuning": mc.get("tuning", {})}, rounder=sig)
         for st in [x["key"] for x in mc["meta"]["sets"]]:
             write(f"models/{st}.json", {"cards": {k: by for k, by in mc["cards"].items()
                                                   if mc["families"][k]["set"] == st}}, rounder=sig)

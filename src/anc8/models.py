@@ -276,9 +276,12 @@ def build(name: str, params: dict, numeric, categorical):
         est = ExtraTreesClassifier(random_state=RANDOM_STATE, n_jobs=THREADS, **params)
     elif name == "XGBoost":
         import xgboost as xgb
+        # One thread, always: XGBoost's row and column sampling depends on how many
+        # threads share the work, so a thread count that followed the machine would
+        # make the model follow the machine. Tuning always fitted it on one thread.
         est = xgb.XGBClassifier(
             eval_metric="logloss", tree_method="hist",
-            random_state=RANDOM_STATE, n_jobs=THREADS,
+            random_state=RANDOM_STATE, n_jobs=1,
             **({"device": "cuda"} if DEVICE == "gpu" else {}), **params,
         )
     elif name == "LightGBM":

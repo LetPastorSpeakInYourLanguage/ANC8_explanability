@@ -1,6 +1,6 @@
 import type { HelpTopic } from "./types";
 
-/** The models: Model analysis, Predict, the First-visit screener, the Model lab, About. */
+/** The models: Model analysis, Predict, the First-visit screener, About. */
 
 export const MODELS: HelpTopic[] = [
   {
@@ -160,7 +160,7 @@ export const MODELS: HelpTopic[] = [
         shows: "The women, the outcome and the predictors behind these numbers.",
         read: [
           "How many development and held-out women, the share reaching the rung (the chance level), and how many predictors.",
-          "For explainable boosting and XGBoost, the predictors it leans on most, as shares of its total importance.",
+          "For the four models themselves, the predictors each leans on most, as shares of its total: exact for logistic regression and explainable boosting, by SHAP for random forest and XGBoost.",
           "Links to the Explore screens with the wider story.",
         ],
         terms: ["ebm", "shap"],
@@ -323,88 +323,6 @@ export const MODELS: HelpTopic[] = [
           "The screen sits close to the full model: it does not need a survey.",
         ],
         terms: ["ap", "heldout"],
-      },
-    ],
-  },
-  {
-    key: "lab",
-    label: "Model lab",
-    group: "models",
-    blurb: "The two networks, running in your browser",
-    screen: "/lab?rung=anc8",
-    purpose:
-      "The study's two neural networks, running live in your browser: a ladder transformer that predicts all three rungs together, and a contact-sequence network that predicts, one contact at a time, whether a woman comes back. It sets them honestly against the tree models and shows where they look.",
-    before: ["basics-models"],
-    cards: [
-      {
-        id: "tiles",
-        title: "The networks in four numbers",
-        shows: "The sequence network's held-out average precision (with explainable boosting for comparison), how often predictions break the ladder, what the sequence adds, and whether the networks have loaded.",
-        read: [
-          "**Ladder broken**: the share of women given a higher chance of ANC8+ than of ANC4+, which is impossible. The networks never do it; three separate tree models sometimes do.",
-          "**Runs here**: \"ready\" once the networks' weights have loaded into the browser.",
-        ],
-        terms: ["network"],
-      },
-      {
-        id: "nets",
-        title: "Networks against the trees, on the same held-out women",
-        shows: "Held-out average precision for the two networks and three reference models, all trained on the same women with the same predictors.",
-        read: [
-          "Rings: the networks' development score, with a band over three training runs.",
-          "Under each: AUROC and calibration slope.",
-          "On tables of this size, tree models usually match or beat networks. Here the sequence network ties at ANC8+ and trails at ANC1+ and ANC4+.",
-        ],
-        terms: ["network", "trees", "ap"],
-      },
-      {
-        id: "composite",
-        title: "Try it: a composite woman",
-        shows: "Both networks run live on an invented woman whose answers are the most common among real women of a region and wealth group.",
-        read: [
-          "Pick a region and a wealth group; the note says how many women she is made from.",
-          "Tick a change (insured, pregnancy wanted, a health post within 30 minutes) to see both networks' predictions move.",
-          "The dots: each network's chance of each rung. With a change ticked, the right-hand figure is the change in points.",
-          "**Her contact count**: the sequence network's chance of exactly each number of contacts (bars) and of still being in care at each contact (line).",
-        ],
-        terms: ["composite"],
-      },
-      {
-        id: "decoder",
-        title: "What the decoder looks at before each next contact",
-        shows: "The sequence network decides, one contact at a time, whether this woman goes on. Before each decision it attends to her answers.",
-        read: [
-          "Rows are the decisions (start at all, after contact 1, 2 …); columns are groups of answers; darker means more attention. Numbers are the share of attention, in %.",
-          "Under each row: the chance she goes on.",
-          "Click a row to pick it out.",
-        ],
-        watch: "Attention shows where the network looks, not why a woman stops.",
-        terms: ["attention"],
-      },
-      {
-        id: "dropoff",
-        title: "Where women stop, contact by contact",
-        shows: "The share of women still in care at each contact: what the survey's women reported (dots) and what the sequence network predicts (line).",
-        read: ["Agreement checks that the network has learned the whole count, not only the three rungs."],
-      },
-      {
-        id: "attention-regions",
-        title: "What the ladder network attends to, region by region",
-        shows: "For each region's women, the ladder transformer's average attention to each group of answers.",
-        read: [
-          "One shading for the grid.",
-          "A region whose row differs from the others is one where the network leans on different information.",
-          "Click a region to choose it.",
-        ],
-        terms: ["attention"],
-      },
-      {
-        id: "answers",
-        title: "Her answers the ladder network attends to most",
-        shows: "The composite woman's twelve answers that get the most attention.",
-        read: ["Blue bars are answers in groups a health system can change."],
-        watch: "Attention is not importance. The explainable model's terms (Explore › The ANC ladder) are the better guide to what matters.",
-        terms: ["attention", "modifiable"],
       },
     ],
   },

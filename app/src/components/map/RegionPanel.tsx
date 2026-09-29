@@ -6,7 +6,7 @@ import Funnel from "@/components/charts/Funnel";
 import { Hint, Note, Segmented, Tag } from "@/components/studio/ui";
 import { helpHref } from "@/lib/help/href";
 import { REACH_OF, cohortRungs, type RegionsData } from "@/lib/regionsData";
-import { RUNGS, type Cohort, type Rung } from "@/lib/studio";
+import { RUNGS, useStudio, type Cohort, type Rung } from "@/lib/studio";
 
 /**
  * Everything the studio knows about one region, in the order a planner asks:
@@ -98,6 +98,7 @@ export default function RegionPanel({
     return () => window.removeEventListener("keydown", k);
   }, [onClose]);
 
+  const studio = useStudio();
   const rungs = cohortRungs(cohort);
   const r = rungs.includes(rung) ? rung : "anc8";
   const rungLabel = RUNGS.find((x) => x.key === r)!.label;
@@ -106,8 +107,14 @@ export default function RegionPanel({
   if (!c) return null;
   const reachKey = REACH_OF[r] as "reach1" | "reach4" | "reach8";
 
-  // Why the region differs: the explainable model's exact split (full cohort models).
-  const drv = data.drivers[r]?.regions[region];
+  // Why the region differs: an additive model's exact split (full cohort, full pool).
+  // The model follows the planner's switch (the `lm` setting): explainable boosting or
+  // logistic regression.
+  const driverModels = Object.keys(data.drivers_by_model ?? {});
+  const lmAsked = studio.params.get("lm") ?? "";
+  const lm = driverModels.includes(lmAsked) ? lmAsked : data.drivers_primary ?? driverModels[0] ?? "";
+  const D = data.drivers_by_model?.[lm] ?? data.drivers;
+  const drv = D[r]?.regions[region];
   const conceptMeta = Object.fromEntries(data.concepts.map((k) => [k.key, k]));
   const drivers = drv
     ? Object.entries(drv.concepts)
@@ -237,10 +244,16 @@ export default function RegionPanel({
           <Section
             help="map.region-why"
             title={`Why ${rungLabel} differs from Ethiopia`}
-            how="The explainable model predicts each woman's chance as a sum of one term per factor. The region's average minus the national average splits exactly across factors: bars to the left pull this region below Ethiopia, bars to the right lift it. Factors a health system can change are marked. This is the model's arithmetic, not proof of cause."
+            how="The model predicts each woman's chance as a sum of one term per factor (explainable boosting or logistic regression: the switch chooses). The region's average minus the national average splits exactly across factors: bars to the left pull this region below Ethiopia, bars to the right lift it. Factors a health system can change are marked. This is the model's arithmetic, not proof of cause."
             right={
-              <span className="font-mono text-9.5 text-dim">
-                model {pct(drv!.predicted)} vs {pct(data.drivers[r].national_predicted)}
+              <span className="flex items-center gap-6">
+                {driverModels.length > 1 && (
+                  <Segmented label="Model" options={driverModels.map((m) => ({ key: m, label: m === "ebm" ? "Boosting" : "Logistic" }))}
+                    value={lm} onChange={(k) => studio.set({ lm: k })} />
+                )}
+                <span className="font-mono text-9.5 text-dim">
+                  model {pct(drv!.predicted)} vs {pct(D[r].national_predicted)}
+                </span>
               </span>
             }
           >

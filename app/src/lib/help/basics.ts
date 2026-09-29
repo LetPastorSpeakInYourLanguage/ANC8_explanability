@@ -124,7 +124,7 @@ export const BASICS: HelpTopic[] = [
         read: [
           "**Plan**: the working tools for deciding where and how to act (Overview, Map, Scenario planner, Conflict simulator, Your data).",
           "**Explore**: the analysis underneath the plans (the ladder, predictor selection, models compared, cohorts).",
-          "**Models**: the prediction models themselves (Model analysis, Predict, the First-visit screener, the Model lab).",
+          "**Models**: the prediction models themselves (Model analysis, Predict, the First-visit screener).",
           "**Help**: this guide.",
         ],
       },

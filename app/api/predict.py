@@ -1,21 +1,21 @@
 """Vercel serverless function: score one woman with every deployed model.
 
 POST /api/predict
-    {"answers": {...}, "generations": ["v1", "v1_anc_entry", "v2"]}
+    {"answers": {...}, "generations": ["lib_pool_anc8plus", "lib_s21_anc8plus"]}
 
-    {"answers": {...}, "models": {"pool_anc4plus": ["XGBoost"]}}   one model
+    {"answers": {...}, "models": {"lib_pool_anc4plus": ["XGBoost"]}}   one model
 
 Bundles (the keys are file identifiers):
-    v1             the 21-predictor models of ANC8+ before ANC starts
-                   (logistic regression, random forest, XGBoost)
+    lib_<set>_<outcome>   the model library, before ANC starts: the lineup's models
+                   (logistic regression, random forest, XGBoost, and explainable
+                   boosting where the build keeps it) on one predictor set -- pool
+                   (the full candidate pool), s21 (the 21-predictor set), short or
+                   pars -- at one rung
     v1_anc_entry   the 21-predictor models of ANC8+ at ANC entry -- six models
                    for women who have already started ANC, with and without
                    early_anc
-    v2             the full-candidate-pool models of ANC8+
-    pool_anc1plus  the full-candidate-pool models of ANC1+
-    pool_anc4plus  the full-candidate-pool models of ANC4+
-    small          the study's best small predictor sets, one logistic model
-                   per outcome and horizon
+    small          the study's best small predictor sets at ANC entry, one
+                   logistic model per outcome
 
 `models` limits scoring to the named models of each bundle; without it every
 model of every bundle in `generations` is scored.
@@ -50,7 +50,8 @@ ENABLE_HEAVY = os.environ.get("ENABLE_HEAVY_MODELS", "0") == "1"
 _CACHE: dict = {}
 
 # Only these files are ever opened: the bundle key arrives in the request.
-BUNDLES = ("v1", "v1_anc_entry", "v2", "pool_anc1plus", "pool_anc4plus", "small")
+BUNDLES = ("v1_anc_entry", "small") + tuple(
+    f"lib_{s}_{o}" for s in ("pool", "s21", "short", "pars") for o in ("anc1plus", "anc4plus", "anc8plus"))
 
 
 def load_bundle(generation: str):
@@ -109,14 +110,14 @@ def build_response(payload: dict) -> dict:
     answers = payload.get("answers", {}) or {}
     only = payload.get("models") or {}
     generations = (payload.get("generations") or list(only)
-                   or ["v1", "v1_anc_entry", "v2"])
+                   or ["lib_pool_anc8plus", "lib_s21_anc8plus", "v1_anc_entry"])
 
     out = {gen: score_generation(gen, answers, only.get(gen)) for gen in generations}
 
-    # Do the two predictor sets disagree about this woman? Saying so is more
-    # honest than quietly showing whichever model looks better.
+    # Do the 21-predictor set and the full pool disagree about this woman (ANC8+)?
+    # Saying so is more honest than quietly showing whichever model looks better.
     disagreement = None
-    v1, v2 = out.get("v1"), out.get("v2")
+    v1, v2 = out.get("lib_s21_anc8plus"), out.get("lib_pool_anc8plus")
     if v1 and v2 and v1.get("available") and v2.get("available"):
         def headline(block, prefer):
             ms = [m for m in block["models"] if "probability" in m]
@@ -127,7 +128,7 @@ def build_response(payload: dict) -> dict:
                     return m
             return ms[0]
 
-        a = headline(v1, "XGBoost")
+        a = headline(v1, v1.get("champion"))
         b = headline(v2, v2.get("champion"))
         if a and b and a.get("classification") and b.get("classification"):
             disagreement = {

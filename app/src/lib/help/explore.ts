@@ -96,9 +96,9 @@ export const EXPLORE: HelpTopic[] = [
         read: [
           "A line that rises from ANC1+ to ANC8+ matters more for going further up the ladder.",
           "Hover a name in the key to pick its line out.",
-          "**Measured by**: three ways of scoring a group's share, the explainable model's own terms (EBM), SHAP, or the accuracy lost when the group is removed (Drop-one). Where they agree, the finding is solid.",
+          "**Measured by**: each library model's own account on the full candidate pool (logistic regression and explainable boosting split their predictions exactly; random forest and XGBoost by SHAP), or the accuracy lost when the group is removed (Drop-one). Where they agree, the finding is solid.",
         ],
-        terms: ["ebm", "shap", "drop-one"],
+        terms: ["logistic", "ebm", "shap", "drop-one"],
       },
       {
         id: "patterns",
@@ -217,10 +217,10 @@ export const EXPLORE: HelpTopic[] = [
         read: [
           "One shading for the whole grid, so any two cells compare.",
           "A row that darkens to the right matters more for going further up the ladder.",
-          "**Measure**: the explainable model's share, the SHAP share, or the accuracy added to the 21.",
+          "**Measure**: a library model's share of what it uses on the full candidate pool (exact for logistic regression and explainable boosting, by SHAP for random forest and XGBoost), or the accuracy the predictor adds to the 21.",
           "Click a column title to switch rung.",
         ],
-        terms: ["ebm", "shap"],
+        terms: ["logistic", "ebm", "shap"],
       },
       {
         id: "pool",
@@ -321,14 +321,14 @@ export const EXPLORE: HelpTopic[] = [
       {
         id: "tuning",
         title: "Does tuning pay?",
-        shows: "Each model with its default settings (ring) and after tuning (dot), on the development women.",
+        shows: "Each model with its default settings (ring) and after tuning (dot), on the development women and the full candidate pool.",
         read: ["Most gains are small: the models are close before and after tuning."],
         terms: ["tuning"],
       },
       {
         id: "settings",
         title: "Which settings matter",
-        shows: "For the chosen model, each tuned setting moved one step down and one step up while the others stay fixed.",
+        shows: "For the chosen model, each tuned setting moved one step down and one step up while the others stay fixed (development women, full candidate pool).",
         read: [
           "Red dot: the worse of the two neighbours. Green: the better. The dashed zero line is the tuned value.",
           "A short span near zero: a setting the model does not care about.",
@@ -350,22 +350,24 @@ export const EXPLORE: HelpTopic[] = [
       {
         id: "decision",
         title: "Is the model worth acting on?",
-        shows: "A decision curve. Along the bottom: how sure you want to be before acting on a woman. Up the side: the net benefit.",
+        shows: "A decision curve for this predictor set's best model on the held-out women, with logistic regression beside it. Along the bottom: how sure you want to be before acting on a woman. Up the side: the net benefit.",
         read: [
           "The model helps wherever its line sits above both **Act on everyone** (dashed) and **Act on no one** (flat).",
+          "When the two lines lie together, the simpler model serves as well.",
           "Read it at the risk level your programme would act at.",
         ],
         terms: ["net-benefit", "decision-curve"],
       },
       {
-        id: "networks",
-        title: "Networks against the trees",
-        shows: "The difference in held-out average precision between each network and a reference model, measured on the same women and resampled 1,000 times.",
+        id: "lean",
+        title: "What the models lean on",
+        shows: "Each predictor's share of what each model uses, for the chosen predictor set and rung, on the held-out women.",
         read: [
-          "The line through each dot is the 95% interval: one that crosses zero is a tie. Right of zero, the network is better.",
-          "The row of numbers underneath: the share of held-out women whose predictions break the ladder (a higher chance of ANC8+ than of ANC4+). Separate tree models can do this; the networks predict the rungs together and never do.",
+          "Logistic regression and explainable boosting split their own predictions exactly, so their shares are the models' own arithmetic. Random forest and XGBoost are split by SHAP.",
+          "Rows are the predictors the models agree on most, best first. A row dark in every column is a predictor all the models rely on.",
+          "One shading for the whole grid, so any two cells compare.",
         ],
-        terms: ["network", "paired"],
+        terms: ["shap", "logistic", "ebm"],
       },
     ],
   },

@@ -94,8 +94,6 @@ export const NAV: Record<Mode, NavGroup[]> = {
     {
       label: "Models",
       items: [
-        { key: "lab", label: "Model lab", icon: ChartNetwork, path: "/lab",
-          meta: ["Models", "Networks, attention and forecasting", "benchmarked against the trees"] },
         { key: "predict", label: "Predict", icon: Calculator, path: "/predict",
           meta: ["Models", "Score one woman", "choose an outcome and a model"] },
         { key: "screener", label: "First-visit screener", icon: Bot, path: "/your-data?mode=register",

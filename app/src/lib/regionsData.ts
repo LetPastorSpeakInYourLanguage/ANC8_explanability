@@ -36,6 +36,11 @@ export interface Concept {
   lever: string;
 }
 
+export type Drivers = Record<Rung, {
+  national_predicted: number;
+  regions: Record<string, { predicted: number; concepts: Record<string, number> }>;
+}>;
+
 export interface RegionsData {
   source: string;
   min_n: number;
@@ -50,10 +55,10 @@ export interface RegionsData {
   subgroups: Record<Cohort, Record<string, Record<string, SubgroupRow[]>>>;
   profile_meta: { key: string; label: string; modifiable: boolean }[];
   profile: Record<Cohort, Record<string, Record<string, number>>>;
-  drivers: Record<Rung, {
-    national_predicted: number;
-    regions: Record<string, { predicted: number; concepts: Record<string, number> }>;
-  }>;
+  drivers: Drivers;
+  /** The same split under each additive model: "ebm" (explainable boosting), "logistic". */
+  drivers_by_model?: Record<string, Drivers>;
+  drivers_primary?: string;
   gap: Partial<Record<Cohort, Partial<Record<Rung, Record<string, {
     actual: number; expected: number; gap: number; n: number;
   }>>>>>;

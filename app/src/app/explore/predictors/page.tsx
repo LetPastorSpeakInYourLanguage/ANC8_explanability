@@ -14,6 +14,7 @@ import type { Analysis, FeatureValueEntry } from "@/lib/analysis";
 import { useJSON } from "@/lib/data";
 import { OUTCOME_OF, RUNG_LABEL, RUNG_OF, num, pct, setName, signed, type Outcome } from "@/lib/explore";
 import { label } from "@/lib/labels";
+import { MODEL_ABBR, type Explained } from "@/lib/modelCards";
 import { cohortRungs } from "@/lib/regionsData";
 import { COHORTS, RUNGS, useStudio, type Rung } from "@/lib/studio";
 
@@ -25,18 +26,22 @@ const MODEL_COLOR: Record<string, string> = {
 };
 const SET_ORDER = ["tier 1", "tier 1+2", "original 21", "all 88"];
 
-type Measure = "ebm" | "shap" | "marginal";
-const MEASURES: { key: Measure; label: string; title: string }[] = [
-  { key: "ebm", label: "EBM share", title: "Share of the explainable boosting model's total effect" },
-  { key: "shap", label: "SHAP share", title: "Share of the mean absolute SHAP value" },
-  { key: "marginal", label: "Added accuracy", title: "Average precision gained by adding it to the 21, as a share of the ceiling" },
-];
+// A model's name (its share of what that model uses, on the full pool), or the added accuracy.
+type Measure = string;
+const MARGINAL = "marginal";
 
 export default function PredictorsPage() {
   const studio = useStudio();
   const theme = useRenderTheme();
   const ana = useJSON<Analysis>("/analysis.json");
-  const [measure, setMeasure] = useState<Measure>("ebm");
+  const explained = useJSON<Explained>("/data/explain.json");
+  const lineup = explained.data?.models ?? [];
+  const MEASURES = [
+    ...lineup.map((m) => ({ key: m, label: MODEL_ABBR[m] ?? m, title: `Share of what ${m} uses (full pool)` })),
+    { key: MARGINAL, label: "Added accuracy", title: "Average precision gained by adding it to the 21, as a share of the ceiling" },
+  ];
+  const [picked, setMeasure] = useState<Measure>("");
+  const measure = MEASURES.some((m) => m.key === picked) ? picked : MEASURES[0]?.key ?? MARGINAL;
 
   const cohort = studio.cohort;
   const rungs = cohortRungs(cohort);
@@ -72,21 +77,28 @@ export default function PredictorsPage() {
   }, [fv, s]);
 
   const matrix = useMemo(() => {
-    const rows = ana.data?.predictor_matrix ?? [];
-    if (!rows.length) return [];
-    const val = (r: (typeof rows)[number]) =>
-      measure === "ebm" ? r.ebm ?? null : measure === "shap" ? r.shap ?? null : r.marginal_share;
     const by = new Map<string, { domain: string; in21: boolean; v: Record<string, number | null> }>();
-    for (const r of rows) {
-      const e = by.get(r.predictor) ?? { domain: r.domain ?? "", in21: r.in_21, v: {} };
-      e.v[r.rung] = val(r);
-      by.set(r.predictor, e);
+    if (measure === MARGINAL) {
+      for (const r of ana.data?.predictor_matrix ?? []) {
+        const e = by.get(r.predictor) ?? { domain: r.domain ?? "", in21: r.in_21, v: {} };
+        e.v[r.rung] = r.marginal_share;
+        by.set(r.predictor, e);
+      }
+    } else {
+      for (const [rk, block] of Object.entries(explained.data?.pool ?? {})) {
+        for (const [x, info] of Object.entries(block!.predictors)) {
+          const e = by.get(x) ?? { domain: info.domain, in21: info.in21, v: {} };
+          e.v[OUTCOME_OF[rk as Rung]] = info.shares[measure] ?? null;
+          by.set(x, e);
+        }
+      }
     }
+    if (!by.size) return [];
     return [...by.entries()]
       .sort((a, b) => (b[1].v[outcome] ?? -1) - (a[1].v[outcome] ?? -1))
       .slice(0, 24)
       .map(([k, e]) => ({ key: k, label: label(k), title: k, sub: `${e.domain}${e.in21 ? " · in the 21" : ""}`, values: e.v }));
-  }, [ana.data, measure, outcome]);
+  }, [ana.data, explained.data, measure, outcome]);
 
   if (ana.error) return <Screen><InlineError message={ana.error} /></Screen>;
   if (!ana.data) return <Screen><PanelLoading rows={8} /></Screen>;

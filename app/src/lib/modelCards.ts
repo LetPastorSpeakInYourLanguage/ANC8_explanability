@@ -79,8 +79,11 @@ export interface Card {
   tuning: Tuning;
   n_predictors: number;
   predictors: string[];
-  /** The study's own importance shares, for explainable boosting and XGBoost on the pool. */
-  shares?: { kind: "ebm" | "shap"; rows: { predictor: string; share: number }[] };
+  /** What the model leans on (outputs/explain): exact shares for logistic regression and
+   *  explainable boosting, SHAP for the tree models. */
+  shares?: { kind: "ebm" | "logistic" | "shap"; rows: { predictor: string; share: number }[] };
+  /** Net benefit on held-out women across risk thresholds (base models only). */
+  decision?: { t: number[]; model: number[]; all: number[] };
 }
 
 /** The part of a card the rankings and heatmaps need. */
@@ -97,8 +100,18 @@ export interface Family {
   set: string;
 }
 
+export interface TuningEvidence {
+  defaults_ap: number | null;
+  tuned_ap: number | null;
+  params: { parameter: string; tuned: string; worst: number; best: number }[];
+}
+
 export interface ModelsIndex {
-  meta: { n_development: number; n_heldout: number; resamples: number; sets: { key: string; label: string }[] };
+  meta: {
+    n_development: number; n_heldout: number; resamples: number; sets: { key: string; label: string }[];
+    lineup?: string; models?: string[];
+  };
+  tuning?: Partial<Record<Rung, Record<string, TuningEvidence>>>;
   families: Record<string, Family>;
   summary: Record<string, Partial<Record<Rung, Summary>>>;
   cross: { key: string; set: string; rung: Rung; ap: number; auroc: number; brier: number; slope: number; lift: number }[];
@@ -109,6 +122,22 @@ export interface ModelsSet {
 }
 
 export const MODELS_INDEX = "/data/models/index.json";
+
+/** app/public/data/explain.json: what each lineup model leans on, per set and rung. */
+export interface Explained {
+  models: string[];
+  sets: Record<string, Partial<Record<Rung, { predictor: string; mean_rank: number; top5: number; shares: Record<string, number> }[]>>>;
+  /** The full candidate pool: every predictor, and every domain, under each model. */
+  pool?: Partial<Record<Rung, {
+    predictors: Record<string, { domain: string; in21: boolean; shares: Record<string, number> }>;
+    domains: Record<string, Record<string, number>>;
+  }>>;
+}
+
+/** Short names for the four library models. */
+export const MODEL_ABBR: Record<string, string> = {
+  "Logistic regression": "Logistic", "Random Forest": "Forest", XGBoost: "XGBoost", "Explainable Boosting": "EBM",
+};
 export const SETS = ["pool", "s21", "short", "pars"];
 export const setFile = (set: string) => `/data/models/${SETS.includes(set) ? set : "pool"}.json`;
 

@@ -25,8 +25,18 @@ export interface Lever {
   concept: string;
   who: string;
   supported: boolean;
+  /** Supported under each lever model (every rung rises). */
+  supported_by?: Record<string, boolean>;
   models_agree: boolean;
 }
+
+export type ScenarioRungs = Record<SRung, {
+  means: number[][];
+  gain: number[][];
+  lo: number[][];
+  hi: number[][];
+  targeted: Record<string, number[][]>;
+}>;
 
 export interface ScenarioData {
   method: string;
@@ -34,14 +44,12 @@ export interface ScenarioData {
   regions: string[]; // 14 regions then "Ethiopia"
   subsets: string[]; // "0101000": lever i on when char i is "1"
   eligible: Record<string, number[]>;
-  rungs: Record<SRung, {
-    means: number[][];
-    gain: number[][];
-    lo: number[][];
-    hi: number[][];
-    logistic_check: number[][] | null;
-    targeted: Record<string, number[][]>;
-  }>;
+  /** The primary model's numbers (the same as by_model[primary].rungs). */
+  rungs: ScenarioRungs;
+  /** Every lever model's numbers: "ebm" (explainable boosting) and "logistic". */
+  by_model?: Record<string, { rungs: ScenarioRungs }>;
+  primary?: string;
+  model_labels?: Record<string, string>;
   early_visit: {
     who: string;
     eligible: number[];
@@ -51,6 +59,15 @@ export interface ScenarioData {
 }
 
 export const EARLY = "early";
+
+export const MODEL_SHORT: Record<string, string> = { ebm: "Explainable boosting", logistic: "Logistic regression" };
+
+/** The scenario as one lever model sees it: its numbers and its own "supported" verdicts. */
+export function forModel(d: ScenarioData, model: string): ScenarioData {
+  const m = d.by_model?.[model];
+  if (!m) return d;
+  return { ...d, rungs: m.rungs, levers: d.levers.map((l) => ({ ...l, supported: l.supported_by?.[model] ?? l.supported })) };
+}
 
 /** Coverage per lever key (0..1), including "early". */
 export type Coverage = Record<string, number>;

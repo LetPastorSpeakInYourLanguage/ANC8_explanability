@@ -269,14 +269,31 @@ def ci(a):
 
 
 # ------------------------------------------------------------------ main
-def cells_for(library: Path, set_: str, rung: str) -> dict:
-    """Every model in the library for one set and rung: {model: cell}."""
+def lineup_models(lineup: str) -> dict:
+    """{display name: library cell name} for a lineup: its models, their two
+    calibrated versions, and the lineup's own two ensembles."""
     out = {}
-    for job in lib.jobs((set_,)):
-        for r, model in job.cells:
-            if r == rung and lib.cell_path(library, set_, r, model).exists():
-                out[model] = lib.load_cell(library, set_, r, model)
+    for m in lib.LINEUPS[lineup]:
+        out[m] = m
+        for c in lib.CALIBRATIONS:
+            out[lib.calibrated_name(m, c)] = lib.calibrated_name(m, c)
+    out["Stacked ensemble"] = lib.ensemble_name("stack", lineup)
+    out["Cumulative-link ensemble"] = lib.ensemble_name("cumlink", lineup)
     return out
+
+
+def cells_for(library: Path, set_: str, rung: str, lineup: str) -> dict:
+    """The lineup's models in the library for one set and rung: {display name: cell}."""
+    out = {}
+    for name, cell in lineup_models(lineup).items():
+        if lib.cell_path(library, set_, rung, cell).exists():
+            out[name] = lib.load_cell(library, set_, rung, cell)
+    return out
+
+
+# The kind of importance each base model reports (outputs/explain, run_explainability.py).
+SHARE_KIND = {"Logistic regression": "logistic", "Explainable Boosting": "ebm",
+              "Random Forest": "shap", "XGBoost": "shap"}
 
 
 def main():
@@ -284,6 +301,7 @@ def main():
     ap.add_argument("--quick", action="store_true")
     ap.add_argument("--library", type=Path, default=LIBRARY, help="where the merged library lives")
     ap.add_argument("--out", type=Path, default=OUT)
+    ap.add_argument("--lineup", default="four", choices=list(lib.LINEUPS))
     args = ap.parse_args()
     n_boot = 30 if args.quick else 500
 
@@ -298,7 +316,7 @@ def main():
 
     for set_ in lib.SETS:
         for rung, short in RUNGS.items():
-            cells = cells_for(args.library, set_, rung)
+            cells = cells_for(args.library, set_, rung, args.lineup)
             if not cells:
                 log(f"{set_}/{rung}: nothing in the library yet")
                 continue
@@ -368,29 +386,54 @@ def main():
                     "n_predictors": meta["n_predictors"],
                     "predictors": meta["predictors"]["numeric"] + meta["predictors"]["categorical"],
                 }
+                if m in lib.LINEUPS[args.lineup]:
+                    dc = metrics.decision_curve(y, p, w)
+                    card["decision"] = {"t": dc.threshold.round(2).tolist(), "model": dc.model.tolist(),
+                                        "all": dc.treat_all.tolist()}
                 cards.setdefault(fam["key"], {})[short] = card
                 cross.append({"key": fam["key"], "set": set_, "rung": short, "ap": pm["AP"],
                               "auroc": pm["AUROC"], "brier": pm["Brier"],
                               "slope": pm["Calibration_slope"], "lift": card["lift"]})
 
-    # The study's own importance shares (explainable boosting's terms, XGBoost's SHAP) for
-    # those two models on the full pool, limited to the predictors the model uses, so the
-    # Model analysis screen needs nothing but its own files.
-    an_p = ROOT / "app" / "public" / "analysis.json"
-    matrix = json.loads(an_p.read_text(encoding="utf-8")).get("predictor_matrix", []) if an_p.exists() else []
-    for slug, col in (("explainable-boosting", "ebm"), ("xgboost", "shap")):
-        for rung, short in RUNGS.items():
-            card = cards.get(f"pool.{slug}", {}).get(short)
-            if not card:
+    # What each base model leans on (scripts/run_explainability.py): its own exact
+    # shares for logistic regression and explainable boosting, TreeSHAP for the trees.
+    imp_p = ROOT / "outputs" / "explain" / "importance.csv"
+    if imp_p.exists():
+        import pandas as pd
+        imp = pd.read_csv(imp_p)
+        for (set_, rung, model), g in imp.groupby(["set", "rung", "model"]):
+            card = cards.get(card_key(set_, model), {}).get(RUNGS[rung])
+            if card is None:
                 continue
-            uses = set(card["predictors"])
-            rows = sorted((r for r in matrix if r["rung"] == rung and r["predictor"] in uses and (r.get(col) or 0) > 0),
-                          key=lambda r: -r[col])[:8]
-            card["shares"] = {"kind": col, "rows": [{"predictor": r["predictor"], "share": r[col]} for r in rows]}
+            top = g.sort_values("share", ascending=False).head(8)
+            card["shares"] = {"kind": SHARE_KIND.get(model, "shap"),
+                              "rows": [{"predictor": r.predictor, "share": float(r.share)} for r in top.itertuples()]}
+
+    # What tuning bought and which settings matter (scripts/run_hyperparameter_ablation.py):
+    # the lineup's models on the full pool, development out-of-fold AP.
+    tuning = {}
+    for rung, short in RUNGS.items():
+        f = ROOT / "outputs" / "library" / "tuning" / f"ablation_pool_{rung}.csv"
+        if not f.exists():
+            continue
+        import pandas as pd
+        a = pd.read_csv(f)
+        for model, g in a[a.model.isin(lib.LINEUPS[args.lineup])].groupby("model"):
+            d0 = g[g.parameter == "(library defaults)"].AP
+            t0 = g[g.parameter == "(tuned optimum)"].AP
+            real = g[~g.parameter.str.startswith("(")]
+            tuning.setdefault(short, {})[model] = {
+                "defaults_ap": float(d0.iloc[0]) if len(d0) else None,
+                "tuned_ap": float(t0.iloc[0]) if len(t0) else None,
+                "params": [{"parameter": par, "tuned": str(gg.tuned_value.iloc[0]),
+                            "worst": float(gg.AP_vs_tuned.min()), "best": float(gg.AP_vs_tuned.max())}
+                           for par, gg in real.groupby("parameter")],
+            }
 
     meta = {"n_development": int(len(dev_all)), "n_heldout": int(len(held)), "resamples": n_boot,
+            "lineup": args.lineup, "models": lib.LINEUPS[args.lineup],
             "sets": [{"key": s, "label": lib.SET_LABEL[s]} for s in lib.SETS if s in summary]}
-    result = {"meta": meta, "families": fams, "cards": cards, "cross": cross}
+    result = {"meta": meta, "families": fams, "cards": cards, "cross": cross, "tuning": tuning}
     out = args.out
     out.mkdir(parents=True, exist_ok=True)
     (out / "model_cards.json").write_text(json.dumps(result), encoding="utf-8")

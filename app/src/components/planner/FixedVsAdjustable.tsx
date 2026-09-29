@@ -14,13 +14,14 @@ import { leverWeight, type Coverage, type SRung, type ScenarioData } from "@/lib
  * which every scenario holds fixed, and what programmes can move, each with its
  * own slider on the same shared scenario as the rest of the planner.
  *
- * The split is exact: the explainable boosting model's prediction is a sum of terms,
+ * The split is exact: the chosen additive model (explainable boosting or logistic
+ * regression, the planner's switch) predicts a sum of terms,
  * so the gap between a region's average and the country's is the sum of each
  * concept's gap. Terms are on the log-odds scale; they are shown as approximate
  * percentage points at the national level of the rung.
  */
 export default function FixedVsAdjustable({
-  reg, sc, rung, region, cov, setCov,
+  reg, sc, rung, region, cov, setCov, model,
 }: {
   reg: RegionsData;
   sc: ScenarioData;
@@ -28,8 +29,10 @@ export default function FixedVsAdjustable({
   region: string;
   cov: Coverage;
   setCov: (key: string, v: number) => void;
+  /** The lever model: "ebm" or "logistic". */
+  model?: string;
 }) {
-  const dr = reg.drivers[rung];
+  const dr = ((model && reg.drivers_by_model?.[model]) || reg.drivers)[rung];
   const p = dr.national_predicted;
   const toPts = (lo: number) => lo * p * (1 - p);
   const concepts = reg.concepts;

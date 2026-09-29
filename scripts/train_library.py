@@ -50,6 +50,8 @@ def safe(job_id: str) -> str:
 
 def selected(args):
     sets = tuple(args.sets) if args.sets else lib.SETS
+    if args.lineup:
+        return [j for ln in args.lineup for j in lib.lineup_jobs(ln, sets)]
     js = lib.jobs(sets)
     if args.only:
         js = [j for j in lib.jobs(sets + ("pool95",)) if any(fnmatch.fnmatch(j.id, p) for p in args.only)]
@@ -218,6 +220,8 @@ def main():
     ap.add_argument("--workers", type=int, default=1, help="jobs run at once")
     ap.add_argument("--fold-jobs", type=int, default=5, help="tuning folds fitted in parallel (CPU)")
     ap.add_argument("--sets", nargs="*", choices=lib.SETS)
+    ap.add_argument("--lineup", nargs="*", choices=list(lib.LINEUPS),
+                    help="run (or report) only these lineups' two ensembles")
     ap.add_argument("--only", nargs="*", help="job ids or patterns, e.g. 's21/anc4plus/*'")
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--heartbeat", type=int, default=600, help="seconds between progress lines for running jobs")

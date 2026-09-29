@@ -62,6 +62,14 @@ NETS = {"ladder": "Ladder transformer", "sequence": "Contact-sequence encoder-de
 NET_SEEDS = (2026, 2027, 2028)
 STACK_TOP = 5
 
+# The model lineups the studio is built on: three core models, and the same with
+# explainable boosting as a fourth. Each lineup has its own two ensembles; the tuned
+# and calibrated cells are shared.
+LINEUPS = {
+    "four": ["Logistic regression", "Random Forest", "XGBoost", "Explainable Boosting"],
+    "three": ["Logistic regression", "Random Forest", "XGBoost"],
+}
+
 # Pool columns that the 21-set's constructs recode one-to-one (checked on every
 # woman: each value of one maps to exactly one value of the other).
 CONSTRUCT_TWINS = {"v136": "household_size", "travel_hospital_log": "travel_time_min"}
@@ -76,6 +84,17 @@ def log(msg):
 def _frame():
     df, pool = sel.build_pool(cohorts.load("full"))
     return df, pool
+
+
+def raw_frame(cohort: str = "full") -> pd.DataFrame:
+    """The cohort with every column in its survey type (codes stay numbers), plus the
+    21-set's three constructs. For editing women's records (the planner's levers):
+    the models' own preparation (design_matrix) turns categories into text afterwards,
+    exactly as it did in training."""
+    df = cohorts.load(cohort)
+    v1 = pd.read_pickle(ROOT / "outputs" / "ANC8_analysis_frozen.pkl")
+    v1["caseid"] = v1.caseid.astype(str)
+    return df.merge(v1[["caseid"] + sel.V1_ONLY], on="caseid", how="left", validate="one_to_one")
 
 
 @lru_cache(maxsize=1)
@@ -195,6 +214,12 @@ class Job:
     rung: str            # "all" for a network run that fills every rung
     model: str           # the cell's model name (for a net: the network's name)
     base: str = ""       # tune/calib: the family; net: ladder | sequence
+    lineup: str = ""     # stack/cumlink over a lineup's models (empty: every family)
+
+    @property
+    def members(self) -> list[str]:
+        """The tuned models an ensemble is built from."""
+        return LINEUPS[self.lineup] if self.lineup else FAMILIES
 
     @property
     def id(self) -> str:
@@ -217,7 +242,7 @@ class Job:
         if self.kind == "calib":
             return [(self.rung, self.base)]
         if self.kind in ("stack", "cumlink"):
-            return [(self.rung, f) for f in FAMILIES]
+            return [(self.rung, f) for f in self.members]
         return []
 
 
@@ -245,10 +270,21 @@ def jobs(sets=SETS) -> list[Job]:
     return out
 
 
+def ensemble_name(kind: str, lineup: str) -> str:
+    """A lineup ensemble's cell name, e.g. "four/Stacked ensemble" (stored in a subfolder)."""
+    return f"{lineup}/{'Stacked ensemble' if kind == 'stack' else 'Cumulative-link ensemble'}"
+
+
+def lineup_jobs(lineup: str, sets=SETS) -> list[Job]:
+    """The two ensembles of one lineup, for every set and rung."""
+    return [Job(kind, s, r, ensemble_name(kind, lineup), lineup=lineup)
+            for s in sets for r in RUNGS for kind in ("stack", "cumlink")]
+
+
 def find(job_id: str) -> Job:
     """A job by id. The reproduction set (pool95) is not part of the library,
     but its cells can be run on request."""
-    for j in jobs(SETS + ("pool95",)):
+    for j in jobs(SETS + ("pool95",)) + [j for ln in LINEUPS for j in lineup_jobs(ln)]:
         if j.id == job_id:
             return j
     raise KeyError(job_id)
@@ -375,17 +411,18 @@ def _calib(job, root, fold_jobs, t0):
               d.y_dev, d.w_dev, d.y_held, d.w_held)
 
 
-def _tuned(root, set_, rung):
+def _tuned(root, set_, rung, members=None):
     """The set's tuned models at this rung, best development AP first."""
-    cells = {f: load_cell(root, set_, rung, f) for f in FAMILIES}
+    cells = {f: load_cell(root, set_, rung, f) for f in (members or FAMILIES)}
     order = sorted(cells, key=lambda f: -cells[f]["meta"]["dev_metrics"]["AP"])
     return cells, order
 
 
 def _stack(job, root, fold_jobs, t0):
     d = data(job.set, job.rung)
-    cells, order = _tuned(root, job.set, job.rung)
-    top = order[:STACK_TOP]
+    cells, order = _tuned(root, job.set, job.rung, job.members)
+    # a lineup blends all its models; the every-family ensemble takes the best five
+    top = order if job.lineup else order[:STACK_TOP]
     Z_dev = np.column_stack([cells[f]["dev_oof"] for f in top])
     Z_held = np.column_stack([cells[f]["held"] for f in top])
     meta = LogisticRegression(max_iter=2000).fit(Z_dev, d.y_dev, sample_weight=d.w_dev / d.w_dev.mean())
@@ -399,7 +436,7 @@ def _stack(job, root, fold_jobs, t0):
 def _cumlink(job, root, fold_jobs, t0):
     d = data(job.set, job.rung)
     dev, held = partitions()
-    cells, order = _tuned(root, job.set, job.rung)
+    cells, order = _tuned(root, job.set, job.rung, job.members)
     champ = order[0]
     params = cells[champ]["meta"]["params"]
     counts = dev.anc_contacts.to_numpy()

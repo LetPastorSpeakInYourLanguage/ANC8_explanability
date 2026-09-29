@@ -40,7 +40,6 @@ export const TOPIC_LIST: TopicEntry[] = [
   { key: "analysis", label: "Model analysis", group: "models", blurb: "One model at a time: accuracy, honesty, how it was built" },
   { key: "predict", label: "Predict", group: "models", blurb: "Score one woman and see why" },
   { key: "screener", label: "First-visit screener", group: "models", blurb: "Twelve questions that rank a register for follow-up" },
-  { key: "lab", label: "Model lab", group: "models", blurb: "The two networks, running in your browser" },
   { key: "about", label: "About the study", group: "models", blurb: "The study on one page, and where each finding lives" },
 ];
 

@@ -159,17 +159,21 @@ OUTCOMES = {"anc1plus": "ANC1+", "anc4plus": "ANC4+", "anc8plus": "ANC8+"}
 HORIZONS = {"before": "Before ANC starts", "entry": "At the first ANC visit"}
 
 # Which model the study points to for each outcome and horizon (FINDINGS.md,
-# docs/PREDICTOR_VALUE.md, docs/HORIZONS.md). For ANC8+, and for both rungs
-# at ANC entry, a small set does as well as the larger ones, so the small
-# logistic model is the recommendation; for ANC1+ and ANC4+ before ANC the
-# full pool beats the 21, so the full pool's headline model is.
+# docs/PREDICTOR_VALUE.md, docs/HORIZONS.md). Before ANC: for ANC1+ and ANC4+
+# the full pool beats the 21, so the full pool's champion; for ANC8+ the short
+# set does as well as the larger ones, so its champion. At ANC entry a small set
+# does as well, so the small logistic model. (None: the bundle's champion.)
 RECOMMENDED = {
-    ("anc1plus", "before"): ("pool_anc1plus", None),
-    ("anc4plus", "before"): ("pool_anc4plus", None),
-    ("anc8plus", "before"): ("small", "anc8plus · before · "),
+    ("anc1plus", "before"): ("lib_pool_anc1plus", None),
+    ("anc4plus", "before"): ("lib_pool_anc4plus", None),
+    ("anc8plus", "before"): ("lib_short_anc8plus", None),
     ("anc4plus", "entry"): ("small", "anc4plus · entry · "),
     ("anc8plus", "entry"): ("small", "anc8plus · entry · "),
 }
+
+# The model library's bundles (scripts/export_serving.py --library), in the order
+# the sets are offered.
+LIBRARY_SETS = ("pool", "s21", "short", "pars")
 
 # Additive models are scored in the browser, so they respond as answers change
 # and their contributions are exact; everything else goes to the service.
@@ -238,13 +242,23 @@ def main():
             "note": note,
         })
 
-    # ---- the 21-predictor models -----------------------------------------
-    v1 = load(MODELS / "v1_bundle.json.gz")
-    for name in v1["models"]:
-        r = t1.loc[name]
-        add("v1", v1, name, outcome="anc8plus", horizon="before",
-            set_label="21 predictors", algorithm=name,
-            ap=r.Weighted_AP, auroc=r.Weighted_AUROC)
+    # ---- the model library: every predictor set, before ANC starts ----------
+    not_deployed = {}
+    for set_ in LIBRARY_SETS:
+        for outcome in OUTCOMES:
+            key = f"lib_{set_}_{outcome}"
+            path = MODELS / f"{key}_bundle.json.gz"
+            if not path.exists():
+                continue
+            b = load(path)
+            for name in b["models"]:
+                add(key, b, name, outcome=outcome, horizon="before",
+                    set_label=b.get("set_label", set_), algorithm=name,
+                    ap=b["heldout_AP"].get(name), auroc=b["heldout_AUROC"].get(name))
+            if b.get("not_deployed"):
+                not_deployed.setdefault(outcome, []).extend(b["not_deployed"])
+
+    # ---- the 21-predictor models at ANC entry --------------------------------
     ve = load(MODELS / "v1_anc_entry_bundle.json.gz")
     for name in ve["models"]:
         algo, spec = name.rsplit(" (", 1)
@@ -255,30 +269,13 @@ def main():
             algorithm=algo, ap=r[f"{spec}_Weighted_AP"],
             auroc=r[f"{spec}_Weighted_AUROC"])
 
-    # ---- the full-pool models, one bundle per outcome -----------------------
-    not_deployed = {}
-    for outcome, key in (("anc1plus", "pool_anc1plus"), ("anc4plus", "pool_anc4plus"),
-                         ("anc8plus", "v2")):
-        path = MODELS / f"{key}_bundle.json.gz"
-        if not path.exists():
-            continue
-        b = load(path)
-        h = held[outcome]
-        h = h[~h.generation.astype(str).str.startswith("V1")].set_index("model")
-        for name in b["models"]:
-            add(key, b, name, outcome=outcome, horizon="before",
-                set_label="Full pool", algorithm=name,
-                ap=h.AP.get(name), auroc=h.AUROC.get(name),
-                note=("a short list of the full pool's strongest predictors"
-                      if name == "Parsimonious" else ""))
-        if b.get("not_deployed"):
-            not_deployed[outcome] = b["not_deployed"]
-
     # ---- the study's best small sets ---------------------------------------
     small_path = MODELS / "small_bundle.json.gz"
     if small_path.exists():
         sb = load(small_path)
         for c in sb["catalog"]:
+            if c["horizon"] != "entry":
+                continue  # before ANC, the library's predictor sets take their place
             label = c["set"]
             label = ("Best " + label.removeprefix("best ")) if label.startswith("best ") \
                 else label[0].upper() + label[1:]

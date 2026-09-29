@@ -247,9 +247,9 @@ def export_ebm(model):
     """Convert an Explainable Boosting Machine to per-term lookup tables.
 
     An EBM is a generalised additive model: a prediction is the intercept plus
-    one score per term, each read out of a binned lookup table. With
-    `interactions = 0` -- which the tuner chose here -- every term is a single
-    feature, so the whole model is a set of one-dimensional step functions.
+    one score per term, each read out of a binned lookup table. A single-feature
+    term is a one-dimensional step function; a pair term (when the tuner chose
+    `interactions` > 0) is a two-dimensional table over both features' bins.
 
     That makes it both trivially exportable and the most inspectable model in
     the zoo, which is why it is worth the extra exporter rather than falling
@@ -260,13 +260,29 @@ def export_ebm(model):
       index 1..n         the n+1 intervals defined by n cut points
       index -1 (last)    unseen / out of range
     """
+    def dim(f, n_dims):
+        # A feature's bins at the resolution used for terms of this many features.
+        raw = model.bins_[f]
+        spec = raw[min(len(raw), n_dims) - 1] if isinstance(raw, list) else raw
+        if isinstance(spec, dict):
+            return {"kind": "nominal", "mapping": {str(k): int(v) for k, v in spec.items()}}
+        return {"kind": "continuous", "cuts": [float(x) for x in np.asarray(spec, dtype=float)]}
+
     terms = []
     for ti, feats in enumerate(model.term_features_):
-        if len(feats) != 1:
+        if len(feats) > 2:
             raise TypeError(
-                "EBM export supports additive terms only; this model contains "
+                "EBM export supports single and pair terms only; this model contains "
                 f"a {len(feats)}-way interaction term"
             )
+        if len(feats) == 2:
+            terms.append({
+                "kind": "pair",
+                "features": [int(f) for f in feats],
+                "dims": [dim(f, 2) for f in feats],
+                "scores": np.asarray(model.term_scores_[ti], dtype=float).tolist(),
+            })
+            continue
         f = feats[0]
         raw = model.bins_[f]
         spec = raw[0] if isinstance(raw, list) else raw
@@ -473,6 +489,69 @@ def export_pool(outcome):
 
 
 
+def export_library(set_, outcome, lineup="four", root=Path("G:/My Drive/ANC8_training")):
+    """One predictor set's lineup models at one rung, from the library.
+
+    The fitted objects are scripts/fit_library_models.py's (gated there against the
+    library's predictions); thresholds and held-out AP come from the library cells;
+    the champion is the best on development out-of-fold AP. Written as
+    lib_<set>_<outcome>_bundle.json.gz.
+    """
+    from anc8 import library as lib
+
+    gen = f"lib_{set_}_{outcome}"
+    blob = joblib.load(ROOT / "outputs" / "library" / "models" / f"{set_}_{outcome}.joblib")
+    numeric, categorical = blob["numeric"], blob["categorical"]
+    _, held = lib.partitions()
+    X = lib.design_matrix(held, numeric, categorical)
+    rows = X.astype(object).where(pd.notna(X), None).to_dict("records")
+    bundle = {"generation": gen, "outcome": outcome, "set": set_, "set_label": lib.SET_LABEL[set_],
+              "predictors": list(numeric) + list(categorical), "preprocessors": {}, "models": {},
+              "heldout_AP": {}, "heldout_AUROC": {}}
+
+    print(f"exporting {lib.SET_LABEL[set_]}, {outcome}")
+    all_ok, skipped, dev_ap = True, [], {}
+    for name in lib.LINEUPS[lineup]:
+        pipe = blob["models"][name]
+        cell = lib.load_cell(root, set_, outcome, name)
+        dev_ap[name] = cell["meta"]["dev_metrics"]["AP"]
+        try:
+            entry = export_estimator(pipe.named_steps["model"])
+            pre = extract_preprocessor(pipe.named_steps["pre"])
+        except TypeError as exc:
+            skipped.append((name, str(exc)))
+            continue
+        size_mb = len(json.dumps(entry)) / 1e6
+        if size_mb > MAX_MODEL_MB:
+            skipped.append((name, f"{size_mb:.0f} MB exported, over the {MAX_MODEL_MB} MB serving limit"))
+            continue
+        key = f"{name}::pre"
+        bundle["preprocessors"][key] = pre
+        entry["preprocessor"] = key
+        entry["threshold"] = float(cell["meta"]["threshold"])
+        bundle["models"][name] = entry
+        bundle["heldout_AP"][name] = float(cell["meta"]["held_metrics"]["AP"])
+        bundle["heldout_AUROC"][name] = float(cell["meta"]["held_metrics"]["AUROC"])
+        ok, _ = verify(bundle, name, pipe, X, rows)
+        all_ok &= ok
+
+    if not all_ok:
+        print("\nFIDELITY GATE FAILED -- bundle not written")
+        raise SystemExit(1)
+    order = sorted(dev_ap, key=lambda m: -dev_ap[m])
+    shippable = [m for m in order if m in bundle["models"]]
+    bundle["champion"] = shippable[0]
+    bundle["best_overall_model"] = order[0]
+    if skipped:
+        bundle["not_deployed"] = [{"model": n, "reason": why} for n, why in skipped]
+        for n, why in skipped:
+            print(f"    not deployed: {n:24s} {why}")
+    out = DEST / f"{gen}_bundle.json.gz"
+    with gzip.open(out, "wt", encoding="utf-8") as fh:
+        json.dump(bundle, fh)
+    print(f"wrote {out} ({out.stat().st_size / 1e6:.1f} MB), champion {bundle['champion']}")
+
+
 FV = ROOT / "outputs" / "feature_value"
 
 
@@ -576,9 +655,18 @@ def main():
     ap.add_argument("--v2", action="store_true")
     ap.add_argument("--pool", nargs="*", choices=["anc1plus", "anc4plus", "anc8plus"],
                     help="full-pool models of these outcomes")
+    ap.add_argument("--library", action="store_true",
+                    help="the model library's lineup, every predictor set and rung")
+    ap.add_argument("--lineup", default="four", choices=["four", "three"])
     ap.add_argument("--small", action="store_true",
                     help="the best small predictor sets of the predictor-value study")
     args = ap.parse_args()
+    if args.library:
+        from anc8 import library as lib
+        for set_ in lib.SETS:
+            for outcome in ("anc1plus", "anc4plus", "anc8plus"):
+                export_library(set_, outcome, args.lineup)
+        return
 
     DEST.mkdir(parents=True, exist_ok=True)
     frozen = pd.read_pickle(ROOT / "outputs" / "ANC8_analysis_frozen.pkl")

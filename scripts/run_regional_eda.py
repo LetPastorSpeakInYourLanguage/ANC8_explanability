@@ -21,6 +21,7 @@ Writes outputs/regional/:
 
 from __future__ import annotations
 
+import itertools
 import json
 import sys
 import time
@@ -235,69 +236,64 @@ def profile() -> pd.DataFrame:
 
 
 # -------------------------------------------------------------------- drivers
-def drivers() -> pd.DataFrame:
+DRIVER_MODELS = {"ebm": "Explainable Boosting", "logistic": "Logistic regression"}
+LIBRARY_MODELS = ROOT / "outputs" / "library" / "models"
+
+
+def drivers(models=tuple(DRIVER_MODELS)) -> pd.DataFrame:
     """Why a region's predicted attainment differs from the country's, exactly.
 
-    The explainable boosting model predicts log-odds as an intercept plus one
-    term per predictor. So the gap between a region's average predicted log-odds
-    and the national average is exactly the sum, over predictors, of the gap in
-    that predictor's average term. Each piece says how much of the region's
-    difference that predictor accounts for, in the model. It describes the model's
-    arithmetic, not a cause.
+    Explainable boosting and logistic regression both predict log-odds as an
+    intercept plus one term per predictor (the library's models on the full
+    candidate pool). So the gap between a region's average predicted log-odds and
+    the national average is exactly the sum, over predictors, of the gap in that
+    predictor's average term. Each piece says how much of the region's difference
+    that predictor accounts for, in that model. It describes the model's arithmetic,
+    not a cause. Both models are reported, in the `model` column.
     """
     import joblib
     from build_form_schema import LABELS
-    from run_ladder_analysis import duplicate_map
 
-    df = cohorts.load("full")
+    from anc8 import explain, library as lib
+
+    df = lib.raw_frame()
     w = (df.v005 / 1e6).to_numpy()
-    dup = duplicate_map()
     rows = []
-    for outcome, rung in RUNGS.items():
-        blob = joblib.load(ENHANCED / outcome / "enhanced_models.joblib")
+    for (outcome, rung), key in itertools.product(RUNGS.items(), models):
+        blob = joblib.load(LIBRARY_MODELS / f"pool_{outcome}.joblib")
         numeric, categorical = blob["numeric"], blob["categorical"]
-        pipe = blob["models"]["Explainable Boosting"]
-        X = df[numeric + categorical].copy()
-        for c in categorical:
-            X[c] = X[c].astype(str)
-        Xt = pipe.named_steps["pre"].transform(X)
-        Xt = np.asarray(Xt.todense()) if hasattr(Xt, "todense") else np.asarray(Xt)
-        est = pipe.named_steps["model"]
-        terms = est.eval_terms(Xt)  # (women, terms), log-odds
-        names = numeric + categorical
-        term_names = []
-        for feats in est.term_features_:
-            parts = [dup.get(names[f], names[f]) for f in feats]
-            term_names.append(" x ".join(parts))
-        T = pd.DataFrame(terms, columns=range(terms.shape[1])).T.groupby(term_names).sum().T
-        national = pd.Series(np.average(T.to_numpy(), axis=0, weights=w), index=T.columns)
-        logit = T.sum(axis=1).to_numpy() + float(np.ravel(est.intercept_)[0])
-        p = 1 / (1 + np.exp(-logit))
+        pipe = blob["models"][DRIVER_MODELS[key]]
+        X = lib.design_matrix(df, numeric, categorical)
+        if key == "ebm":
+            T, intercept = explain.ebm_terms(pipe, X, len(numeric) + len(categorical))
+        else:
+            T, intercept = explain.logistic_terms(pipe, X, numeric, categorical)
+        names = list(numeric) + list(categorical)
+        national = np.average(T, axis=0, weights=w)
+        p = 1 / (1 + np.exp(-(T.sum(axis=1) + intercept)))
         p_nat = float(np.average(p, weights=w))
-        for r, g in df.groupby("region", observed=True):
+        for r in df.region.dropna().unique():
             m = (df.region == r).to_numpy()
-            reg = pd.Series(np.average(T.to_numpy()[m], axis=0, weights=w[m]), index=T.columns)
-            diff = reg - national
+            diff = np.average(T[m], axis=0, weights=w[m]) - national
             p_reg = float(np.average(p[m], weights=w[m]))
-            for pred, d in diff.items():
-                base = pred.split(" x ")[0]
+            for pred, d in zip(names, diff):
                 concept = concept_of(pred)
                 rows.append({
-                    "rung": rung, "region": str(r), "predictor": pred,
-                    "label": LABELS.get(base, (pred,))[0] if " x " not in pred else pred,
+                    "model": key, "rung": rung, "region": str(r), "predictor": pred,
+                    "label": LABELS.get(pred, (pred,))[0],
                     "concept": concept,
-                    "domain": ladder.domain_of(base),
+                    "domain": ladder.domain_of(pred),
                     "modifiable": BY_KEY.get(concept, {}).get("modifiable", False),
                     "contribution": float(d),
                     "region_predicted": p_reg, "national_predicted": p_nat,
                 })
-        print(f"  drivers: {rung}", flush=True)
+        print(f"  drivers: {rung} ({key})", flush=True)
     return pd.DataFrame(rows)
 
 
 def concept_drivers(drv: pd.DataFrame) -> pd.DataFrame:
     """The same decomposition summed to concepts (exact: the terms are additive)."""
-    g = (drv.groupby(["rung", "region", "concept"], as_index=False)
+    g = (drv.groupby(["model", "rung", "region", "concept"], as_index=False)
          .agg(contribution=("contribution", "sum"),
               region_predicted=("region_predicted", "first"),
               national_predicted=("national_predicted", "first")))

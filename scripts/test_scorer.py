@@ -48,14 +48,29 @@ def valid_probability(p):
     return isinstance(p, float) and np.isfinite(p) and 0.0 <= p <= 1.0
 
 
-def main():
-    bundle = load("v1")
-    if bundle is None:
-        print("v1 bundle missing; run export_serving.py --v1")
-        sys.exit(1)
+GENERATIONS = [f"lib_{s}_{o}" for s in ("pool", "s21", "short", "pars") for o in ("anc1plus", "anc4plus", "anc8plus")]
 
+
+def main():
+    found = [(g, load(g)) for g in GENERATIONS]
+    found = [(g, b) for g, b in found if b is not None]
+    if not found:
+        print("library bundles missing; run export_serving.py --library")
+        sys.exit(1)
+    for gen, bundle in found:
+        print(f"\n=== {gen}")
+        edge_cases(bundle)
+    api_checks(found[0][0])
+    entry_checks()
+    print()
+    if FAILURES:
+        print(f"{len(FAILURES)} FAILED")
+        sys.exit(1)
+    print("all scorer edge-case tests passed")
+
+
+def edge_cases(bundle):
     models = list(bundle["models"])
-    print(f"testing {len(models)} V1 models\n")
 
     # 1. Empty input: every field falls back to its training median/mode.
     print("empty input (everything imputed)")
@@ -101,21 +116,26 @@ def main():
         ok(f"{m} classification matches its threshold", cls.startswith(expected),
            f"p={p:.4f} thr={thr:.4f} cls={cls!r}")
 
+
+
+def api_checks(gen):
     # 7. API level: malformed and partial payloads.
     print("\nAPI payloads")
     r = api.build_response({})
     ok("empty payload returns a result", "result" in r)
 
-    r = api.build_response({"answers": {"nonexistent_field": 1}, "generations": ["v1"]})
-    ok("unknown field is ignored", r["result"]["v1"]["available"])
+    r = api.build_response({"answers": {"nonexistent_field": 1}, "generations": [gen]})
+    ok("unknown field is ignored", r["result"][gen]["available"])
     ok("imputed list is reported",
-       len(r["result"]["v1"]["imputed"]) == r["result"]["v1"]["n_expected"],
+       len(r["result"][gen]["imputed"]) == r["result"][gen]["n_expected"],
        "nothing was supplied, so everything should be listed as imputed")
 
-    r = api.build_response({"answers": {}, "generations": ["v2"]})
-    ok("missing v2 bundle is reported, not crashed",
-       r["result"]["v2"]["available"] is False or r["result"]["v2"]["available"] is True)
+    r = api.build_response({"answers": {}, "generations": ["a_bundle_that_does_not_exist"]})
+    ok("an unknown bundle is reported, not crashed",
+       r["result"]["a_bundle_that_does_not_exist"]["available"] is False)
 
+
+def entry_checks():
     # The ANC-entry Extended models carry early_anc in a separate trailing
     # transformer block. A scorer that ignores that block builds a feature
     # vector one column short and fails -- which is exactly what happened once,
@@ -143,12 +163,6 @@ def main():
             ok(f"{algo}: Extended differs from Baseline",
                b is not None and e is not None and abs(b - e) > 1e-9,
                f"baseline={b} extended={e}")
-
-    print()
-    if FAILURES:
-        print(f"{len(FAILURES)} FAILED")
-        sys.exit(1)
-    print("all scorer edge-case tests passed")
 
 
 if __name__ == "__main__":

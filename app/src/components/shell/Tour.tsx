@@ -33,8 +33,6 @@ const STEPS: { path: string; title: string; say: string }[] = [
     say: "Load a DHIS2 export: the trend, a forecast tested on the same series, and the planner's levers on top. Nothing leaves the laptop." },
   { path: "/your-data?mode=register", title: "At the first visit",
     say: "Twelve questions a midwife can ask give almost the accuracy of the full model: a ranked list of women to follow up." },
-  { path: "/lab?rung=anc8", title: "The networks",
-    say: "A ladder transformer and a contact-by-contact decoder, running in the browser, set against the trees without flattering them." },
   { path: "/help", title: "Help for every tool",
     say: "Every panel's (i) says how to read it, and Read more opens a plain-language guide with screenshots. The Help button on each screen opens that screen's guide." },
 ];

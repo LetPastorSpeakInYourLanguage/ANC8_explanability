@@ -53,9 +53,6 @@
     "screener": {
       "url": "/your-data?mode=register"
     },
-    "lab": {
-      "url": "/lab?rung=anc8"
-    },
     "about": {
       "url": "/about"
     }

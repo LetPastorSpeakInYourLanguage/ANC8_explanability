@@ -723,18 +723,27 @@ def test_studio():
             cards.update(json.loads((mp.parent / f"{st['key']}.json").read_text(encoding="utf-8"))["cards"])
         check("the models index summarises exactly the cards in the set files",
               set(mj["summary"]) == set(cards) and all(set(mj["summary"][k]) == set(cards[k]) for k in cards))
-        # The library is complete: every model, predictor set and rung has a card.
+        # The library is complete for the build's lineup: every model, its calibrated
+        # versions and the two ensembles, on every predictor set at every rung.
         sys.path.insert(0, str(ROOT / "src"))
         from anc8 import library as _lib
         import re as _re
         slug = lambda m: _re.sub(r"[^a-z0-9]+", "-", m.lower()).strip("-")
-        want = [(f"{j.set}.{slug(m)}", "anc" + r[3]) for j in _lib.jobs() for r, m in j.cells]
+        lineup = mj["meta"].get("models") or _lib.LINEUPS["four"]
+        names = ([m for m in lineup] + [_lib.calibrated_name(m, c) for m in lineup for c in _lib.CALIBRATIONS]
+                 + ["Stacked ensemble", "Cumulative-link ensemble"])
+        want = [(f"{s}.{slug(m)}", "anc" + r[3]) for s in _lib.SETS for r in _lib.RUNGS for m in names]
         gone = [f"{k}/{r}" for k, r in want if r not in cards.get(k, {})]
         check("every model, predictor set and rung has a card", not gone,
               f"{len(want) - len(gone)} of {len(want)}; missing {'; '.join(gone[:4])}")
         summ = ROOT / "outputs" / "library" / "summary.csv"
         if summ.exists():
             lib_rows = pd.read_csv(summ)
+            lineup_key = mj["meta"].get("lineup", "four")
+            # this lineup's cells; its ensembles are stored as "<lineup>/<name>"
+            base = [n for n in names if n not in ("Stacked ensemble", "Cumulative-link ensemble")]
+            lib_rows = lib_rows[lib_rows.model.isin(base) | lib_rows.model.str.startswith(f"{lineup_key}/")].copy()
+            lib_rows["model"] = lib_rows.model.str.replace(f"{lineup_key}/", "", regex=False)
             gaps = [abs(cards[f"{r.set}.{slug(r.model)}"]["anc" + r.rung[3]]["ap"] - r.held_AP)
                     for r in lib_rows.itertuples() if "anc" + r.rung[3] in cards.get(f"{r.set}.{slug(r.model)}", {})]
             check("every card matches the library's held-out AP", len(gaps) == len(lib_rows) and max(gaps, default=0) < 1e-4,
@@ -749,9 +758,6 @@ def test_studio():
         small = [f"{k}/{r}/{d}" for k, by in cards.items() for r, c in by.items()
                  for d, rows in c["subgroups"].items() for x in rows if x["n"] < 25]
         check("no subgroup cell has fewer than 25 women", not small, "; ".join(small[:4]))
-        nets = [f"{st}.{k}" for st in _lib.SETS for k in ("ladder-transformer", "contact-sequence-encoder-decoder")
-                if all(r in cards.get(f"{st}.{k}", {}) for r in ("anc1", "anc4", "anc8"))]
-        check("both networks have a card at all three rungs on every set", len(nets) == 2 * len(_lib.SETS))
         check("each card carries a tuning or how-built block",
               all("tuning" in c for by in cards.values() for c in by.values()))
     else:
@@ -765,7 +771,7 @@ def test_studio():
                          r'inset(?:-[xy])?|space-[xy]|min-[wh]|max-[wh]|translate-[xy]|scroll-mt)-'
                          r'(\d+(?:\.\d+)?)(?![\w.\[])')
         dirs = ["app", "components/studio", "components/shell", "components/charts", "components/map",
-                "components/planner", "components/war", "components/upload", "components/lab",
+                "components/planner", "components/war", "components/upload",
                 "components/explore", "components/models", "components/predict", "components/help"]
         hits = []
         for dname in dirs:
@@ -862,51 +868,6 @@ fs.writeFileSync(process.argv[4], JSON.stringify({p, best: a[0].key,
               res["best"] in ("hw", "snaive") and res["top"] < res["naive"],
               f"best {res['best']}, error {res['top']:.2f} against last-value {res['naive']:.2f}")
         check("the forecast backtest is reproducible", res["same"])
-
-    # The two networks' browser forward pass against PyTorch, on held-out women.
-    par = ROOT / "outputs" / "deep" / "parity_heldout.npy"
-    wts = ROOT / "outputs" / "deep" / "weights.json"
-    if not (par.exists() and wts.exists()):
-        skip("network parity", "run scripts/run_deep_models.py first")
-        return
-    try:
-        sys.path.insert(0, str(ROOT / "scripts"))
-        import run_deep_models as rdm
-        _, _, held, _, _, _ = rdm.load()
-    except Exception as exc:  # the per-woman data is not in every layout
-        skip("network parity", f"held-out women not available: {type(exc).__name__}")
-        return
-    prep = json.loads(wts.read_text(encoding="utf-8"))["ladder"]["prep"]
-    n = 200
-    recs = []
-    for _, row in held.head(n).iterrows():
-        rec = {c: (None if pd.isna(pd.to_numeric(row[c], errors="coerce")) else float(pd.to_numeric(row[c], errors="coerce")))
-               for c in prep["numeric"]}
-        rec.update({c: (None if pd.isna(row[c]) else str(row[c])) for c in prep["categorical"]})
-        recs.append(rec)
-    with tempfile.TemporaryDirectory() as t:
-        tmp = Path(t)
-        if not _compile_ts(["nets.ts"], tmp):
-            skip("network parity", "TypeScript compiler not available")
-            return
-        (tmp / "recs.json").write_text(json.dumps(recs), encoding="utf-8")
-        (tmp / "run.js").write_text(r"""
-const fs = require('fs'); const n = require('./nets.js');
-const nets = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
-const recs = JSON.parse(fs.readFileSync(process.argv[3], 'utf8'));
-fs.writeFileSync(process.argv[4], JSON.stringify(recs.map(r => [n.ladder(nets, r).p, n.sequence(nets, r).p])));
-""", encoding="utf-8")
-        r = subprocess.run(["node", str(tmp / "run.js"), str(wts), str(tmp / "recs.json"), str(tmp / "out.json")],
-                           capture_output=True, text=True, cwd=tmp)
-        if r.returncode != 0:
-            check("the browser networks run", False, r.stderr[-300:])
-            return
-        got = np.array(json.loads((tmp / "out.json").read_text(encoding="utf-8")))  # (n, 2, 3)
-    ref = np.load(par)[:, :n, :].transpose(1, 0, 2)
-    worst = float(np.abs(got - ref).max())
-    # the weights are stored to six decimals, so agreement is to about 1e-5
-    check("the browser networks match PyTorch on held-out women", worst < 1e-4,
-          f"worst difference {worst:.1e} over {n} women, both networks, three rungs")
 
 
 
