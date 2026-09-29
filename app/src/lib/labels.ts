@@ -121,6 +121,7 @@ export const PREDICTOR_LABELS: Record<string, string> = {
   maternal_occupation_group: "Mother's occupation",
 
   early_anc: "First ANC visit in the first trimester",
+  age_at_birth: "Mother's age at the birth",
 };
 
 export function label(code: string): string {

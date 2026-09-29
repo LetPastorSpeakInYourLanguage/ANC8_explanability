@@ -177,12 +177,7 @@ def test_split(df):
 
 # The 2024-25 EDHS key indicators report, Table 9: percentage of women with a
 # live birth in the 2 years before the survey who had 4+ ANC visits.
-EDHS_ANC4_BY_REGION = {
-    "Tigray": 57.1, "Afar": 46.2, "Amhara": 62.0, "Oromia": 48.4, "Somali": 12.7,
-    "Benishangul-Gumuz": 57.2, "Central Ethiopia": 58.5, "Sidama": 41.5,
-    "South West Ethiopia": 48.1, "South Ethiopia": 47.1, "Gambella": 49.2,
-    "Harari": 46.5, "Addis Ababa": 94.8, "Dire Dawa": 69.1,
-}
+from anc8.reference import EDHS_ANC4_BY_REGION  # noqa: E402
 
 
 def test_official_indicator():
@@ -660,6 +655,21 @@ def test_studio():
                if set(x["concepts"]) - concepts]
     check("every region's driver split uses only known concepts", not missing, str(missing[:3]))
 
+    ep = base / "data" / "explore.json"
+    if ep.exists():
+        e = json.loads(ep.read_text(encoding="utf-8"))
+        sums = [abs(sum(v["share"]) - 1) for blk in e.get("contacts", {}).values() for v in blk.values()]
+        check("every contact-count distribution sums to one",
+              bool(sums) and max(sums) < 1e-3, f"worst {max(sums):.2e}" if sums else "no distributions")
+        check("the EDHS comparison table covers all 14 regions", len(e["edhs_anc4"]["regions"]) == 14)
+        nets = e.get("networks")
+        if nets:
+            check("both networks are scored at every rung on the held-out women",
+                  len({(r["model"], r["rung"]) for r in nets["heldout"] if r["model"] in (
+                      "Ladder transformer", "Contact-sequence encoder-decoder")}) == 6)
+    else:
+        skip("explore.json", "absent; run scripts/export_viz_data.py")
+
     # The house design system: spacing utilities outside its scale silently fall back
     # to Tailwind's default (e.g. h-54 = 216px), so they are refused here.
     src = ROOT / "app" / "src"
@@ -677,6 +687,19 @@ def test_studio():
                     hits += [f"{f.relative_to(src)}:{i} {m.group(0)}" for m in pat.finditer(line)
                              if m.group(1) not in HOUSE_SPACING]
         check("studio screens use only the house spacing scale", not hits, "; ".join(hits[:6]))
+
+        # Font sizes likewise: text-9 is not a house size and silently renders at the
+        # inherited 13px, larger than the label it was meant to sit under.
+        sizes = set(re.findall(r"--text-(\d+(?:-\d)?):", (src / "app" / "globals.css").read_text(encoding="utf-8")))
+        sizes = {x.replace("-", ".") for x in sizes}
+        tpat = re.compile(r'(?<![\w-])text-(\d+(?:\.\d+)?)(?![\w.\[])')
+        hits = []
+        for dname in dirs:
+            for f in sorted((src / dname).rglob("*.tsx")) if (src / dname).exists() else []:
+                for i, line in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+                    hits += [f"{f.relative_to(src)}:{i} {m.group(0)}" for m in tpat.finditer(line)
+                             if m.group(1) not in sizes]
+        check("studio screens use only the house type sizes", not hits, "; ".join(hits[:6]))
 
 
 def main():

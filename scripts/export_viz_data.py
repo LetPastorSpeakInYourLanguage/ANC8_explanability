@@ -8,6 +8,8 @@ deployed. Each block is written only when its analysis has run; a missing input 
 reported, not faked.
 
   app/public/data/regions.json   map, region panels, region x metric heatmap
+  app/public/data/explore.json   the Explore screens' extras: contact-count
+                                 distributions, the EDHS report table, the networks
 """
 
 from __future__ import annotations
@@ -23,10 +25,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from anc8.concepts import CONCEPTS  # noqa: E402
+from anc8.reference import EDHS_ANC4_BY_REGION, EDHS_ANC4_NATIONAL  # noqa: E402
 
 OUT = ROOT / "app" / "public" / "data"
 REGIONAL = ROOT / "outputs" / "regional"
 WARTIME = ROOT / "outputs" / "wartime"
+DEEP = ROOT / "outputs" / "deep"
 
 RUNG_OF = {"anc1plus": "anc1", "anc4plus": "anc4", "anc8plus": "anc8"}
 
@@ -134,6 +138,45 @@ def regions_block() -> dict | None:
     }
 
 
+def explore_block() -> dict:
+    """What the Explore screens need beyond analysis.json and regions.json."""
+    out: dict = {"edhs_anc4": {"national": EDHS_ANC4_NATIONAL / 100,
+                               "regions": {r: v / 100 for r, v in EDHS_ANC4_BY_REGION.items()},
+                               "source": "EDHS 2024-25 key indicators report, women with a "
+                                         "live birth in the two years before the survey"}}
+
+    f = REGIONAL / "contacts_by_region.csv"
+    if f.exists():
+        c = pd.read_csv(f).sort_values("contacts")
+        out["contacts"] = {
+            cohort: {region: {"share": g.share.tolist(), "n": int(g.n.sum())}
+                     for region, g in gc.groupby("region")}
+            for cohort, gc in c.groupby("cohort")}
+        out["contact_cap"] = int(c.contacts.max())
+    else:
+        print("  explore: no contact distribution, run scripts/run_regional_eda.py")
+
+    f = DEEP / "heldout_performance.csv"
+    if f.exists():
+        perf = pd.read_csv(f)
+        perf["rung"] = perf.rung.map({"ANC1+": "anc1plus", "ANC4+": "anc4plus", "ANC8+": "anc8plus"})
+        summ = json.loads((DEEP / "summary.json").read_text())
+        oof = pd.read_csv(DEEP / "oof_summary.csv")
+        oof["rung"] = oof.rung.map({"ANC1+": "anc1plus", "ANC4+": "anc4plus", "ANC8+": "anc8plus"})
+        boot = pd.read_csv(DEEP / "heldout_paired_bootstrap.csv")
+        boot["rung"] = boot.rung.map({"ANC1+": "anc1plus", "ANC4+": "anc4plus", "ANC8+": "anc8plus"})
+        out["networks"] = {
+            "heldout": perf.to_dict("records"),
+            "development": oof.to_dict("records"),
+            "paired": boot[~boot.reference.str.startswith("Development champion")].to_dict("records"),
+            "ladder_violations": summ.get("ladder_violations_heldout", {}),
+            "seeds": summ.get("seeds"),
+        }
+    else:
+        print("  explore: no network results, run scripts/run_deep_models.py")
+    return out
+
+
 def write(name: str, data) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
@@ -146,6 +189,7 @@ def main():
     reg = regions_block()
     if reg:
         write("regions.json", reg)
+    write("explore.json", explore_block())
 
 
 if __name__ == "__main__":

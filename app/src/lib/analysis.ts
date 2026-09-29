@@ -233,7 +233,8 @@ export type Horizons = {
               AP: number; AUROC: number; Calibration_slope: number;
               prevalence: number }[];
   cross?: { outcome: string; set: string; trained_on: string; AP: number;
-            AUROC: number; prevalence: number }[];
+            AUROC: number; prevalence: number; CITL?: number;
+            Calibration_slope?: number }[];
   tiers?: { outcome: string; horizon: string; step: number; predictor: string;
             tier: string; AP: number; gain: number; prevalence: number;
             all_pool_AP: number; set21_AP: number }[];

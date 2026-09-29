@@ -366,9 +366,9 @@
  * ======================================================================== */
 
 @layer base {
-  /* Names the pre-studio components still read. Removed once the last of them
-     is ported (see the studio plan, milestone M2). --muted here is the old
-     text-grey meaning; no vendored ui/ component reads --muted. */
+  /* Names the Library's report reader and the Predict form (Reports, Journey,
+     Explainers, Predict) still read. --muted here is the old text-grey meaning;
+     no vendored ui/ component reads --muted. */
   :root {
     --fg: var(--text);
     --line: var(--border);
@@ -551,3 +551,31 @@ path.leaflet-interactive,
 /* Theme-dependent chrome rendered for both themes; the attribute picks one. */
 :root:not([data-theme="dark"]) .theme-dark-only { display: none !important; }
 :root[data-theme="dark"] .theme-light-only { display: none !important; }
+
+/* ------------------------------------------------ chart series */
+/* The three rungs as one ramp, so ANC1+, ANC4+ and ANC8+ read as steps of the same
+   thing in every chart: lighter is the lower rung. On the dark palette the ramp is
+   reversed in brightness, as the map ramps are. */
+:root {
+  --rung1: #7fb3df;
+  --rung4: #1a72b8;
+  --rung8: #0a4e86;
+  --net: #b0632a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --rung1: #2f78a8;
+    --rung4: #4fa6e8;
+    --rung8: #9fd2f7;
+    --net: #e39a5c;
+  }
+}
+:root[data-theme="dark"] {
+  --rung1: #2f78a8;
+  --rung4: #4fa6e8;
+  --rung8: #9fd2f7;
+  --net: #e39a5c;
+}
+.recharts-wrapper .recharts-surface:focus,
+.recharts-wrapper:focus,
+.recharts-surface:focus { outline: none; }

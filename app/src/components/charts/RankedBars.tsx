@@ -22,6 +22,8 @@ export default function RankedBars({
   reference,
   referenceLabel = "Ethiopia",
   signed = false,
+  labelWidth = 112,
+  valueWidth = 58,
 }: {
   rows: RankedRow[];
   active?: string;
@@ -30,6 +32,8 @@ export default function RankedBars({
   referenceLabel?: string;
   /** values can be negative: bars grow from a centre line */
   signed?: boolean;
+  labelWidth?: number;
+  valueWidth?: number;
 }) {
   const vals = rows.map((r) => r.value ?? 0);
   const max = Math.max(1e-9, ...vals.map((v) => Math.abs(v)), Math.abs(reference ?? 0));
@@ -45,12 +49,14 @@ export default function RankedBars({
             type="button"
             onClick={() => onSelect?.(r.key)}
             aria-pressed={on}
-            className={`grid grid-cols-[112px_minmax(0,1fr)_58px] items-center gap-8 w-full rounded-2 px-6 py-3 text-left hover:bg-panel2 ${
+            className={`grid items-center gap-8 w-full rounded-2 px-6 py-3 text-left hover:bg-panel2 ${
               on ? "bg-sel" : ""
             }`}
+            style={{ gridTemplateColumns: `min(${labelWidth}px, 40%) minmax(0,1fr) ${valueWidth}px` }}
           >
-            <span className={`truncate text-10.5 ${on ? "font-semibold" : ""}`} title={r.label}>
-              {r.label}
+            <span className="min-w-0" title={r.sub ? `${r.label} · ${r.sub}` : r.label}>
+              <span className={`block truncate text-10.5 ${on ? "font-semibold" : ""}`}>{r.label}</span>
+              {r.sub && <span className="block truncate text-9.5 text-faint">{r.sub}</span>}
             </span>
             <span className="relative block h-9 w-full rounded-full bg-panel3 overflow-hidden">
               {r.value != null && (

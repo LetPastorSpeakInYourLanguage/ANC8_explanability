@@ -8,6 +8,7 @@ their stratum), so a region's interval reflects how few clusters it rests on.
 
 Writes outputs/regional/:
   cascade_by_region.csv    the ANC ladder per region and cohort, with 95% intervals
+  contacts_by_region.csv   the weighted distribution of the contact count (0..12+)
   subgroups_by_region.csv  the ladder within region x (wealth, residence, education,
                            pregnancy intention, pregnancy order, insurance, access)
   profile_by_region.csv    how common each circumstance is in each region
@@ -144,6 +145,31 @@ LEVEL_ORDER = {
     "Health post": ["Under 30 min", "30-60 min", "Over 60 min", "No health post in reach"],
     "Age at birth": ["Under 20", "20-34", "35 and over"],
 }
+
+
+CONTACT_CAP = 12  # 12 or more contacts share one bar: fewer than 1% of women are above it
+
+
+def contacts() -> pd.DataFrame:
+    """How many ANC contacts women had, as weighted shares, per cohort and region.
+
+    The ladder thresholds (1, 4, 8) are cuts through this one distribution, so it is
+    what the ladder charts draw from; the heaping at 3-4 and 8 is visible here.
+    """
+    rows = []
+    for cohort in cohorts.COHORTS:
+        df = cohorts.load(cohort)
+        k = df.anc_contacts.clip(upper=CONTACT_CAP).astype(int)
+        w = (df.v005 / 1e6).to_numpy()
+        groups = [("Ethiopia", np.ones(len(df), bool))] + [
+            (str(r), (df.region == r).to_numpy()) for r in df.region.dropna().unique()]
+        for name, m in groups:
+            tot = w[m].sum()
+            for c in range(CONTACT_CAP + 1):
+                sel = m & (k == c).to_numpy()
+                rows.append({"cohort": cohort, "region": name, "contacts": c,
+                             "share": float(w[sel].sum() / tot), "n": int(sel.sum())})
+    return pd.DataFrame(rows)
 
 
 def subgroups() -> pd.DataFrame:
@@ -298,6 +324,7 @@ def main():
     print("regional analysis", flush=True)
     casc = cascades()
     casc.to_csv(OUT / "cascade_by_region.csv", index=False)
+    contacts().to_csv(OUT / "contacts_by_region.csv", index=False)
     sub = subgroups()
     sub.to_csv(OUT / "subgroups_by_region.csv", index=False)
     prof = profile()

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Info } from "lucide-react";
+import { Select } from "@/components/ui/select";
 
 /**
  * The studio's screen vocabulary, taken from the house design
@@ -120,6 +121,35 @@ export function Segmented<K extends string>({
         );
       })}
     </div>
+  );
+}
+
+/** A segmented control on wide screens and a native select on a phone, for option
+ *  lists too long to sit in one row at 375px. */
+export function Picker<K extends string>(props: {
+  options: { key: K; label: ReactNode; title?: string }[];
+  value: K;
+  onChange: (k: K) => void;
+  label: string;
+}) {
+  return (
+    <>
+      <div className="hidden md:block">
+        <Segmented {...props} />
+      </div>
+      <Select
+        aria-label={props.label}
+        value={props.value}
+        onChange={(e) => props.onChange(e.target.value as K)}
+        className="md:hidden w-auto min-w-[150px] h-22 text-10.5"
+      >
+        {props.options.map((o) => (
+          <option key={o.key} value={o.key}>
+            {typeof o.label === "string" ? o.label : o.key}
+          </option>
+        ))}
+      </Select>
+    </>
   );
 }
 
