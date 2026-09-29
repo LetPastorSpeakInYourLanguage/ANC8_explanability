@@ -365,24 +365,6 @@
  * two stay in step. Additions below use only the house tokens.
  * ======================================================================== */
 
-@layer base {
-  /* Names the Library's report reader and the Predict form (Reports, Journey,
-     Explainers, Predict) still read. --muted here is the old text-grey meaning;
-     no vendored ui/ component reads --muted. */
-  :root {
-    --fg: var(--text);
-    --line: var(--border);
-    --v1: var(--cross);
-    --v2: var(--accent);
-    --muted: var(--dim);
-  }
-}
-
-.card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-}
 .label {
   font-size: calc(11.5px * var(--font-scale, 1));
   color: var(--dim);

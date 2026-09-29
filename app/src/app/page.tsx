@@ -100,6 +100,9 @@ export default function Overview() {
           </div>
         </Panel>
       </div>
+      <Link href={studio.href("/about")} className="text-10.5 text-accent hover:underline self-start">
+        About the study
+      </Link>
     </Screen>
   );
 }

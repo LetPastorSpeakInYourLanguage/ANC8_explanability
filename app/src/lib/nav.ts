@@ -1,18 +1,15 @@
 import {
-  BookOpen,
   Bot,
   Calculator,
   ChartColumnBig,
   ChartNetwork,
   Flame,
   Gauge,
+  Info,
   Layers,
   Microscope,
-  LibraryBig,
   ListTree,
   Map as MapIcon,
-  NotebookText,
-  Scale,
   SlidersHorizontal,
   Split,
   Upload,
@@ -22,11 +19,11 @@ import {
 /**
  * Navigation, organised the house way: by what the reader is DOING, not by which
  * analysis produced a result. Planning comes first because the studio exists for the
- * people who allocate effort across regions; the exploratory analysis, the models and
- * the written record follow for anyone who wants to check the ground under a plan.
+ * people who allocate effort across regions; the exploratory analysis and the models
+ * follow for anyone who wants to check the ground under a plan.
  */
 
-export type Mode = "plan" | "explore" | "models" | "library";
+export type Mode = "plan" | "explore" | "models";
 
 export interface NavItem {
   key: string;
@@ -46,7 +43,6 @@ export const MODES: { key: Mode; label: string }[] = [
   { key: "plan", label: "Plan" },
   { key: "explore", label: "Explore" },
   { key: "models", label: "Models" },
-  { key: "library", label: "Library" },
 ];
 
 export const NAV: Record<Mode, NavGroup[]> = {
@@ -102,26 +98,20 @@ export const NAV: Record<Mode, NavGroup[]> = {
       ],
     },
   ],
-  library: [
-    {
-      label: "Library",
-      items: [
-        { key: "reports", label: "Reports & figures", icon: LibraryBig, path: "/library",
-          meta: ["Library", "Every document and figure", "the written study"] },
-        { key: "record", label: "Analysis record", icon: NotebookText, path: "/library/record",
-          meta: ["Library", "Every analysis, and how it was tested", "question · test · result"] },
-        { key: "glossary", label: "Terms & charts", icon: BookOpen, path: "/library/glossary",
-          meta: ["Library", "What every term and chart means", "plain language"] },
-        { key: "limits", label: "Limitations", icon: Scale, path: "/library?doc=limitations",
-          meta: ["Library", "What this study cannot support", ""] },
-      ],
-    },
-  ],
 };
 
-const ALL: (NavItem & { mode: Mode })[] = (Object.keys(NAV) as Mode[]).flatMap((mode) =>
-  NAV[mode].flatMap((g) => g.items.map((i) => ({ ...i, mode }))),
-);
+/** Reachable from the finder and the status bar, not from the sidebar. */
+const ABOUT: NavItem = {
+  key: "about", label: "About the study", icon: Info, path: "/about",
+  meta: ["About", "The study on one page", "where to see each finding"],
+};
+
+const ALL: (NavItem & { mode: Mode })[] = [
+  ...(Object.keys(NAV) as Mode[]).flatMap((mode) =>
+    NAV[mode].flatMap((g) => g.items.map((i) => ({ ...i, mode }))),
+  ),
+  { ...ABOUT, mode: "plan" as Mode },
+];
 
 /** The nav item a pathname belongs to: the longest matching path wins. */
 export function itemForPath(pathname: string): (NavItem & { mode: Mode }) | undefined {
@@ -145,8 +135,8 @@ export function allNavItems() {
 
 /** Links from before the studio (#reports, #predict/…) and where they live now. */
 export const LEGACY_HASH: Record<string, string> = {
-  reports: "/library",
-  brief: "/library?doc=brief",
+  reports: "/about",
+  brief: "/",
   findings: "/map",
   predictors: "/explore/predictors",
   ladder: "/explore/ladder",
@@ -155,6 +145,6 @@ export const LEGACY_HASH: Record<string, string> = {
   predict: "/predict",
   whatif: "/predict",
   evidence: "/explore/models",
-  record: "/library/record",
-  journey: "/library/record",
+  record: "/about",
+  journey: "/about",
 };

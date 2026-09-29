@@ -783,6 +783,24 @@ def test_studio():
                              if m.group(1) not in sizes]
         check("studio screens use only the house type sizes", not hits, "; ".join(hits[:6]))
 
+        # Corner radius is 1-3px everywhere. The Tailwind defaults (rounded, rounded-md,
+        # rounded-lg ...) are 4px and up and came from the previous build; rounded-full
+        # stays for dots and thin bars.
+        rpat = re.compile(r'(?<![\w-])rounded(?:-(?:sm|md|lg|xl|2xl|3xl))?(?![\w-])')
+        bpat = re.compile(r"borderRadius\s*:\s*[\"']?(\d+(?:\.\d+)?)")
+        cpat = re.compile(r"className=[\"'`{ ]*(?:[^\"'`]*\s)?card(?:\s|[\"'`])")
+        hits = []
+        for f in sorted(src.rglob("*.tsx")):
+            for i, line in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+                if line.lstrip().startswith(("import ", "//", "*", "/*")):
+                    continue
+                hits += [f"{f.relative_to(src)}:{i} {m.group(0)}" for m in rpat.finditer(line)]
+                hits += [f"{f.relative_to(src)}:{i} borderRadius {m.group(1)}" for m in bpat.finditer(line)
+                         if float(m.group(1)) > 3]
+                if cpat.search(line):
+                    hits.append(f"{f.relative_to(src)}:{i} .card")
+        check("no screen uses a corner radius above 3px or the old card class", not hits, "; ".join(hits[:6]))
+
     test_browser_ports()
 
 

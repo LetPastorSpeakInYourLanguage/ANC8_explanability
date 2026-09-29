@@ -1,7 +1,7 @@
 "use client";
 
-import JourneyScreen from "../JourneyScreen";
+import Redirect from "@/components/shell/Redirect";
 
-export default function RecordPage() {
-  return <JourneyScreen defaultSub="timeline" />;
+export default function Page() {
+  return <Redirect to="/about" />;
 }

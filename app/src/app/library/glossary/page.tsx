@@ -1,7 +1,7 @@
 "use client";
 
-import JourneyScreen from "../JourneyScreen";
+import Redirect from "@/components/shell/Redirect";
 
-export default function GlossaryPage() {
-  return <JourneyScreen defaultSub="terms" />;
+export default function Page() {
+  return <Redirect to="/about" />;
 }

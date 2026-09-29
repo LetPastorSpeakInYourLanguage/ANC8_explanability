@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { COHORTS, useStudio } from "@/lib/studio";
 
 /** The house status bar: what the screen is about on the left, the standing caveat
@@ -17,6 +18,9 @@ export default function StatusBar() {
       <span className="opacity-85 whitespace-nowrap flex-none max-w-[40vw] overflow-hidden text-ellipsis">
         {studio.region || "Ethiopia"} · {cohort.label.toLowerCase()}
       </span>
+      <Link href={studio.href("/about")} className="opacity-85 hover:opacity-100 whitespace-nowrap flex-none hover:no-underline text-topfg">
+        About the study
+      </Link>
       <div className="flex-1 min-w-8" />
       <span className="whitespace-nowrap overflow-hidden text-ellipsis min-w-0">
         <span className="hidden lg:inline">
