@@ -10,6 +10,7 @@ reported, not faked.
   app/public/data/regions.json   map, region panels, region x metric heatmap
   app/public/data/explore.json   the Explore screens' extras: contact-count
                                  distributions, the EDHS report table, the networks
+  app/public/data/war.json       the conflict simulator's model, evidence and backtest
 """
 
 from __future__ import annotations
@@ -31,6 +32,7 @@ OUT = ROOT / "app" / "public" / "data"
 REGIONAL = ROOT / "outputs" / "regional"
 WARTIME = ROOT / "outputs" / "wartime"
 DEEP = ROOT / "outputs" / "deep"
+WAR = ROOT / "outputs" / "war"
 
 RUNG_OF = {"anc1plus": "anc1", "anc4plus": "anc4", "anc8plus": "anc8"}
 
@@ -177,6 +179,40 @@ def explore_block() -> dict:
     return out
 
 
+def war_block() -> dict | None:
+    f = WAR / "war_model.json"
+    if not f.exists():
+        print("  war: skipped, run scripts/run_war_model.py first")
+        return None
+    m = json.loads(f.read_text(encoding="utf-8"))
+    rung = {"anc1plus": "anc1", "anc4plus": "anc4", "anc8plus": "anc8"}
+    obs = pd.read_csv(WAR / "observed_by_half.csv")
+    series = {r: g.drop(columns="region").to_dict("records") for r, g in obs.groupby("region")}
+    win = pd.read_csv(ROOT / "docs" / "conflict_windows.csv")
+    fit = m["fit"]
+    return {
+        "method": ("Weighted logistic regression on Tigray and the regions without major conflict, "
+                   "with region and half-year-of-birth fixed effects; a pregnancy's exposure is the "
+                   "average disruption over its nine months. Association-based: it transfers the "
+                   "Tigray disruption to other regions on the odds scale."),
+        "fit": {
+            "n": fit["n"], "n_tigray": fit["n_tigray"], "regions": fit["regions"],
+            "tau": fit["tau_months"], "tau_supported": fit["tau_supported"],
+            "shock": {rung[k]: {"log_odds": v["log_odds"], "lo": v["interval"][0], "hi": v["interval"][1]}
+                      for k, v in fit["shock"].items()},
+            "profile": [{"tau": t["tau"], "delta_ll": t["delta_ll"],
+                         **{rung[k]: v for k, v in t["shock"].items()}} for t in fit["tau_profile"]],
+        },
+        "draws": [{rung[k]: d[k] for k in rung} for d in m["draws"]],
+        "fitted_tigray": m["fitted_tigray"],
+        "did_check": {rung[k]: v for k, v in m["did_check"].items()},
+        "backtest": m["backtest_amhara"],
+        "observed": series,
+        "windows": win.to_dict("records"),
+        "bootstrap_resamples": m["bootstrap_resamples"],
+    }
+
+
 def write(name: str, data) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
@@ -190,6 +226,9 @@ def main():
     if reg:
         write("regions.json", reg)
     write("explore.json", explore_block())
+    war = war_block()
+    if war:
+        write("war.json", war)
 
 
 if __name__ == "__main__":

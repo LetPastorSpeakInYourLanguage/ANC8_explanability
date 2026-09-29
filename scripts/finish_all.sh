@@ -7,7 +7,8 @@ set -e
 echo "[finish] documentation tables";  $PY scripts/build_docs.py
 echo "[finish] figures";               $PY -u scripts/make_figures.py 2>&1 | grep -E "\[ok\]|\[skip\]|FAIL|written"
 echo "[finish] app data";              $PY scripts/export_app_data.py | tail -3
-echo "[finish] studio data";           $PY scripts/run_regional_eda.py | tail -1 && $PY scripts/export_viz_data.py
+echo "[finish] studio data";           $PY scripts/run_regional_eda.py | tail -1 && $PY scripts/run_war_model.py | tail -1 \
+                                       && $PY scripts/export_viz_data.py
 echo "[finish] checks";                $PY -u scripts/run_tests.py | tail -8
 # Built into a separate folder so a running `next dev` (which owns .next) keeps
 # working; the build is a check here, and Vercel builds the app itself.

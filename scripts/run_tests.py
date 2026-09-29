@@ -670,6 +670,26 @@ def test_studio():
     else:
         skip("explore.json", "absent; run scripts/export_viz_data.py")
 
+    wp = base / "data" / "war.json"
+    if wp.exists():
+        wj = json.loads(wp.read_text(encoding="utf-8"))
+        dc = wj["did_check"]
+        outside = {k: v for k, v in dc.items() if not (v["lo"] <= v["model"] <= v["hi"])}
+        check("the conflict model, run on Tigray, reproduces the difference-in-differences",
+              not outside, str(outside) if outside else
+              ", ".join(f"{k} {v['model']:+.3f} in [{v['lo']:+.3f}, {v['hi']:+.3f}]" for k, v in dc.items()))
+        prof = wj["fit"]["profile"]
+        check("every recovery lag carries a shock that lowers first contact",
+              all(p["anc1"] < 0 for p in prof), f"{len(prof)} lags")
+        bt = wj["backtest"]
+        check("the Amhara backtest is reported, predicted against observed, by half-year",
+              len(bt["rows"]) >= 4 and all("observed_anc1" in r and "full_anc1" in r for r in bt["rows"]),
+              f"intensity {bt['intensity_fit']:.2f}, adaptation {bt['kappa_fit']} months")
+        check("the simulator's bands rest on the bootstrap draws",
+              len(wj["draws"]) >= 100, f"{len(wj['draws'])} draws")
+    else:
+        skip("war.json", "absent; run scripts/run_war_model.py and export_viz_data.py")
+
     # The house design system: spacing utilities outside its scale silently fall back
     # to Tailwind's default (e.g. h-54 = 216px), so they are refused here.
     src = ROOT / "app" / "src"

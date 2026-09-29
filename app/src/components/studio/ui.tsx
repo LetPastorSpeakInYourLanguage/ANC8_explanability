@@ -153,6 +153,46 @@ export function Picker<K extends string>(props: {
   );
 }
 
+/** A labelled range slider in the house scale: the value in mono at the right. */
+export function Range({
+  label,
+  value,
+  min,
+  max,
+  step,
+  onChange,
+  format = (v) => String(v),
+  hint,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (v: number) => void;
+  format?: (v: number) => string;
+  hint?: ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="flex items-baseline gap-8">
+        <span className="text-10.5 font-medium flex-1">{label}</span>
+        <span className="font-mono text-11 font-semibold">{format(value)}</span>
+      </span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full h-16 mt-2 accent-[var(--accent)] cursor-pointer"
+      />
+      {hint && <span className="block text-9.5 text-faint leading-snug">{hint}</span>}
+    </label>
+  );
+}
+
 const TONE_TEXT = { good: "text-good", warn: "text-warn", bad: "text-bad", accent: "text-accent" } as const;
 
 /** The house stat tile. Clickable tiles drill into the shared state. */
