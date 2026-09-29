@@ -59,7 +59,7 @@ export default function FixedVsAdjustable({
   const ri = sc.regions.indexOf(region || "Ethiopia");
 
   return (
-    <Panel
+    <Panel help="planner.fixed"
       title={`What can move and what cannot · ${region || "between regions"} · ${RUNG_LABEL[rung]}`}
       how={region
         ? `Why ${region}'s predicted ${RUNG_LABEL[rung]} differs from Ethiopia's, split exactly across groups of circumstances by the explainable boosting model, in approximate percentage points. Left: circumstances a ministry cannot change directly, held fixed in every scenario. Right: circumstances programmes can move; their sliders are the planner's own, so the map and charts above change as you drag.`

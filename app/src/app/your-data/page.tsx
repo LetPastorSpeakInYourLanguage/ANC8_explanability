@@ -38,7 +38,7 @@ export default function YourDataPage() {
   const mode = studio.params.get("mode") === "register" ? "register" : "aggregate";
   return (
     <Screen>
-      <div className="flex items-center gap-10 flex-wrap">
+      <div data-help="data.mode" className="flex items-center gap-10 flex-wrap">
         <Segmented
           label="What to load"
           size="md"
@@ -149,7 +149,7 @@ function AggregateMode() {
 
   return (
     <>
-      <Panel
+      <Panel help="data.source"
         title="Data"
         how="A CSV with one row per period and (optionally) per facility or area. Columns: period (2023-01 or 2023Q1), org_unit, expected_pregnancies (optional), anc1, anc4, anc8. DHIS2 exports with these names work; other names for the same things are recognised."
       >
@@ -192,7 +192,7 @@ function AggregateMode() {
         <EmptyState title="Not enough to forecast" body="The file needs at least four periods with ANC counts for the chosen measure." />
       ) : (
         <>
-          <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
+          <div data-help="data.tiles" className="grid gap-10 grid-cols-2 lg:grid-cols-4">
             <StatTile label={`Latest · ${series.periods[series.periods.length - 1]}`} value={fmt(last!)}
               sub={`${RUNG_LABEL[measure]}${rate ? " coverage" : " count"} · ${unit || "all units"}`} />
             <StatTile label="Against a year earlier" value={yearAgo != null ? `${last! >= yearAgo ? "+" : "−"}${rate ? `${Math.abs((last! - yearAgo) * 100).toFixed(1)} pt` : Math.abs(Math.round(last! - yearAgo)).toLocaleString()}` : "–"}
@@ -203,7 +203,7 @@ function AggregateMode() {
               sub={`smallest error in a backtest over ${series.ranking[0]?.origins ?? 0} forecast origins`} />
           </div>
 
-          <Panel
+          <Panel help="data.trend"
             title={`Trend and forecast · ${RUNG_LABEL[measure]} ${rate ? "coverage" : "count"}`}
             how="Solid: the data. Dashed: the forecast, from whichever forecaster made the smallest errors when it was tested on this same series (fit on the past, forecast the next periods, compare, repeat). The bands are 80% and 95% ranges built from those real errors. The green line adds the levers set in the scenario planner, reaching their full effect over a year."
             actions={
@@ -273,7 +273,7 @@ function AggregateMode() {
           </Panel>
 
           <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-            <Panel
+            <Panel help="data.forecasters"
               title="How each forecaster did on this series"
               how="Each forecaster was fitted on the start of the series and asked to forecast the next periods, over and over, moving forward one period at a time. The bar is its average miss. The shortest bar is used. When a simple method wins, the series has little pattern to learn."
             >
@@ -293,7 +293,7 @@ function AggregateMode() {
             {m === 12 && series.ys.length >= 24 ? (
               <Seasonality ys={series.ys} periods={series.periods} />
             ) : (
-              <Panel title="By season">
+              <Panel help="data.season" title="By season">
                 <div className="px-14 py-12 text-11 text-dim">Seasonal patterns need at least two years of monthly data.</div>
               </Panel>
             )}
@@ -315,7 +315,7 @@ function Seasonality({ ys, periods }: { ys: number[]; periods: string[] }) {
   }
   const data = names.map((n, k) => ({ month: n, v: ratios[k].length ? ratios[k].reduce((a, b) => a + b, 0) / ratios[k].length : 0 }));
   return (
-    <Panel
+    <Panel help="data.season"
       title="By season"
       how="How much each calendar month runs above or below the year around it, averaged over the years in the file. In the synthetic sample the dip is the main rains (June to September), when roads close."
     >
@@ -395,7 +395,7 @@ function RegisterMode() {
 
   return (
     <>
-      <Panel
+      <Panel help="screener.register"
         title="Register"
         how="One row per woman at her first ANC visit. The columns are the twelve questions of the screener (download the template). The screen runs here, in the browser; the file is not sent anywhere."
       >
@@ -423,7 +423,7 @@ function RegisterMode() {
         )}
       </Panel>
 
-      <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
+      <div data-help="screener.tiles" className="grid gap-10 grid-cols-2 lg:grid-cols-4">
         <StatTile label="Women screened" value={women.length.toLocaleString()} sub={fileName} />
         <StatTile label={`Expected to reach ${RUNG_LABEL[rung]}`} value={Math.round(expected).toLocaleString()}
           sub={`${pct(expected / Math.max(women.length, 1), 0)} of the register, on average`} tone="good" />
@@ -433,7 +433,7 @@ function RegisterMode() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-        <Panel
+        <Panel help="screener.list"
           title="Follow-up list"
           how="Women ordered by their chance of stopping before the chosen rung, highest first. The reasons are the answers that raise her risk most in the screener. Click a woman to see all of her answers and what would change her chance."
         >
@@ -469,7 +469,7 @@ function RegisterMode() {
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
           {sel && (
-            <Panel
+            <Panel help="screener.why"
               title={`${sel.id} · why this chance`}
               how="Each answer's push on her chance of reaching the rung, on the model's scale: bars to the right raise it, to the left lower it, compared with a typical woman. Below, what the screener expects if one thing were different."
             >
@@ -491,7 +491,7 @@ function RegisterMode() {
               <WhatIf s={s} rung={rung} rec={sel.rec} />
             </Panel>
           )}
-          <Panel title="Spread of risk in this register" how="How many women fall in each band of risk of stopping early.">
+          <Panel help="screener.spread" title="Spread of risk in this register" how="How many women fall in each band of risk of stopping early.">
             <ChartBox height={170} className="pt-10 pr-14">
               <BarChart data={hist} margin={{ left: -8, right: 6, top: 6, bottom: 0 }}>
                 <CartesianGrid {...GRID} vertical={false} />
@@ -507,7 +507,7 @@ function RegisterMode() {
         </div>
       </div>
 
-      <Panel
+      <Panel help="screener.tested"
         title="The screen, tested"
         how="The screener was fitted on 4,017 development women who started ANC and tested on 984 held-out women it never saw, with survey weights. Its accuracy is set next to models that use the full list of predictors on the same women."
       >

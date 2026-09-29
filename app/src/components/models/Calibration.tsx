@@ -16,7 +16,7 @@ export function Calibration({ card, name }: { card: Card; name: string }) {
   const top = Math.min(1, Math.ceil(hi * 10) / 10);
   const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => +(t * top).toFixed(4));
   return (
-    <Panel
+    <Panel help="analysis.calibration"
       title="Honest probabilities?"
       how="Held-out women in ten equal groups by predicted chance. Each dot: the group's average prediction against the share who reached the rung. On the diagonal, a predicted 30% means 30%. Above it the model is too cautious; below it, too confident."
     >
@@ -52,7 +52,7 @@ const head = "px-8 py-6 text-9.5 uppercase tracking-label text-faint font-semibo
 export function Decisions({ card }: { card: Card }) {
   const o = card.operating;
   return (
-    <Panel
+    <Panel help="analysis.threshold"
       title="At the working threshold"
       how="The threshold was set on the development women, then applied once to the held-out women. Each box is a share of all women. Sensitivity: of those who reach the rung, how many were called. Specificity: of those who do not, how many were called. PPV and NPV: how often a yes, or a no, was right."
     >

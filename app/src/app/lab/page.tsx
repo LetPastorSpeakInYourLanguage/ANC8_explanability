@@ -96,7 +96,7 @@ export default function LabPage() {
 
   return (
     <Screen>
-      <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
+      <div data-help="lab.tiles" className="grid gap-10 grid-cols-2 lg:grid-cols-4">
         <StatTile label={`Sequence network · ${RUNG_LABEL[rung]}`} value={num(seqHeld?.AP)}
           sub={`average precision on held-out women; explainable boosting ${num(ebmHeld?.AP)}`} tone="accent"
         />
@@ -107,7 +107,7 @@ export default function LabPage() {
           sub="the networks run in this browser from their weights, checked against PyTorch" />
       </div>
 
-      <Panel
+      <Panel help="lab.nets"
         title={`Networks against the trees, on the same held-out women · ${RUNG_LABEL[rung]}`}
         how="Average precision on the 1,375 held-out women for the two networks and the three reference models, all trained on the same development women with the same 95 predictors. Rings: the networks' development score (cross-validated, three seeds). On tables of this size, gradient-boosted trees usually match or beat networks; here the sequence network ties at ANC8+ and trails at ANC1+ and ANC4+."
         actions={<Segmented label="Rung" options={RUNGS.map((r) => ({ key: r.key, label: r.label }))} value={rung} onChange={(k) => studio.set({ rung: k })} />}
@@ -138,7 +138,7 @@ export default function LabPage() {
       </Panel>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-        <Panel
+        <Panel help="lab.composite"
           title="Try it: a composite woman"
           how="Pick a region and a wealth group. The woman is a composite: every answer is the most common one among the survey's women in that group (at least 25 of them), so she is nobody in particular. Both networks run on her in this browser. Tick a change to see how their predictions move."
         >
@@ -219,7 +219,7 @@ export default function LabPage() {
           )}
         </Panel>
 
-        <Panel
+        <Panel help="lab.decoder"
           title="What the decoder looks at before each next contact"
           how="The sequence network decides, one contact at a time, whether this woman goes on to the next. Before each decision it attends to her answers. Rows are the decisions (after contact 0, 1, … 8); columns are groups of answers; darker means more attention. Hover a row to pick it out. Attention shows where the network looks, not why a woman stops."
         >
@@ -253,7 +253,7 @@ export default function LabPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="lab.dropoff"
           title={`Where women stop, contact by contact · ${region}`}
           how="The share of women still in care at each contact: dots are what the survey's women reported, the line is what the sequence network predicts for the same women. The ladder rungs are the points at 1, 4 and 8. Agreement here is a check that the network has learned the whole count, not only the three thresholds."
         >
@@ -278,7 +278,7 @@ export default function LabPage() {
           ]} />
         </Panel>
 
-        <Panel
+        <Panel help="lab.attention-regions"
           title="What the ladder network attends to, region by region"
           how="For the women of each region, the average attention the ladder transformer's summary token pays to each group of answers. One shading for the grid. A region whose row differs from the others is one where the network leans on different information."
         >
@@ -300,7 +300,7 @@ export default function LabPage() {
       </div>
 
       {run && (
-        <Panel
+        <Panel help="lab.answers"
           title="Her answers the ladder network attends to most"
           how="The composite woman's twelve answers that the ladder transformer's summary token attends to most, averaged over its two layers."
         >

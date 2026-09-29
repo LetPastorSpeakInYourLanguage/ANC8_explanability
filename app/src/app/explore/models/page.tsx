@@ -132,7 +132,7 @@ export default function ModelsPage() {
 
   return (
     <Screen>
-      <div className="grid gap-10 grid-cols-1 sm:grid-cols-3">
+      <div data-help="models.tiles" className="grid gap-10 grid-cols-1 sm:grid-cols-3">
         {OUTCOMES.map((o) => {
           const b = best(o);
           return (
@@ -148,7 +148,7 @@ export default function ModelsPage() {
         })}
       </div>
 
-      <Panel
+      <Panel help="models.dev-held"
         title={`Every model, development against held-out · ${RUNG_LABEL[rung]}`}
         how="Rings: cross-validated accuracy on the 5,518 development women, which the tuning saw. Dots: accuracy on the 1,375 held-out women, which nothing saw until the end. A long line from ring to dot is optimism. Networks are drawn in orange. The dashed line is chance."
         actions={rungPicker}
@@ -184,7 +184,7 @@ export default function ModelsPage() {
       </Panel>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-        <Panel
+        <Panel help="models.by-rung"
           title="Model by rung"
           how="Held-out scores for every model at every rung. Each column is shaded on its own (rungs differ in how hard they are), so read a column from dark to light to see the ranking at that rung. Blank: the model was not run at that rung."
           actions={<Segmented label="Measure" options={MEASURES} value={measure} onChange={setMeasure} />}
@@ -204,7 +204,7 @@ export default function ModelsPage() {
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
-          <Panel
+          <Panel help="models.by-set"
             title={`Model by predictor count · ${RUNG_LABEL[rung]}`}
             how={`Held-out average precision for four model families, each trained on predictor sets of different sizes (${COHORTS.find((c) => c.key === cohort)!.label.toLowerCase()}). One shading for the whole grid, so any two cells compare. A small set that holds its colour is the cheaper tool.`}
           >
@@ -226,7 +226,7 @@ export default function ModelsPage() {
             )}
           </Panel>
 
-          <Panel
+          <Panel help="models.tuning"
             title={`Does tuning pay? · ${RUNG_LABEL[rung]}`}
             how="Rings: the model with its library defaults. Dots: after tuning (development accuracy). Most of the gain is small; the models are close before and after."
           >
@@ -251,7 +251,7 @@ export default function ModelsPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="models.settings"
           title={`Which settings matter · ${ablModel}`}
           how="Each tuned setting was moved one step down and one step up while the others stayed fixed. The bar spans the change in development accuracy: left of zero means the tuned value was better. A short bar near zero is a setting the model does not care about. The tuned value is under each name."
           actions={
@@ -292,7 +292,7 @@ export default function ModelsPage() {
           )}
         </Panel>
 
-        <Panel
+        <Panel help="models.calibration"
           title={`Are the probabilities honest? · ${RUNG_LABEL[rung]}`}
           how="Held-out women grouped into tenths by predicted probability. Each point is a group's average prediction against the share who actually reached the rung. On the diagonal, a predicted 30% means 30%. Above it the model is too cautious; below it, too confident."
         >
@@ -344,7 +344,7 @@ export default function ModelsPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="models.decision"
           title={`Is the model worth acting on? · ${RUNG_LABEL[rung]}`}
           how="Decision curve. Along the bottom: how sure you want to be before acting on a woman (the risk at which follow-up is worth its cost). Up the side: the net benefit, true positives gained minus false positives weighted by that threshold. A model helps wherever its line sits above both 'act on everyone' and 'act on no one'."
         >
@@ -389,7 +389,7 @@ export default function ModelsPage() {
           )}
         </Panel>
 
-        <Panel
+        <Panel help="models.networks"
           title={`Networks against the trees · ${RUNG_LABEL[rung]}`}
           how="The difference in held-out average precision between each network and a reference model, measured on the same women and resampled 1,000 times. The bar is the 95% interval: a bar that crosses zero is a tie. Right of zero, the network is better."
         >

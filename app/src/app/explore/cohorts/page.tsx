@@ -74,7 +74,7 @@ export default function CohortsPage() {
 
   return (
     <Screen>
-      <div className="grid gap-10 grid-cols-1 md:grid-cols-3">
+      <div data-help="cohorts.tiles" className="grid gap-10 grid-cols-1 md:grid-cols-3">
         {COHORTS.map((c) => (
           <StatTile
             key={c.key}
@@ -96,7 +96,7 @@ export default function CohortsPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="cohorts.ladder"
           title={`The ladder in each cohort · ${place}`}
           how="Each row is a rung; each dot is one cohort's share reaching it, with its 95% interval. The ANC-entry cohort starts at ANC1+ by definition (every woman in it had a first visit), so its ANC4+ and ANC8+ are higher: they are shares of women who started."
         >
@@ -124,7 +124,7 @@ export default function CohortsPage() {
           )}
         </Panel>
 
-        <Panel
+        <Panel help="cohorts.contacts"
           title={`Contact counts in each cohort · ${place}`}
           how="The share of women with each number of contacts, one line per cohort. The full and 24-month cohorts nearly coincide; the ANC-entry line has no zero and so sits higher everywhere else."
         >
@@ -158,7 +158,7 @@ export default function CohortsPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="cohorts.regions"
           title={`Region by region, three cohorts · ${RUNG_LABEL[rung]}`}
           how="Each region's share reaching the rung in the three cohorts. Where the full-cohort dot sits left of the 24-month dot, the older births (24 to 35 months before interview) did worse: in Tigray those pregnancies fell in the war."
           actions={
@@ -194,7 +194,7 @@ export default function CohortsPage() {
           <DataNote>Earlier EDHS rounds would give a trend across surveys rather than one reconstructed from birth dates.</DataNote>
         </Panel>
 
-        <Panel
+        <Panel help="cohorts.edhs"
           title="The 24-month cohort reproduces the EDHS report"
           how="ANC4+ by region: rings are the EDHS 2024–25 report's table (women with a live birth in the two years before the survey), dots are this study's 24-month cohort computed from the raw data. Matching them is the check that the cohort, the weights and the contact count are built the way DHS builds them."
           actions={edhs ? <Tag tone="good">mean gap {(edhs.mad * 100).toFixed(1)} pt</Tag> : undefined}
@@ -242,7 +242,7 @@ export default function CohortsPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="cohorts.first-visit"
           title={`What the first visit adds · ${RUNG_LABEL[hRung]}`}
           how="Predicting at a woman's first ANC visit, rather than before it, adds one fact: whether that visit came in the first trimester. Rings: held-out accuracy without it; dots: with it. Under each set, the held-out gain and its 95% interval from 1,000 resamples."
           actions={
@@ -278,7 +278,7 @@ export default function CohortsPage() {
           )}
         </Panel>
 
-        <Panel
+        <Panel help="cohorts.train-on"
           title={`Train on everyone, or only on women who started? · ${RUNG_LABEL[hRung]}`}
           how="Scored on the same held-out women who started ANC. Rings: a model trained on the whole cohort; dots: trained only on women who started. Accuracy is close; the difference is calibration. Under each row, calibration-in-the-large (0 is perfect): the whole-cohort model underestimates women who have already started."
         >
@@ -309,7 +309,7 @@ export default function CohortsPage() {
       </div>
 
       {H?.tiers && (
-        <Panel
+        <Panel help="cohorts.moments"
           title={`What each moment selects · ${RUNG_LABEL[hRung]}`}
           how="Forward selection run separately for the two prediction moments. Bars are the accuracy each predictor adds when it joins (step order from the top). At the first visit, its timing (purple) enters near the front of the queue."
         >

@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Map as MapIcon, Menu, Monitor, Moon, Search, Sun } from "lucide-react";
+import { CircleHelp, Map as MapIcon, Menu, Monitor, Moon, Search, Sun } from "lucide-react";
+import type { HelpHit } from "@/lib/help";
 import { MODES, NAV, allNavItems, modeForPath } from "@/lib/nav";
 import { REGIONS } from "@/lib/regions";
 import { useStudio } from "@/lib/studio";
@@ -20,6 +21,11 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState(0);
+  // The Help's text is loaded the first time the finder is used, not on every screen.
+  const [helpSearch, setHelpSearch] = useState<((q: string, n?: number) => HelpHit[]) | null>(null);
+  const loadHelp = () => {
+    if (!helpSearch) import("@/lib/help").then((m) => setHelpSearch(() => m.searchHelp)).catch(() => {});
+  };
 
   // Ctrl/Cmd+K focuses the finder, as the box advertises.
   useEffect(() => {
@@ -28,6 +34,7 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
         e.preventDefault();
         searchRef.current?.focus();
         setOpen(true);
+        loadHelp();
       }
     }
     window.addEventListener("keydown", onKey);
@@ -46,8 +53,14 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
     const pages: Hit[] = allNavItems()
       .filter((i) => i.label.toLowerCase().includes(q) || i.meta[1].toLowerCase().includes(q))
       .map((i) => ({ key: i.key, label: i.label, hint: i.meta[0], go: () => router.push(studio.href(i.path)) }));
-    return [...regions, ...pages].slice(0, 9);
-  }, [query, router, studio]);
+    const help: Hit[] = (helpSearch?.(q, 4) ?? []).map((h) => ({
+      key: `help-${h.key}`,
+      label: h.kind === "card" ? `${h.label} · ${h.context}` : h.label,
+      hint: h.kind === "term" ? "word" : h.kind === "topic" ? "guide" : "help",
+      go: () => router.push(h.href),
+    }));
+    return [...regions, ...pages.slice(0, Math.max(0, 9 - help.length - regions.length)), ...help].slice(0, 10);
+  }, [query, router, studio, helpSearch]);
 
   function choose(h: Hit | undefined) {
     if (!h) return;
@@ -76,7 +89,7 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
         </div>
       </div>
 
-      <div className="hidden md:flex items-stretch gap-px bg-topline p-2 rounded-3 flex-none">
+      <div data-mark="modes" className="hidden md:flex items-stretch gap-px bg-topline p-2 rounded-3 flex-none">
         {MODES.map((m) => {
           const on = active === m.key;
           return (
@@ -94,6 +107,7 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
 
       <div className="flex-1 min-w-0 hidden md:flex justify-center px-8">
         <form
+          data-mark="finder"
           role="search"
           onSubmit={(e) => {
             e.preventDefault();
@@ -110,7 +124,10 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
               setOpen(true);
               setCursor(0);
             }}
-            onFocus={() => setOpen(true)}
+            onFocus={() => {
+              setOpen(true);
+              loadHelp();
+            }}
             onBlur={() => setTimeout(() => setOpen(false), 150)}
             onKeyDown={(e) => {
               if (e.key === "ArrowDown") {
@@ -124,8 +141,8 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
                 searchRef.current?.blur();
               }
             }}
-            aria-label="Find a region or screen"
-            placeholder="Find a region or screen…"
+            aria-label="Find a region, screen or answer"
+            placeholder="Find a region, screen or answer…"
             className="flex-1 bg-transparent border-0 outline-none text-11.5 text-current min-w-0 placeholder:text-topdim"
           />
           <span aria-hidden="true" className="text-9.5 font-mono border border-topline2 rounded-2 px-4 flex-none">
@@ -148,6 +165,8 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
                 >
                   {h.hint === "region" ? (
                     <MapIcon className="size-12 text-faint flex-none" />
+                  ) : ["help", "word", "guide"].includes(h.hint) ? (
+                    <CircleHelp className="size-12 text-faint flex-none" />
                   ) : (
                     <Search className="size-12 text-faint flex-none" />
                   )}
@@ -163,6 +182,7 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
       <div className="flex-1 md:hidden" />
 
       <button
+        data-mark="present"
         onClick={togglePresent}
         title="Presentation mode: larger type and a guided tour (arrow keys step, Esc leaves)"
         aria-pressed={present}
@@ -174,6 +194,7 @@ export default function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
       </button>
 
       <button
+        data-mark="theme"
         onClick={toggle}
         title="Toggle theme"
         aria-label="Toggle theme"

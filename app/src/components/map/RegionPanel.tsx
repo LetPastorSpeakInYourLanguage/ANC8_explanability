@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, X } from "lucide-react";
 import Funnel from "@/components/charts/Funnel";
 import { Hint, Note, Segmented, Tag } from "@/components/studio/ui";
+import { helpHref } from "@/lib/help/href";
 import { REACH_OF, cohortRungs, type RegionsData } from "@/lib/regionsData";
 import { RUNGS, type Cohort, type Rung } from "@/lib/studio";
 
@@ -32,13 +33,15 @@ const ACTION_WHAT: Record<string, string> = {
 
 const DIMENSIONS = ["Wealth", "Education", "Residence", "Pregnancy wanted", "Health post", "Age at birth"] as const;
 
-function Section({ title, how, children, right }: { title: string; how?: string; children: React.ReactNode; right?: React.ReactNode }) {
+function Section({ title, how, help, children, right }: {
+  title: string; how?: string; help?: string; children: React.ReactNode; right?: React.ReactNode;
+}) {
   return (
-    <section className="px-14 py-10 border-b border-border">
+    <section data-help={help} className="px-14 py-10 border-b border-border">
       <div className="flex items-center gap-8 mb-7">
         <div className="text-9.5 uppercase tracking-label text-faint font-semibold flex-1">{title}</div>
         {right}
-        {how && <Hint>{how}</Hint>}
+        {how && <Hint more={help ? helpHref(help) : undefined}>{how}</Hint>}
       </div>
       {children}
     </section>
@@ -127,6 +130,7 @@ export default function RegionPanel({
 
   return (
     <aside
+      data-help="map.region"
       aria-label={`${region}: region analysis`}
       className="bg-panel border-l border-border flex flex-col min-h-0 h-full overflow-hidden"
     >
@@ -152,7 +156,7 @@ export default function RegionPanel({
           />
         </div>
 
-        <Section title="How far women get" how="Bars: share of all women in the region who reached each rung, with how many continued between rungs. The grey marks on the right are Ethiopia's values.">
+        <Section help="map.region-far" title="How far women get" how="Bars: share of all women in the region who reached each rung, with how many continued between rungs. The grey marks on the right are Ethiopia's values.">
           <div className="grid grid-cols-[minmax(0,1fr)_64px] gap-x-8">
             <Funnel
               compact
@@ -174,7 +178,7 @@ export default function RegionPanel({
         </Section>
 
         {cohort !== "entry" && (
-          <Section title="Where women are lost" how="Every woman falls in exactly one of these four groups; the widest red, orange or purple block is where the region loses most women.">
+          <Section help="map.region-lost" title="Where women are lost" how="Every woman falls in exactly one of these four groups; the widest red, orange or purple block is where the region loses most women.">
             <div className="flex flex-col gap-5">
               <LossBar label={region.length > 10 ? region.slice(0, 9) + "…" : region} c={c} />
               <LossBar label="Ethiopia" c={nat} />
@@ -190,7 +194,7 @@ export default function RegionPanel({
           </Section>
         )}
 
-        <Section title="What to work on">
+        <Section help="map.region-work" title="What to work on">
           <div className="flex flex-col gap-8">
             <Note tone={ACTION_TONE[c.action] === "bad" ? "bad" : ACTION_TONE[c.action] === "warn" ? "warn" : "accent"}>
               <span className="text-text font-semibold">{c.action}.</span> The biggest loss here is women who {lossName}:{" "}
@@ -231,6 +235,7 @@ export default function RegionPanel({
 
         {drivers.length > 0 && (
           <Section
+            help="map.region-why"
             title={`Why ${rungLabel} differs from Ethiopia`}
             how="The explainable model predicts each woman's chance as a sum of one term per factor. The region's average minus the national average splits exactly across factors: bars to the left pull this region below Ethiopia, bars to the right lift it. Factors a health system can change are marked. This is the model's arithmetic, not proof of cause."
             right={
@@ -269,6 +274,7 @@ export default function RegionPanel({
         )}
 
         <Section
+          help="map.region-behind"
           title={`Who is left behind: ${rungLabel}`}
           how={`${rungLabel} for women in each group, in this region. The dashed mark is the same group nationally. Faded bars rest on fewer than ${data.min_n} women: read them as a direction, not a number.`}
         >
@@ -304,7 +310,7 @@ export default function RegionPanel({
           )}
         </Section>
 
-        <Section title="The region's circumstances" how="How common each circumstance is among women in this region (dot) against Ethiopia (tick). Blue dots are things a health system can change.">
+        <Section help="map.region-circumstances" title="The region's circumstances" how="How common each circumstance is among women in this region (dot) against Ethiopia (tick). Blue dots are things a health system can change.">
           <div className="flex flex-col gap-4">
             {data.profile_meta
               .slice()
@@ -332,7 +338,7 @@ export default function RegionPanel({
         </Section>
 
         {births != null && (
-          <Section title="Women each year" how={data.population.method + ". " + data.population.source + "."}>
+          <Section help="map.region-year" title="Women each year" how={data.population.method + ". " + data.population.source + "."}>
             <div className="grid grid-cols-3 gap-8">
               {[
                 ["Births", births],

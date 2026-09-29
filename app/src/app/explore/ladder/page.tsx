@@ -94,7 +94,7 @@ export default function LadderPage() {
     <Screen>
       {/* The rungs, for the current place and cohort. */}
       {cascade ? (
-        <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
+        <div data-help="ladder.tiles" className="grid gap-10 grid-cols-2 lg:grid-cols-4">
           {rungs.map((r) => (
             <StatTile
               key={r}
@@ -118,7 +118,7 @@ export default function LadderPage() {
       )}
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="ladder.contacts"
           title={`How many contacts women had · ${place}`}
           how="Each bar is the share of women with that many antenatal contacts. The three rungs are cuts through this one distribution: ANC1+ is every bar after the red one, ANC4+ from 4, ANC8+ from 8. Note the peaks at 3–4 and at 8. When a region is selected, the dashed line is Ethiopia."
           actions={<Tag>{cohortInfo.short} · n {contacts?.n.toLocaleString() ?? "–"}</Tag>}
@@ -159,7 +159,7 @@ export default function LadderPage() {
           )}
         </Panel>
 
-        <Panel
+        <Panel help="ladder.survival"
           title="Still in care after each contact"
           how="The share of all women who had at least that many contacts. The curve falls where women leave: the steep first step is women who never start, the drop after 4 is the loss the eight-contact standard exposes."
         >
@@ -204,7 +204,7 @@ export default function LadderPage() {
         </Panel>
       </div>
 
-      <Panel
+      <Panel help="ladder.groups"
         title={`The ladder, group by group · ${place}`}
         how="Each row is one group of women. The three dots are the share reaching ANC1+, ANC4+ and ANC8+; the longer the line, the more women the group loses on the way up. Faded rows rest on fewer than 25 women."
         actions={
@@ -238,7 +238,7 @@ export default function LadderPage() {
       </Panel>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
-        <Panel
+        <Panel help="ladder.regions"
           title="Where each region keeps and loses women"
           how="Each column is shaded on its own five classes: darker is better on that step. Continuation 1→4 is the share of women who started ANC and reached four; 4→8 the share of those who reached four and went on to eight. Click a region to follow it through the page."
         >
@@ -279,7 +279,7 @@ export default function LadderPage() {
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
-          <Panel
+          <Panel help="ladder.predictable"
             title="How predictable each rung is"
             how="The ring is what guessing gives (the share of women who reach the rung); the dot is the best model's average precision on the 1,375 held-out women. The distance between them is what the predictors add. ANC8+ is the hardest to predict, and the rung where prediction adds most relative to chance."
           >
@@ -308,7 +308,7 @@ export default function LadderPage() {
             <DataNote>The survey asks how many contacts, not when each happened; visit dates from facility registers would let the models learn when women drop out, not only whether.</DataNote>
           </Panel>
 
-          <Panel
+          <Panel help="ladder.domains"
             title="What matters at each rung"
             how="Each line is a group of predictors; its height is that group's share of what the model uses at the rung. A line that rises matters more for going further up the ladder. Hover a name to pick its line out."
             actions={
@@ -360,7 +360,7 @@ export default function LadderPage() {
         </div>
       </div>
 
-      <Panel
+      <Panel help="ladder.patterns"
         title="Predictors that open the door, and predictors that keep women coming"
         how="For each predictor, how much its share of the model changes from ANC1+ to ANC8+. Bars to the left (access-limited) matter most for starting at all; bars to the right (engagement-limited) matter more the further up the ladder a woman goes. The count is how many of three explanation methods agree."
       >

@@ -45,7 +45,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         })}
       </div>
 
-      <div className="px-12 pt-9 pb-9 border-b border-border flex-none">
+      <div data-mark="scope" className="px-12 pt-9 pb-9 border-b border-border flex-none">
         <div className="text-9.5 uppercase tracking-label text-faint font-semibold">Scope</div>
         <div className="flex items-center gap-6 mt-4">
           <div className="w-6 h-6 bg-accent rounded-1 flex-none" />
@@ -68,7 +68,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         </div>
 
         <div className="text-9.5 uppercase tracking-label text-faint font-semibold mt-10 mb-4">Cohort</div>
-        <div className="flex overflow-hidden rounded-2 border border-border2" role="radiogroup" aria-label="Cohort">
+        <div data-mark="cohort" className="flex overflow-hidden rounded-2 border border-border2" role="radiogroup" aria-label="Cohort">
           {COHORTS.map((c) => {
             const on = c.key === studio.cohort;
             return (
@@ -90,7 +90,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         <div className="text-10 text-faint mt-4 leading-normal">{cohort.blurb}.</div>
       </div>
 
-      <nav className="flex-1 overflow-y-auto overflow-x-hidden pt-6 pb-10" aria-label={`${mode} screens`}>
+      <nav data-mark="screens" className="flex-1 overflow-y-auto overflow-x-hidden pt-6 pb-10" aria-label={`${mode} screens`}>
         {NAV[mode].map((group) => (
           <div key={group.label} className="mb-9">
             <div className="text-9.5 uppercase tracking-label text-faint font-semibold px-12 pt-4 pb-3">

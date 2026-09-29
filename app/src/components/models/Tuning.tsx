@@ -60,7 +60,7 @@ function SpaceTable({ rows }: { rows: SpaceRow[] }) {
 export default function Tuning({ card, fam }: { card: Card; fam: Family }) {
   const t = card.tuning;
   return (
-    <Panel
+    <Panel help="analysis.tuning"
       title="How it was built"
       how="Tuned models were searched with Optuna: each trial picks settings, fits five folds of the development women and scores average precision out of fold. Each bar is the range the search was allowed to try, with the winning value marked."
     >

@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Info } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Info } from "lucide-react";
 import { Select } from "@/components/ui/select";
+import { helpHref } from "@/lib/help/href";
 
 /**
  * The studio's screen vocabulary, taken from the house design
@@ -18,24 +20,41 @@ export function Screen({ children, className = "" }: { children: ReactNode; clas
   return <div className={`p-10 md:p-14 flex flex-col gap-10 md:gap-14 ${className}`}>{children}</div>;
 }
 
-export function Hint({ children, label = "How to read this" }: { children: ReactNode; label?: string }) {
+/** The (i) hint. With `more`, the tooltip ends in a link to the Help's longer
+ *  explanation; hovering stays open while the pointer moves onto the tooltip. */
+export function Hint({ children, label = "How to read this", more }: { children: ReactNode; label?: string; more?: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const show = () => {
+    if (timer.current) clearTimeout(timer.current);
+    setOpen(true);
+  };
+  const hide = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setOpen(false), 180);
+  };
   useEffect(() => {
     if (!open) return;
     const close = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
     window.addEventListener("mousedown", close);
     return () => window.removeEventListener("mousedown", close);
   }, [open]);
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
   return (
-    <span ref={ref} className="relative inline-flex">
+    <span
+      ref={ref}
+      className="relative inline-flex"
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={(e) => !ref.current?.contains(e.relatedTarget as Node) && hide()}
+    >
       <button
         type="button"
         aria-label={label}
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
         className="text-faint hover:text-accent"
       >
         <Info className="size-12" />
@@ -43,9 +62,20 @@ export function Hint({ children, label = "How to read this" }: { children: React
       {open && (
         <span
           role="tooltip"
-          className="absolute right-0 top-18 z-[1100] w-[min(300px,80vw)] bg-panel border border-border2 rounded-3 px-10 py-8 text-11 leading-relaxed text-text normal-case tracking-normal font-normal"
+          className="absolute right-0 top-14 pt-4 z-[1100] w-[min(300px,80vw)] normal-case tracking-normal font-normal"
         >
-          {children}
+          <span className="block bg-panel border border-border2 rounded-3 px-10 py-8 text-11 leading-relaxed text-text">
+            {children}
+            {more && (
+              <Link
+                href={more}
+                onClick={() => setOpen(false)}
+                className="mt-6 flex items-center gap-4 text-10.5 font-medium text-accent hover:underline"
+              >
+                Read more in Help <ArrowRight className="size-11" />
+              </Link>
+            )}
+          </span>
         </span>
       )}
     </span>
@@ -56,6 +86,7 @@ export function Panel({
   title,
   actions,
   how,
+  help,
   children,
   className = "",
   bodyClassName = "",
@@ -64,12 +95,15 @@ export function Panel({
   actions?: ReactNode;
   /** One or two sentences: how to read this panel. Shown on hover of the info icon. */
   how?: ReactNode;
+  /** The panel's card in the Help ("map.ranked"): the hint links to it, and the
+   *  screenshot script finds the panel by it. */
+  help?: string;
   children: ReactNode;
   className?: string;
   bodyClassName?: string;
 }) {
   return (
-    <section className={`bg-panel border border-border rounded-3 min-w-0 ${className}`}>
+    <section data-help={help} className={`bg-panel border border-border rounded-3 min-w-0 ${className}`}>
       {(title || actions || how) && (
         <div className="flex items-center gap-8 px-14 py-8 border-b border-border min-h-36 flex-wrap">
           {title && (
@@ -78,7 +112,7 @@ export function Panel({
             </div>
           )}
           {actions}
-          {how && <Hint>{how}</Hint>}
+          {how && <Hint more={help ? helpHref(help) : undefined}>{how}</Hint>}
         </div>
       )}
       <div className={bodyClassName}>{children}</div>

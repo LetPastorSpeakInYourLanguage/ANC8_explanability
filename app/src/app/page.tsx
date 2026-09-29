@@ -43,7 +43,7 @@ export default function Overview() {
     <Screen>
       {policy.state === "error" && <InlineError message={policy.error} />}
       {policy.state === "ready" && (
-        <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
+        <div data-help="overview.tiles" className="grid gap-10 grid-cols-2 lg:grid-cols-4">
           <StatTile label="Reach any ANC" value={pct(policy.data.cascade.reach1)} sub="at least one contact (ANC1+)" />
           <StatTile label="Reach four contacts" value={pct(policy.data.cascade.reach4)} sub="the earlier standard (ANC4+)" />
           <StatTile label="Reach eight contacts" value={pct(policy.data.cascade.reach8)}
@@ -56,7 +56,7 @@ export default function Overview() {
       <ActOn />
 
       <div className="grid gap-10 md:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <Panel
+        <Panel help="overview.ladder"
           title="The antenatal care ladder"
           how="Each bar is the share of all women with a recent pregnancy who reached that rung. Between the bars: of the women on the rung above, how many continued and how many were lost."
         >
@@ -76,7 +76,7 @@ export default function Overview() {
           )}
         </Panel>
 
-        <Panel title="Planning tools">
+        <Panel help="overview.tools" title="Planning tools">
           <div className="grid sm:grid-cols-2">
             {TOOLS.map((t, i) => {
               const Icon = t.icon;
@@ -170,7 +170,7 @@ function ActOn() {
 
   return (
     <div className="grid gap-10 md:gap-14 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
-      <Panel title="Four things to act on" how="Each is computed from the studio's data and opens the screen that shows it.">
+      <Panel help="overview.act-on" title="Four things to act on" how="Each is computed from the studio's data and opens the screen that shows it.">
         {items ? (
           <div className="grid sm:grid-cols-2">
             {items.map((it, i) => (
@@ -193,7 +193,7 @@ function ActOn() {
           <PanelLoading rows={4} />
         )}
       </Panel>
-      <Panel title="ANC8+ by region" how="The share of women reaching eight contacts (24-month cohort), five classes, darker is more. Click a region to open it on the map.">
+      <Panel help="overview.minimap" title="ANC8+ by region" how="The share of women reaching eight contacts (24-month cohort), five classes, darker is more. Click a region to open it on the map.">
         {paths.length ? (
           <div className="px-14 py-10">
             <MiniMap paths={paths} fills={fills} noData={NO_DATA[theme]} title="ANC8+ by region"

@@ -93,7 +93,7 @@ export default function ModelAnalysisPage() {
 
   return (
     <Screen>
-      <div className="flex flex-wrap items-center gap-10">
+      <div data-help="analysis.picker" className="flex flex-wrap items-center gap-10">
         <Select
           aria-label="Model"
           value={key}
@@ -133,7 +133,7 @@ export default function ModelAnalysisPage() {
         <Note tone="accent">{d.families[asked]?.name ?? asked} was not run at {rl}. Showing {fam.name}.</Note>
       )}
 
-      <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+      <div data-help="analysis.tiles" className="grid gap-10 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
         <StatTile
           label="Average precision"
           value={num(card.ap, 3)}
@@ -173,7 +173,7 @@ export default function ModelAnalysisPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="analysis.where-works"
           title={`Where it works · AUROC`}
           how="Held-out AUROC inside each group, against the model's overall AUROC (dashed). Groups with fewer than 25 women, or with only one outcome, are left out. Small groups are noisy."
           actions={<Picker label="Group by" options={DIMS.map((x) => ({ key: x.key, label: x.label }))} value={dim} onChange={(k) => studio.set({ dim: k })} />}
@@ -188,7 +188,7 @@ export default function ModelAnalysisPage() {
           <DataNote>Faded rows have under 60 women. More held-out women per group would tighten every dot.</DataNote>
         </Panel>
 
-        <Panel
+        <Panel help="analysis.dev-held"
           title="Development against held-out"
           how="Rings: cross-validated accuracy on the development women, which tuning saw. Dots: the held-out women, which nothing saw until the end. A long line from ring to dot is optimism."
         >
@@ -213,7 +213,7 @@ export default function ModelAnalysisPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="analysis.vs-chance"
           title={`All models against chance · ${rl}`}
           how="Held-out average precision with its 95% interval from resampling whole clusters. The dashed line is chance: the share who reach the rung. Click a model to look at it."
         >
@@ -236,7 +236,7 @@ export default function ModelAnalysisPage() {
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
-          <Panel
+          <Panel help="analysis.differences"
             title="Differences, with intervals"
             how="Held-out average precision and AUROC of this model minus another, with the 95% interval from the same resamples. An interval that crosses zero means the two cannot be told apart."
           >
@@ -255,7 +255,7 @@ export default function ModelAnalysisPage() {
             )}
           </Panel>
 
-          <Panel
+          <Panel help="analysis.grid"
             title="Every model, every rung"
             how="Held-out average precision. Each column is shaded on its own, since rungs differ in difficulty. Click a row to look at that model."
           >
@@ -282,7 +282,7 @@ export default function ModelAnalysisPage() {
         </div>
       </div>
 
-      <Panel
+      <Panel help="analysis.learned"
         title="What it learned from"
         how="The women, the outcome and the predictors behind these numbers. The share of importance is the model's own, where it has one."
       >

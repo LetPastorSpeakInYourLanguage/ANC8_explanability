@@ -85,7 +85,8 @@ export default function AboutPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel title="Where to see each finding" how="Each line is a finding, and the tool that shows it. Numbers come from the studio's data files.">
+        <Panel help="about.findings" title="Where to see each finding" how="Each line is a finding, and the tool that shows it. Numbers come from the studio's data files.">
+          <Row to="/help" go="Help" text="New to the studio? Every tool explained in plain language, with screenshots." />
           <Row to="/explore/ladder" go="The ANC ladder"
             text={<><b className="font-mono">{n(nat?.continue_4_to_8, (v) => p0(1 - v))}</b> of women who reach four contacts stop before eight.</>} />
           <Row to="/explore/cohorts" go="Cohorts"
@@ -101,7 +102,7 @@ export default function AboutPage() {
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
-          <Panel title="Limits" how="What this study cannot support, and where the tool that shows it lives.">
+          <Panel help="about.limits" title="Limits" how="What this study cannot support, and where the tool that shows it lives.">
             <Row to="/planner" go="Scenario planner" text="Scenarios are associations, not causes." />
             <Row to="/models" go="Model analysis" text="One survey round: accuracy on another round is untested." />
             <Row to="/explore/cohorts" go="Cohorts" text="Contact counts are recalled, and older births are recalled less well." />
@@ -110,7 +111,7 @@ export default function AboutPage() {
             <Row to="/lab" go="Model lab" text="Attention shows what a network used, not what matters." />
           </Panel>
 
-          <Panel title="Full reports" how="The written study, for reviewers. Plain Markdown files.">
+          <Panel help="about.reports" title="Full reports" how="The written study, for reviewers. Plain Markdown files.">
             <div className="p-14 flex flex-wrap gap-6">
               {DOCS.map(([k, t]) => (
                 <a

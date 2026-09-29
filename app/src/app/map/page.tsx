@@ -117,7 +117,7 @@ export default function MapPage() {
   return (
     <div className={`min-h-full grid ${studio.region && data ? "lg:grid-cols-[minmax(0,1fr)_420px]" : ""}`}>
       <Screen className="min-w-0">
-        <Panel
+        <Panel help="map.layer"
           title="Map layer"
           actions={
             <div className="flex items-center gap-8 flex-wrap">
@@ -196,7 +196,7 @@ export default function MapPage() {
         </Panel>
 
         <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1fr)_330px]">
-          <Panel
+          <Panel help="map.map"
             title={metric ? metric.label : "Map"}
             how="Each region is shaded by the layer chosen above; the legend gives the ranges. Click a region for its full analysis. The hatched area is contested and has no survey region."
             bodyClassName="relative"
@@ -222,7 +222,7 @@ export default function MapPage() {
             <DataNote>With the survey&apos;s cluster coordinates (the DHS GPS file), this map could show zones and clusters instead of fourteen regions, and follow roads and health facilities.</DataNote>
           </Panel>
 
-          <Panel
+          <Panel help="map.ranked"
             title="Regions, ranked"
             how="The same values as the map, highest first. The dashed tick is Ethiopia. Click a region to open its analysis."
             actions={
@@ -245,7 +245,7 @@ export default function MapPage() {
           </Panel>
         </div>
 
-        <Panel
+        <Panel help="map.ladder-maps"
           title="The ladder, region by region"
           how="The same map three times, on one fixed scale from 0 to 100%. Read left to right: the country empties from reaching care to completing it. Click a region to open it."
         >
@@ -290,7 +290,7 @@ export default function MapPage() {
           </div>
         </Panel>
 
-        <Panel
+        <Panel help="map.heatmap"
           title="Every region, every measure"
           how="Regions down, measures across. Each column is shaded on its own scale, so compare regions within a column. Click a cell to put that measure on the map and open the region; click a column title to change the map only."
           actions={

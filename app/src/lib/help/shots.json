@@ -1,0 +1,137 @@
+{
+  "_about": "What scripts/capture_help_shots.mjs photographs. Each topic's screen is opened at `url`; the first screenful is saved as <topic>.jpg with the position of every [data-help] panel and [data-mark] shell part in view, then every [data-help] element on the page is cropped as <help id>.jpg. `special` shots set up a state first (hover, click, type) and crop one element.",
+  "viewport": [
+    1440,
+    900
+  ],
+  "tall": 2600,
+  "topics": {
+    "start": {
+      "url": "/"
+    },
+    "controls": {
+      "url": "/map?region=Amhara&metric=anc8"
+    },
+    "overview": {
+      "url": "/"
+    },
+    "map": {
+      "url": "/map?region=Somali&metric=never",
+      "actions": [
+        {
+          "click": "button[aria-pressed='true']:has-text('Background map')"
+        }
+      ]
+    },
+    "planner": {
+      "url": "/planner?lv=insurance:60,intention:50,early:40&rung=anc8"
+    },
+    "war": {
+      "url": "/war?hit=Amhara&rung=anc1"
+    },
+    "data": {
+      "url": "/your-data"
+    },
+    "ladder": {
+      "url": "/explore/ladder"
+    },
+    "predictors": {
+      "url": "/explore/predictors?rung=anc8"
+    },
+    "models": {
+      "url": "/explore/models?rung=anc8"
+    },
+    "cohorts": {
+      "url": "/explore/cohorts"
+    },
+    "analysis": {
+      "url": "/models?rung=anc8"
+    },
+    "predict": {
+      "url": "/predict"
+    },
+    "screener": {
+      "url": "/your-data?mode=register"
+    },
+    "lab": {
+      "url": "/lab?rung=anc8"
+    },
+    "about": {
+      "url": "/about"
+    }
+  },
+  "special": [
+    {
+      "id": "start.hint",
+      "url": "/",
+      "hover": "[data-help='overview.ladder'] button[aria-label='How to read this']",
+      "clip": "[data-help='overview.ladder']",
+      "pad": [
+        0,
+        0,
+        4,
+        0
+      ]
+    },
+    {
+      "id": "controls.finder",
+      "url": "/",
+      "click": "form[role=search] input",
+      "type": "AUROC",
+      "wait": 1500,
+      "clip": "form[role=search]",
+      "pad": [
+        4,
+        40,
+        250,
+        40
+      ]
+    },
+    {
+      "id": "controls.present",
+      "url": "/",
+      "click": "[data-mark='present']",
+      "wait": 1200,
+      "clip": "[aria-label='Guided tour']",
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "controls.scope",
+      "url": "/map?region=Amhara",
+      "clip": "[data-mark='scope']",
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "controls.modes",
+      "url": "/",
+      "clip": "[data-mark='modes']",
+      "pad": [
+        6,
+        6,
+        6,
+        6
+      ]
+    },
+    {
+      "id": "start.help",
+      "url": "/map",
+      "clip": "[data-mark='header']",
+      "pad": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

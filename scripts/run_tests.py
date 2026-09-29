@@ -593,8 +593,8 @@ def test_wording():
     if not src.exists():
         skip("studio wording", "app/ not in this layout")
         return
-    files = sorted((src / "app").rglob("*.tsx")) + [src / "lib" / "nav.ts"]
-    for d in ("studio", "shell", "charts", "map", "planner", "war", "upload", "lab", "explore", "models", "predict"):
+    files = sorted((src / "app").rglob("*.tsx")) + [src / "lib" / "nav.ts"] + sorted((src / "lib" / "help").glob("*.ts"))
+    for d in ("studio", "shell", "charts", "map", "planner", "war", "upload", "lab", "explore", "models", "predict", "help"):
         files += sorted((src / "components" / d).rglob("*.tsx"))
     hits = []
     for f in files:
@@ -761,7 +761,7 @@ def test_studio():
                          r'(\d+(?:\.\d+)?)(?![\w.\[])')
         dirs = ["app", "components/studio", "components/shell", "components/charts", "components/map",
                 "components/planner", "components/war", "components/upload", "components/lab",
-                "components/explore", "components/models", "components/predict"]
+                "components/explore", "components/models", "components/predict", "components/help"]
         hits = []
         for dname in dirs:
             for f in sorted((src / dname).rglob("*.tsx")) if (src / dname).exists() else []:
@@ -905,6 +905,70 @@ fs.writeFileSync(process.argv[4], JSON.stringify(recs.map(r => [n.ladder(nets, r
 
 
 
+def _help_cards(src: Path) -> dict[str, str | None]:
+    """Every Help card as "<topic>.<card>" -> the screenshot it shows (None for none).
+
+    Reads lib/help/{basics,plan,explore,models}.ts by their layout: a topic's `key:` is
+    indented four spaces, and a card's `id:` and optional `shot:` eight.
+    """
+    import re
+    cards: dict[str, str | None] = {}
+    for name in ("basics", "plan", "explore", "models"):
+        topic, card = None, None
+        for line in (src / "lib" / "help" / f"{name}.ts").read_text(encoding="utf-8").splitlines():
+            if m := re.match(r'^ {4}key: "([^"]+)"', line):
+                topic = m.group(1)
+            elif topic and (m := re.match(r'^ {8}id: "([^"]+)"', line)):
+                card = f"{topic}.{m.group(1)}"
+                cards[card] = card
+            elif card and (m := re.match(r'^ {8}shot: (false|"([^"]+)")', line)):
+                cards[card] = None if m.group(1) == "false" else m.group(2)
+    return cards
+
+
+def test_help():
+    section("12. THE HELP")
+    import re
+    src = ROOT / "app" / "src"
+    if not (src / "lib" / "help").exists():
+        skip("help", "app/src/lib/help not in this layout")
+        return
+    cards = _help_cards(src)
+    check("the Help has a card for every panel it explains", len(cards) > 80, f"{len(cards)} cards")
+
+    # Every help id a screen carries opens a real card.
+    used, missing, bare = set(), [], []
+    for f in sorted(src.rglob("*.tsx")):
+        rel = f.relative_to(src).as_posix()
+        if rel.startswith("components/help/"):
+            continue
+        text = f.read_text(encoding="utf-8")
+        for m in re.finditer(r'(?:data-)?help="([a-z0-9-]+\.[a-z0-9-]+)"', text):
+            used.add(m.group(1))
+            if m.group(1) not in cards:
+                missing.append(f"{rel}: {m.group(1)}")
+        # every panel or region section with a how-to-read hint links to its card
+        for m in re.finditer(r"\bhow=", text):
+            start = max(text.rfind("<Panel", 0, m.start()), text.rfind("<Section", 0, m.start()))
+            if start >= 0 and "help=" not in text[start:m.start()]:
+                bare.append(f"{rel}:{text.count(chr(10), 0, m.start()) + 1}")
+    check("every help id on a screen opens a Help card", not missing, "; ".join(missing[:6]))
+    check("every panel with a how-to-read hint links to the Help", not bare, "; ".join(bare[:6]))
+
+    # Every screenshot the Help shows was captured.
+    shots_dir = ROOT / "app" / "public" / "help" / "shots"
+    idx = shots_dir / "index.json"
+    if not idx.exists():
+        skip("help screenshots", "run scripts/capture_help_shots.mjs against the dev server")
+        return
+    have = set(json.loads(idx.read_text(encoding="utf-8"))["shots"])
+    wanted = {s for s in cards.values() if s}
+    absent = sorted(s for s in wanted if s not in have or not (shots_dir / f"{s}.jpg").exists())
+    check("every screenshot the Help shows was captured", not absent, "; ".join(absent[:8]) + (" ..." if len(absent) > 8 else ""))
+    orphans = sorted(u for u in used if u not in have)
+    check("every tagged panel has a screenshot", not orphans, "; ".join(orphans[:8]))
+
+
 def main():
     print("=" * 74)
     print("ANC ATTAINMENT -- CHECK SUITE")
@@ -923,6 +987,7 @@ def main():
     test_record()
     test_wording()
     test_studio()
+    test_help()
 
     print("\n" + "=" * 74)
     passed = sum(1 for k, _ in RESULTS if k == "PASS")

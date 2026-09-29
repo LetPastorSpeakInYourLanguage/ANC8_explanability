@@ -1,0 +1,1919 @@
+{
+ "base": "captured from the running studio by scripts/capture_help_shots.mjs",
+ "shots": {
+  "about": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "about.findings": [
+     250,
+     193,
+     581,
+     364
+    ],
+    "about.limits": [
+     845,
+     193,
+     581,
+     234
+    ],
+    "about.reports": [
+     845,
+     441,
+     581,
+     116
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "about.findings": {
+   "w": 581,
+   "h": 364
+  },
+  "about.limits": {
+   "w": 581,
+   "h": 234
+  },
+  "about.reports": {
+   "w": 581,
+   "h": 116
+  },
+  "analysis": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "analysis.picker": [
+     250,
+     88,
+     1176,
+     25
+    ],
+    "analysis.tiles": [
+     250,
+     127,
+     1176,
+     91
+    ],
+    "analysis.curves": [
+     250,
+     232,
+     657,
+     348
+    ],
+    "analysis.calibration": [
+     921,
+     232,
+     505,
+     278
+    ],
+    "analysis.threshold": [
+     250,
+     593,
+     505,
+     307
+    ],
+    "analysis.tuning": [
+     769,
+     593,
+     657,
+     307
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "analysis.calibration": {
+   "w": 505,
+   "h": 278
+  },
+  "analysis.curves": {
+   "w": 657,
+   "h": 348
+  },
+  "analysis.dev-held": {
+   "w": 581,
+   "h": 559
+  },
+  "analysis.differences": {
+   "w": 581,
+   "h": 112
+  },
+  "analysis.grid": {
+   "w": 581,
+   "h": 629
+  },
+  "analysis.learned": {
+   "w": 1176,
+   "h": 216
+  },
+  "analysis.picker": {
+   "w": 1176,
+   "h": 25
+  },
+  "analysis.threshold": {
+   "w": 505,
+   "h": 379
+  },
+  "analysis.tiles": {
+   "w": 1176,
+   "h": 91
+  },
+  "analysis.tuning": {
+   "w": 657,
+   "h": 379
+  },
+  "analysis.vs-chance": {
+   "w": 581,
+   "h": 755
+  },
+  "analysis.where-works": {
+   "w": 581,
+   "h": 559
+  },
+  "cohorts": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "cohorts.tiles": [
+     250,
+     88,
+     1176,
+     128
+    ],
+    "cohorts.ladder": [
+     250,
+     230,
+     581,
+     273
+    ],
+    "cohorts.contacts": [
+     845,
+     230,
+     581,
+     273
+    ],
+    "cohorts.regions": [
+     250,
+     516,
+     581,
+     384
+    ],
+    "cohorts.edhs": [
+     845,
+     516,
+     581,
+     384
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "cohorts.contacts": {
+   "w": 581,
+   "h": 273
+  },
+  "cohorts.edhs": {
+   "w": 581,
+   "h": 454
+  },
+  "cohorts.first-visit": {
+   "w": 581,
+   "h": 193
+  },
+  "cohorts.ladder": {
+   "w": 581,
+   "h": 273
+  },
+  "cohorts.moments": {
+   "w": 1176,
+   "h": 365
+  },
+  "cohorts.regions": {
+   "w": 581,
+   "h": 454
+  },
+  "cohorts.tiles": {
+   "w": 1176,
+   "h": 128
+  },
+  "cohorts.train-on": {
+   "w": 581,
+   "h": 193
+  },
+  "controls": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "map.layer": [
+     250,
+     88,
+     756,
+     85
+    ],
+    "map.map": [
+     250,
+     187,
+     412,
+     534
+    ],
+    "map.ranked": [
+     676,
+     187,
+     330,
+     534
+    ],
+    "map.ladder-maps": [
+     250,
+     735,
+     756,
+     165
+    ],
+    "map.region": [
+     1020,
+     74,
+     420,
+     802
+    ],
+    "map.region-far": [
+     1021,
+     152,
+     419,
+     169
+    ],
+    "map.region-lost": [
+     1021,
+     321,
+     419,
+     103
+    ],
+    "map.region-work": [
+     1021,
+     424,
+     419,
+     163
+    ],
+    "map.region-why": [
+     1021,
+     587,
+     419,
+     313
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "controls.finder": {
+   "w": 460,
+   "h": 278
+  },
+  "controls.modes": {
+   "w": 239,
+   "h": 39
+  },
+  "controls.present": {
+   "w": 360,
+   "h": 217
+  },
+  "controls.scope": {
+   "w": 235,
+   "h": 156
+  },
+  "data": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "data.mode": [
+     250,
+     88,
+     1176,
+     26
+    ],
+    "data.source": [
+     250,
+     128,
+     1176,
+     110
+    ],
+    "data.tiles": [
+     250,
+     252,
+     1176,
+     91
+    ],
+    "data.trend": [
+     250,
+     357,
+     1176,
+     418
+    ],
+    "data.forecasters": [
+     250,
+     789,
+     581,
+     111
+    ],
+    "data.season": [
+     845,
+     789,
+     581,
+     111
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "data.forecasters": {
+   "w": 581,
+   "h": 269
+  },
+  "data.mode": {
+   "w": 1176,
+   "h": 26
+  },
+  "data.season": {
+   "w": 581,
+   "h": 269
+  },
+  "data.source": {
+   "w": 1176,
+   "h": 110
+  },
+  "data.tiles": {
+   "w": 1176,
+   "h": 91
+  },
+  "data.trend": {
+   "w": 1176,
+   "h": 418
+  },
+  "lab": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "lab.tiles": [
+     250,
+     88,
+     1176,
+     105
+    ],
+    "lab.nets": [
+     250,
+     207,
+     1176,
+     287
+    ],
+    "lab.composite": [
+     250,
+     508,
+     540,
+     392
+    ],
+    "lab.decoder": [
+     804,
+     508,
+     622,
+     392
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "lab.answers": {
+   "w": 1176,
+   "h": 533
+  },
+  "lab.attention-regions": {
+   "w": 581,
+   "h": 442
+  },
+  "lab.composite": {
+   "w": 540,
+   "h": 472
+  },
+  "lab.decoder": {
+   "w": 622,
+   "h": 472
+  },
+  "lab.dropoff": {
+   "w": 581,
+   "h": 442
+  },
+  "lab.nets": {
+   "w": 1176,
+   "h": 287
+  },
+  "lab.tiles": {
+   "w": 1176,
+   "h": 105
+  },
+  "ladder": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "ladder.tiles": [
+     250,
+     88,
+     1176,
+     91
+    ],
+    "ladder.contacts": [
+     250,
+     193,
+     581,
+     293
+    ],
+    "ladder.survival": [
+     845,
+     193,
+     581,
+     293
+    ],
+    "ladder.groups": [
+     250,
+     499,
+     1176,
+     259
+    ],
+    "ladder.regions": [
+     250,
+     772,
+     646,
+     128
+    ],
+    "ladder.predictable": [
+     910,
+     772,
+     516,
+     128
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "ladder.contacts": {
+   "w": 581,
+   "h": 293
+  },
+  "ladder.domains": {
+   "w": 516,
+   "h": 296
+  },
+  "ladder.groups": {
+   "w": 1176,
+   "h": 259
+  },
+  "ladder.patterns": {
+   "w": 1176,
+   "h": 467
+  },
+  "ladder.predictable": {
+   "w": 516,
+   "h": 224
+  },
+  "ladder.regions": {
+   "w": 646,
+   "h": 534
+  },
+  "ladder.survival": {
+   "w": 581,
+   "h": 293
+  },
+  "ladder.tiles": {
+   "w": 1176,
+   "h": 91
+  },
+  "map": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "map.layer": [
+     250,
+     88,
+     756,
+     85
+    ],
+    "map.map": [
+     250,
+     187,
+     412,
+     534
+    ],
+    "map.ranked": [
+     676,
+     187,
+     330,
+     534
+    ],
+    "map.ladder-maps": [
+     250,
+     735,
+     756,
+     165
+    ],
+    "map.region": [
+     1020,
+     74,
+     420,
+     802
+    ],
+    "map.region-far": [
+     1021,
+     152,
+     419,
+     169
+    ],
+    "map.region-lost": [
+     1021,
+     321,
+     419,
+     103
+    ],
+    "map.region-work": [
+     1021,
+     424,
+     419,
+     181
+    ],
+    "map.region-why": [
+     1021,
+     605,
+     419,
+     295
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "map.heatmap": {
+   "w": 756,
+   "h": 528
+  },
+  "map.ladder-maps": {
+   "w": 756,
+   "h": 289
+  },
+  "map.layer": {
+   "w": 756,
+   "h": 85
+  },
+  "map.map": {
+   "w": 412,
+   "h": 534
+  },
+  "map.ranked": {
+   "w": 330,
+   "h": 534
+  },
+  "map.region": {
+   "w": 420,
+   "h": 2502
+  },
+  "map.region-behind": {
+   "w": 419,
+   "h": 188
+  },
+  "map.region-circumstances": {
+   "w": 419,
+   "h": 288
+  },
+  "map.region-far": {
+   "w": 419,
+   "h": 169
+  },
+  "map.region-lost": {
+   "w": 419,
+   "h": 103
+  },
+  "map.region-why": {
+   "w": 419,
+   "h": 331
+  },
+  "map.region-work": {
+   "w": 419,
+   "h": 181
+  },
+  "map.region-year": {
+   "w": 419,
+   "h": 78
+  },
+  "models": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "models.tiles": [
+     250,
+     88,
+     1176,
+     91
+    ],
+    "models.dev-held": [
+     250,
+     193,
+     1176,
+     617
+    ],
+    "models.by-rung": [
+     250,
+     824,
+     634,
+     76
+    ],
+    "models.by-set": [
+     898,
+     824,
+     528,
+     76
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "models.by-rung": {
+   "w": 634,
+   "h": 634
+  },
+  "models.by-set": {
+   "w": 528,
+   "h": 166
+  },
+  "models.calibration": {
+   "w": 581,
+   "h": 421
+  },
+  "models.decision": {
+   "w": 581,
+   "h": 376
+  },
+  "models.dev-held": {
+   "w": 1176,
+   "h": 617
+  },
+  "models.networks": {
+   "w": 581,
+   "h": 376
+  },
+  "models.settings": {
+   "w": 581,
+   "h": 421
+  },
+  "models.tiles": {
+   "w": 1176,
+   "h": 91
+  },
+  "models.tuning": {
+   "w": 528,
+   "h": 155
+  },
+  "overview": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "overview.tiles": [
+     250,
+     88,
+     1176,
+     91
+    ],
+    "overview.act-on": [
+     250,
+     193,
+     697,
+     399
+    ],
+    "overview.minimap": [
+     961,
+     193,
+     465,
+     399
+    ],
+    "overview.ladder": [
+     250,
+     606,
+     581,
+     249
+    ],
+    "overview.tools": [
+     845,
+     606,
+     581,
+     249
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "overview.act-on": {
+   "w": 697,
+   "h": 399
+  },
+  "overview.ladder": {
+   "w": 581,
+   "h": 249
+  },
+  "overview.minimap": {
+   "w": 465,
+   "h": 399
+  },
+  "overview.tiles": {
+   "w": 1176,
+   "h": 91
+  },
+  "overview.tools": {
+   "w": 581,
+   "h": 249
+  },
+  "planner": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "planner.tiles": [
+     250,
+     88,
+     1176,
+     105
+    ],
+    "planner.levers": [
+     250,
+     207,
+     430,
+     693
+    ],
+    "planner.where": [
+     694,
+     207,
+     732,
+     562
+    ],
+    "planner.grid": [
+     694,
+     782,
+     732,
+     118
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "planner.budget": {
+   "w": 581,
+   "h": 967
+  },
+  "planner.fixed": {
+   "w": 1176,
+   "h": 483
+  },
+  "planner.gap": {
+   "w": 581,
+   "h": 557
+  },
+  "planner.grid": {
+   "w": 732,
+   "h": 413
+  },
+  "planner.levers": {
+   "w": 430,
+   "h": 989
+  },
+  "planner.target": {
+   "w": 581,
+   "h": 397
+  },
+  "planner.tiles": {
+   "w": 1176,
+   "h": 105
+  },
+  "planner.unsupported": {
+   "w": 1176,
+   "h": 234
+  },
+  "planner.where": {
+   "w": 732,
+   "h": 562
+  },
+  "predict": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "predict.questions": [
+     250,
+     88,
+     782,
+     491
+    ],
+    "predict.chance": [
+     1046,
+     88,
+     380,
+     178
+    ],
+    "predict.why": [
+     1046,
+     280,
+     380,
+     209
+    ],
+    "predict.compare": [
+     1046,
+     503,
+     380,
+     76
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "predict.chance": {
+   "w": 380,
+   "h": 178
+  },
+  "predict.compare": {
+   "w": 380,
+   "h": 76
+  },
+  "predict.questions": {
+   "w": 782,
+   "h": 491
+  },
+  "predict.why": {
+   "w": 380,
+   "h": 209
+  },
+  "predictors": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "predictors.tiles": [
+     250,
+     88,
+     1176,
+     91
+    ],
+    "predictors.funnel": [
+     250,
+     193,
+     1176,
+     329
+    ],
+    "predictors.how-many": [
+     250,
+     536,
+     1176,
+     364
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "predictors.add-one": {
+   "w": 581,
+   "h": 520
+  },
+  "predictors.drop-one": {
+   "w": 581,
+   "h": 520
+  },
+  "predictors.frequency": {
+   "w": 581,
+   "h": 474
+  },
+  "predictors.funnel": {
+   "w": 1176,
+   "h": 329
+  },
+  "predictors.heldout": {
+   "w": 581,
+   "h": 474
+  },
+  "predictors.how-many": {
+   "w": 1176,
+   "h": 381
+  },
+  "predictors.matrix": {
+   "w": 1176,
+   "h": 826
+  },
+  "predictors.pool": {
+   "w": 581,
+   "h": 317
+  },
+  "predictors.tiles": {
+   "w": 1176,
+   "h": 91
+  },
+  "predictors.too-good": {
+   "w": 581,
+   "h": 317
+  },
+  "screener": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "data.mode": [
+     250,
+     88,
+     1176,
+     26
+    ],
+    "screener.register": [
+     250,
+     128,
+     1176,
+     110
+    ],
+    "screener.tiles": [
+     250,
+     252,
+     1176,
+     91
+    ],
+    "screener.list": [
+     250,
+     357,
+     657,
+     543
+    ],
+    "screener.why": [
+     921,
+     357,
+     505,
+     326
+    ],
+    "screener.spread": [
+     921,
+     697,
+     505,
+     203
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "screener.list": {
+   "w": 657,
+   "h": 835
+  },
+  "screener.register": {
+   "w": 1176,
+   "h": 110
+  },
+  "screener.spread": {
+   "w": 505,
+   "h": 208
+  },
+  "screener.tested": {
+   "w": 1176,
+   "h": 203
+  },
+  "screener.tiles": {
+   "w": 1176,
+   "h": 91
+  },
+  "screener.why": {
+   "w": 505,
+   "h": 326
+  },
+  "start": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "overview.tiles": [
+     250,
+     88,
+     1176,
+     91
+    ],
+    "overview.act-on": [
+     250,
+     193,
+     697,
+     399
+    ],
+    "overview.minimap": [
+     961,
+     193,
+     465,
+     399
+    ],
+    "overview.ladder": [
+     250,
+     606,
+     581,
+     249
+    ],
+    "overview.tools": [
+     845,
+     606,
+     581,
+     249
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "start.help": {
+   "w": 1204,
+   "h": 36
+  },
+  "start.hint": {
+   "w": 581,
+   "h": 253
+  },
+  "war": {
+   "w": 1440,
+   "h": 900,
+   "marks": {
+    "mark:modes": [
+     165,
+     6,
+     227,
+     27
+    ],
+    "mark:finder": [
+     647,
+     7,
+     380,
+     24
+    ],
+    "mark:present": [
+     1282,
+     7,
+     75,
+     24
+    ],
+    "mark:theme": [
+     1369,
+     7,
+     61,
+     24
+    ],
+    "mark:scope": [
+     0,
+     38,
+     235,
+     156
+    ],
+    "mark:cohort": [
+     12,
+     126,
+     211,
+     24
+    ],
+    "mark:screens": [
+     0,
+     194,
+     235,
+     636
+    ],
+    "mark:header": [
+     236,
+     38,
+     1204,
+     36
+    ],
+    "war.tiles": [
+     250,
+     88,
+     1176,
+     91
+    ],
+    "war.scenario": [
+     250,
+     193,
+     320,
+     707
+    ],
+    "war.map": [
+     584,
+     193,
+     842,
+     488
+    ],
+    "war.trajectory": [
+     584,
+     695,
+     842,
+     205
+    ],
+    "mark:status": [
+     0,
+     876,
+     1440,
+     24
+    ]
+   }
+  },
+  "war.amhara": {
+   "w": 383,
+   "h": 417
+  },
+  "war.breaks": {
+   "w": 1176,
+   "h": 188
+  },
+  "war.map": {
+   "w": 842,
+   "h": 488
+  },
+  "war.reproduce": {
+   "w": 383,
+   "h": 417
+  },
+  "war.scenario": {
+   "w": 320,
+   "h": 825
+  },
+  "war.tigray": {
+   "w": 383,
+   "h": 417
+  },
+  "war.tiles": {
+   "w": 1176,
+   "h": 91
+  },
+  "war.trajectory": {
+   "w": 842,
+   "h": 323
+  }
+ }
+}

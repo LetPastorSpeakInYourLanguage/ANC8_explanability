@@ -134,7 +134,7 @@ export default function WarPage() {
 
   return (
     <Screen>
-      <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
+      <div data-help="war.tiles" className="grid gap-10 grid-cols-2 lg:grid-cols-4">
         <StatTile
           label="More women with no ANC at all"
           value={fmtN(total.anc1)}
@@ -167,7 +167,7 @@ export default function WarPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[320px_minmax(0,1fr)]">
-        <Panel
+        <Panel help="war.scenario"
           title="Scenario"
           how="Choose where the conflict happens and how it runs. Siege: services cut until a ceasefire, as in Tigray. Insurgency: the same shock at onset, then services adapt within a few months while fighting continues, as the Amhara data show. Intensity 1 is the Tigray war."
           actions={
@@ -239,7 +239,7 @@ export default function WarPage() {
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
-          <Panel
+          <Panel help="war.map"
             title={`Map · drop in ${RUNG_LABEL[rung]} · ${qLabel(q)}`}
             how="Each affected region shaded by how many percentage points of women it loses on the chosen rung in this quarter, against its own current level. Press play to watch the conflict arrive through the pregnancies it overlaps and fade after the ceasefire. Grey regions are not in the scenario."
             actions={
@@ -270,7 +270,7 @@ export default function WarPage() {
             <Timeline q={q} setQ={(v) => { setPlaying(false); setQ(v); }} playing={playing} setPlaying={setPlaying} start={START} end={endQ} />
           </Panel>
 
-          <Panel
+          <Panel help="war.trajectory"
             title={`${focus || "No region"} · the ladder through the conflict`}
             how="The share of women reaching each rung, by quarter of birth, with the 95% band from the bootstrap. Dashed: the region's level without conflict. The shaded span is the fighting; the vertical line is the quarter on the map. Click an affected region on the map or in the list to follow it."
             actions={
@@ -327,7 +327,7 @@ export default function WarPage() {
       </div>
 
       {f && (
-        <Panel
+        <Panel help="war.breaks"
           title={`Which rung breaks first · ${focus}`}
           how="The deepest drop on each rung during the scenario, in percentage points and as a share of the rung's own level. In Tigray the war mostly stopped women from starting and from reaching four contacts; eight contacts were already rare, so there was less to lose."
         >
@@ -355,7 +355,7 @@ export default function WarPage() {
       <div className="grid gap-10 md:gap-14 xl:grid-cols-3">
         <TigrayEvidence w={W} />
         <AmharaBacktest w={W} />
-        <Panel
+        <Panel help="war.reproduce"
           title="Does the model reproduce Tigray?"
           how="The simulator's model, run on Tigray at intensity 1, against the difference-in-differences estimated directly from the survey (Tigray's change from wartime to post-war births, minus the change in regions without conflict). Rings: that estimate with its 95% interval; dots: the model."
         >
@@ -434,7 +434,7 @@ function TigrayEvidence({ w }: { w: WarData }) {
     };
   });
   return (
-    <Panel
+    <Panel help="war.tigray"
       title="What happened in Tigray"
       how="The survey itself: the share of Tigray women reaching the rung, by half-year of the birth, with 95% intervals (the band). The solid line is the model; the dashed line is the model with the war switched off. The dotted line is the regions without conflict. The war ended in November 2022; births after mid-2023 were conceived in peace."
       actions={<Segmented label="Rung" options={WAR_RUNGS.map((r) => ({ key: r, label: RUNG_LABEL[r] }))} value={k} onChange={setK} />}
@@ -486,7 +486,7 @@ function AmharaBacktest({ w }: { w: WarData }) {
     none: Number(r[`none_${k}`]),
   }));
   return (
-    <Panel
+    <Panel help="war.amhara"
       title="Checking on Amhara"
       how="The model was fitted without Amhara. From August 2023 the Fano insurgency put Amhara pregnancies under conflict. Red dots: what happened. The siege line applies the full Tigray disruption; it predicts the first half-year well and then far too deep a collapse. The adapting line keeps the same shock at onset but lets services adapt; that adaptation time is fitted to Amhara, so it is a description, not a test."
       actions={<Segmented label="Rung" options={WAR_RUNGS.map((r) => ({ key: r, label: RUNG_LABEL[r] }))} value={k} onChange={setK} />}

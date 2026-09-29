@@ -106,7 +106,7 @@ export default function PredictorsPage() {
 
   return (
     <Screen>
-      <div className="grid gap-10 grid-cols-2 lg:grid-cols-5">
+      <div data-help="predictors.tiles" className="grid gap-10 grid-cols-2 lg:grid-cols-5">
         <StatTile label="Survey columns" value={scr?.n_columns.toLocaleString() ?? "–"} sub="every variable in the women's file" />
         <StatTile label="Observed for enough women" value={scr?.counts.candidate.toLocaleString() ?? "–"}
                   sub={`${scr?.counts.low_coverage.toLocaleString()} observed for fewer than half`} />
@@ -118,7 +118,7 @@ export default function PredictorsPage() {
                   sub={s ? s.tier1.map(label).join(", ") : ""} tone="good" />
       </div>
 
-      <Panel
+      <Panel help="predictors.funnel"
         title="From 6,648 survey columns to a handful"
         how="Each bar is how many variables are left after a step, on a log scale so the small sets stay visible. Columns were removed when they were not asked in this survey round, were administrative, were measured at or after the delivery, or were observed for fewer than half the women; then predictors were added one at a time and kept only if they helped in most resamples."
         actions={rungPicker}
@@ -148,7 +148,7 @@ export default function PredictorsPage() {
         )}
       </Panel>
 
-      <Panel
+      <Panel help="predictors.how-many"
         title={`How many predictors does ${RUNG_LABEL[rung]} need? · ${cohortInfo.short} cohort`}
         how="Accuracy (average precision on development women, cross-validated) against the number of predictors, on a log scale. The solid line builds a set from nothing, best predictor first; the dashed line builds within the 21 only; the dotted line adds the other predictors to the 21 one at a time. Big dots are the named sets. Most of the accuracy arrives with the first two or three predictors."
         actions={rungPicker}
@@ -197,7 +197,7 @@ export default function PredictorsPage() {
       </Panel>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="predictors.add-one"
           title="Adding one predictor to the 21"
           how="Each dot is the accuracy gained by adding that one predictor to the 21, averaged over five resamples; the bar is the range across them. The dashed line is the bar a predictor must clear (+0.005 average precision in most resamples)."
           actions={<Tag>{RUNG_LABEL[rung]} · top 15</Tag>}
@@ -225,7 +225,7 @@ export default function PredictorsPage() {
           )}
         </Panel>
 
-        <Panel
+        <Panel help="predictors.drop-one"
           title="Taking one out of the 21"
           how="How much accuracy the 21 lose when one of them is removed. Bars to the right: the predictor carries information the others do not. Bars to the left: the set does better without it."
           actions={
@@ -251,7 +251,7 @@ export default function PredictorsPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="predictors.heldout"
           title="Tested on the held-out women"
           how="Average precision of each predictor set on the 1,375 women the selection never saw, under four model families. The dashed line is chance. A small set that matches a large one is the practical win: fewer questions to ask."
         >
@@ -278,7 +278,7 @@ export default function PredictorsPage() {
           )}
         </Panel>
 
-        <Panel
+        <Panel help="predictors.frequency"
           title="How often each predictor is picked"
           how="Selection was repeated on resampled development women. The bar is the share of repeats that picked the predictor. A predictor picked every time is a stable finding; one picked half the time is a coin toss."
         >
@@ -302,7 +302,7 @@ export default function PredictorsPage() {
         </Panel>
       </div>
 
-      <Panel
+      <Panel help="predictors.matrix"
         title="Every predictor at every rung"
         how="Rows are the 24 predictors that matter most at the chosen rung; columns are the three rungs. The shading is shared by the whole grid, so a cell can be compared with any other. A row that darkens to the right matters more for going further up the ladder."
         actions={<Segmented label="Measure" options={MEASURES} value={measure} onChange={setMeasure} />}
@@ -321,7 +321,7 @@ export default function PredictorsPage() {
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         {stab && (
-          <Panel
+          <Panel help="predictors.pool"
             title="Does a bigger pool help? 21 against 95 predictors"
             how="The same model (LightGBM) trained twenty times with different random seeds on the 21 predictors and on all 95. Rings: the 21; dots: the 95. The bar is the 95% interval of the difference; the count is how many of the twenty seeds favoured the bigger pool."
           >
@@ -349,7 +349,7 @@ export default function PredictorsPage() {
         )}
 
         {scr && (
-          <Panel
+          <Panel help="predictors.too-good"
             title="Columns that looked too good"
             how="The survey columns with the strongest raw link to ANC8+. Nearly all were asked of only a few women (so a perfect score is an accident of small numbers) and were excluded before any model saw them."
           >

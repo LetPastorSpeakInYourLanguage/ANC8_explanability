@@ -256,7 +256,7 @@ export default function Predict({
 
   return (
     <div className="grid gap-10 md:gap-14 lg:grid-cols-[minmax(0,1fr)_380px]">
-      <Panel
+      <Panel help="predict.questions"
         title={`${model?.fields.length ?? 0} questions${changedCount > 0 ? ` · ${changedCount} changed` : ""}`}
         actions={<button type="button" className={btn} onClick={() => setAnswers(start)}>Reset</button>}
         how="The starting woman is a synthetic profile close to the typical woman in the survey. Change an answer to see what the model predicts for someone with that recorded characteristic, not what would happen if her circumstances changed."
@@ -323,7 +323,7 @@ export default function Predict({
       </Panel>
 
       <aside className="flex flex-col gap-10 md:gap-14 lg:sticky lg:top-14 self-start min-w-0">
-        <Panel title={`Chance of reaching ${outcomeLabel}`} how="The share of women like her who reach the rung, from the chosen model. The dashed line is the chance for all women; the dark tick is the model's working threshold.">
+        <Panel help="predict.chance" title={`Chance of reaching ${outcomeLabel}`} how="The share of women like her who reach the rung, from the chosen model. The dashed line is the chance for all women; the dark tick is the model's working threshold.">
           <div className="px-14 py-12">
             {ok ? (
               <>
@@ -364,7 +364,7 @@ export default function Predict({
         </Panel>
 
         {contribs.length > 0 && (
-          <Panel title="Why, exactly" how="What each answer adds on the log-odds scale, largest first. With the intercept they sum to the number behind the percentage. Green raises her chance; red lowers it.">
+          <Panel help="predict.why" title="Why, exactly" how="What each answer adds on the log-odds scale, largest first. With the intercept they sum to the number behind the percentage. Green raises her chance; red lowers it.">
             <RankedBars
               signed
               referenceLabel=""
@@ -381,7 +381,7 @@ export default function Predict({
           </Panel>
         )}
 
-        <Panel
+        <Panel help="predict.compare"
           title={`Every ${outcomeLabel} model`}
           actions={<button type="button" className={btn} onClick={runCompare}>{compare ? "Refresh" : "Compare"}</button>}
           how="Scores these answers with every model for this question, to see whether they agree. Click one to switch to it."

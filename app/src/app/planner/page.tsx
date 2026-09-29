@@ -106,7 +106,7 @@ export default function PlannerPage() {
 
   return (
     <Screen>
-      <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
+      <div data-help="planner.tiles" className="grid gap-10 grid-cols-2 lg:grid-cols-4">
         {S_RUNGS.map((k) => (
           <StatTile
             key={k}
@@ -127,7 +127,7 @@ export default function PlannerPage() {
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,430px)_minmax(0,1fr)]">
-        <Panel
+        <Panel help="planner.levers"
           title={`Levers · ${scope}`}
           how="Each slider is the share of the women a lever could move who are actually reached. Under each lever: who it applies to in the current scope, and its weight, the change the model expects on each rung if all of them are reached (with the 95% band). Levers combine exactly, not by adding up. Association-based: what the model expects if circumstances changed, not what a programme would cause."
           actions={
@@ -180,7 +180,7 @@ export default function PlannerPage() {
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
-          <Panel
+          <Panel help="planner.where"
             title={`Where the scenario moves ${RUNG_LABEL[rung]}`}
             how="Each region shaded by the change the scenario brings on the chosen rung, in percentage points; the list ranks regions by women gained per year (the change times the region's births). Grey: no change. Click a region to plan for it alone."
             actions={
@@ -221,7 +221,7 @@ export default function PlannerPage() {
             </div>
           </Panel>
 
-          <Panel
+          <Panel help="planner.grid"
             title="Every region, every rung"
             how="The scenario's change for each region on each rung, in percentage points, with one shading for the whole grid. Clicking a region plans for it."
           >
@@ -248,7 +248,7 @@ export default function PlannerPage() {
       <FixedVsAdjustable reg={reg.data} sc={d} rung={rung} region={studio.region} cov={cov} setCov={setCov} />
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">
-        <Panel
+        <Panel help="planner.budget"
           title={`Spend a budget · ${RUNG_LABEL[rung]}`}
           how="The budget is spent a tenth of a lever's women at a time, always on the region and lever that buys the most additional women on the chosen rung per birr, reaching the women who gain most first. The costs below are placeholders: replace them with your own. Levers are counted separately, so the total is an upper bound."
         >
@@ -301,7 +301,7 @@ export default function PlannerPage() {
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
-          <Panel
+          <Panel help="planner.target"
             title={`Who reaches a target · ${RUNG_LABEL[rung]}`}
             how="Rings: each region now (24-month cohort). Dots: under the current scenario. The dashed line is the target. A region reaches it when its dot crosses the line."
             actions={
@@ -342,7 +342,7 @@ export default function PlannerPage() {
           </Panel>
 
           {gap && (
-            <Panel
+            <Panel help="planner.gap"
               title={`Doing better or worse than its women's circumstances predict · ${RUNG_LABEL[rung]}`}
               how="For each region, the share reaching the rung minus what the model predicts from its women's circumstances alone (full cohort). Right of zero: the region does better than its population would suggest, a place to learn from. Left: something about the region itself, services, conflict or geography, holds women back beyond their circumstances."
             >
@@ -365,7 +365,7 @@ export default function PlannerPage() {
         </div>
       </div>
 
-      <Panel
+      <Panel help="planner.unsupported"
         title="Levers the data do not support"
         how="Levers where the model expects at least one rung to fall, not rise, when the lever is applied. Both models (explainable boosting and logistic regression) are shown. These are associations: women who listen to the radio weekly, for example, are no more likely to use ANC in this survey, once everything else about them is known. They are not evidence that the programmes would harm; they are evidence that the survey cannot show they would help."
       >

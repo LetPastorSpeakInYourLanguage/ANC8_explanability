@@ -1,12 +1,17 @@
 import {
+  BookA,
+  BookOpen,
   Bot,
   Calculator,
   ChartColumnBig,
   ChartNetwork,
+  CircleHelp,
+  Compass,
   Flame,
   Gauge,
   Info,
   Layers,
+  LifeBuoy,
   Microscope,
   ListTree,
   Map as MapIcon,
@@ -15,6 +20,7 @@ import {
   Upload,
   type LucideIcon,
 } from "lucide-react";
+import { HELP_GROUPS, TOPIC_LIST } from "@/lib/help/topics";
 
 /**
  * Navigation, organised the house way: by what the reader is DOING, not by which
@@ -23,7 +29,7 @@ import {
  * follow for anyone who wants to check the ground under a plan.
  */
 
-export type Mode = "plan" | "explore" | "models";
+export type Mode = "plan" | "explore" | "models" | "help";
 
 export interface NavItem {
   key: string;
@@ -43,6 +49,7 @@ export const MODES: { key: Mode; label: string }[] = [
   { key: "plan", label: "Plan" },
   { key: "explore", label: "Explore" },
   { key: "models", label: "Models" },
+  { key: "help", label: "Help" },
 ];
 
 export const NAV: Record<Mode, NavGroup[]> = {
@@ -98,7 +105,37 @@ export const NAV: Record<Mode, NavGroup[]> = {
       ],
     },
   ],
+  help: [],
 };
+
+/**
+ * The Help mode's sidebar: every help topic, grouped as the Help groups them. A topic
+ * that explains a screen borrows that screen's icon, so the two read as one.
+ */
+const BASICS_ICON: Record<string, LucideIcon> = {
+  start: Compass, controls: LifeBuoy, "basics-ladder": Layers, "basics-numbers": BookOpen,
+  "basics-charts": ChartColumnBig, "basics-models": ChartNetwork, terms: BookA, about: Info,
+};
+const SCREEN_ITEMS = (["plan", "explore", "models"] as const).flatMap((m) => NAV[m].flatMap((g) => g.items));
+NAV.help = [
+  {
+    label: "Help",
+    items: [
+      { key: "help-home", label: "Help home", icon: CircleHelp, path: "/help",
+        meta: ["Help", "How to use the studio", "every tool, in plain language"] },
+    ],
+  },
+  ...HELP_GROUPS.map((g) => ({
+    label: g.label,
+    items: TOPIC_LIST.filter((t) => t.group === g.key).map((t) => ({
+      key: `help-${t.key}`,
+      label: t.label,
+      icon: BASICS_ICON[t.key] ?? SCREEN_ITEMS.find((i) => i.key === t.key)?.icon ?? CircleHelp,
+      path: `/help/${t.key}`,
+      meta: ["Help", t.label, t.blurb] as [string, string, string],
+    })),
+  })),
+];
 
 /** Reachable from the finder and the status bar, not from the sidebar. */
 const ABOUT: NavItem = {

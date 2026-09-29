@@ -63,7 +63,7 @@ export default function Curves({ card, vs, name, vsName }: { card: Card; vs: Car
   ];
   const dim = (k: string) => (focus && focus !== k ? 0.15 : 1);
   return (
-    <Panel
+    <Panel help="analysis.curves"
       title="Against chance"
       how={
         kind === "gains"

@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { topicForScreen } from "@/lib/help/href";
 import { LEGACY_HASH, itemForPath } from "@/lib/nav";
 import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
@@ -33,6 +34,7 @@ export function useShellHeader(header: ShellHeader, deps: unknown[] = []) {
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const search = useSearchParams();
   const [override, setOverride] = useState<ShellHeader>({});
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -56,7 +58,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [drawerOpen]);
 
-  const meta = itemForPath(pathname)?.meta ?? ["", "", ""];
+  const item = itemForPath(pathname);
+  const meta = item?.meta ?? ["", "", ""];
+  const helpTopic = topicForScreen(item?.key, pathname, search.get("mode"));
 
   return (
     <HeaderContext.Provider value={setOverride}>
@@ -87,6 +91,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               title={override.title ?? meta[1]}
               subtitle={override.subtitle ?? meta[2]}
               actions={override.actions}
+              help={helpTopic}
             />
             <main className="flex-1 overflow-auto min-h-0" id="content">
               {children}

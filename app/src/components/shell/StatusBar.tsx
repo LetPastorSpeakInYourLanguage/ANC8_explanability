@@ -10,7 +10,7 @@ export default function StatusBar() {
   const studio = useStudio();
   const cohort = COHORTS.find((c) => c.key === studio.cohort) ?? COHORTS[0];
   return (
-    <div className="bg-top text-topfg flex items-center gap-8 md:gap-12 px-10 text-10.5 flex-none min-w-0 overflow-hidden">
+    <div data-mark="status" className="bg-top text-topfg flex items-center gap-8 md:gap-12 px-10 text-10.5 flex-none min-w-0 overflow-hidden">
       <span className="opacity-85 whitespace-nowrap flex-none">EDHS 2024–25</span>
       <span aria-hidden="true" className="flex-none">|</span>
       <span className="opacity-85 whitespace-nowrap flex-none hidden sm:inline">survey-weighted</span>
