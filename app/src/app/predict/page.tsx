@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import Predict from "@/components/Predict";
+import Predict from "@/components/predict/Predict";
 import { InlineError, PanelLoading, Screen } from "@/components/studio/ui";
 import { useJSON } from "@/lib/data";
 import type { Bundle, Answers } from "@/lib/ebm";
