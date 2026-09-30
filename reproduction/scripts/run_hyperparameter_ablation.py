@@ -47,9 +47,9 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from anc8 import library as lib, outcomes, tuning  # noqa: E402
 
-LIBRARY_ROOT = Path("G:/My Drive/ANC8_training")
+LIBRARY_ROOT = ROOT / "outputs" / "core"
 OUT = ROOT / "outputs" / "library" / "tuning"
-MODELS = lib.LINEUPS["four"]
+MODELS = lib.LINEUPS["three"]
 
 # How each parameter is perturbed away from its tuned value. Multiplicative for
 # scale parameters, additive for depths and counts.
@@ -119,9 +119,9 @@ def perturb(name, value, factor):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--outcome", nargs="*", default=list(outcomes.LADDER), choices=outcomes.LADDER)
-    ap.add_argument("--set", default="pool", choices=lib.SETS)
+    ap.add_argument("--set", default="s21", choices=lib.SETS)
     ap.add_argument("--root", type=Path, default=LIBRARY_ROOT, help="the library's results folder")
-    ap.add_argument("--models", nargs="*", default=MODELS, choices=MODELS)
+    ap.add_argument("--models", nargs="*", default=MODELS, choices=lib.LINEUPS["four"])
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     for outcome in args.outcome:

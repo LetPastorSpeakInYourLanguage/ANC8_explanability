@@ -1,0 +1,10 @@
+# the survey and everything made from it, row by row
+data/*.DTA
+data/*.dta
+outputs/
+results/
+quick/
+study/
+logs/
+__pycache__/
+.ipynb_checkpoints/

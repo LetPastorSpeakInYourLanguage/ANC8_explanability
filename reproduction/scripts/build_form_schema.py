@@ -158,22 +158,18 @@ def field_for(name, spec, register_row):
 OUTCOMES = {"anc1plus": "ANC1+", "anc4plus": "ANC4+", "anc8plus": "ANC8+"}
 HORIZONS = {"before": "Before ANC starts", "entry": "At the first ANC visit"}
 
-# Which model the study points to for each outcome and horizon (FINDINGS.md,
-# docs/PREDICTOR_VALUE.md, docs/HORIZONS.md). Before ANC: for ANC1+ and ANC4+
-# the full pool beats the 21, so the full pool's champion; for ANC8+ the short
-# set does as well as the larger ones, so its champion. At ANC entry a small set
-# does as well, so the small logistic model. (None: the bundle's champion.)
+# Which model the Predict screen opens with, for each outcome and horizon: the one
+# with the best held-out average precision (None: the bundle's champion). At ANC
+# entry, the 21 predictors with the timing of the first visit.
 RECOMMENDED = {
-    ("anc1plus", "before"): ("lib_pool_anc1plus", None),
-    ("anc4plus", "before"): ("lib_pool_anc4plus", None),
-    ("anc8plus", "before"): ("lib_short_anc8plus", None),
-    ("anc4plus", "entry"): ("small", "anc4plus · entry · "),
-    ("anc8plus", "entry"): ("small", "anc8plus · entry · "),
+    ("anc1plus", "before"): ("lib_s21_anc1plus", None),
+    ("anc4plus", "before"): ("lib_s21_anc4plus", None),
+    ("anc8plus", "before"): ("lib_s21_anc8plus", None),
+    ("anc8plus", "entry"): ("v1_anc_entry", "Logistic regression (Extended)"),
 }
 
-# The model library's bundles (scripts/export_serving.py --library), in the order
-# the sets are offered.
-LIBRARY_SETS = ("pool", "s21", "short", "pars")
+# The study's models (scripts/export_serving.py --library): the 21 predictors.
+LIBRARY_SETS = ("s21",)
 
 # Additive models are scored in the browser, so they respond as answers change
 # and their contributions are exact; everything else goes to the service.
@@ -268,22 +264,6 @@ def main():
             set_label="21 predictors" + (" + early ANC" if spec == "Extended" else ""),
             algorithm=algo, ap=r[f"{spec}_Weighted_AP"],
             auroc=r[f"{spec}_Weighted_AUROC"])
-
-    # ---- the study's best small sets ---------------------------------------
-    small_path = MODELS / "small_bundle.json.gz"
-    if small_path.exists():
-        sb = load(small_path)
-        for c in sb["catalog"]:
-            if c["horizon"] != "entry":
-                continue  # before ANC, the library's predictor sets take their place
-            label = c["set"]
-            label = ("Best " + label.removeprefix("best ")) if label.startswith("best ") \
-                else label[0].upper() + label[1:]
-            add("small", sb, c["model"], outcome=c["outcome"], horizon=c["horizon"],
-                set_label=label, algorithm="Logistic regression",
-                ap=c["heldout_AP"], auroc=c["heldout_AUROC"],
-                predictors=c["predictors"])
-            prevalence.setdefault((c["outcome"], c["horizon"]), c["prevalence"])
 
     order = {k: i for i, k in enumerate(DOMAIN_ORDER)}
     ordered = sorted(fields.values(),

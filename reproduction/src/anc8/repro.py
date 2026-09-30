@@ -126,11 +126,11 @@ def run_script(script: str, *args: str) -> None:
     print(f"({(time.time() - t0) / 60:.1f} min)")
 
 
-def compare_cells(results: Path, models, sets=None, tol=None) -> pd.DataFrame:
+def compare_cells(results: Path, models, sets=None, tol=None, ref_name: str = "expected_results.csv") -> pd.DataFrame:
     """Each model's development and held-out AP against the study's, per set and rung."""
     from . import library as lib
 
-    ref = reference("expected_results.csv").set_index(["set", "rung", "model"])
+    ref = reference(ref_name).set_index(["set", "rung", "model"])
     rows = []
     for s in sets or lib.SETS:
         for r in lib.RUNGS:

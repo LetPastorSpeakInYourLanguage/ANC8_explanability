@@ -589,11 +589,11 @@ def test_wording():
 
     # The reproduction notebooks are read by other researchers: their prose and code
     # comments follow the same rule.
-    rep = ROOT / "reproduction"
-    if rep.exists():
+    folders = [ROOT / n for n in ("reproduction", "reproduction_full", "research_record") if (ROOT / n).exists()]
+    if folders:
         import nbformat
         hits = []
-        for f in sorted(rep.rglob("*.md")) + sorted(rep.rglob("*.ipynb")):
+        for f in [f for rep in folders for f in sorted(rep.rglob("*.md")) + sorted(rep.rglob("*.ipynb"))]:
             if "executed" in f.parts:
                 continue
             if f.suffix == ".md":
@@ -605,9 +605,9 @@ def test_wording():
             for i, line in enumerate(lines, 1):
                 for pat, name in BANNED:
                     if re.search(pat, line):
-                        hits.append(f"{f.relative_to(rep)}:{i} {name}")
+                        hits.append(f"{f.relative_to(ROOT)}:{i} {name}")
         check("no reproduction notebook uses the old framing or carries a clock time or date",
-              not hits, "; ".join(hits[:12]) + (" ..." if len(hits) > 12 else "") if hits else "reproduction/")
+              not hits, "; ".join(hits[:12]) + (" ..." if len(hits) > 12 else "") if hits else "the three reproduction and record folders")
 
     # The studio's own screens carry the same rule: what a reader sees on screen must
     # frame the work the way the documents do.

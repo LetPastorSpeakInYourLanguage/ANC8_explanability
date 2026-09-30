@@ -33,11 +33,11 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from anc8 import library as lib  # noqa: E402
 
-KIND_ORDER = {"tune": 0, "net": 1, "calib": 2, "stack": 3, "cumlink": 4}
+KIND_ORDER = {"grid": 0, "tune": 0, "net": 1, "calib": 2, "stack": 3, "cumlink": 4}
 # Slowest tuning first, so the long jobs are not left for the end.
 SLOW = {"Elastic net logistic": 0, "Extra Trees": 1, "LightGBM": 2, "Random Forest": 3,
         "HistGradientBoosting": 4, "MLP": 5, "Explainable Boosting": 6, "XGBoost": 7}
-SET_ORDER = {s: i for i, s in enumerate(lib.SETS)}
+SET_ORDER = {s: i for i, s in enumerate(lib.ALL_SETS)}
 
 
 def log(m):
@@ -49,7 +49,9 @@ def safe(job_id: str) -> str:
 
 
 def selected(args):
-    sets = tuple(args.sets) if args.sets else lib.SETS
+    sets = tuple(args.sets) if args.sets else lib.ALL_SETS
+    if args.study:
+        return lib.grid_jobs()
     if args.lineup:
         return [j for ln in args.lineup for j in lib.lineup_jobs(ln, sets)]
     js = lib.jobs(sets)
@@ -219,10 +221,12 @@ def main():
     ap.add_argument("--device", choices=["cpu", "gpu"], default="cpu")
     ap.add_argument("--workers", type=int, default=1, help="jobs run at once")
     ap.add_argument("--fold-jobs", type=int, default=5, help="tuning folds fitted in parallel (CPU)")
-    ap.add_argument("--sets", nargs="*", choices=lib.SETS)
+    ap.add_argument("--sets", nargs="*", choices=lib.ALL_SETS)
     ap.add_argument("--lineup", nargs="*", choices=list(lib.LINEUPS),
                     help="run (or report) only these lineups' two ensembles")
     ap.add_argument("--only", nargs="*", help="job ids or patterns, e.g. 's21/anc4plus/*'")
+    ap.add_argument("--study", action="store_true",
+                    help="the study's own models: the three models on the 21, tuned over notebook 2's grids")
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--heartbeat", type=int, default=600, help="seconds between progress lines for running jobs")
     ap.add_argument("--sync", type=int, default=60, help="seconds between copies of the logs and status to --root")

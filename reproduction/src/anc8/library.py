@@ -1,4 +1,11 @@
-"""The model library: every model on every clean predictor set at every rung.
+"""The model library, and the study's own models within it.
+
+The studio and the reproduction notebooks use one part of it: logistic regression,
+random forest and XGBoost (and explainable boosting, in the four-model build) on the
+21 predictors, at each rung of the ladder, each tuned over the grid notebook 2
+prespecified (GRIDS). The rest -- other predictor sets, more model families,
+recalibrated versions, ensembles, networks -- is kept as a record of what else was
+tried; `ALL_SETS` and `FAMILIES` enumerate it.
 
 A job is one cell of the grid (predictor set x rung x model), or one network
 run that fills several rungs at once. Each job writes one file per cell,
@@ -42,6 +49,7 @@ import numpy as np
 import pandas as pd
 from sklearn.isotonic import IsotonicRegression
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import average_precision_score
 
 from . import cohorts, design, metrics, outcomes, selection as sel, tuning
 from . import models as zoo
@@ -52,7 +60,10 @@ FEATURE_VALUE = ROOT / "outputs" / "feature_value" / "full"
 HANDOFF = ROOT / "outputs" / "notebook3_explainability_handoff"
 
 RUNGS = ("anc1plus", "anc4plus", "anc8plus")
-SETS = ("pool", "s21", "short", "pars")
+# The predictor sets the studio and the notebooks use: the 21 alone.
+SETS = ("s21",)
+# Every set the library holds (the record).
+ALL_SETS = ("pool", "s21", "short", "pars")
 SET_LABEL = {"pool": "Full pool", "s21": "21-predictor set", "short": "Short set",
              "pars": "Parsimonious set", "pool95": "95 predictors (reproduction check only)"}
 FAMILIES = list(zoo.ZOO) + ["CatBoost"]
@@ -69,6 +80,35 @@ LINEUPS = {
     "four": ["Logistic regression", "Random Forest", "XGBoost", "Explainable Boosting"],
     "three": ["Logistic regression", "Random Forest", "XGBoost"],
 }
+
+# The 21 predictors, as the models take them: current age is replaced by age at the
+# birth, the one change made to the set. Numbers first, then categories.
+S21_NUMERIC = ["age_at_birth", "household_size", "traditional_media_weekly_count", "travel_time_min"]
+S21_CATEGORICAL = [
+    "maternal_education", "maternal_current_union_status", "maternal_occupation_group", "partner_education",
+    "partner_occupation_group", "healthcare_decision_participation", "wealth_quintile", "residence", "region",
+    "religion_group", "internet_exposure", "health_insurance", "pregnancy_order_group",
+    "preceding_pregnancy_interval_group", "pregnancy_intention", "previous_pregnancy_history",
+    "transport_mode_group",
+]
+
+# Notebook 2's prespecified tuning grids (section 2.12), searched over the same
+# folds, weights and objective as everything else.
+GRIDS = {
+    "Logistic regression": {"C": [0.01, 0.1, 1.0, 10.0]},
+    "Random Forest": {"n_estimators": [300, 600], "max_depth": [None, 6, 12], "min_samples_split": [2, 10],
+                      "min_samples_leaf": [1, 5], "max_features": ["sqrt", 0.5]},
+    "XGBoost": {"n_estimators": [200, 400], "learning_rate": [0.03, 0.1], "max_depth": [3, 6],
+                "min_child_weight": [1, 5], "subsample": [0.8, 1.0], "colsample_bytree": [0.8, 1.0]},
+}
+
+
+def grid_settings(model: str) -> list[dict]:
+    """Every setting of a model's grid, in a fixed order."""
+    from itertools import product
+    g = GRIDS[model]
+    return [dict(zip(g, v)) for v in product(*g.values())]
+
 
 # Pool columns that the 21-set's constructs recode one-to-one (checked on every
 # woman: each value of one maps to exactly one value of the other).
@@ -95,6 +135,16 @@ def raw_frame(cohort: str = "full") -> pd.DataFrame:
     v1 = pd.read_pickle(ROOT / "outputs" / "ANC8_analysis_frozen.pkl")
     v1["caseid"] = v1.caseid.astype(str)
     return df.merge(v1[["caseid"] + sel.V1_ONLY], on="caseid", how="left", validate="one_to_one")
+
+
+@lru_cache(maxsize=1)
+def _frame21() -> pd.DataFrame:
+    """The analysis frame for the 21 predictors, without the candidate pool: the
+    cohort with the 21-set's constructs, categories as text (as the models read them)."""
+    df = raw_frame("full")
+    for c in S21_CATEGORICAL:
+        df[c] = df[c].astype(str)
+    return df
 
 
 @lru_cache(maxsize=1)
@@ -135,10 +185,10 @@ def _split(cols) -> tuple[list, list]:
 @lru_cache(maxsize=None)
 def predictors(set_: str, rung: str) -> tuple[tuple, tuple]:
     """(numeric, categorical) for one predictor set at one rung."""
-    if set_ == "pool":
+    if set_ == "s21":
+        num, cat = S21_NUMERIC, S21_CATEGORICAL
+    elif set_ == "pool":
         num, cat = clean_pool()
-    elif set_ == "s21":
-        num, cat = _split(_frame()[1].original21)
     elif set_ == "short":
         s = json.load(open(FEATURE_VALUE / rung / "summary.json"))
         num, cat = _split(s["tier1"] + s["tier2"])
@@ -174,7 +224,7 @@ def partitions(base: bool = False):
 
     base=True takes them from the analysis frame alone, before the duplicate
     analysis the candidate pool depends on (for the 95-predictor pool)."""
-    df = cohorts.load("full") if base else _frame()[0]
+    df = cohorts.load("full") if base else _frame21()
     dev, held = cohorts.development(df), cohorts.heldout(df)
     folds = design.make_psu_stratum_folds(dev).to_numpy()
     assert _digest(held.caseid) == HELD_DIGEST, "held-out women differ from the study's"
@@ -204,7 +254,20 @@ class Data:
 
 
 def data(set_: str, rung: str) -> Data:
+    if set_ not in ("s21", "pool95"):
+        return _data_pool(set_, rung)
     dev, held = partitions(base=set_ == "pool95")
+    num, cat = (list(x) for x in predictors(set_, rung))
+    return Data(design_matrix(dev, num, cat), design_matrix(held, num, cat),
+                dev[rung].astype(int).to_numpy(), held[rung].astype(int).to_numpy(),
+                (dev.v005 / 1e6).to_numpy(), (held.v005 / 1e6).to_numpy(),
+                cohorts.folds(dev), num, cat)
+
+
+def _data_pool(set_: str, rung: str) -> Data:
+    """A pool-derived set (the record): its categories as the candidate pool typed them."""
+    df = _frame()[0]
+    dev, held = cohorts.development(df), cohorts.heldout(df)
     num, cat = (list(x) for x in predictors(set_, rung))
     return Data(design_matrix(dev, num, cat), design_matrix(held, num, cat),
                 dev[rung].astype(int).to_numpy(), held[rung].astype(int).to_numpy(),
@@ -215,7 +278,7 @@ def data(set_: str, rung: str) -> Data:
 # ------------------------------------------------------------------ jobs
 @dataclass(frozen=True)
 class Job:
-    kind: str            # tune | calib | stack | cumlink | net
+    kind: str            # grid | tune | calib | stack | cumlink | net
     set: str
     rung: str            # "all" for a network run that fills every rung
     model: str           # the cell's model name (for a net: the network's name)
@@ -256,7 +319,12 @@ def calibrated_name(family: str, method: str) -> str:
     return f"{family} ({method} calibrated)"
 
 
-def jobs(sets=SETS) -> list[Job]:
+def grid_jobs(models=None) -> list[Job]:
+    """The study's models: each model of the lineup on the 21, at every rung, tuned over its grid."""
+    return [Job("grid", "s21", r, m, m) for r in RUNGS for m in (models or LINEUPS["three"])]
+
+
+def jobs(sets=ALL_SETS) -> list[Job]:
     out = []
     for s in sets:
         for r in RUNGS:
@@ -281,7 +349,7 @@ def ensemble_name(kind: str, lineup: str) -> str:
     return f"{lineup}/{'Stacked ensemble' if kind == 'stack' else 'Cumulative-link ensemble'}"
 
 
-def lineup_jobs(lineup: str, sets=SETS) -> list[Job]:
+def lineup_jobs(lineup: str, sets=ALL_SETS) -> list[Job]:
     """The two ensembles of one lineup, for every set and rung."""
     return [Job(kind, s, r, ensemble_name(kind, lineup), lineup=lineup)
             for s in sets for r in RUNGS for kind in ("stack", "cumlink")]
@@ -290,7 +358,7 @@ def lineup_jobs(lineup: str, sets=SETS) -> list[Job]:
 def find(job_id: str) -> Job:
     """A job by id. The reproduction set (pool95) is not part of the library,
     but its cells can be run on request."""
-    for j in jobs(SETS + ("pool95",)) + [j for ln in LINEUPS for j in lineup_jobs(ln)]:
+    for j in jobs(ALL_SETS + ("pool95",)) + [j for ln in LINEUPS for j in lineup_jobs(ln)] + grid_jobs():
         if j.id == job_id:
             return j
     raise KeyError(job_id)
@@ -370,7 +438,7 @@ def run(job: Job, root, fold_jobs: int = 5):
     """Run one job. fold_jobs > 1 fits tuning folds in parallel processes."""
     t0 = time.time()
     log(f"{job.id} ({job.kind}, {zoo.DEVICE}, {sum(len(x) for x in predictors(job.set, RUNGS[-1] if job.rung == 'all' else job.rung))} predictors)")
-    {"tune": _tune, "calib": _calib, "stack": _stack, "cumlink": _cumlink, "net": _net}[job.kind](
+    {"grid": _grid, "tune": _tune, "calib": _calib, "stack": _stack, "cumlink": _cumlink, "net": _net}[job.kind](
         job, root, fold_jobs, t0)
     log(f"{job.id} done in {(time.time() - t0) / 60:.1f} min")
 
@@ -388,6 +456,24 @@ def _tune(job, root, fold_jobs, t0):
     save_cell(root, job, job.rung, job.model, oof, held,
               {"params": params, "n_trials": n, "tune_best_ap": best,
                "seconds": round(time.time() - t0, 1)},
+              d.y_dev, d.w_dev, d.y_held, d.w_held)
+
+
+def _grid(job, root, fold_jobs, t0):
+    """Every setting of the model's grid, scored out of fold; the best refitted on all
+    development women and scored once on the held-out women."""
+    d = data(job.set, job.rung)
+    tried = []
+    for p in grid_settings(job.base):
+        oof = tuning.oof_predict(job.base, p, d.X_dev, d.y_dev, d.w_dev, d.splits, d.numeric, d.categorical,
+                                 n_jobs=fold_jobs)
+        tried.append((float(average_precision_score(d.y_dev, oof, sample_weight=d.w_dev)), p, oof))
+    best_ap, params, oof = max(tried, key=lambda t: t[0])
+    pipe = tuning.fit_final(job.base, params, d.X_dev, d.y_dev, d.w_dev, d.numeric, d.categorical)
+    held = pipe.predict_proba(d.X_held)[:, 1]
+    save_cell(root, job, job.rung, job.model, oof, held,
+              {"params": params, "grid": GRIDS[job.base], "n_settings": len(tried), "tune_best_ap": best_ap,
+               "grid_ap": [t[0] for t in tried], "seconds": round(time.time() - t0, 1)},
               d.y_dev, d.w_dev, d.y_held, d.w_held)
 
 

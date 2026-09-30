@@ -57,7 +57,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from anc8 import design, library as lib, metrics  # noqa: E402
 from anc8 import models as zoo  # noqa: E402
 
-LIBRARY = ROOT / "outputs" / "library"
+LIBRARY = ROOT / "outputs" / "core"
 OUT = ROOT / "outputs" / "model_cards"
 RUNGS = {"anc1plus": "anc1", "anc4plus": "anc4", "anc8plus": "anc8"}
 NETS = set(lib.NETS.values())
@@ -174,6 +174,19 @@ def tuning_block(model: str, meta: dict) -> dict:
         return {"tuned": False, "network": meta["network"],
                 "how": "Trained, not searched: fixed settings, early stopping on held-back clusters, "
                        "three seeds averaged in development."}
+    if "grid" in meta:
+        chosen = meta["params"]
+        return {
+            "tuned": True,
+            "sampler": "Grid prespecified in notebook 2",
+            "objective": "Survey-weighted average precision, out of fold",
+            "folds": "5 folds; whole clusters stay together, strata balanced",
+            "trials": meta.get("n_settings"),
+            "seconds": meta.get("seconds"),
+            "grid": [{"param": p, "values": ["none" if v is None else v for v in vals],
+                      "chosen": "none" if chosen.get(p) is None else chosen.get(p)}
+                     for p, vals in meta["grid"].items()],
+        }
     space = search_space(b) if model == b else None
     if space is not None and "params" in meta:
         chosen = meta["params"]
@@ -299,7 +312,7 @@ def main():
     ap.add_argument("--quick", action="store_true")
     ap.add_argument("--library", type=Path, default=LIBRARY, help="where the merged library lives")
     ap.add_argument("--out", type=Path, default=OUT)
-    ap.add_argument("--lineup", default="four", choices=list(lib.LINEUPS))
+    ap.add_argument("--lineup", default="three", choices=list(lib.LINEUPS))
     args = ap.parse_args()
     n_boot = 30 if args.quick else 500
 
@@ -411,7 +424,7 @@ def main():
     # the lineup's models on the full pool, development out-of-fold AP.
     tuning = {}
     for rung, short in RUNGS.items():
-        f = ROOT / "outputs" / "library" / "tuning" / f"ablation_pool_{rung}.csv"
+        f = ROOT / "outputs" / "library" / "tuning" / f"ablation_s21_{rung}.csv"
         if not f.exists():
             continue
         import pandas as pd
