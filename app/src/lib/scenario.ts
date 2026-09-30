@@ -27,8 +27,6 @@ export interface Lever {
   supported: boolean;
   /** Supported under each lever model (every rung rises). */
   supported_by?: Record<string, boolean>;
-  /** Per lever model and rung: does the model expect that rung to rise? */
-  supported_at?: Record<string, Record<string, boolean>>;
   models_agree: boolean;
 }
 
@@ -64,14 +62,11 @@ export const EARLY = "early";
 
 export const MODEL_SHORT: Record<string, string> = { ebm: "Explainable boosting", logistic: "Logistic regression" };
 
-/** The scenario as one lever model sees it: its numbers and its own "supported" verdicts,
- *  on the rung being planned when one is given, else on every rung. */
-export function forModel(d: ScenarioData, model: string, rung?: string): ScenarioData {
+/** The scenario as one lever model sees it: its numbers and its own "supported" verdicts. */
+export function forModel(d: ScenarioData, model: string): ScenarioData {
   const m = d.by_model?.[model];
-  const verdict = (l: ScenarioData["levers"][number]) =>
-    (rung ? l.supported_at?.[model]?.[rung] : undefined) ?? l.supported_by?.[model] ?? l.supported;
-  if (!m) return { ...d, levers: d.levers.map((l) => ({ ...l, supported: verdict(l) })) };
-  return { ...d, rungs: m.rungs, levers: d.levers.map((l) => ({ ...l, supported: verdict(l) })) };
+  if (!m) return d;
+  return { ...d, rungs: m.rungs, levers: d.levers.map((l) => ({ ...l, supported: l.supported_by?.[model] ?? l.supported })) };
 }
 
 /** Coverage per lever key (0..1), including "early". */

@@ -62,7 +62,7 @@ export default function PlannerPage() {
 
   const view = useMemo(() => {
     if (!sc.data || !reg.data) return null;
-    const d = forModel(sc.data, lm, rung);
+    const d = forModel(sc.data, lm);
     const now = (r: string | null) => {
       const c = r ? reg.data!.cohorts.recent.regions[r] : reg.data!.cohorts.recent.national;
       return { anc1: c.reach1, anc4: c.reach4, anc8: c.reach8 };
@@ -77,7 +77,7 @@ export default function PlannerPage() {
     ) as Record<SRung, number>;
     // the same scenario under every lever model, for the comparison
     const byModel = Object.fromEntries(models.map((m) => {
-      const dm = forModel(sc.data!, m, rung);
+      const dm = forModel(sc.data!, m);
       return [m, {
         national: project(dm, dm.regions.length - 1, now(null), cov),
         byRegion: Object.fromEntries(REGION_NAMES.map((r) => [r, project(dm, dm.regions.indexOf(r), now(r), cov)])),
@@ -85,12 +85,12 @@ export default function PlannerPage() {
     }));
     return { byRegion, national, births, gained, byModel };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sc.data, reg.data, studio.params.get("lv"), lm, rung]);
+  }, [sc.data, reg.data, studio.params.get("lv"), lm]);
 
   const err = sc.error ?? reg.error ?? geo.error;
   if (err) return <Screen><InlineError message={err} /></Screen>;
   if (!sc.data || !reg.data || !view) return <Screen><PanelLoading rows={10} /></Screen>;
-  const d = forModel(sc.data, lm, rung);
+  const d = forModel(sc.data, lm);
   const modelPicker = models.length > 1 ? (
     <Segmented label="Levers from" options={models.map((m) => ({ key: m, label: m === "ebm" ? "Boosting" : "Logistic", title: MODEL_SHORT[m] }))}
       value={lm} onChange={(k) => studio.set({ lm: k })} />
@@ -191,13 +191,11 @@ export default function PlannerPage() {
               );
             })}
           </div>
-          {unsupported.length > 0 && (
-            <div className="px-14 py-10 border-t border-border flex items-center gap-8">
-              <button type="button" onClick={() => setShowAll((s) => !s)} className="text-10.5 text-accent hover:underline">
-                {showAll ? "Hide" : "Show"} the {unsupported.length === 1 ? "lever" : `${unsupported.length} levers`} the data do not support at {RUNG_LABEL[rung]}
-              </button>
-            </div>
-          )}
+          <div className="px-14 py-10 border-t border-border flex items-center gap-8">
+            <button type="button" onClick={() => setShowAll((s) => !s)} className="text-10.5 text-accent hover:underline">
+              {showAll ? "Hide" : "Show"} the {unsupported.length} levers the data do not support
+            </button>
+          </div>
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
@@ -386,10 +384,9 @@ export default function PlannerPage() {
         </div>
       </div>
 
-      {unsupported.length > 0 && (
       <Panel help="planner.unsupported"
-        title={`Levers the data do not support · ${RUNG_LABEL[rung]}`}
-        how={`Levers where the chosen model expects ${RUNG_LABEL[rung]} to fall, not rise, when the lever is applied. Every lever model is shown. These are associations: women who listen to the radio weekly, for example, are no more likely to use ANC in this survey, once everything else about them is known. They are not evidence that the programmes would harm; they are evidence that the survey cannot show they would help.`}
+        title="Levers the data do not support"
+        how="Levers where the chosen model expects at least one rung to fall, not rise, when the lever is applied. Every lever model is shown. These are associations: women who listen to the radio weekly, for example, are no more likely to use ANC in this survey, once everything else about them is known. They are not evidence that the programmes would harm; they are evidence that the survey cannot show they would help."
       >
         <Table
           minWidth={620}
@@ -422,7 +419,6 @@ export default function PlannerPage() {
         </div>
         <DataNote>Results from programmes actually delivered (enrolment drives, new health posts, family-planning outreach), with ANC counts before and after, would turn these associations into effect estimates.</DataNote>
       </Panel>
-      )}
     </Screen>
   );
 }

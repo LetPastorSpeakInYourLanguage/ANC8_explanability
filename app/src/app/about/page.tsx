@@ -93,7 +93,7 @@ export default function AboutPage() {
           <Row to="/war" go="Conflict simulator"
             text={<>The Tigray war cut first contact by about <b className="font-mono">{n(war?.did_check.anc1.did, (v) => `${Math.round(v * 100)}`)}</b> points.</>} />
           <Row to="/planner" go="Scenario planner"
-            text={<><b className="font-mono">{supported ?? "…"}</b> levers raise every rung; the others raise some rungs and not others.</>} />
+            text={<><b className="font-mono">{supported ?? "…"}</b> levers are supported by the data; the rest are shown but not backed.</>} />
           <Row to="/your-data?mode=register" go="First-visit screener" text="Twelve questions match the 21-predictor model." />
           <Row to="/models" go="Model analysis"
             text={<>The three models on the 21 finish within <b className="font-mono">{n(spread8, (v) => v.toFixed(2))}</b> average precision of each other at ANC8+.</>} />
