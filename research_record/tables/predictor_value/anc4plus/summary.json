@@ -1,0 +1,48 @@
+{
+  "cohort": "full",
+  "outcome": "anc4plus",
+  "anchors": {
+    "prevalence": 0.525780202426112,
+    "original21": 0.7830441554182566,
+    "original21_C": 0.01,
+    "all88": 0.78532020141276,
+    "all88_C": 0.003
+  },
+  "threshold": 0.005,
+  "min_seeds_positive": 4,
+  "n_development": 5518,
+  "n_total": 6893,
+  "stage1": {
+    "n_new": 67,
+    "n_clear": 0,
+    "median_gain": -4.2504174509816474e-05,
+    "total_gain_all_additions": 0.002276045994503484
+  },
+  "tier1": [
+    "v191",
+    "pregnancy_order_group"
+  ],
+  "tier2": [
+    "region",
+    "pregnancy_intention"
+  ],
+  "n_candidates": 88,
+  "stage0": {
+    "n_non_contributors": 10,
+    "non_contributors": [
+      "previous_pregnancy_history",
+      "health_insurance",
+      "household_size",
+      "maternal_education",
+      "internet_exposure",
+      "preceding_pregnancy_interval_group",
+      "maternal_occupation_group",
+      "religion_group",
+      "transport_mode_group",
+      "traditional_media_weekly_count"
+    ],
+    "AP_21_minus_non_contributors": 0.7926939073948328,
+    "best_k_within_21": 8,
+    "best_AP_within_21": 0.7927810608564536
+  }
+}

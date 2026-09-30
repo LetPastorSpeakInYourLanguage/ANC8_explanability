@@ -1,0 +1,32 @@
+predictor,selected_share,tier
+v191,1.0,tier 1
+pregnancy_intention,0.9,tier 2
+region,0.8,tier 1
+travel_healthpost_is_zero,0.6,tier 2
+spousal_age_gap,0.3,
+maternal_occupation_group,0.3,tier 2
+v743b,0.3,tier 2
+travel_healthpost_log,0.3,tier 2
+v170,0.2,
+v155,0.2,
+v045c,0.2,
+v120,0.2,
+v201,0.2,tier 2
+access_barrier_count,0.1,
+v467b,0.1,
+v212,0.1,
+v136,0.1,
+v731,0.1,
+residence,0.1,
+v743d,0.1,
+v716,0.1,
+healthpost_time_missing,0.1,
+v467c,0.1,
+children_over_ideal,0.1,
+v744e,0.1,
+v115,0.1,
+v157,0.1,
+preceding_pregnancy_interval_group,0.1,
+v113,0.1,
+v745a,0.1,
+v158,0.1,

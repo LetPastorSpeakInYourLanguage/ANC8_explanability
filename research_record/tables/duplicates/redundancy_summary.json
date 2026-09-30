@@ -1,0 +1,29 @@
+{
+  "n_predictors": 95,
+  "n_after_deduplication": 85,
+  "dropped": [
+    "v218",
+    "s1101",
+    "s1101b",
+    "v106",
+    "v190",
+    "v171a",
+    "v024",
+    "v025",
+    "v130",
+    "v481"
+  ],
+  "threshold": 0.95,
+  "exact_recodings": 8,
+  "development_AP_full": 0.5064856642385115,
+  "development_AP_deduplicated": 0.5087563137093537,
+  "development_AUROC_full": 0.7778403818137651,
+  "development_AUROC_deduplicated": 0.7798201833410704,
+  "AP_cost_of_deduplication": 0.002270649470842212,
+  "mechanism_check": {
+    "nosubsample_full": 0.5019919613357007,
+    "nosubsample_lean": 0.5042911534480777,
+    "logistic_full": 0.5092384698866333,
+    "logistic_lean": 0.5086371876712533
+  }
+}

@@ -1,0 +1,37 @@
+set,rung,cell,family,variant,lineup,kind,device,status,n_predictors,dev_AP,held_AP,held_AP_lo,held_AP_hi,held_AUROC,held_AUROC_lo,held_AUROC_hi,Brier,calibration_slope,CITL,ICI,prevalence,trials,seconds,params
+pool,anc1plus,CatBoost,CatBoost,tuned,,tune,gpu,done,86.0,0.9218209772638256,0.9199902516979552,0.890733645286481,0.9506453642938852,0.8043099961269595,0.7649745773133945,0.8463418102829624,0.13921700726374595,0.8856944453657817,-0.11534856554632776,0.038119533752840676,0.7615691189556617,20.0,4111.5,"{""iterations"": 200, ""learning_rate"": 0.05598124725330473, ""depth"": 8, ""l2_leaf_reg"": 4.079770390721939}"
+pool,anc4plus,CatBoost,CatBoost,tuned,,tune,gpu,done,86.0,0.7933460535509703,0.8081590538519997,0.7426986188664758,0.8662628521208394,0.8037150018989608,0.7633929896339827,0.8397911157470523,0.18162026474442072,1.0105200001718728,0.10798585773821391,0.04250998332620275,0.5176109040661865,20.0,7136.0,"{""iterations"": 700, ""learning_rate"": 0.02973059794274883, ""depth"": 7, ""l2_leaf_reg"": 23.116741677237812}"
+pool,anc8plus,CatBoost,CatBoost,tuned,,tune,gpu,done,86.0,0.5122472371012432,0.43193640040953585,0.3468019523148511,0.5349868100867002,0.7648203628005993,0.6798010642278174,0.8329986998341798,0.11367084438145154,0.8680241333819917,-0.06991514441580715,0.03666669169136448,0.15980392199863247,20.0,4856.6,"{""iterations"": 500, ""learning_rate"": 0.010865927552073206, ""depth"": 8, ""l2_leaf_reg"": 6.589808375745809}"
+pool,anc1plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pool,anc1plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pool,anc4plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pool,anc4plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pool,anc8plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pool,anc8plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+s21,anc1plus,CatBoost,CatBoost,tuned,,tune,gpu,done,21.0,0.917369827410434,0.9159867967861051,0.8820811471445636,0.9463185493522928,0.7890523493866868,0.7441942235425099,0.8308249889230146,0.1458854785576768,1.0089287017820812,0.0664640796844217,0.038836166682564045,0.7615691189556617,20.0,3555.6,"{""iterations"": 300, ""learning_rate"": 0.028647842362770907, ""depth"": 4, ""l2_leaf_reg"": 11.978850382467504}"
+s21,anc4plus,CatBoost,CatBoost,tuned,,tune,gpu,done,21.0,0.7893673164045655,0.7959985865981495,0.7261489518843071,0.8596445297794247,0.7862089587743999,0.7379239579654437,0.8346095314422204,0.189282696221379,1.0311203648137142,0.16772557915086395,0.05448533465488801,0.5176109040661865,20.0,3696.1,"{""iterations"": 400, ""learning_rate"": 0.01151154577058412, ""depth"": 7, ""l2_leaf_reg"": 2.7362083989599353}"
+s21,anc8plus,CatBoost,CatBoost,tuned,,tune,gpu,done,21.0,0.4812939554166177,0.43383574173917494,0.3470184535235941,0.5347228119100063,0.7533757800976895,0.6695887386339667,0.8303832404648402,0.11520438671352291,0.8691860983833848,-0.13281426368170834,0.026823258114180952,0.15980392199863247,20.0,3317.9,"{""iterations"": 400, ""learning_rate"": 0.01187232578447832, ""depth"": 6, ""l2_leaf_reg"": 5.219670487618799}"
+s21,anc1plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+s21,anc1plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+s21,anc4plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+s21,anc4plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+s21,anc8plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+s21,anc8plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+short,anc1plus,CatBoost,CatBoost,tuned,,tune,gpu,not run,,,,,,,,,,,,,,,,
+short,anc4plus,CatBoost,CatBoost,tuned,,tune,gpu,not run,,,,,,,,,,,,,,,,
+short,anc8plus,CatBoost,CatBoost,tuned,,tune,gpu,not run,,,,,,,,,,,,,,,,
+short,anc1plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+short,anc1plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+short,anc4plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+short,anc4plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+short,anc8plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+short,anc8plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc1plus,CatBoost,CatBoost,tuned,,tune,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc4plus,CatBoost,CatBoost,tuned,,tune,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc8plus,CatBoost,CatBoost,tuned,,tune,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc1plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc1plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc4plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc4plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc8plus,CatBoost (isotonic calibrated),CatBoost,isotonic,,calib,gpu,not run,,,,,,,,,,,,,,,,
+pars,anc8plus,CatBoost (platt calibrated),CatBoost,platt,,calib,gpu,not run,,,,,,,,,,,,,,,,

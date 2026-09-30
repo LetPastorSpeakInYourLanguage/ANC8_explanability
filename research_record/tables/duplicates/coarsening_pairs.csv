@@ -1,0 +1,9 @@
+finer,coarser,determination,measure
+v149,v106,1.0,theil_u
+maternal_education,v149,1.0,theil_u
+partner_education,v729,0.9999999999999999,theil_u
+maternal_occupation_group,v716,1.0,theil_u
+transport_mode_group,s1101a,1.0,theil_u
+partner_education,maternal_current_union_status,1.0000000000000002,theil_u
+partner_occupation_group,maternal_current_union_status,1.0000000000000002,theil_u
+healthcare_decision_participation,maternal_current_union_status,1.0000000000000002,theil_u

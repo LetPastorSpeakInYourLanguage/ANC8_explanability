@@ -1,0 +1,31 @@
+{
+  "predictors": [
+    "v191",
+    "spousal_age_gap",
+    "v743b",
+    "v024",
+    "v133",
+    "pregnancy_intention",
+    "transport_mode_group",
+    "partner_occupation_group",
+    "v158",
+    "previous_pregnancy_history"
+  ],
+  "base_model": "LightGBM",
+  "numeric": [
+    "v191",
+    "spousal_age_gap",
+    "v133"
+  ],
+  "categorical": [
+    "v743b",
+    "v024",
+    "pregnancy_intention",
+    "transport_mode_group",
+    "partner_occupation_group",
+    "v158",
+    "previous_pregnancy_history"
+  ],
+  "development_AP": 0.5372090043603877,
+  "note": "Selected by forward selection on out-of-fold AP; the selector is a fast booster because the search costs ~950 out-of-fold fits."
+}
