@@ -320,7 +320,7 @@ export const PLAN: HelpTopic[] = [
           "Sliders combine exactly, not by simple adding: two levers that reach the same women do not double-count.",
           "Logistic regression on the 21 predictors scores the levers; everything on the page follows it.",
           "The circular arrow in the title clears all levers.",
-          "**Show the levers the data do not support** adds the levers where the model expects at least one rung to fall; they are there for honesty, marked \"not supported\".",
+          "**Show the levers the data do not support** adds the levers where the model expects the chosen rung to fall; they are there for honesty, marked \"not supported\". Switch the rung and the verdict can change.",
         ],
         watch: "Association-based: what the model expects if women's circumstances changed, not what a programme would cause.",
         terms: ["lever", "eligible", "g-computation", "association"],
@@ -390,7 +390,7 @@ export const PLAN: HelpTopic[] = [
       {
         id: "unsupported",
         title: "Levers the data do not support",
-        shows: "The levers where the chosen model expects at least one rung to fall, not rise, when applied, with every lever model's estimates.",
+        shows: "The levers where the chosen model expects the chosen rung to fall, not rise, when applied, with their effect on every rung.",
         read: [
           "Each cell: the change at full reach from logistic regression.",
           "These do not show the programmes would harm. They show the survey cannot show they would help: women who listen to the radio weekly, for example, are no more likely to complete care once everything else about them is known.",

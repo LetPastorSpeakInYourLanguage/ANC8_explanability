@@ -132,7 +132,7 @@ function ActOn() {
     const never = REGION_NAMES.map((r) => ({ r, n: births(r) * R.cohorts.recent.regions[r].never }))
       .sort((a, b) => b.n - a.n)[0];
     const natIdx = sc.data.regions.length - 1;
-    const levers = [...sc.data.levers.filter((l) => l.supported).map((l) => l.key), EARLY]
+    const levers = [...sc.data.levers.filter((l) => l.supported_at?.[sc.data!.primary ?? "logistic"]?.anc8 ?? l.supported).map((l) => l.key), EARLY]
       .map((k) => ({ k, v: leverWeight(sc.data!, k, natIdx).anc8?.v ?? 0 }))
       .sort((a, b) => b.v - a.v);
     const top = levers[0];

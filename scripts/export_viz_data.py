@@ -228,11 +228,14 @@ def scenarios_block() -> dict | None:
         m["primary"] = keep[0]
     m["rungs"] = m["by_model"][m["primary"]]["rungs"]
     rungs = ("anc1", "anc4", "anc8")
-    # A lever is offered by default only where the data back it: the model expects
-    # every rung to rise when it is applied. The others are shown, with their numbers,
-    # as levers the data do not support. Each lever model is judged on its own.
+    # A lever is offered by default only where the data back it: the model expects the
+    # rung being planned to rise when it is applied (supported_at, per rung). The others
+    # are shown, with their numbers, as levers the data do not support at that rung.
+    # `supported` keeps the stricter reading, every rung rises. Each lever model is
+    # judged on its own.
     for i, lv in enumerate(m["levers"]):
         gains = {k: [m["by_model"][k]["rungs"][r]["gain"][-1][i] for r in rungs] for k in keep}
+        lv["supported_at"] = {k: {r: g > 0 for r, g in zip(rungs, v)} for k, v in gains.items()}
         lv["supported_by"] = {k: all(g > 0 for g in v) for k, v in gains.items()}
         lv["supported"] = lv["supported_by"][m["primary"]]
         signs = [tuple(g > 0 for g in v) for v in gains.values()]
