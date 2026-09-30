@@ -101,8 +101,8 @@ def main():
     args = ap_.parse_args()
     n_boot = 50 if args.quick else 500
 
-    if OUT.exists():
-        shutil.rmtree(OUT)
+    # FUTURE_WORK.md is written by hand and kept; the tables are rebuilt
+    shutil.rmtree(T, ignore_errors=True)
     T.mkdir(parents=True)
 
     dev, held = lib.partitions()

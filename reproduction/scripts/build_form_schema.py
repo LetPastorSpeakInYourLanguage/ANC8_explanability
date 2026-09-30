@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import shutil
 from pathlib import Path
 
 import pandas as pd
@@ -174,6 +175,10 @@ LIBRARY_SETS = ("s21",)
 # Additive models are scored in the browser, so they respond as answers change
 # and their contributions are exact; everything else goes to the service.
 BROWSER_KINDS = {"ebm", "logistic"}
+# The tree models are scored in the browser too, from their own files fetched when
+# first chosen (gzip, 0.5-2 MB each): one file per bundle, the models Predict offers.
+TREE_KINDS = {"forest", "xgboost"}
+TREES = ROOT / "app" / "public" / "data" / "trees"
 
 
 def bundle_fields(pre):
@@ -188,6 +193,8 @@ def main():
                 for r in reg2.itertuples()}
     register.update({r.final_variable: {"domain": r.domain, "description": r.construct}
                      for r in reg1.itertuples()})
+    # Age at the birth replaces current age in the 21: it asks about the same woman.
+    register["age_at_birth"] = {"domain": register["v012"]["domain"], "description": "Mother's age at the birth"}
 
     held = {o: pd.read_csv(ENHANCED / o / "heldout_performance.csv") for o in OUTCOMES}
     t1 = pd.read_csv(ROOT / "outputs/publication_results/main_tables"
@@ -198,6 +205,7 @@ def main():
 
     fields, models = {}, []
     browser = {"preprocessors": {}, "models": {}}
+    trees: dict = {}
     prevalence = {(o, "before"): insights["outcomes"][o]["weighted_prevalence"]
                   for o in OUTCOMES if o in insights.get("outcomes", {})}
 
@@ -225,6 +233,12 @@ def main():
         if in_browser:
             browser["preprocessors"][mid] = pre
             browser["models"][mid] = {**m, "preprocessor": mid}
+        tree_file = None
+        if m["kind"] in TREE_KINDS and (horizon == "before" or "early ANC" in set_label):
+            t = trees.setdefault(bundle_key, {"preprocessors": {}, "models": {}})
+            t["preprocessors"][mid] = pre
+            t["models"][mid] = {**m, "preprocessor": mid}
+            tree_file = f"/data/trees/{bundle_key}.json.gz"
         models.append({
             "id": mid, "bundle": bundle_key, "model": name,
             "outcome": outcome, "horizon": horizon,
@@ -233,7 +247,7 @@ def main():
             "heldout_AP": None if ap is None or pd.isna(ap) else float(ap),
             "heldout_AUROC": None if auroc is None or pd.isna(auroc) else float(auroc),
             "threshold": m.get("threshold"),
-            "browser": in_browser, "recommended": recommended,
+            "browser": in_browser, "trees": tree_file, "recommended": recommended,
             "headline": name == bundle.get("champion"),
             "note": note,
         })
@@ -281,6 +295,13 @@ def main():
     out.write_text(json.dumps(schema, indent=1, ensure_ascii=False), encoding="utf-8")
     bout = ROOT / "app" / "public" / "browser_models.json"
     bout.write_text(json.dumps(browser, ensure_ascii=False), encoding="utf-8")
+    shutil.rmtree(TREES, ignore_errors=True)
+    TREES.mkdir(parents=True)
+    for key, t in trees.items():
+        f = TREES / f"{key}.json.gz"
+        # mtime=0: the same models always make the same bytes
+        f.write_bytes(gzip.compress(json.dumps(t, separators=(",", ":")).encode("utf-8"), mtime=0))
+        print(f"wrote {f.relative_to(ROOT)}: {len(t['models'])} tree models ({f.stat().st_size / 1e6:.1f} MB)")
     print(f"wrote {out}: {len(ordered)} fields, {len(models)} models")
     print(f"wrote {bout}: {len(browser['models'])} models scored in the browser "
           f"({bout.stat().st_size / 1024:.0f} KB)")

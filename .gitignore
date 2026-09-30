@@ -58,3 +58,6 @@ outputs/geo/raw/
 
 # held-out women used only by the screener parity check
 outputs/screener/parity_cases.json
+
+# zipped hand-outs, built from reproduction/ and research_record/
+deliverables/

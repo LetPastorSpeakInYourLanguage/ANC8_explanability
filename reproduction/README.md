@@ -1,5 +1,7 @@
 # Reproducing the study's models
 
+**What this adds to the 21-predictor analysis of notebooks 1 and 2:** it rebuilds that analysis's logistic regression, random forest and XGBoost from ETIR8AFL.DTA alone, tuned over the same prespecified grids, and extends them from ANC8+ to all three rungs (ANC1+, ANC4+ and ANC8+, with age at the birth in place of current age), adding exact logistic-regression and TreeSHAP explanations, g-computation planning levers and exact regional decompositions, every step checked against the study's own results.
+
 Notebooks that rebuild, from the Ethiopia DHS 2024-25 Individual Recode, the models the
 study's planning studio runs on: the cohort and the ANC1+, ANC4+ and ANC8+ outcomes, the 21
 predictors, the split, logistic regression, random forest and XGBoost at each rung (tuned over
