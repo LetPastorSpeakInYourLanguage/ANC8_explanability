@@ -122,6 +122,19 @@ export function leverWeight(d: ScenarioData, key: string, ri: number): Record<SR
   return out;
 }
 
+/** The rungs where the model does not expect a lever to help, nationally: the reason a
+ *  lever is "not supported" (a lever is supported only when every rung rises). */
+export function failingRungs(d: ScenarioData, key: string): SRung[] {
+  const w = leverWeight(d, key, d.regions.length - 1);
+  return S_RUNGS.filter((r) => w[r] != null && w[r]!.v <= 0);
+}
+
+/** "ANC1+", "ANC1+ and ANC4+", "ANC1+, ANC4+ and ANC8+". */
+export function rungList(rungs: string[], label: Record<string, string>): string {
+  const n = rungs.map((r) => label[r] ?? r);
+  return n.length < 2 ? n.join("") : `${n.slice(0, -1).join(", ")} and ${n[n.length - 1]}`;
+}
+
 export function eligibleShare(d: ScenarioData, key: string, ri: number): number {
   return key === EARLY ? d.early_visit.eligible[ri] : d.eligible[key]?.[ri] ?? 0;
 }

@@ -84,6 +84,16 @@ function TopicPage({ topic }: { topic: Topic }) {
         </div>
       </Panel>
 
+      {topic.plain?.length ? (
+        <Panel title="How it works, in plain words">
+          <div className="px-14 py-12 flex flex-col gap-8 max-w-[820px]">
+            {topic.plain.map((t, k) => (
+              <p key={k} className="text-12 leading-relaxed"><HelpText text={t} /></p>
+            ))}
+          </div>
+        </Panel>
+      ) : null}
+
       {placed.length > 0 && (
         <Panel
           title="The screen at a glance"
@@ -199,6 +209,16 @@ function CardBlock({ topic, card, n }: { topic: Topic; card: HelpCard; n?: numbe
               ))}
             </ul>
           </div>
+          {card.plain?.length ? (
+            <div className="border-l-2 border-accent pl-10">
+              <div className="text-9.5 uppercase tracking-label text-faint font-semibold mb-4">In plain words</div>
+              <div className="flex flex-col gap-6">
+                {card.plain.map((t, k) => (
+                  <p key={k} className="text-11.5 leading-relaxed"><HelpText text={t} /></p>
+                ))}
+              </div>
+            </div>
+          ) : null}
           {card.watch && <Note tone="warn"><HelpText text={card.watch} /></Note>}
           {card.tryIt?.length ? (
             <div className="flex flex-wrap items-center gap-8">

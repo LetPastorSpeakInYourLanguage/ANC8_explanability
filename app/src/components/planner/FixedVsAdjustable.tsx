@@ -6,7 +6,7 @@ import { DataNote, Panel, Tag } from "@/components/studio/ui";
 import { RUNG_LABEL } from "@/lib/explore";
 import { REGION_NAMES } from "@/lib/regions";
 import type { RegionsData } from "@/lib/regionsData";
-import { leverWeight, type Coverage, type SRung, type ScenarioData } from "@/lib/scenario";
+import { failingRungs, leverWeight, rungList, type Coverage, type SRung, type ScenarioData } from "@/lib/scenario";
 
 /**
  * The feature filter: what holds a region back, split into what a ministry cannot
@@ -125,7 +125,7 @@ export default function FixedVsAdjustable({
                             {w ? `${w.v * cv >= 0 ? "+" : "−"}${Math.abs(w.v * cv * 100).toFixed(1)} pt` : "–"}
                           </span>
                         ) : (
-                          <Tag tone="warn">not supported</Tag>
+                          <Tag tone="warn">not supported for {rungList(failingRungs(sc, lever.key), RUNG_LABEL)}</Tag>
                         )}
                       </div>
                     ) : null}

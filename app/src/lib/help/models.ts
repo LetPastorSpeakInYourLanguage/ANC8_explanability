@@ -11,6 +11,10 @@ export const MODELS: HelpTopic[] = [
     screen: "/models?rung=anc8",
     purpose:
       "A full report card for any one model at any rung: how much better than chance it ranks women, whether its percentages can be taken at their word, what happens at its working threshold, how it was built and tuned, and where it works well or less well. Compare it with a second model at any time.",
+    plain: [
+      "Every number here is measured on the 1,375 held-out women no model saw while it was built, weighted to stand for all women.",
+      "The two main scores both ask how well the model ranks women. **Average precision**: of the women it puts near the top, how many really reached the rung. **AUROC**: pick one woman who reached the rung and one who did not; how often does the model score the first higher? 0.5 is a coin toss. **Top 20% hold** is the practical version: follow up the fifth of women the model ranks highest, and this is the share of all the women you were looking for that you reach. For ANC8+, logistic regression's top fifth holds 53% of the women who reach eight visits, where picking at random would hold 20%.",
+    ],
     before: ["basics-models", "basics-charts"],
     recipes: [
       {
@@ -77,6 +81,10 @@ export const MODELS: HelpTopic[] = [
       },
       {
         id: "threshold",
+        plain: [
+          "A chance becomes a yes or no at a cut-off, the working threshold, chosen on the development women before the held-out women were scored. Everyone above it is called \"will reach the rung\".",
+          "**Sensitivity**: of the women who really reached it, the share called yes. **Specificity**: of those who did not, the share called no. Raising the threshold trades sensitivity for specificity; the boxes show what one choice does on real women.",
+        ],
         title: "At the working threshold",
         shows: "What happens when the model's chance is turned into a yes or no at its working threshold, on the held-out women.",
         read: [
@@ -89,6 +97,9 @@ export const MODELS: HelpTopic[] = [
       },
       {
         id: "tuning",
+        plain: [
+          "The model was tried with every combination of a small list of settings fixed in advance, each scored on the five folds of the development women; the best was kept. **What tuning bought** compares the model's default settings with the chosen ones. The rows below move each setting one step up and down: a setting whose moves barely change the score is one the model does not care about.",
+        ],
         title: "How it was built",
         shows: "What kind of model it is, how its inputs were prepared, and how its settings were searched.",
         read: [
@@ -97,7 +108,6 @@ export const MODELS: HelpTopic[] = [
           "Each bar is the range a setting was allowed to take, with the winning value marked; for settings with a few choices, the chosen one is blue.",
           "**What tuning bought**: the model's default settings (ring) against the grid's choice (dot).",
           "Below, each setting moved one step either way: a span near zero is a setting the model does not care about.",
-          "Networks show their training settings instead.",
         ],
         terms: ["tuning", "cv"],
       },
@@ -174,12 +184,17 @@ export const MODELS: HelpTopic[] = [
     screen: "/predict",
     purpose:
       "Choose what to predict, when, and with which model, then change a woman's answers and watch her chance respond, with an exact breakdown of what each answer adds. It is for understanding the models, not for judging a real person.",
+    plain: [
+      "Pick a model, a rung and a moment, then change the answers. The starting woman is a made-up profile close to the survey's typical woman. Her chance is what the model gives women with exactly these answers.",
+      "Logistic regression runs in your browser and responds at once. Random forest and XGBoost are larger, so they are scored by the studio's prediction service; where a copy of the site cannot reach it, they are greyed out.",
+      "It is for understanding the models, not for judging a real woman: a chance describes women with these answers, not what would happen to one woman if her circumstances changed.",
+    ],
     before: ["basics-models"],
     recipes: [
       {
         title: "See what one answer is worth",
         steps: [
-          "Keep the recommended model (★) and the starting woman.",
+          "Keep logistic regression and the starting woman.",
           "Change one answer, for example travel time to a health facility.",
           "Read the change in points under her chance, and the new bar in **Why, exactly**.",
           "Press **Reset** to go back to the starting woman.",
@@ -187,7 +202,7 @@ export const MODELS: HelpTopic[] = [
       },
       {
         title: "Do the models agree?",
-        steps: ["Press **Compare** in **Every … model** to score the same answers with every model for the question."],
+        steps: ["Read **Every … model**: the same answers scored by every model for the question, updated as you change them."],
       },
     ],
     cards: [
@@ -196,9 +211,9 @@ export const MODELS: HelpTopic[] = [
         title: "The questions",
         shows: "The outcome, the moment, the model, and the answers it asks for.",
         read: [
-          "**Outcome**: ANC1+, ANC4+ or ANC8+.",
-          "**When**: before antenatal care starts, or at the first visit (adds whether the first visit was early). Not offered for ANC1+.",
-          "**Model**: ★ marks the study's recommended model; \"instant\" models run in your browser; each shows its held-out average precision.",
+          "**Model**: logistic regression, random forest or XGBoost. A greyed-out model cannot be scored from this copy of the site.",
+          "**ANC1+ | ANC4+ | ANC8+**: the rung.",
+          "**When**: before antenatal care starts, or at the first visit (adds whether the first visit was early). The first-visit models exist for ANC8+ only; elsewhere the choice is greyed out.",
           "The tags under it: its accuracy, number of predictors, where it runs, and **How it was built** (its Model analysis).",
           "The questions are grouped by theme, most influential first. A blue edge marks an answer you changed. **Show more** reveals the rest.",
           "The starting woman is a synthetic profile close to the survey's typical woman.",
@@ -219,6 +234,10 @@ export const MODELS: HelpTopic[] = [
       },
       {
         id: "why",
+        plain: [
+          "Logistic regression keeps a running score for her. It starts from a base value, and each answer adds or takes away a fixed amount; the bars are those amounts. The final score becomes her chance through a fixed S-shaped curve: a score of 0 is 50%, −2 is about 12%, +2 about 88%.",
+          "So the bars add up exactly to her score, and the same bar moves her chance most when she is near 50%, and least when she is near 5% or 95%.",
+        ],
         title: "Why, exactly",
         shows: "What each answer adds to her score, largest first. Only for models that run in your browser.",
         read: [
@@ -229,17 +248,20 @@ export const MODELS: HelpTopic[] = [
       },
       {
         id: "compare",
+        plain: [
+          "The three models are built very differently, so when they give her similar chances the answer does not depend on the kind of model. When they disagree, her combination of answers is unusual, and any single model's chance for her should be read with care.",
+        ],
         title: "Every model for the question",
         shows: "The same answers scored by every model for this outcome and moment.",
         read: [
-          "Press **Compare** (then **Refresh** after changing answers).",
+          "It updates as you change the answers.",
           "Models that roughly agree make the answer more believable.",
           "Click a model to switch to it.",
         ],
       },
     ],
     faq: [
-      { q: "Some models are greyed out in the list.", a: "They need the prediction service, which this copy of the site does not have. Choose one marked instant." },
+      { q: "Some models are greyed out.", a: "Random forest and XGBoost need the studio's prediction service, which this copy of the site cannot reach. Logistic regression always works: it runs in your browser." },
     ],
   },
   {
@@ -250,6 +272,10 @@ export const MODELS: HelpTopic[] = [
     screen: "/your-data?mode=register",
     purpose:
       "Twelve questions a midwife can ask at a woman's first antenatal visit give almost the accuracy of the full survey model. Load a register of women and get a follow-up list ranked by each woman's chance of stopping early, with her main reasons. The file never leaves your computer.",
+    plain: [
+      "A short model built for the clinic: twelve answers a midwife can collect at a woman's first visit, without a survey. It is a logistic regression fitted on 4,017 women who started care and tested on 984 it never saw.",
+      "It sorts women for follow-up almost as well as the survey model with all 21 predictors and the first-visit timing (for stopping before four visits, an AUROC of 0.80). Load a register and it lists the women most likely to stop early first, with the answers that raise their risk most.",
+    ],
     before: ["basics-models"],
     recipes: [
       {
@@ -298,6 +324,9 @@ export const MODELS: HelpTopic[] = [
       },
       {
         id: "why",
+        plain: [
+          "**If one thing were different** re-scores the same woman with one answer changed (insured, within 30 minutes of care, a wanted pregnancy, an early first visit) and shows her new chance. It is the planner's idea applied to one woman: what the model expects for women like her with that answer, not a promise for her.",
+        ],
         title: "Why this chance",
         shows: "For the chosen woman: how each answer pushes her chance of reaching the rung, compared with a typical woman.",
         read: [

@@ -19,7 +19,8 @@ import { RUNG_COLOR, RUNG_LABEL, pct, signed } from "@/lib/explore";
 import { REGION_NAMES } from "@/lib/regions";
 import type { RegionsData } from "@/lib/regionsData";
 import {
-  EARLY, MODEL_SHORT, S_RUNGS, allocate, eligibleShare, forModel, formatCoverage, leverWeight, parseCoverage, project,
+  EARLY, MODEL_SHORT, S_RUNGS, allocate, eligibleShare, failingRungs, forModel, formatCoverage, leverWeight, parseCoverage,
+  project, rungList,
   type Coverage, type SRung, type ScenarioData,
 } from "@/lib/scenario";
 import { useStudio } from "@/lib/studio";
@@ -164,12 +165,24 @@ export default function PlannerPage() {
                 <div key={l.key} className={`px-14 py-10 border-b border-border last:border-b-0 ${l.supported ? "" : "bg-panel2"}`}>
                   <div className="flex items-baseline gap-8">
                     <span className="text-11 font-semibold flex-1 min-w-0">{l.label}</span>
-                    {!l.supported && <Tag tone="warn">not supported</Tag>}
+                    {!l.supported && <Tag tone="warn">not supported for {rungList(failingRungs(d, l.key), RUNG_LABEL)}</Tag>}
                     <span className="font-mono text-11 font-semibold w-40 text-right">{Math.round(v * 100)}%</span>
                   </div>
                   <div className="text-9.5 text-faint mt-1">
                     {pct(eligibleShare(d, l.key, ri), 0)} of women: {l.who}
                   </div>
+                  {!l.supported && (() => {
+                    const nat = leverWeight(d, l.key, d.regions.length - 1);
+                    const bad = failingRungs(d, l.key);
+                    const good = S_RUNGS.filter((k) => nat[k] && nat[k]!.v > 0);
+                    return (
+                      <div className="text-9.5 text-warn mt-2">
+                        Reaching all these women is not expected to raise {rungList(bad, RUNG_LABEL)} across Ethiopia
+                        ({bad.map((k) => `${RUNG_LABEL[k]} ${pts(nat[k]!.v, 1)}`).join(", ")} points)
+                        {good.length > 0 && <>, though it is expected to raise {rungList(good, RUNG_LABEL)}</>}.
+                      </div>
+                    );
+                  })()}
                   <input type="range" min={0} max={100} step={5} value={Math.round(v * 100)}
                     onChange={(e) => setCov(l.key, Number(e.target.value) / 100)}
                     aria-label={l.label} className="w-full h-16 mt-4 accent-[var(--accent)] cursor-pointer" />

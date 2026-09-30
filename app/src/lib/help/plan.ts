@@ -11,6 +11,11 @@ export const PLAN: HelpTopic[] = [
     screen: "/",
     purpose:
       "The front page. It gives the national picture in four numbers and a funnel, points to the four things the data say most need attention, and opens the planning tools.",
+    plain: [
+      "Think of 100 women who gave birth in the last two years. About 78 saw a health worker for antenatal care at least once (**ANC1+**). About 53 kept going to at least four visits (**ANC4+**). Only about 20 reached the eight visits the WHO recommends (**ANC8+**).",
+      "So women are lost at three steps: about 22 never start, 25 start but stop before four, and 33 reach four but stop before eight. The last step is the biggest: of every 100 women who reach four visits, only about 37 go on to eight.",
+      "The numbers are counted from the survey itself, weighted so that the women interviewed stand for all women in the country. The green and purple items in **Four things to act on** come from the studio's models and say so.",
+    ],
     before: ["basics-ladder"],
     recipes: [
       {
@@ -37,6 +42,9 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "act-on",
+        plain: [
+          "Each item is picked by a rule, not by hand. **Orange**: the step of the ladder where the largest share of women is lost. **Red**: the region with the most women a year who get no antenatal care at all (its share with no care times its births). **Green**: of the levers the data support, the one that adds most women reaching eight visits if half the women it applies to were reached. **Purple**: the conflict simulator's estimate for a two-year siege in Amhara.",
+        ],
         title: "Four things to act on",
         shows: "Four findings worked out from the studio's own data, each a link to the screen that shows it in detail.",
         read: [
@@ -87,6 +95,11 @@ export const PLAN: HelpTopic[] = [
     screen: "/map?region=Somali&metric=never",
     purpose:
       "Shows every region on one measure at a time: how far women get, where they are lost, how many women that is each year, how the region compares with what its circumstances predict, and the circumstances themselves. Clicking a region opens its full analysis beside the map.",
+    plain: [
+      "Every region's number is what that region's own women told the survey, weighted to stand for all its women. A region rests on a few hundred women, so two regions a point or two apart may differ only by chance; the region panel gives each number's 95% range, and ranges that overlap cannot be told apart.",
+      "Shares become women by multiplying by births. About 4.2 million babies are born in Ethiopia each year (UN estimates), so one percentage point of ANC8+ nationally is about 42,000 women a year.",
+      "**Against its circumstances.** For each region the studio asks a model how many of its women it would expect to reach the rung, given who they are: their wealth, schooling, age, household, pregnancy history, travel time and so on (the 21 predictors without region and town or countryside). It then compares that with what really happened. Among births in the last two years, Addis Ababa: 69% of women reach eight visits where about 45% would be expected, 24 points better than its circumstances predict. Tigray: 12% where about 20% would be expected, 8 points worse, most likely the war. A region doing better than expected is one to learn from; one doing worse has problems beyond its women's circumstances.",
+    ],
     before: ["basics-ladder", "basics-charts"],
     recipes: [
       {
@@ -203,6 +216,9 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "region-work",
+        plain: [
+          "**What to work on** reads the region's own ladder. If the biggest block of women is lost before the first visit, the task is outreach (reaching women at all); if between the first and fourth visit, early engagement; if between four and eight, retention (keeping women coming back). The changeable circumstances it lists are the ones pulling the region below Ethiopia in **Why the rung differs**.",
+        ],
         title: "What to work on",
         shows: "Plain-language notes on what the region most needs.",
         read: [
@@ -215,6 +231,11 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "region-why",
+        plain: [
+          "The model gives every woman a score made of one part per circumstance, plus a starting value. Average each part over the region's women, and over all women in Ethiopia; the difference, part by part, is exactly the region's difference from Ethiopia. Nothing is left over and nothing is counted twice.",
+          "Example: if the region's women are poorer than the average Ethiopian woman, the wealth part pulls its bar to the left; if more of them are insured, the insurance part pushes it right. The longest bars are the circumstances that account for most of the gap.",
+          "This is the model's arithmetic: it says which circumstances account for the gap, not that changing them would close it.",
+        ],
         title: "Why the rung differs from Ethiopia",
         shows: "Bars that split the difference between the region and the country into groups of circumstances.",
         read: [
@@ -267,6 +288,13 @@ export const PLAN: HelpTopic[] = [
     screen: "/planner?lv=insurance:60,intention:50,early:40&rung=anc8",
     purpose:
       "Move sliders for things a health system can change (distance to care, health insurance, wanted pregnancies, an earlier first visit) and see how ANC1+, ANC4+ and ANC8+ would respond in every region, how many more women that is each year, what a budget would buy, and which regions would reach a target.",
+    plain: [
+      "A **lever** is a change a health system could make, written as a change to women's survey answers. \"Health insurance\" switches uninsured women to insured. The studio then asks the model how likely each woman would be to reach each rung with that answer changed. The average change over all women is the lever's effect. Statisticians call this g-computation.",
+      "**Worked example.** 56% of women are uninsured. If every one of them were insured, the model expects ANC1+ to rise by 1.7 points, ANC4+ by 2.9 and ANC8+ by 1.0. The slider says what share of those women a programme reaches: at 50%, the effect is about half of that. With about 4.2 million births a year, one point of ANC8+ is about 42,000 more women a year.",
+      "**Levers combine exactly.** Two levers that reach the same woman do not count her twice: every woman has been scored under every combination of the five levers (32 in all), so any mix of slider positions is worked out, not added up.",
+      "**Earlier first visit** works differently. It uses a model of the women who started care: how much more likely they are to reach four and eight visits when the first visit comes in the first three months. It cannot change ANC1+, because it applies only to women who already started.",
+      "The model is logistic regression on the 21 predictors. It describes the survey, not an experiment: a lever's effect is how differently women with and without that circumstance fare once their other circumstances are the same. That is useful for planning, but it is not proof that a programme would cause the change.",
+    ],
     before: ["basics-numbers", "basics-models"],
     recipes: [
       {
@@ -301,6 +329,9 @@ export const PLAN: HelpTopic[] = [
     cards: [
       {
         id: "tiles",
+        plain: [
+          "For the scope you chose, every woman is scored twice: as she is, and with the levers at their slider positions. The difference, averaged over the women and weighted to stand for all women, is the change added to the survey's own share. **More women reaching … each year** multiplies each region's change by its births and adds up the regions.",
+        ],
         title: "The rungs, now and with the scenario",
         shows: "Three tiles, one per rung, for the current scope (Ethiopia or the chosen region), and a fourth with the women gained each year.",
         read: [
@@ -312,6 +343,12 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "levers",
+        plain: [
+          "**Supported, or not.** For each lever the planner asks the model: if every woman this lever applies to were reached, would more women reach ANC1+, ANC4+ **and** ANC8+? A lever counts as supported only if the answer is yes for all three rungs. If any rung would fall, however slightly, the lever is marked **not supported for** that rung (for example \"not supported for ANC1+\"), with a line saying why, and it is hidden until you ask to see it.",
+          "**Weekly radio health messages** is flagged for ANC1+. Reaching all women who do not listen weekly, the model expects ANC4+ to rise by 3.3 points and ANC8+ by 0.3, but ANC1+ to dip by 0.1. The dip is tiny: almost every woman who can start care already does, so radio cannot add first visits. The strict rule still flags it, so that you decide.",
+          "**Women taking part in decisions on their own healthcare** is flagged for ANC1+ and ANC4+. The model expects small falls there (−0.2 and −0.7 points) and a rise at ANC8+ (+0.4). This is a real pattern in the survey: among women with the same wealth, schooling and region, those who say they take part in these decisions are not more likely to make four visits, though they are more likely to make eight. The survey cannot say why.",
+          "\"Not supported\" does not mean harmful. It means the survey cannot show the lever would help at every rung.",
+        ],
         title: "Levers",
         shows: "One slider per lever: the share of the women it applies to who are actually reached.",
         read: [
@@ -344,6 +381,10 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "fixed",
+        plain: [
+          "The same exact split as **Why the rung differs** on the map, grouped into circumstances a ministry cannot change directly (wealth, schooling, region, culture, household, pregnancy history, work) and circumstances programmes can move (distance to care, insurance, information, wanted pregnancy, women's say in their healthcare).",
+          "The bar at the top answers one question: of what holds this region below the country, how much lies in things a programme can change? A small share means most of the gap is in circumstances outside the health system's reach.",
+        ],
         title: "What can move and what cannot",
         shows: "What holds a region back, split into circumstances a ministry cannot change directly (left, held fixed in every scenario) and those programmes can move (right, each with its own slider).",
         read: [
@@ -357,6 +398,10 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "budget",
+        plain: [
+          "The budget is spent the way a careful shopper spends: one small purchase at a time (a tenth of one lever's women in one region), always buying next whatever adds the most women reaching the rung per birr, until the money runs out.",
+          "Example of the arithmetic: if reaching one woman costs 400 birr, and one in forty women reached goes on to reach eight visits because of it, each extra woman reaching eight costs 16,000 birr. The planner compares that figure across every lever and region and buys the cheapest first.",
+        ],
         title: "Spend a budget",
         shows: "Allocates a budget, a tenth of a lever's women at a time, always to the region and lever that buys the most extra women on the chosen rung per birr.",
         read: [
@@ -368,6 +413,9 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "target",
+        plain: [
+          "For each region: its share now (ring) and with your levers (dot), against the target line. A region reaches the target when its dot crosses the line. Moving levers shows which regions a programme could bring over it and which stay short, and by how many points.",
+        ],
         title: "Who reaches a target",
         shows: "Each region now (ring) and with the scenario (dot), against a target (dashed line).",
         read: [
@@ -378,6 +426,9 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "gap",
+        plain: [
+          "The model's expected share for each region comes from its women's circumstances alone: the 21 predictors without region and town or countryside. Actual minus expected is the gap. Among births in the last two years, Addis Ababa reaches eight visits 24 points more often than its women's circumstances predict; Tigray, 8 points less. A big positive gap is a region to learn from; a big negative one points to services, conflict or geography.",
+        ],
         title: "Doing better or worse than its circumstances predict",
         shows: "For each region, the share reaching the rung minus what the model predicts from its women's circumstances alone.",
         read: [
@@ -389,6 +440,9 @@ export const PLAN: HelpTopic[] = [
       },
       {
         id: "unsupported",
+        plain: [
+          "These are the levers that fail the planner's rule: the model expects at least one rung to fall if the lever reached every woman it applies to. The numbers in red are the rungs that fall. They stay visible for honesty: a planner may still choose them for other reasons, but the survey cannot show they would help at every rung.",
+        ],
         title: "Levers the data do not support",
         shows: "The levers where the chosen model expects at least one rung to fall, not rise, when applied, with every lever model's estimates.",
         read: [
@@ -411,6 +465,12 @@ export const PLAN: HelpTopic[] = [
     screen: "/war?hit=Amhara&rung=anc1",
     purpose:
       "Built from what the Tigray war did to antenatal care, and checked against Amhara, which the model never saw. Choose regions, how long fighting lasts, how intense it is and what happens after a ceasefire, then watch the effect arrive, peak and fade quarter by quarter.",
+    plain: [
+      "The simulator learned from one real event, the Tigray war. It compares Tigray's births during and after the war with births over the same months in regions without major conflict, so anything that changed across the whole country at the same time cancels out.",
+      "**What the war did.** For a pregnancy spent entirely under the conflict, the odds of even one antenatal visit fell to about one seventh of normal, and the odds of four visits to under half. The effect on eight visits is too uncertain to call, because eight visits were already rare in Tigray. Counted in the survey, the war cut first visits by about 13 points and four visits by about 14. The simulator's model reproduces about 11 to 12 points of each.",
+      "**Moving it elsewhere.** The simulator applies the same drop to another region's own levels, for the quarters you choose, scaled by **Intensity** (1× is Tigray). After a ceasefire, services come back gradually. The Tigray data fit a recovery anywhere from immediate to four years about equally well, 12 months fitting best, which is why recovery time is a setting.",
+      "**Siege or insurgency.** A siege cuts services until the fighting stops, as in Tigray. An insurgency hits as hard at the start but services adapt within months. Amhara, which the model never saw, is the check: its insurgency looked like the siege for the first half-year and then far milder.",
+    ],
     before: ["basics-numbers", "basics-charts"],
     recipes: [
       {
@@ -532,6 +592,11 @@ export const PLAN: HelpTopic[] = [
     screen: "/your-data",
     purpose:
       "Load your own monthly or quarterly ANC counts (a DHIS2 export works) and see the trend, a forecast tested on your own series, seasonal patterns, and what the scenario planner's levers would add. Nothing leaves your computer.",
+    plain: [
+      "A forecast is only as good as the method's past record on your own numbers, so the studio tests before it trusts. It tries six simple forecasters: the last value, the same season last year, a moving average, a straight trend, a smoothed trend, and a trend with seasons.",
+      "For each, it pretends to stand at an earlier point in your series, forecasts the next periods, and checks against what really happened. It repeats this moving forward one period at a time. The forecaster with the smallest average miss makes the forecast, and the shaded bands are built from its real misses on your series: the dark band holds 80% of them, the light band 95%.",
+      "When a very simple forecaster wins, your series has little pattern beyond noise, and that is worth knowing too. The green line adds the scenario planner's levers as extra coverage, growing to their full effect over a year.",
+    ],
     before: ["basics-charts"],
     recipes: [
       {

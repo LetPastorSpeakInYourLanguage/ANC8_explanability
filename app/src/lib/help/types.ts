@@ -14,6 +14,9 @@ export interface HelpCard {
   shows: string;
   /** How to read it, one point per line. */
   read: string[];
+  /** In plain words: how it works underneath and why, with a worked example, for a
+   *  reader who is not a statistician. One paragraph per entry. */
+  plain?: string[];
   /** Links that open the screen in a state that shows the point. */
   tryIt?: { text: string; href: string }[];
   /** The caveat that belongs with it. */
@@ -40,6 +43,8 @@ export interface HelpTopic {
   screen?: string;
   /** Two or three sentences: what the screen is for. */
   purpose: string;
+  /** How the tool works, in plain words: the idea underneath, one paragraph per entry. */
+  plain?: string[];
   /** Basics topics worth reading first. */
   before?: string[];
   /** Numbered marks on the screen's full screenshot. Without them, every card whose

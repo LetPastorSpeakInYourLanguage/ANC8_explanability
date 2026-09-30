@@ -11,6 +11,11 @@ export const EXPLORE: HelpTopic[] = [
     screen: "/explore/ladder",
     purpose:
       "The ladder in depth: the full spread of contact counts behind the three rungs, which groups of women climb further, which regions keep women and which lose them, and which circumstances matter more the higher up the ladder a woman goes.",
+    plain: [
+      "The three rungs are cuts through one number: how many antenatal visits each woman had. The ladder screen shows that number whole, so you can see where women stop, not just whether they passed a line.",
+      "Women bunch at three or four visits, and again at eight: the first bunch sits at the old four-visit standard, the second at the new eight-visit one.",
+      "Following a group of women up the ladder (the poorest fifth, say) shows where that group is lost. A group that starts care as often as others but falls away before eight needs help staying, not starting.",
+    ],
     before: ["basics-ladder", "basics-charts"],
     recipes: [
       {
@@ -80,6 +85,10 @@ export const EXPLORE: HelpTopic[] = [
       },
       {
         id: "predictable",
+        plain: [
+          "Line up the held-out women from most to least likely to reach the rung, as the model sees them. **Average precision** asks how many of the women near the top of that list really did reach it, averaged all the way down. Guessing gives the share who reach the rung: 16% of the held-out women reached eight visits. The best model scores 0.44, close to three times chance.",
+          "ANC8+ is the hardest rung to predict in absolute terms, but it is where the model adds most over guessing.",
+        ],
         title: "How predictable each rung is",
         shows: "For each rung: what guessing gives (ring, the share who reach it) and the best model's average precision on the held-out women (dot).",
         read: [
@@ -91,6 +100,10 @@ export const EXPLORE: HelpTopic[] = [
       },
       {
         id: "domains",
+        plain: [
+          "Each model's own account of what it uses, summed into groups (access, wealth, education and so on) and shown as shares of the whole. A group whose line rises from ANC1+ to ANC8+ matters more for going further up the ladder than for starting.",
+          "Logistic regression's shares are its own arithmetic. For random forest and XGBoost the shares come from SHAP, a standard way of splitting a tree model's prediction into a part per predictor. When all three models agree, the finding does not depend on the kind of model.",
+        ],
         title: "What matters at each rung",
         shows: "One line per group of predictors (access and distance, wealth, education, reproductive history and so on): its share of what the model uses at each rung.",
         read: [
@@ -122,6 +135,10 @@ export const EXPLORE: HelpTopic[] = [
     screen: "/explore/models?rung=anc8",
     purpose:
       "Every model the study built, side by side and honestly: on the development women that tuning saw, and on the held-out women nothing saw. It also shows what tuning bought, whether the probabilities can be trusted, and whether a model is worth acting on. For one model in depth, use Model analysis.",
+    plain: [
+      "Before any model was built, a fifth of the survey's clusters (1,375 women) were set aside and never looked at. Every model was then built and tuned on the other 5,518 women, and scored once on the held-out women. A model that looks much better on the women it was built on than on the held-out women has learned noise.",
+      "Three kinds of model are compared: logistic regression (each answer adds a fixed amount to a woman's score), random forest (many decision trees voting) and XGBoost (small trees added one at a time, each fixing the last one's mistakes). They finish close together: at ANC8+ their held-out scores lie between 0.41 and 0.44, and their 95% ranges overlap.",
+    ],
     before: ["basics-models", "basics-charts"],
     recipes: [
       {
@@ -148,7 +165,6 @@ export const EXPLORE: HelpTopic[] = [
         read: [
           "A long line from ring to dot is optimism: the model looked better during building than it is.",
           "Rank models by the dots.",
-          "Networks are orange and tagged.",
           "The dashed line is chance. The note underneath says whether held-out accuracy fell or rose overall.",
         ],
         terms: ["optimism", "cv", "heldout"],
@@ -165,6 +181,9 @@ export const EXPLORE: HelpTopic[] = [
       },
       {
         id: "tuning",
+        plain: [
+          "Each model has settings, such as how many trees or how strongly to hold back from fitting noise. The study fixed a small list of settings to try in advance, tried every combination on the development women, and kept the best. **Does tuning pay?** compares each model with its default settings against the chosen ones: most gains are small, which means the models are not fragile.",
+        ],
         title: "Does tuning pay?",
         shows: "Each model with its default settings (ring) and after tuning (dot), on the development women and the 21 predictors.",
         read: ["Most gains are small: the models are close before and after tuning."],
@@ -183,6 +202,9 @@ export const EXPLORE: HelpTopic[] = [
       },
       {
         id: "calibration",
+        plain: [
+          "Sort the held-out women into ten groups by their predicted chance. If the model is honest, the group it gives 30% should have about 30% of women reaching the rung. Points below the diagonal: the model promised more than happened (too confident). Points above: less (too cautious).",
+        ],
         title: "Are the probabilities honest?",
         shows: "Held-out women grouped into tenths by predicted chance: each point is a group's average prediction against the share who really reached the rung.",
         read: [
@@ -194,6 +216,10 @@ export const EXPLORE: HelpTopic[] = [
       },
       {
         id: "decision",
+        plain: [
+          "A decision curve asks whether acting on the model beats the two simple policies: follow up everyone, or no one. Along the bottom is how sure you want to be before acting on a woman. The height is the net benefit: women correctly acted on, minus a penalty for false alarms that depends on how sure you wanted to be.",
+          "Where the model's line sits above both simple policies, using the model helps. Where it sinks to them, you may as well treat everyone the same.",
+        ],
         title: "Is the model worth acting on?",
         shows: "A decision curve for the best model on the held-out women, with logistic regression beside it. Along the bottom: how sure you want to be before acting on a woman. Up the side: the net benefit.",
         read: [
@@ -224,6 +250,10 @@ export const EXPLORE: HelpTopic[] = [
     screen: "/explore/cohorts",
     purpose:
       "Checks whether the study's answers depend on choices: which women are counted (full cohort, women who started care, births in the last 24 months) and when the prediction is made (before care starts, or at the first visit). It also shows that the 24-month cohort reproduces the official survey report.",
+    plain: [
+      "Which women are counted changes the numbers a little, so the studio keeps three cohorts. **Full**: every woman whose most recent birth, up to five years before the survey, has a recorded number of visits (6,893 women). **24 months**: births in the last two years, the window the national survey report uses. **ANC entry**: the 5,001 women who started care and whose first-visit timing is known, for predicting at the first visit.",
+      "Older births are remembered less well and, in Tigray, fell in the war, so the 24-month cohort is the one to compare with official figures. The studio's 24-month numbers reproduce the official report's table region by region, which checks that the cohort, the weights and the visit counts are built the way the survey builds them.",
+    ],
     before: ["basics-ladder", "basics-models"],
     cards: [
       {
