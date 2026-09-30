@@ -99,6 +99,8 @@ export type CatalogModel = {
   heldout_AUROC: number | null;
   threshold?: number | null;
   browser: boolean;
+  /** For a tree model scored in the browser: its file, fetched when first chosen. */
+  trees?: string | null;
   recommended: boolean;
   headline: boolean;
   note?: string;

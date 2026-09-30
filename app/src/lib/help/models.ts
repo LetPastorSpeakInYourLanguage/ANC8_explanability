@@ -186,7 +186,7 @@ export const MODELS: HelpTopic[] = [
       "Choose what to predict, when, and with which model, then change a woman's answers and watch her chance respond, with an exact breakdown of what each answer adds. It is for understanding the models, not for judging a real person.",
     plain: [
       "Pick a model, a rung and a moment, then change the answers. The starting woman is a made-up profile close to the survey's typical woman. Her chance is what the model gives women with exactly these answers.",
-      "Logistic regression runs in your browser and responds at once. Random forest and XGBoost are larger, so they are scored by the studio's prediction service; where a copy of the site cannot reach it, they are greyed out.",
+      "All three models run in your browser, so Predict works offline. Logistic regression is a short list of numbers and responds at once. Random forest and XGBoost are hundreds of decision trees: their file (0.5 to 2.6 MB) downloads the first time you choose one, and after that they respond at once too. Each gives exactly the chance the fitted model gives: checked on all 1,375 held-out women.",
       "It is for understanding the models, not for judging a real woman: a chance describes women with these answers, not what would happen to one woman if her circumstances changed.",
     ],
     before: ["basics-models"],
@@ -211,7 +211,7 @@ export const MODELS: HelpTopic[] = [
         title: "The questions",
         shows: "The outcome, the moment, the model, and the answers it asks for.",
         read: [
-          "**Model**: logistic regression, random forest or XGBoost. A greyed-out model cannot be scored from this copy of the site.",
+          "**Model**: logistic regression, random forest or XGBoost. All three run in your browser; the tree models load their file the first time you pick them.",
           "**ANC1+ | ANC4+ | ANC8+**: the rung.",
           "**When**: before antenatal care starts, or at the first visit (adds whether the first visit was early). The first-visit models exist for ANC8+ only; elsewhere the choice is greyed out.",
           "The tags under it: its accuracy, number of predictors, where it runs, and **How it was built** (its Model analysis).",
@@ -261,7 +261,7 @@ export const MODELS: HelpTopic[] = [
       },
     ],
     faq: [
-      { q: "Some models are greyed out.", a: "Random forest and XGBoost need the studio's prediction service, which this copy of the site cannot reach. Logistic regression always works: it runs in your browser." },
+      { q: "Why is there no \"Why, exactly\" for random forest or XGBoost?", a: "Their chance comes from hundreds of trees voting, which does not split exactly into one part per answer the way logistic regression's score does. What the tree models lean on overall is in Models compared, under What the models lean on." },
     ],
   },
   {

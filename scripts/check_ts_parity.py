@@ -58,6 +58,14 @@ def main():
         sys.exit(1)
     bundle = json.loads(bundle_path.read_text(encoding="utf-8"))
     ebm_models = list(bundle["models"])
+    # The tree models Predict scores in the browser, from their own files: added to
+    # the same bundle, so every browser model is checked the same way.
+    tree_models = []
+    for f in sorted((ROOT / "app" / "public" / "data" / "trees").glob("*.json.gz")):
+        t = json.loads(gzip.decompress(f.read_bytes()))
+        bundle["preprocessors"].update(t["preprocessors"])
+        bundle["models"].update(t["models"])
+        tree_models += list(t["models"])
     if not ebm_models:
         print("no additive model to score in the browser")
         sys.exit(1)
@@ -107,7 +115,7 @@ def main():
         (tmp / "rows.json").write_text(json.dumps(rows), encoding="utf-8")
 
         failures = 0
-        for model in ebm_models:
+        for model in ebm_models + tree_models:
             subprocess.run(
                 ["node", str(tmp / "run.js"), str(js), str(tmp / "bundle.json"),
                  str(tmp / "rows.json"), model, str(tmp / "out.json")],
@@ -125,6 +133,8 @@ def main():
             print(f"  {model[:52]:52s} TS vs Python  max|diff|={d:.3e}  "
                   f"{'PASS' if ok else 'FAIL'}")
 
+            if model in tree_models:
+                continue  # no bars to reconstruct for a tree model
             # The displayed bars must reconstruct the displayed probability, or
             # the explanation is decorative rather than true.
             recon = np.abs(1 / (1 + np.exp(-ts_sum)) - ts_p).max()

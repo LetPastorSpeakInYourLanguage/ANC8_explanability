@@ -53,7 +53,7 @@ export async function saveNow() {
   const manifest = await fetch(asset("/offline-manifest.json")).then((r) => r.json()).catch(() => null);
   if (!manifest) return;
   const screens = [...new Set(allNavItems().map((i) => asset(i.path.split("?")[0])))];
-  const files = (manifest.files as { path: string }[]).map((f) => (f.path.endsWith(".json") ? versioned(f.path) : asset(f.path)));
+  const files = (manifest.files as { path: string }[]).map((f) => (/\.json(\.gz)?$/.test(f.path) ? versioned(f.path) : asset(f.path)));
   emit({ phase: "saving", saved: 0, total: screens.length + files.length });
   (reg.active ?? navigator.serviceWorker.controller)?.postMessage({ type: "warm", screens, files });
 }

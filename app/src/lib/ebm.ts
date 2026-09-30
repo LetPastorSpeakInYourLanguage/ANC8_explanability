@@ -70,12 +70,31 @@ export type LogisticModel = {
   threshold?: number | null;
 };
 
+/** A random forest: sklearn trees, each leaf holding the class-1 probability. */
+export type ForestModel = {
+  kind: "forest";
+  trees: { children_left: number[]; children_right: number[]; feature: number[]; threshold: number[]; value: number[] }[];
+  preprocessor: string;
+  threshold?: number | null;
+};
+
+/** XGBoost: trees whose leaves add to a log-odds score. */
+export type XgbModel = {
+  kind: "xgboost";
+  trees: { left: number[]; right: number[]; split_feature: number[]; split_condition: number[];
+           default_left: number[]; leaf_value: number[] }[];
+  base_score: number;
+  zero_is_missing?: boolean;
+  preprocessor: string;
+  threshold?: number | null;
+};
+
 export type Bundle = {
   generation?: string;
   predictors?: string[];
   champion?: string;
   preprocessors: Record<string, Preprocessor>;
-  models: Record<string, EbmModel | LogisticModel>;
+  models: Record<string, EbmModel | LogisticModel | ForestModel | XgbModel>;
 };
 
 export type Answers = Record<string, string | number | null | undefined>;
@@ -219,12 +238,49 @@ function termContribution(term: EbmTerm, x: number[]): number {
  * towards attaining the outcome. They sum, with the intercept, to `logOdds` --
  * which is what makes this an explanation rather than an estimate of one.
  */
+/*
+ * The tree models, as api/_lib/scorer.py walks them (the export gate checks that
+ * scorer against the fitted models to 1e-9, and scripts/check_ts_parity.py checks
+ * this one against it). sklearn compares a float32 copy of the input with its split
+ * point, `<=`; XGBoost compares float32 with float32, strictly `<`, and sends a
+ * missing value the way `default_left` says. Math.fround is the float32 rounding.
+ */
+function walkForest(t: ForestModel["trees"][number], x: number[]): number {
+  let node = 0;
+  while (t.children_left[node] !== -1) {
+    node = Math.fround(x[t.feature[node]]) <= t.threshold[node] ? t.children_left[node] : t.children_right[node];
+  }
+  return t.value[node];
+}
+
+function walkXgb(t: XgbModel["trees"][number], x: number[], zeroIsMissing: boolean): number {
+  let node = 0;
+  for (;;) {
+    const left = t.left[node];
+    if (left === -1) return t.leaf_value[node];
+    const v = Math.fround(x[t.split_feature[node]]);
+    const missing = !Number.isFinite(v) || (zeroIsMissing && v === 0);
+    if (missing) node = t.default_left[node] ? left : t.right[node];
+    else node = v < Math.fround(t.split_condition[node]) ? left : t.right[node];
+  }
+}
+
 export function score(bundle: Bundle, modelName: string, row: Answers): Scored {
   const model = bundle.models[modelName];
   if (!model) throw new Error(`model not in bundle: ${modelName}`);
 
   const spec = bundle.preprocessors[model.preprocessor];
   const x = applyPreprocessor(spec, row);
+
+  // The tree models have no exact split of the score into answers: no bars.
+  if (model.kind === "forest") {
+    const p = model.trees.reduce((a, t) => a + walkForest(t, x), 0) / model.trees.length;
+    return { probability: p, logOdds: Math.log(p / (1 - p)), intercept: 0, threshold: model.threshold ?? null, contributions: [] };
+  }
+  if (model.kind === "xgboost") {
+    const z = model.trees.reduce((a, t) => a + walkXgb(t, x, !!model.zero_is_missing), 0) + model.base_score;
+    return { probability: sigmoid(z), logOdds: z, intercept: 0, threshold: model.threshold ?? null, contributions: [] };
+  }
   const contributions: Contribution[] = [];
   let total = model.intercept;
 

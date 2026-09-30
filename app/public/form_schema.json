@@ -611,6 +611,7 @@
    "heldout_AUROC": 0.781796901805887,
    "threshold": 0.7732668609269099,
    "browser": true,
+   "trees": null,
    "recommended": false,
    "headline": false,
    "note": ""
@@ -651,6 +652,7 @@
    "heldout_AUROC": 0.78461270300122,
    "threshold": 0.798921591198803,
    "browser": false,
+   "trees": "/data/trees/lib_s21_anc1plus.json.gz",
    "recommended": true,
    "headline": true,
    "note": ""
@@ -691,6 +693,7 @@
    "heldout_AUROC": 0.7859623715431736,
    "threshold": 0.8125699162483215,
    "browser": false,
+   "trees": "/data/trees/lib_s21_anc1plus.json.gz",
    "recommended": false,
    "headline": false,
    "note": ""
@@ -731,6 +734,7 @@
    "heldout_AUROC": 0.7688609678279124,
    "threshold": 0.5599668329390914,
    "browser": true,
+   "trees": null,
    "recommended": false,
    "headline": false,
    "note": ""
@@ -771,6 +775,7 @@
    "heldout_AUROC": 0.7780829450453756,
    "threshold": 0.5499258879893562,
    "browser": false,
+   "trees": "/data/trees/lib_s21_anc4plus.json.gz",
    "recommended": false,
    "headline": false,
    "note": ""
@@ -811,6 +816,7 @@
    "heldout_AUROC": 0.7855870485121206,
    "threshold": 0.5903972387313843,
    "browser": false,
+   "trees": "/data/trees/lib_s21_anc4plus.json.gz",
    "recommended": true,
    "headline": true,
    "note": ""
@@ -851,6 +857,7 @@
    "heldout_AUROC": 0.7618114494463532,
    "threshold": 0.20087223482850083,
    "browser": true,
+   "trees": null,
    "recommended": false,
    "headline": false,
    "note": ""
@@ -891,6 +898,7 @@
    "heldout_AUROC": 0.7570552843323272,
    "threshold": 0.16442707009171606,
    "browser": false,
+   "trees": "/data/trees/lib_s21_anc8plus.json.gz",
    "recommended": true,
    "headline": true,
    "note": ""
@@ -931,6 +939,7 @@
    "heldout_AUROC": 0.7692952482964165,
    "threshold": 0.17716926336288452,
    "browser": false,
+   "trees": "/data/trees/lib_s21_anc8plus.json.gz",
    "recommended": false,
    "headline": false,
    "note": ""
@@ -971,6 +980,7 @@
    "heldout_AUROC": 0.7204494035769281,
    "threshold": 0.2483205190970826,
    "browser": true,
+   "trees": null,
    "recommended": false,
    "headline": false,
    "note": ""
@@ -1012,6 +1022,7 @@
    "heldout_AUROC": 0.7611498520466524,
    "threshold": 0.1943074514071728,
    "browser": true,
+   "trees": null,
    "recommended": true,
    "headline": false,
    "note": ""
@@ -1052,6 +1063,7 @@
    "heldout_AUROC": 0.7179418784282618,
    "threshold": 0.2976684423031947,
    "browser": false,
+   "trees": null,
    "recommended": false,
    "headline": false,
    "note": ""
@@ -1093,6 +1105,7 @@
    "heldout_AUROC": 0.753478705952696,
    "threshold": 0.2267965017775133,
    "browser": false,
+   "trees": "/data/trees/v1_anc_entry.json.gz",
    "recommended": false,
    "headline": false,
    "note": ""
@@ -1133,6 +1146,7 @@
    "heldout_AUROC": 0.718532737402747,
    "threshold": 0.2243704199790954,
    "browser": false,
+   "trees": null,
    "recommended": false,
    "headline": false,
    "note": ""
@@ -1174,6 +1188,7 @@
    "heldout_AUROC": 0.7587671972125345,
    "threshold": 0.2716021835803985,
    "browser": false,
+   "trees": "/data/trees/v1_anc_entry.json.gz",
    "recommended": false,
    "headline": false,
    "note": ""

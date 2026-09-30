@@ -9,6 +9,7 @@ import { Select } from "@/components/ui/select";
 import { Note, Panel, Range, SectionRule, Segmented, Tag } from "@/components/studio/ui";
 import { score, type Answers, type Bundle } from "@/lib/ebm";
 import { label } from "@/lib/labels";
+import { versioned } from "@/lib/offline";
 import { PREDICT_API } from "@/lib/paths";
 import type { ApiResponse, CatalogModel, Field, Insights, Schema } from "@/lib/types";
 
@@ -88,6 +89,17 @@ async function scoreRemote(answers: Answers, models: CatalogModel[]): Promise<Re
   return out;
 }
 
+/** A tree model file (gzip JSON). The server may already have unpacked it in transit. */
+async function loadTrees(path: string): Promise<Bundle> {
+  const res = await fetch(versioned(path));
+  if (!res.ok) throw new Error(`could not load ${path}`);
+  const buf = new Uint8Array(await res.arrayBuffer());
+  const text = buf[0] === 0x1f && buf[1] === 0x8b
+    ? await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).text()
+    : new TextDecoder().decode(buf);
+  return JSON.parse(text) as Bundle;
+}
+
 function scoreLocal(bundle: Bundle, m: CatalogModel, answers: Answers): Scored {
   const s = score(bundle, m.id, answers);
   return { probability: s.probability, threshold: m.threshold, contributions: s.contributions };
@@ -106,7 +118,24 @@ export default function Predict({
   // Until the service answers, only the browser's models are offered.
   const [canRemote, setCanRemote] = useState(false);
   useEffect(() => { serviceUp().then(setCanRemote); }, []);
-  const usable = (m: CatalogModel) => (m.browser && !!browser) || canRemote;
+  // The tree models' files, fetched the first time one is needed.
+  const [trees, setTrees] = useState<Record<string, Bundle | "failed">>({});
+  const treeAsked = useRef(new Set<string>());
+  const needTrees = (path: string) => {
+    if (treeAsked.current.has(path)) return;
+    treeAsked.current.add(path);
+    loadTrees(path)
+      .then((b) => setTrees((t) => ({ ...t, [path]: b })))
+      .catch(() => setTrees((t) => ({ ...t, [path]: "failed" })));
+  };
+  /** The bundle that scores this model here, if it is in hand. */
+  const localBundle = (m: CatalogModel): Bundle | null => {
+    if (m.browser) return browser;
+    const t = m.trees ? trees[m.trees] : undefined;
+    return t && t !== "failed" ? t : null;
+  };
+  const usable = (m: CatalogModel) =>
+    (m.browser && !!browser) || (!!m.trees && trees[m.trees] !== "failed") || canRemote;
   const fieldsByName = useMemo(
     () => Object.fromEntries(schema.fields.map((f) => [f.name, f])) as Record<string, Field>,
     [schema],
@@ -163,15 +192,22 @@ export default function Predict({
   useEffect(() => {
     if (!model) return;
     const id = ++seq.current;
-    if (model.browser && browser) {
+    const local = localBundle(model);
+    if (local) {
       setBusy(false);
       try {
-        setCurrent(scoreLocal(browser, model, answers));
-        setBaseline(scoreLocal(browser, model, start));
+        setCurrent(scoreLocal(local, model, answers));
+        setBaseline(scoreLocal(local, model, start));
         setBaselineFor(model.id);
       } catch (e) {
         setCurrent({ probability: NaN, error: String(e) });
       }
+      return;
+    }
+    if (model.trees && trees[model.trees] !== "failed") {
+      setBusy(true);
+      setCurrent(null);
+      needTrees(model.trees);
       return;
     }
     if (!canRemote) {
@@ -197,7 +233,7 @@ export default function Predict({
     }, 450);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [model?.id, answers, browser]);
+  }, [model?.id, answers, browser, trees]);
 
   const cmpSeq = useRef(0);
   useEffect(() => {
@@ -205,7 +241,9 @@ export default function Predict({
     const local: Record<string, Scored> = {};
     const remote: CatalogModel[] = [];
     for (const m of choices) {
-      if (m.browser && browser) local[m.id] = scoreLocal(browser, m, answers);
+      const b = localBundle(m);
+      if (b) local[m.id] = scoreLocal(b, m, answers);
+      else if (m.trees && trees[m.trees] !== "failed") needTrees(m.trees);
       else if (canRemote) remote.push(m);
     }
     setCompare(local);
@@ -219,7 +257,8 @@ export default function Predict({
       }
     }, 600);
     return () => clearTimeout(t);
-  }, [choices, answers, browser, canRemote]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [choices, answers, browser, canRemote, trees]);
 
   // The questions the chosen model asks: the most influential first.
   const asked = useMemo(() => {
@@ -300,11 +339,11 @@ export default function Predict({
               return {
                 key: a, label: SHORT[a], disabled: !m || !usable(m),
                 title: !m ? "No such model for this rung" : !usable(m) ? "Needs the prediction service, which this copy of the site cannot reach"
-                  : `Held-out AP ${m.heldout_AP?.toFixed(3) ?? "–"}${m.browser ? " · scored in your browser" : ""}`,
+                  : `Held-out AP ${m.heldout_AP?.toFixed(3) ?? "–"}${m.browser || m.trees ? " · scored in your browser" : ""}`,
               };
             })}
             value={algorithm}
-            onChange={(a) => { setAlgorithm(a); setCompare(null); }}
+            onChange={(a) => setAlgorithm(a)}
           />
           <Segmented
             label="Outcome"
@@ -327,11 +366,10 @@ export default function Predict({
         </div>
         {model && (
           <div className="px-14 py-8 flex flex-wrap items-center gap-6 border-b border-border">
-            {model.recommended && <Tag tone="good">recommended</Tag>}
             <Tag>AP {model.heldout_AP?.toFixed(3) ?? "–"}</Tag>
             {model.heldout_AUROC != null && <Tag>AUROC {model.heldout_AUROC.toFixed(3)}</Tag>}
             <Tag>{model.n_predictors} predictors</Tag>
-            <Tag tone={model.browser ? "accent" : "neutral"}>{model.browser ? "in your browser" : "prediction service"}</Tag>
+            <Tag tone={localBundle(model) || model.trees ? "accent" : "neutral"}>{model.browser || model.trees ? "in your browser" : "prediction service"}</Tag>
             <Link href={analysisHref} className="ml-auto text-10.5 text-accent hover:underline">How it was built</Link>
           </div>
         )}
@@ -393,7 +431,8 @@ export default function Predict({
               </>
             ) : (
               <div className={`text-11 ${current?.error ? "text-warn" : "text-dim"}`}>
-                {current?.error ?? (busy || canRemote || model?.browser ? "Scoring…" : SERVICE_DOWN)}
+                {current?.error ?? (model?.trees && !localBundle(model) && trees[model.trees] !== "failed" ? "Loading the model…"
+                  : busy || canRemote || model?.browser ? "Scoring…" : SERVICE_DOWN)}
               </div>
             )}
           </div>
