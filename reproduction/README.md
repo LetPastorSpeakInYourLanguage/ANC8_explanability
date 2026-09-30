@@ -7,16 +7,13 @@ tuned models, their evaluation, their explanations and the planner's levers.
 
 **Start with `notebooks/00_start_here.ipynb`.** It lists what to install, where the survey
 file goes, the run order and how long each step takes. To run everything in order from the
-command line: `python scripts/run_notebooks.py --ebm` (executed copies go to `executed/`).
+command line: `python scripts/run_notebooks.py` (executed copies go to `executed/`).
 
 ## The two tracks
 
 - `notebooks/` (00-13): the core library, **logistic regression, random forest and XGBoost**,
   each on four predictor sets (the full pool of 86, the 21, the short set, the parsimonious set)
   at three rungs, with calibrated versions and two ensembles.
-- `notebooks_ebm/` (E1-E3): **explainable boosting** as a fourth model, with its exact
-  explanations and its version of the planner's levers, set side by side with logistic
-  regression's.
 
 ## How the notebooks check themselves
 
@@ -30,7 +27,6 @@ numbers are not expected to match.
 
 ```
 notebooks/        the core track
-notebooks_ebm/    explainable boosting
 src/anc8/         the analysis package (every step is a documented function)
 scripts/          the stage scripts some notebooks run, and run_notebooks.py
 reference/        the study's results, for the checks

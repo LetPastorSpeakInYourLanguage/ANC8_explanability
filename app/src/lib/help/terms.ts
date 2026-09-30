@@ -55,8 +55,6 @@ export const TERMS: HelpTerm[] = [
     plain: "The Ethiopia Demographic and Health Survey, a national household survey of women's health. Every number in the studio comes from its 2024–25 round." },
   { id: "drop-one", name: "Drop-one test",
     plain: "Remove one predictor (or one group of predictors) and see how much accuracy falls. A big fall means it carried information nothing else did." },
-  { id: "ebm", name: "Explainable boosting (EBM)",
-    plain: "A model with the accuracy of tree models, kept as a sum of one effect per predictor, so any prediction splits exactly into what each answer contributed." },
   { id: "eligible", name: "Eligible women",
     plain: "For a planner lever, the women it could change: uninsured women for insurance, women far from a health post for a new health post, and so on." },
   { id: "forecast", name: "Forecast band",

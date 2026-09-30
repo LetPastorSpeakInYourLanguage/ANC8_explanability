@@ -96,9 +96,9 @@ export const EXPLORE: HelpTopic[] = [
         read: [
           "A line that rises from ANC1+ to ANC8+ matters more for going further up the ladder.",
           "Hover a name in the key to pick its line out.",
-          "**Measured by**: each library model's own account on the full candidate pool (logistic regression and explainable boosting split their predictions exactly; random forest and XGBoost by SHAP), or the accuracy lost when the group is removed (Drop-one). Where they agree, the finding is solid.",
+          "**Measured by**: each library model's own account on the full candidate pool (logistic regression splits its predictions exactly; random forest and XGBoost by SHAP), or the accuracy lost when the group is removed (Drop-one). Where they agree, the finding is solid.",
         ],
-        terms: ["logistic", "ebm", "shap", "drop-one"],
+        terms: ["logistic", "shap", "drop-one"],
       },
       {
         id: "patterns",
@@ -217,10 +217,10 @@ export const EXPLORE: HelpTopic[] = [
         read: [
           "One shading for the whole grid, so any two cells compare.",
           "A row that darkens to the right matters more for going further up the ladder.",
-          "**Measure**: a library model's share of what it uses on the full candidate pool (exact for logistic regression and explainable boosting, by SHAP for random forest and XGBoost), or the accuracy the predictor adds to the 21.",
+          "**Measure**: a library model's share of what it uses on the full candidate pool (exact for logistic regression, by SHAP for random forest and XGBoost), or the accuracy the predictor adds to the 21.",
           "Click a column title to switch rung.",
         ],
-        terms: ["logistic", "ebm", "shap"],
+        terms: ["logistic", "shap"],
       },
       {
         id: "pool",
@@ -363,11 +363,11 @@ export const EXPLORE: HelpTopic[] = [
         title: "What the models lean on",
         shows: "Each predictor's share of what each model uses, for the chosen predictor set and rung, on the held-out women.",
         read: [
-          "Logistic regression and explainable boosting split their own predictions exactly, so their shares are the models' own arithmetic. Random forest and XGBoost are split by SHAP.",
+          "Logistic regression splits its own predictions exactly, so its shares are the model's own arithmetic. Random forest and XGBoost are split by SHAP.",
           "Rows are the predictors the models agree on most, best first. A row dark in every column is a predictor all the models rely on.",
           "One shading for the whole grid, so any two cells compare.",
         ],
-        terms: ["shap", "logistic", "ebm"],
+        terms: ["shap", "logistic"],
       },
     ],
   },

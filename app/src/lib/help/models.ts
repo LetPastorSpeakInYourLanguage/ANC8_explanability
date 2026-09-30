@@ -33,7 +33,7 @@ export const MODELS: HelpTopic[] = [
         title: "Choosing the model",
         shows: "The controls along the top.",
         read: [
-          "**Model**: every model built, grouped by kind (trees and boosting, linear, networks and so on). Within a group, the best at this rung comes first.",
+          "**Model**: every model in the library, grouped by kind. Within a group, the best at this rung comes first.",
           "**Predictors**: which predictor set the model was trained on. **Full pool** is every candidate predictor; **21 set** the 21-predictor set; **Short set** the strongest few that clear the bar at this rung; **Parsimonious** a small set chosen to keep accuracy with fewer questions. Switching the set keeps the same kind of model in view.",
           "**ANC1+ | ANC4+ | ANC8+**: the rung.",
           "**Compare**: a second model, on the same predictor set, to draw beside the first.",
@@ -160,10 +160,10 @@ export const MODELS: HelpTopic[] = [
         shows: "The women, the outcome and the predictors behind these numbers.",
         read: [
           "How many development and held-out women, the share reaching the rung (the chance level), and how many predictors.",
-          "For the four models themselves, the predictors each leans on most, as shares of its total: exact for logistic regression and explainable boosting, by SHAP for random forest and XGBoost.",
+          "For the three models themselves, the predictors each leans on most, as shares of its total: exact for logistic regression, by SHAP for random forest and XGBoost.",
           "Links to the Explore screens with the wider story.",
         ],
-        terms: ["ebm", "shap"],
+        terms: ["shap"],
       },
     ],
   },
@@ -226,7 +226,7 @@ export const MODELS: HelpTopic[] = [
           "Green bars raise her chance; red bars lower it.",
           "The numbers are on the log-odds scale: with the model's starting value they add up exactly to the number behind the percentage.",
         ],
-        terms: ["log-odds", "ebm", "logistic"],
+        terms: ["log-odds", "logistic"],
       },
       {
         id: "compare",

@@ -257,92 +257,6 @@ pool,anc1plus,XGBoost,preceding_pregnancy_interval_group,0.0225529915982845,0.00
 pool,anc1plus,XGBoost,pregnancy_intention,0.0693557592002065,0.0187380670426346,21
 pool,anc1plus,XGBoost,previous_pregnancy_history,0.0761381039810461,0.0205704748004788,15
 pool,anc1plus,XGBoost,transport_mode_group,0.0120717478002252,0.0032614626703087,59
-pool,anc1plus,Explainable Boosting,age_at_birth,0.0937710524458043,0.0209463194351941,13
-pool,anc1plus,Explainable Boosting,v191,0.10177633220895,0.0227345167808926,7
-pool,anc1plus,Explainable Boosting,v191a,0.0464851074726943,0.0103837152799915,40
-pool,anc1plus,Explainable Boosting,v133,0.0903855194459644,0.0201900683979774,15
-pool,anc1plus,Explainable Boosting,v715,0.0397300633619267,0.0088747921309766,47
-pool,anc1plus,Explainable Boosting,v730,0.0693302781193567,0.0154868065798687,24
-pool,anc1plus,Explainable Boosting,v137,0.0199693279000118,0.0044606934676512,72
-pool,anc1plus,Explainable Boosting,v138,0.0155647840005377,0.0034768185821897,76
-pool,anc1plus,Explainable Boosting,v152,0.0197193193508712,0.0044048472465068,73
-pool,anc1plus,Explainable Boosting,v115,0.0409583979829614,0.0091491741355976,46
-pool,anc1plus,Explainable Boosting,v201,0.0268330929279611,0.0059939023957117,63
-pool,anc1plus,Explainable Boosting,v212,0.0195648159660626,0.0043703347059348,74
-pool,anc1plus,Explainable Boosting,v511,0.0252757058914246,0.0056460175687778,65
-pool,anc1plus,Explainable Boosting,v613,0.1009029498437032,0.0225394230335755,8
-pool,anc1plus,Explainable Boosting,spousal_education_gap,0.0349835040374888,0.0078145187818507,51
-pool,anc1plus,Explainable Boosting,spousal_age_gap,0.0652549795984135,0.0145764776202701,29
-pool,anc1plus,Explainable Boosting,decision_participation_count,0.0214373710880709,0.0047886209117792,69
-pool,anc1plus,Explainable Boosting,ipv_justification_count,0.0698468788850734,0.0156022034361151,22
-pool,anc1plus,Explainable Boosting,access_barrier_count,0.0331248304878253,0.0073993334034046,58
-pool,anc1plus,Explainable Boosting,asset_index,0.0210277705328785,0.0046971254678644,70
-pool,anc1plus,Explainable Boosting,newspaper_weekly,0.0390020341116762,0.0087121669621621,48
-pool,anc1plus,Explainable Boosting,radio_weekly,0.0825238846802396,0.018433958076182,17
-pool,anc1plus,Explainable Boosting,television_weekly,0.0206116138260185,0.0046041655288466,71
-pool,anc1plus,Explainable Boosting,travel_hospital_is_zero,1.1926223897340522e-18,2.664047047501362e-19,86
-pool,anc1plus,Explainable Boosting,travel_hospital_topcoded,0.0009796029721442,0.0002188210139377,85
-pool,anc1plus,Explainable Boosting,travel_healthpost_log,0.0525724861412791,0.0117434971613867,36
-pool,anc1plus,Explainable Boosting,travel_healthpost_is_zero,0.0016380332534706,0.0003658993567604,84
-pool,anc1plus,Explainable Boosting,travel_healthpost_topcoded,0.036494397259013,0.0081520179484384,50
-pool,anc1plus,Explainable Boosting,healthpost_time_missing,0.0929218924491217,0.0207566364138546,14
-pool,anc1plus,Explainable Boosting,children_over_ideal,0.0385706038766167,0.0086157952644809,49
-pool,anc1plus,Explainable Boosting,traditional_media_weekly_count,0.0451956411465824,0.0100956778434566,43
-pool,anc1plus,Explainable Boosting,household_size,0.0661032516044553,0.0147659622847059,27
-pool,anc1plus,Explainable Boosting,travel_time_min,0.0637113658720948,0.0142316694374388,30
-pool,anc1plus,Explainable Boosting,v190a,0.0771301688807501,0.0172291246960292,19
-pool,anc1plus,Explainable Boosting,v155,0.0343333852189346,0.007669297030691,53
-pool,anc1plus,Explainable Boosting,v157,0.1170102946254905,0.0261374373487835,4
-pool,anc1plus,Explainable Boosting,v158,0.0475624123461138,0.0106243606755498,38
-pool,anc1plus,Explainable Boosting,v159,0.0681472828410597,0.0152225523527568,25
-pool,anc1plus,Explainable Boosting,v149,0.0787712000779576,0.0175956937252047,18
-pool,anc1plus,Explainable Boosting,v729,0.0305967742732516,0.0068346231688554,59
-pool,anc1plus,Explainable Boosting,v045c,0.0282564503698064,0.006311848060922,62
-pool,anc1plus,Explainable Boosting,v113,0.0659547306231653,0.0147327860769554,28
-pool,anc1plus,Explainable Boosting,v116,0.0252742485082486,0.0056456920225378,66
-pool,anc1plus,Explainable Boosting,v127,0.0339377849708241,0.007580928936813,55
-pool,anc1plus,Explainable Boosting,v151,0.1080022297086756,0.0241252406172855,5
-pool,anc1plus,Explainable Boosting,v716,0.060971111308778,0.0136195589201748,31
-pool,anc1plus,Explainable Boosting,s1101a,0.0167997336186087,0.0037526782266299,75
-pool,anc1plus,Explainable Boosting,s1102,0.0298505517090021,0.0066679340276671,60
-pool,anc1plus,Explainable Boosting,v119,0.0438442998499682,0.0097938189464243,44
-pool,anc1plus,Explainable Boosting,v120,0.0747995146226476,0.0167085095668407,20
-pool,anc1plus,Explainable Boosting,v121,0.0285545545394947,0.0063784377493215,61
-pool,anc1plus,Explainable Boosting,v123,0.0090000382705927,0.0020104037613714,80
-pool,anc1plus,Explainable Boosting,v169a,0.0127980997645987,0.0028588042774469,78
-pool,anc1plus,Explainable Boosting,v170,0.0986267507340403,0.0220309719454674,11
-pool,anc1plus,Explainable Boosting,v731,0.033999158509422,0.0075946383888327,54
-pool,anc1plus,Explainable Boosting,v745a,0.0512939670658167,0.0114579050915515,37
-pool,anc1plus,Explainable Boosting,v745b,0.0143115364295252,0.0031968715914168,77
-pool,anc1plus,Explainable Boosting,v467b,0.0693926685286253,0.0155007431776581,23
-pool,anc1plus,Explainable Boosting,v467c,0.1175943677398744,0.0262679059924458,3
-pool,anc1plus,Explainable Boosting,v467d,0.0056278871373663,0.0012571419286631,82
-pool,anc1plus,Explainable Boosting,v467f,0.1024816352192121,0.0228920654248101,6
-pool,anc1plus,Explainable Boosting,v744a,0.0059922429343122,0.001338530723092,81
-pool,anc1plus,Explainable Boosting,v744b,0.0668520374911499,0.0149332240138022,26
-pool,anc1plus,Explainable Boosting,v744c,0.0460571148103902,0.0102881114578447,41
-pool,anc1plus,Explainable Boosting,v744d,0.0260769888270667,0.0058250059440829,64
-pool,anc1plus,Explainable Boosting,v744e,0.0110233756806703,0.0024623712994468,79
-pool,anc1plus,Explainable Boosting,v743b,0.0054390500603495,0.001214960022486,83
-pool,anc1plus,Explainable Boosting,v743d,0.0458930081390697,0.0102514537615806,42
-pool,anc1plus,Explainable Boosting,v743f,0.023484555949694,0.0052459154279012,68
-pool,anc1plus,Explainable Boosting,maternal_education,0.0545305680268304,0.0121808881001172,34
-pool,anc1plus,Explainable Boosting,maternal_current_union_status,0.0348843643959624,0.0077923732417726,52
-pool,anc1plus,Explainable Boosting,maternal_occupation_group,0.0950237958863328,0.0212261538146879,12
-pool,anc1plus,Explainable Boosting,partner_education,0.0582400540485474,0.0130095028711435,33
-pool,anc1plus,Explainable Boosting,partner_occupation_group,0.0901169748477132,0.0201300816452339,16
-pool,anc1plus,Explainable Boosting,healthcare_decision_participation,0.0332066645926948,0.0074176132803664,57
-pool,anc1plus,Explainable Boosting,wealth_quintile,0.0334676977273181,0.0074759221430525,56
-pool,anc1plus,Explainable Boosting,residence,0.2113318893742716,0.0472067354073369,1
-pool,anc1plus,Explainable Boosting,region,0.1531456719515168,0.0342092584133884,2
-pool,anc1plus,Explainable Boosting,religion_group,0.0589033225025728,0.0131576619516586,32
-pool,anc1plus,Explainable Boosting,internet_exposure,0.0472804014224502,0.010561365852124,39
-pool,anc1plus,Explainable Boosting,health_insurance,0.0990230035479567,0.0221194858076979,10
-pool,anc1plus,Explainable Boosting,pregnancy_order_group,0.053541442879421,0.0119599400488944,35
-pool,anc1plus,Explainable Boosting,preceding_pregnancy_interval_group,0.0433740430628666,0.0096887742804823,45
-pool,anc1plus,Explainable Boosting,pregnancy_intention,0.0734559107837967,0.0164083790418134,21
-pool,anc1plus,Explainable Boosting,previous_pregnancy_history,0.1008156389155959,0.0225199197589228,9
-pool,anc1plus,Explainable Boosting,transport_mode_group,0.0243821669821937,0.0054464213081797,67
 pool,anc4plus,Logistic regression,age_at_birth,0.0302611430823595,0.0119341982694589,36
 pool,anc4plus,Logistic regression,v191,0.1207430863891838,0.0476178949589956,1
 pool,anc4plus,Logistic regression,v191a,0.0372245227466154,0.0146803719124233,27
@@ -601,92 +515,6 @@ pool,anc4plus,XGBoost,preceding_pregnancy_interval_group,0.0347673323589749,0.01
 pool,anc4plus,XGBoost,pregnancy_intention,0.085075354622523,0.0267711620627768,8
 pool,anc4plus,XGBoost,previous_pregnancy_history,0.0081380588887113,0.0025608508404434,63
 pool,anc4plus,XGBoost,transport_mode_group,0.0064112927993542,0.0020174792021141,66
-pool,anc4plus,Explainable Boosting,age_at_birth,0.0855280558568243,0.0310951760675163,6
-pool,anc4plus,Explainable Boosting,v191,0.1233517556144932,0.0448466239603395,1
-pool,anc4plus,Explainable Boosting,v191a,0.02604693023219,0.009469803486988,40
-pool,anc4plus,Explainable Boosting,v133,0.057010372360995,0.0207270883043036,13
-pool,anc4plus,Explainable Boosting,v715,0.0487383534061862,0.0177196554419899,17
-pool,anc4plus,Explainable Boosting,v730,0.043744065199629,0.0159038972143647,26
-pool,anc4plus,Explainable Boosting,v137,0.0318299326083636,0.0115723121349925,35
-pool,anc4plus,Explainable Boosting,v138,0.0044976108847223,0.0016351827589503,76
-pool,anc4plus,Explainable Boosting,v152,0.0161794404572335,0.0058823101338089,58
-pool,anc4plus,Explainable Boosting,v115,0.0218162986311526,0.0079316855771026,50
-pool,anc4plus,Explainable Boosting,v201,0.0253018577122359,0.0091989197289166,42
-pool,anc4plus,Explainable Boosting,v212,0.0215186564282296,0.007823472703417,52
-pool,anc4plus,Explainable Boosting,v511,0.0297286292853831,0.0108083476540423,39
-pool,anc4plus,Explainable Boosting,v613,0.0444179200150424,0.0161488885674278,24
-pool,anc4plus,Explainable Boosting,spousal_education_gap,0.0151081642255135,0.0054928294808399,60
-pool,anc4plus,Explainable Boosting,spousal_age_gap,0.0094172882319329,0.0034238149425577,68
-pool,anc4plus,Explainable Boosting,decision_participation_count,0.0057767373668386,0.0021002308975472,74
-pool,anc4plus,Explainable Boosting,ipv_justification_count,0.0019705936102077,0.0007164427468047,82
-pool,anc4plus,Explainable Boosting,access_barrier_count,0.0077079955441939,0.0028023725802393,72
-pool,anc4plus,Explainable Boosting,asset_index,0.02108509085146,0.0076658425806298,54
-pool,anc4plus,Explainable Boosting,newspaper_weekly,0.0078199591376315,0.0028430788445898,71
-pool,anc4plus,Explainable Boosting,radio_weekly,0.0215611371010333,0.0078389172728868,51
-pool,anc4plus,Explainable Boosting,television_weekly,0.0571029797666878,0.0207607572981363,12
-pool,anc4plus,Explainable Boosting,travel_hospital_is_zero,1.3552527156068796e-19,4.9272512259979194e-20,86
-pool,anc4plus,Explainable Boosting,travel_hospital_topcoded,0.0032184474216992,0.0011701211753172,80
-pool,anc4plus,Explainable Boosting,travel_healthpost_log,0.0379732253931625,0.0138058104749689,30
-pool,anc4plus,Explainable Boosting,travel_healthpost_is_zero,0.0010392553202889,0.0003778389072421,84
-pool,anc4plus,Explainable Boosting,travel_healthpost_topcoded,0.0158054398980522,0.0057463358839492,59
-pool,anc4plus,Explainable Boosting,healthpost_time_missing,0.0400444418744398,0.0145588363740618,29
-pool,anc4plus,Explainable Boosting,children_over_ideal,0.0920727185605257,0.033474599252521,3
-pool,anc4plus,Explainable Boosting,traditional_media_weekly_count,0.0162747359452341,0.0059169564255799,57
-pool,anc4plus,Explainable Boosting,household_size,0.0654283163267898,0.0237875746806227,10
-pool,anc4plus,Explainable Boosting,travel_time_min,0.0698522707703363,0.0253959783904771,9
-pool,anc4plus,Explainable Boosting,v190a,0.0533968235019295,0.019413321296793,15
-pool,anc4plus,Explainable Boosting,v155,0.0519593052902852,0.0188906871571118,16
-pool,anc4plus,Explainable Boosting,v157,0.0133593848201543,0.0048570310522644,61
-pool,anc4plus,Explainable Boosting,v158,0.0115201909851474,0.0041883609235108,65
-pool,anc4plus,Explainable Boosting,v159,0.0607053680853062,0.0220704667017796,11
-pool,anc4plus,Explainable Boosting,v149,0.0447426842640509,0.016266962121213,23
-pool,anc4plus,Explainable Boosting,v729,0.0367092938466706,0.0133462867130673,31
-pool,anc4plus,Explainable Boosting,v045c,0.0472515030809638,0.0171790857752804,19
-pool,anc4plus,Explainable Boosting,v113,0.0452905579609259,0.0164661509008061,21
-pool,anc4plus,Explainable Boosting,v116,0.0099210700898773,0.0036069733858949,67
-pool,anc4plus,Explainable Boosting,v127,0.0246663391691716,0.0089678661782099,45
-pool,anc4plus,Explainable Boosting,v151,0.0121493734260703,0.004417110876764,63
-pool,anc4plus,Explainable Boosting,v716,0.0330527553406317,0.0120168900898906,34
-pool,anc4plus,Explainable Boosting,s1101a,0.0366103190324338,0.0133103027398072,32
-pool,anc4plus,Explainable Boosting,s1102,0.030068969256352,0.0109320840258571,38
-pool,anc4plus,Explainable Boosting,v119,0.0476274238374513,0.0173157581454554,18
-pool,anc4plus,Explainable Boosting,v120,0.0252341554493148,0.009174305422364,43
-pool,anc4plus,Explainable Boosting,v121,0.0225503311521715,0.0081985555562189,47
-pool,anc4plus,Explainable Boosting,v123,0.0032697811008892,0.001188784405489,79
-pool,anc4plus,Explainable Boosting,v169a,0.0429728424233048,0.0156235060868354,28
-pool,anc4plus,Explainable Boosting,v170,0.0785082625252524,0.0285430110800622,8
-pool,anc4plus,Explainable Boosting,v731,0.044842959922682,0.0163034190385273,22
-pool,anc4plus,Explainable Boosting,v745a,0.0439000756479789,0.0159606174602678,25
-pool,anc4plus,Explainable Boosting,v745b,0.0102373965344824,0.0037219792327047,66
-pool,anc4plus,Explainable Boosting,v467b,0.0019951183991437,0.0007253591499936,81
-pool,anc4plus,Explainable Boosting,v467c,0.0083333615400041,0.0030297350001089,69
-pool,anc4plus,Explainable Boosting,v467d,0.0429902384119275,0.0156298306936989,27
-pool,anc4plus,Explainable Boosting,v467f,0.0016823083010207,0.0006116317306178,83
-pool,anc4plus,Explainable Boosting,v744a,0.0131353405825517,0.0047755759677851,62
-pool,anc4plus,Explainable Boosting,v744b,0.0548328011352159,0.0199353953330696,14
-pool,anc4plus,Explainable Boosting,v744c,0.030461396272898,0.0110747575269779,36
-pool,anc4plus,Explainable Boosting,v744d,0.0075523268938839,0.0027457766008137,73
-pool,anc4plus,Explainable Boosting,v744e,0.0010000467243137,0.0003635839568285,85
-pool,anc4plus,Explainable Boosting,v743b,0.0041887558065462,0.0015228932541905,78
-pool,anc4plus,Explainable Boosting,v743d,0.0051055727348918,0.0018562176063342,75
-pool,anc4plus,Explainable Boosting,v743f,0.0118226406776493,0.0042983216416131,64
-pool,anc4plus,Explainable Boosting,maternal_education,0.0199176298403146,0.0072413923189016,55
-pool,anc4plus,Explainable Boosting,maternal_current_union_status,0.004450753397809,0.001618146924439,77
-pool,anc4plus,Explainable Boosting,maternal_occupation_group,0.0223379913052308,0.0081213558015814,49
-pool,anc4plus,Explainable Boosting,partner_education,0.0237858523631552,0.0086477502585398,46
-pool,anc4plus,Explainable Boosting,partner_occupation_group,0.0353124548489989,0.0128384421919282,33
-pool,anc4plus,Explainable Boosting,healthcare_decision_participation,0.0225409681907741,0.0081951514927189,48
-pool,anc4plus,Explainable Boosting,wealth_quintile,0.0301294580507968,0.0109540757535367,37
-pool,anc4plus,Explainable Boosting,residence,0.089825545781158,0.0326576014553825,5
-pool,anc4plus,Explainable Boosting,region,0.1043043517279219,0.0379216170541435,2
-pool,anc4plus,Explainable Boosting,religion_group,0.0247710251544327,0.0090059265446111,44
-pool,anc4plus,Explainable Boosting,internet_exposure,0.0172083223664848,0.0062563776114376,56
-pool,anc4plus,Explainable Boosting,health_insurance,0.0899621106146107,0.032707251918009,4
-pool,anc4plus,Explainable Boosting,pregnancy_order_group,0.0471093092315551,0.0171273887883819,20
-pool,anc4plus,Explainable Boosting,preceding_pregnancy_interval_group,0.0253490956022962,0.0092160938654472,41
-pool,anc4plus,Explainable Boosting,pregnancy_intention,0.0812007510444825,0.0295219109711737,7
-pool,anc4plus,Explainable Boosting,previous_pregnancy_history,0.0214419869862565,0.0077955982267524,53
-pool,anc4plus,Explainable Boosting,transport_mode_group,0.0082615372252756,0.0030036220516731,70
 pool,anc8plus,Logistic regression,age_at_birth,0.0826101042654174,0.0176415658067619,20
 pool,anc8plus,Logistic regression,v191,0.2606131462729829,0.0556544990587402,1
 pool,anc8plus,Logistic regression,v191a,0.0338443040928473,0.0072275240801018,51
@@ -945,92 +773,6 @@ pool,anc8plus,XGBoost,preceding_pregnancy_interval_group,0.0339850673595594,0.00
 pool,anc8plus,XGBoost,pregnancy_intention,0.1143894726391546,0.0283446892142716,9
 pool,anc8plus,XGBoost,previous_pregnancy_history,0.0267094930618658,0.006618373723057,46
 pool,anc8plus,XGBoost,transport_mode_group,0.02670328666387,0.0066168358330897,47
-pool,anc8plus,Explainable Boosting,age_at_birth,0.0719639443663737,0.0231375540466729,12
-pool,anc8plus,Explainable Boosting,v191,0.1134973666616541,0.0364912106807217,3
-pool,anc8plus,Explainable Boosting,v191a,0.076123239345882,0.0244748336139863,11
-pool,anc8plus,Explainable Boosting,v133,0.0233140241284676,0.0074958300030301,48
-pool,anc8plus,Explainable Boosting,v715,0.0433508823503131,0.0139379989824461,27
-pool,anc8plus,Explainable Boosting,v730,0.0249766347881578,0.0080303858050483,42
-pool,anc8plus,Explainable Boosting,v137,0.0163294588460468,0.0052501810445492,66
-pool,anc8plus,Explainable Boosting,v138,0.0084710329362022,0.0027235719792495,77
-pool,anc8plus,Explainable Boosting,v152,0.005407527446856,0.0017386061820558,81
-pool,anc8plus,Explainable Boosting,v115,0.0315379508633745,0.010139953403716,34
-pool,anc8plus,Explainable Boosting,v201,0.0354419927036008,0.0113951650221736,32
-pool,anc8plus,Explainable Boosting,v212,0.0197147211813098,0.0063385967912674,58
-pool,anc8plus,Explainable Boosting,v511,0.0188981402958589,0.0060760530335988,60
-pool,anc8plus,Explainable Boosting,v613,0.0776685099204254,0.0249716627101404,10
-pool,anc8plus,Explainable Boosting,spousal_education_gap,0.0047377905504451,0.0015232751051645,83
-pool,anc8plus,Explainable Boosting,spousal_age_gap,0.0186128686597713,0.0059843336600142,63
-pool,anc8plus,Explainable Boosting,decision_participation_count,0.0417557731717075,0.0134251459814706,28
-pool,anc8plus,Explainable Boosting,ipv_justification_count,0.0277784800254402,0.0089312236646018,41
-pool,anc8plus,Explainable Boosting,access_barrier_count,0.0162597508490499,0.0052277688135048,67
-pool,anc8plus,Explainable Boosting,asset_index,0.0188729972282101,0.0060679691369788,61
-pool,anc8plus,Explainable Boosting,newspaper_weekly,0.0301816008031459,0.0097038652612293,36
-pool,anc8plus,Explainable Boosting,radio_weekly,0.0463286981544186,0.0148954141813374,24
-pool,anc8plus,Explainable Boosting,television_weekly,0.0451760525477814,0.0145248202644107,26
-pool,anc8plus,Explainable Boosting,travel_hospital_is_zero,1.0842021724855005e-19,3.4858826297360704e-20,86
-pool,anc8plus,Explainable Boosting,travel_hospital_topcoded,0.0100046731808034,0.0032166617391292,75
-pool,anc8plus,Explainable Boosting,travel_healthpost_log,0.0908285861468855,0.0292028367741671,6
-pool,anc8plus,Explainable Boosting,travel_healthpost_is_zero,0.005137153985322,0.0016516768088244,82
-pool,anc8plus,Explainable Boosting,travel_healthpost_topcoded,0.0182639900694446,0.0058721636377832,64
-pool,anc8plus,Explainable Boosting,healthpost_time_missing,0.0597756500101512,0.019218823328299,17
-pool,anc8plus,Explainable Boosting,children_over_ideal,0.0278485042157272,0.0089537375568239,40
-pool,anc8plus,Explainable Boosting,traditional_media_weekly_count,0.0143169282585256,0.0046031204137104,69
-pool,anc8plus,Explainable Boosting,household_size,0.0175983099697101,0.0056581368856225,65
-pool,anc8plus,Explainable Boosting,travel_time_min,0.1241249541340688,0.0399081492837096,2
-pool,anc8plus,Explainable Boosting,v190a,0.0962691925438662,0.0309520783654275,5
-pool,anc8plus,Explainable Boosting,v155,0.0482394712770573,0.0155097581668602,22
-pool,anc8plus,Explainable Boosting,v157,0.0140033064619371,0.0045022860120851,70
-pool,anc8plus,Explainable Boosting,v158,0.0508463374814107,0.0163479071625378,20
-pool,anc8plus,Explainable Boosting,v159,0.0381454794668232,0.0122643790660852,29
-pool,anc8plus,Explainable Boosting,v149,0.0245992214450171,0.0079090414054084,45
-pool,anc8plus,Explainable Boosting,v729,0.0309858390845921,0.0099624406751704,35
-pool,anc8plus,Explainable Boosting,v045c,0.0903990425803516,0.0290647316775998,7
-pool,anc8plus,Explainable Boosting,v113,0.0240547936492304,0.0077339991997534,47
-pool,anc8plus,Explainable Boosting,v116,0.013518055335168,0.0043462700478312,72
-pool,anc8plus,Explainable Boosting,v127,0.021867778894181,0.0070308391306192,54
-pool,anc8plus,Explainable Boosting,v151,0.0152626442910296,0.004907183177467,68
-pool,anc8plus,Explainable Boosting,v716,0.0452088921733033,0.0145353787269446,25
-pool,anc8plus,Explainable Boosting,s1101a,0.024439512091446,0.0078576923050701,46
-pool,anc8plus,Explainable Boosting,s1102,0.0226430744200863,0.0072801089877778,52
-pool,anc8plus,Explainable Boosting,v119,0.0329379632288094,0.0105900796725923,33
-pool,anc8plus,Explainable Boosting,v120,0.0247145799195868,0.0079461309919173,44
-pool,anc8plus,Explainable Boosting,v121,0.0211387301672989,0.0067964383557671,55
-pool,anc8plus,Explainable Boosting,v123,0.0066598065236391,0.0021412338461687,80
-pool,anc8plus,Explainable Boosting,v169a,0.0071734638980731,0.0023063828713796,79
-pool,anc8plus,Explainable Boosting,v170,0.07971610098472,0.0256299958425547,8
-pool,anc8plus,Explainable Boosting,v731,0.0515248294063053,0.0165660531204991,18
-pool,anc8plus,Explainable Boosting,v745a,0.0247669842457333,0.0079629798172446,43
-pool,anc8plus,Explainable Boosting,v745b,0.011264960712354,0.0036218642489742,73
-pool,anc8plus,Explainable Boosting,v467b,0.0617605791267821,0.0198570096467288,15
-pool,anc8plus,Explainable Boosting,v467c,0.0505088952203493,0.0162394141022743,21
-pool,anc8plus,Explainable Boosting,v467d,0.0196640551342495,0.0063223068503461,59
-pool,anc8plus,Explainable Boosting,v467f,0.0656208008806635,0.0210981324096483,14
-pool,anc8plus,Explainable Boosting,v744a,0.0037143303931715,0.0011942163673196,85
-pool,anc8plus,Explainable Boosting,v744b,0.0040682664544999,0.0013080124470115,84
-pool,anc8plus,Explainable Boosting,v744c,0.0108563560455621,0.0034904913420989,74
-pool,anc8plus,Explainable Boosting,v744d,0.0090714185194647,0.0029166055046335,76
-pool,anc8plus,Explainable Boosting,v744e,0.0369401772425406,0.0118768552080969,31
-pool,anc8plus,Explainable Boosting,v743b,0.0291812146437492,0.0093822251811255,39
-pool,anc8plus,Explainable Boosting,v743d,0.020421731388287,0.0065659118310351,57
-pool,anc8plus,Explainable Boosting,v743f,0.0224855611220487,0.0072294659542629,53
-pool,anc8plus,Explainable Boosting,maternal_education,0.0186655480926925,0.0060012709365503,62
-pool,anc8plus,Explainable Boosting,maternal_current_union_status,0.0138789640062667,0.004462307932594,71
-pool,anc8plus,Explainable Boosting,maternal_occupation_group,0.0657022501466221,0.0211243196456283,13
-pool,anc8plus,Explainable Boosting,partner_education,0.0080215518016101,0.0025790566370715,78
-pool,anc8plus,Explainable Boosting,partner_occupation_group,0.022962233152138,0.0073827236023231,51
-pool,anc8plus,Explainable Boosting,healthcare_decision_participation,0.02322695208325,0.0074678349539828,49
-pool,anc8plus,Explainable Boosting,wealth_quintile,0.0372261316654795,0.0119687941085266,30
-pool,anc8plus,Explainable Boosting,residence,0.0795788901910841,0.025585880387496,9
-pool,anc8plus,Explainable Boosting,region,0.1305288625169303,0.0419671078027709,1
-pool,anc8plus,Explainable Boosting,religion_group,0.0480040715928979,0.015434073419967,23
-pool,anc8plus,Explainable Boosting,internet_exposure,0.0294756022349942,0.0094768754794531,38
-pool,anc8plus,Explainable Boosting,health_insurance,0.0613069063594221,0.0197111466278696,16
-pool,anc8plus,Explainable Boosting,pregnancy_order_group,0.0511519282760407,0.0164461594691501,19
-pool,anc8plus,Explainable Boosting,preceding_pregnancy_interval_group,0.0211267474576832,0.0067925857238165,56
-pool,anc8plus,Explainable Boosting,pregnancy_intention,0.1073113223064449,0.0345022989157539,4
-pool,anc8plus,Explainable Boosting,previous_pregnancy_history,0.0300354173754375,0.0096568649614388,37
-pool,anc8plus,Explainable Boosting,transport_mode_group,0.023090843514725,0.0074240738818488,50
 s21,anc1plus,Logistic regression,age_at_birth,0.0668987354505505,0.0274333349742678,15
 s21,anc1plus,Logistic regression,household_size,0.0359046173320233,0.0147234979519211,19
 s21,anc1plus,Logistic regression,traditional_media_weekly_count,0.0509578198183077,0.0208964030668013,17
@@ -1094,27 +836,6 @@ s21,anc1plus,XGBoost,preceding_pregnancy_interval_group,0.0133821295758206,0.007
 s21,anc1plus,XGBoost,pregnancy_intention,0.0482033047220463,0.0268126096064252,14
 s21,anc1plus,XGBoost,previous_pregnancy_history,0.0752406197439498,0.0418518476144507,10
 s21,anc1plus,XGBoost,transport_mode_group,0.0025581368792738,0.0014229382375187,20
-s21,anc1plus,Explainable Boosting,age_at_birth,0.1894408837185174,0.0707002923188489,4
-s21,anc1plus,Explainable Boosting,household_size,0.1301985839119875,0.0485907675333438,7
-s21,anc1plus,Explainable Boosting,traditional_media_weekly_count,0.0672872938450873,0.0251119570961278,17
-s21,anc1plus,Explainable Boosting,travel_time_min,0.1152012185713953,0.0429936752226474,10
-s21,anc1plus,Explainable Boosting,maternal_education,0.1856278445719368,0.069277246897001,5
-s21,anc1plus,Explainable Boosting,maternal_current_union_status,0.040714349450365,0.0151948003578237,18
-s21,anc1plus,Explainable Boosting,maternal_occupation_group,0.183527201914558,0.0684932764729884,6
-s21,anc1plus,Explainable Boosting,partner_education,0.1050134433983119,0.0391915461960222,13
-s21,anc1plus,Explainable Boosting,partner_occupation_group,0.1141380592347266,0.0425968988013778,11
-s21,anc1plus,Explainable Boosting,healthcare_decision_participation,0.0061043228303468,0.0022781640374704,21
-s21,anc1plus,Explainable Boosting,wealth_quintile,0.3024353823928072,0.112870408557138,2
-s21,anc1plus,Explainable Boosting,residence,0.2554481497084093,0.0953345365698813,3
-s21,anc1plus,Explainable Boosting,region,0.3205386734063996,0.1196266479784867,1
-s21,anc1plus,Explainable Boosting,religion_group,0.1087289069481194,0.0405781759135109,12
-s21,anc1plus,Explainable Boosting,internet_exposure,0.0240894304221058,0.0089902968103129,20
-s21,anc1plus,Explainable Boosting,health_insurance,0.1251056750246675,0.046690068275512,8
-s21,anc1plus,Explainable Boosting,pregnancy_order_group,0.1002262528056131,0.0374049425461324,14
-s21,anc1plus,Explainable Boosting,preceding_pregnancy_interval_group,0.0675081757883101,0.0251943913502723,16
-s21,anc1plus,Explainable Boosting,pregnancy_intention,0.0794414322563221,0.0296479427909309,15
-s21,anc1plus,Explainable Boosting,previous_pregnancy_history,0.1244351040723745,0.0464398078173836,9
-s21,anc1plus,Explainable Boosting,transport_mode_group,0.0342818427776211,0.0127941564567866,19
 s21,anc4plus,Logistic regression,age_at_birth,0.0886989052282369,0.040593063444896,14
 s21,anc4plus,Logistic regression,household_size,0.1022335481523529,0.046787194223725,9
 s21,anc4plus,Logistic regression,traditional_media_weekly_count,0.0892508188065436,0.040845646752916,13
@@ -1178,27 +899,6 @@ s21,anc4plus,XGBoost,preceding_pregnancy_interval_group,0.0628949462891447,0.024
 s21,anc4plus,XGBoost,pregnancy_intention,0.1165284031808195,0.0460592071026377,9
 s21,anc4plus,XGBoost,previous_pregnancy_history,0.0324492375970287,0.0128259386896863,19
 s21,anc4plus,XGBoost,transport_mode_group,0.0370711953192426,0.0146528212533884,18
-s21,anc4plus,Explainable Boosting,age_at_birth,0.1941321978168639,0.0875665704430993,4
-s21,anc4plus,Explainable Boosting,household_size,0.1120886915778974,0.0505594765696211,10
-s21,anc4plus,Explainable Boosting,traditional_media_weekly_count,0.0592766775715593,0.0267377355254561,14
-s21,anc4plus,Explainable Boosting,travel_time_min,0.2003818968477896,0.0903856015806131,3
-s21,anc4plus,Explainable Boosting,maternal_education,0.1397237564242766,0.0630247341610121,6
-s21,anc4plus,Explainable Boosting,maternal_current_union_status,0.0025932465056361,0.0011697271517336,21
-s21,anc4plus,Explainable Boosting,maternal_occupation_group,0.0818544084021953,0.0369217981356743,12
-s21,anc4plus,Explainable Boosting,partner_education,0.127421875489182,0.0574757652851649,8
-s21,anc4plus,Explainable Boosting,partner_occupation_group,0.0809517923708532,0.0365146580982131,13
-s21,anc4plus,Explainable Boosting,healthcare_decision_participation,0.0361351231797408,0.016299350880341,18
-s21,anc4plus,Explainable Boosting,wealth_quintile,0.2746674675531378,0.1238933490497484,1
-s21,anc4plus,Explainable Boosting,residence,0.1421526934214335,0.064120346764461,5
-s21,anc4plus,Explainable Boosting,region,0.2352231621421313,0.106101336250252,2
-s21,anc4plus,Explainable Boosting,religion_group,0.0389124014060286,0.0175520886135827,17
-s21,anc4plus,Explainable Boosting,internet_exposure,0.0465715257223906,0.0210068645679241,15
-s21,anc4plus,Explainable Boosting,health_insurance,0.1348299717872289,0.0608173108588886,7
-s21,anc4plus,Explainable Boosting,pregnancy_order_group,0.1206202876243809,0.0544077954708537,9
-s21,anc4plus,Explainable Boosting,preceding_pregnancy_interval_group,0.0463571072197848,0.020910147520861,16
-s21,anc4plus,Explainable Boosting,pregnancy_intention,0.1051015032838667,0.0474077885815954,11
-s21,anc4plus,Explainable Boosting,previous_pregnancy_history,0.0301682998317303,0.013607915544519,19
-s21,anc4plus,Explainable Boosting,transport_mode_group,0.0078029234298659,0.0035196389463845,20
 s21,anc8plus,Logistic regression,age_at_birth,0.1099431227759281,0.0427187359839727,10
 s21,anc8plus,Logistic regression,household_size,0.0364438008761184,0.0141603500844005,19
 s21,anc8plus,Logistic regression,traditional_media_weekly_count,0.0259527083265461,0.010084004047532,20
@@ -1262,35 +962,12 @@ s21,anc8plus,XGBoost,preceding_pregnancy_interval_group,0.0426464552108894,0.022
 s21,anc8plus,XGBoost,pregnancy_intention,0.0749450311773786,0.0397272947015629,7
 s21,anc8plus,XGBoost,previous_pregnancy_history,0.0353324940355616,0.0187292523739139,18
 s21,anc8plus,XGBoost,transport_mode_group,0.0478138127365083,0.0253454218318072,16
-s21,anc8plus,Explainable Boosting,age_at_birth,0.1481655984946776,0.0701485689990598,4
-s21,anc8plus,Explainable Boosting,household_size,0.0318444107536709,0.015076643078309,19
-s21,anc8plus,Explainable Boosting,traditional_media_weekly_count,0.0649004027376675,0.0307269057444099,10
-s21,anc8plus,Explainable Boosting,travel_time_min,0.353509856196348,0.1673682068656985,1
-s21,anc8plus,Explainable Boosting,maternal_education,0.0342605050948925,0.0162205358734338,18
-s21,anc8plus,Explainable Boosting,maternal_current_union_status,0.0053436960832003,0.0025299572722061,21
-s21,anc8plus,Explainable Boosting,maternal_occupation_group,0.13854030393325,0.0655915014574818,6
-s21,anc8plus,Explainable Boosting,partner_education,0.0412883784227603,0.0195478619333646,15
-s21,anc8plus,Explainable Boosting,partner_occupation_group,0.0590700834574705,0.0279665581436938,11
-s21,anc8plus,Explainable Boosting,healthcare_decision_participation,0.052616583144274,0.0249111673066502,12
-s21,anc8plus,Explainable Boosting,wealth_quintile,0.2612569611786058,0.1236913436986552,3
-s21,anc8plus,Explainable Boosting,residence,0.1299830631355064,0.0615401008446489,7
-s21,anc8plus,Explainable Boosting,region,0.2667118327508777,0.126273936680806,2
-s21,anc8plus,Explainable Boosting,religion_group,0.0507847136971134,0.024043874077878,13
-s21,anc8plus,Explainable Boosting,internet_exposure,0.0700834599821706,0.0331808090285462,9
-s21,anc8plus,Explainable Boosting,health_insurance,0.0207812525666428,0.009838823211114,20
-s21,anc8plus,Explainable Boosting,pregnancy_order_group,0.1209878103938946,0.0572813247588383,8
-s21,anc8plus,Explainable Boosting,preceding_pregnancy_interval_group,0.0382075241978805,0.0180892405167488,17
-s21,anc8plus,Explainable Boosting,pregnancy_intention,0.1402916657182921,0.0664206785692305,5
-s21,anc8plus,Explainable Boosting,previous_pregnancy_history,0.0388517361135599,0.018394240762934,16
-s21,anc8plus,Explainable Boosting,transport_mode_group,0.0446886724219678,0.0211577211762918,14
 short,anc1plus,Logistic regression,v191,0.7637037257810638,0.673047825384245,1
 short,anc1plus,Logistic regression,region,0.3709908634854019,0.326952174615755,2
 short,anc1plus,Random Forest,v191,0.1155381009071903,0.6490470140324318,1
 short,anc1plus,Random Forest,region,0.0624738125740372,0.3509529859675683,2
 short,anc1plus,XGBoost,v191,0.6747079449337084,0.6470272510893261,1
 short,anc1plus,XGBoost,region,0.368073396652414,0.3529727489106739,2
-short,anc1plus,Explainable Boosting,v191,0.7267366012169898,0.6611465930328897,1
-short,anc1plus,Explainable Boosting,region,0.3724698514446171,0.3388534069671102,2
 short,anc4plus,Logistic regression,v191,0.6950255041240146,0.5135829000001557,1
 short,anc4plus,Logistic regression,pregnancy_order_group,0.2106065222740485,0.1556258120409253,3
 short,anc4plus,Logistic regression,region,0.3164671942965039,0.233850611865763,2
@@ -1303,10 +980,6 @@ short,anc4plus,XGBoost,v191,0.6561226496973486,0.4962752571490024,1
 short,anc4plus,XGBoost,pregnancy_order_group,0.2438202303100215,0.1844197080394188,3
 short,anc4plus,XGBoost,region,0.2836767932698905,0.2145662454910802,2
 short,anc4plus,XGBoost,pregnancy_intention,0.1384745481163992,0.1047387893204986,4
-short,anc4plus,Explainable Boosting,v191,0.7381879252900387,0.527804918912067,1
-short,anc4plus,Explainable Boosting,pregnancy_order_group,0.2318751122432807,0.1657908787483965,3
-short,anc4plus,Explainable Boosting,region,0.3009574973195124,0.2151848357669789,2
-short,anc4plus,Explainable Boosting,pregnancy_intention,0.1275794001603199,0.0912193665725576,4
 short,anc8plus,Logistic regression,v191,0.6299937538248039,0.2940259560603139,1
 short,anc8plus,Logistic regression,v201,0.2606735168730178,0.1216595871829988,3
 short,anc8plus,Logistic regression,travel_healthpost_is_zero,0.0229730977259956,0.0107218317349084,8
@@ -1331,14 +1004,6 @@ short,anc8plus,XGBoost,region,0.3340600631105724,0.1576267004230448,2
 short,anc8plus,XGBoost,v743b,0.1722712287718913,0.0812864163297146,7
 short,anc8plus,XGBoost,pregnancy_intention,0.172987759437664,0.0816245123102577,6
 short,anc8plus,XGBoost,maternal_occupation_group,0.185525042218388,0.0875402464408056,5
-short,anc8plus,Explainable Boosting,v191,0.6912931533637859,0.3534005350210347,1
-short,anc8plus,Explainable Boosting,v201,0.2325920161267833,0.1189048995217958,4
-short,anc8plus,Explainable Boosting,travel_healthpost_is_zero,0.0114289404155242,0.0058426640534718,8
-short,anc8plus,Explainable Boosting,travel_healthpost_log,0.2456386217827077,0.1255745408983622,3
-short,anc8plus,Explainable Boosting,region,0.2899186406363439,0.1482112215561577,2
-short,anc8plus,Explainable Boosting,v743b,0.1403108200338887,0.0717292202706401,7
-short,anc8plus,Explainable Boosting,pregnancy_intention,0.1694613031091867,0.0866314310979918,6
-short,anc8plus,Explainable Boosting,maternal_occupation_group,0.1754745203764348,0.0897054875805458,5
 pars,anc1plus,Logistic regression,v191,0.6696159778408763,0.4379288615343519,1
 pars,anc1plus,Logistic regression,region,0.4066634791150757,0.2659579226450059,2
 pars,anc1plus,Logistic regression,v716,0.2085233058554834,0.1363742457746008,4
@@ -1351,10 +1016,6 @@ pars,anc1plus,XGBoost,v191,0.7627976244903908,0.4345405287810424,1
 pars,anc1plus,XGBoost,region,0.4596546819227737,0.2618500400716967,2
 pars,anc1plus,XGBoost,v716,0.2763233052786486,0.15741223010563,3
 pars,anc1plus,XGBoost,v729,0.2566363095624907,0.1461972010416307,4
-pars,anc1plus,Explainable Boosting,v191,0.6795415841259134,0.4323890979313322,1
-pars,anc1plus,Explainable Boosting,region,0.4173383822271934,0.2655504399417318,2
-pars,anc1plus,Explainable Boosting,v716,0.2402021718602659,0.1528395065703038,3
-pars,anc1plus,Explainable Boosting,v729,0.2345152664784343,0.1492209555566319,4
 pars,anc4plus,Logistic regression,v191,0.5199962867584993,0.3673158056675473,1
 pars,anc4plus,Logistic regression,age_at_birth,0.129698620289178,0.0916167180778624,4
 pars,anc4plus,Logistic regression,v201,0.3032232658039191,0.2141913336924245,2
@@ -1379,14 +1040,6 @@ pars,anc4plus,XGBoost,v133,0.2335335986374248,0.1420313294353634,2
 pars,anc4plus,XGBoost,children_over_ideal,0.1863427362939456,0.1133306158979861,4
 pars,anc4plus,XGBoost,partner_occupation_group,0.0699062198516644,0.0425158238440365,7
 pars,anc4plus,XGBoost,s1101a,0.031612583623152,0.0192262582561143,8
-pars,anc4plus,Explainable Boosting,v191,0.5624009437013782,0.3560002188389189,1
-pars,anc4plus,Explainable Boosting,age_at_birth,0.1602066909911003,0.1014109554598726,5
-pars,anc4plus,Explainable Boosting,v201,0.2245706097948768,0.1421533642984349,3
-pars,anc4plus,Explainable Boosting,v715,0.1093596298726234,0.0692247276659428,6
-pars,anc4plus,Explainable Boosting,v133,0.2285117133981799,0.1446480858328777,2
-pars,anc4plus,Explainable Boosting,children_over_ideal,0.1852163433809905,0.1172420841654704,4
-pars,anc4plus,Explainable Boosting,partner_occupation_group,0.0846801525688583,0.0536026000373027,7
-pars,anc4plus,Explainable Boosting,s1101a,0.0248308769231605,0.0157179637011796,8
 pars,anc8plus,Logistic regression,v191,0.5711258460634232,0.3128628012807845,1
 pars,anc8plus,Logistic regression,spousal_age_gap,0.0980967337730586,0.0537374015486706,7
 pars,anc8plus,Logistic regression,v133,0.1537169708251194,0.0842061735223988,5
@@ -1417,13 +1070,3 @@ pars,anc8plus,XGBoost,transport_mode_group,0.1240409453424472,0.0491384404472331
 pars,anc8plus,XGBoost,partner_occupation_group,0.1699461023747258,0.0673236277563433,6
 pars,anc8plus,XGBoost,v158,0.10688247069302,0.0423411632868686,9
 pars,anc8plus,XGBoost,previous_pregnancy_history,0.0829038371341532,0.0328421010708763,10
-pars,anc8plus,Explainable Boosting,v191,0.6913243968286878,0.3428061321636079,1
-pars,anc8plus,Explainable Boosting,spousal_age_gap,0.0988579979397982,0.0490205872418791,8
-pars,anc8plus,Explainable Boosting,v133,0.2091039343294774,0.1036880967553127,3
-pars,anc8plus,Explainable Boosting,v743b,0.1804890476983336,0.0894988700285821,4
-pars,anc8plus,Explainable Boosting,region,0.313044727497972,0.1552290830760064,2
-pars,anc8plus,Explainable Boosting,pregnancy_intention,0.1618219021157081,0.0802424167556036,5
-pars,anc8plus,Explainable Boosting,transport_mode_group,0.0836600669937571,0.0414844089319546,9
-pars,anc8plus,Explainable Boosting,partner_occupation_group,0.1033719068692053,0.0512588934091823,6
-pars,anc8plus,Explainable Boosting,v158,0.0994024221461437,0.0492905501670842,7
-pars,anc8plus,Explainable Boosting,previous_pregnancy_history,0.0755864631645045,0.0374809614707865,10

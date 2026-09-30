@@ -95,6 +95,8 @@ from anc8 import library as lib, tuning
 def write_nb(path: Path, cells):
     nb = nbf.v4.new_notebook()
     nb.cells = cells
+    for i, c in enumerate(nb.cells):
+        c.id = f"cell-{i:03d}"  # stable ids, so a rebuild changes only what changed
     nb.metadata = {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
                    "language_info": {"name": "python"}}
     path.parent.mkdir(parents=True, exist_ok=True)

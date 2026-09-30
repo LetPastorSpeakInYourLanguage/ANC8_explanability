@@ -34,7 +34,6 @@ const TERMS: [string, string][] = [
   ["Calibration", "Whether a predicted 30% happens 30% of the time. A slope of 1 is honest."],
   ["PSU bootstrap", "Resampling whole survey clusters to get honest 95% intervals."],
   ["G-computation", "Re-scoring every woman as if a factor changed, then averaging. The planner's method."],
-  ["Explainable boosting", "Boosted trees kept additive, so each predictor's effect can be read."],
   ["SHAP", "A share of each prediction credited to each predictor."],
   ["Attention", "Where a network looks. It shows what the network used, not what matters."],
 ];

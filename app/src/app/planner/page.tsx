@@ -264,39 +264,6 @@ export default function PlannerPage() {
         </div>
       </div>
 
-      {models.length > 1 && (
-        <Panel help="planner.models"
-          title={`The two models side by side · ${scope} · ${RUNG_LABEL[rung]}`}
-          how="Each lever's weight (the change on the chosen rung if every woman it applies to is reached) under explainable boosting and under logistic regression, in the current scope. Close dots: the models agree. The last row is your current scenario under both. Where they part, the answer rests on how the model bends, not on the data alone."
-        >
-          <DotRows
-            rows={[
-              ...sc.data.levers.map((l) => {
-                const vals = Object.fromEntries(models.map((m) => [m, leverWeight(forModel(sc.data!, m), l.key, ri)[rung]?.v ?? null]));
-                const [a, b] = models.map((m) => vals[m]);
-                return {
-                  key: l.key, label: l.label,
-                  sub: a != null && b != null && (a > 0) !== (b > 0) ? `the models disagree on direction at ${RUNG_LABEL[rung]}` : undefined,
-                  values: vals,
-                  display: a != null && b != null ? pts(a - b, 2) : "–",
-                };
-              }),
-              ...(active ? [{
-                key: "scenario", label: "Your scenario",
-                values: Object.fromEntries(models.map((m) => [m,
-                  studio.region ? view.byModel[m].byRegion[studio.region].change[rung] : view.byModel[m].national.change[rung]])),
-                display: "",
-              }] : []),
-            ]}
-            series={models.map((m, i) => ({ key: m, label: MODEL_SHORT[m], color: i === 0 ? "var(--accent)" : "var(--cross)", hollow: m !== lm }))}
-            reference={{ value: 0, label: "No change" }}
-            format={(v) => pts(v, 1)}
-            labelWidth={230}
-          />
-          <DataNote>Solid: the model the page is using; change it with the switch on the Levers panel. At the right: explainable boosting minus logistic regression, in points.</DataNote>
-        </Panel>
-      )}
-
       <FixedVsAdjustable reg={reg.data} sc={d} rung={rung} region={studio.region} cov={cov} setCov={setCov} model={lm} />
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-2">

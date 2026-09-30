@@ -582,15 +582,14 @@ export const BASICS: HelpTopic[] = [
       {
         id: "families",
         title: "The kinds of model",
-        shows: "The studio compares many kinds of model. You do not need their mathematics, only what makes each different.",
+        shows: "The studio compares three kinds of model. You do not need their mathematics, only what makes each different.",
         read: [
           "**Logistic regression**: the classic, simple model. Each answer adds a fixed amount.",
-          "**Tree models** (random forest, XGBoost, LightGBM, CatBoost): many small yes/no rules combined. Often the most accurate on survey tables.",
-          "**Explainable boosting (EBM)**: tree accuracy, but kept as a sum of one effect per predictor, so every prediction can be split exactly into its parts.",
-          "**Networks** (the ladder transformer and the contact-sequence network): newer models that predict all three rungs together, or contact by contact.",
+          "**Tree models** (random forest and XGBoost): many small yes/no rules combined. Often the most accurate on survey tables.",
+          "Each also comes recalibrated (isotonic and Platt), and two ensembles combine them.",
           "**Tuning** tries many settings for a model on the development women and keeps the best.",
         ],
-        terms: ["logistic", "trees", "ebm", "tuning"],
+        terms: ["logistic", "trees", "tuning"],
         shot: false,
       },
       {
@@ -598,7 +597,7 @@ export const BASICS: HelpTopic[] = [
         title: "Explaining a model",
         shows: "Several panels say which answers a model leans on.",
         read: [
-          "**EBM share**: each predictor's part of the explainable boosting model's total effect.",
+          "**Logistic share**: each predictor's part of the logistic regression's total effect, split exactly.",
           "**SHAP**: a way to split any model's prediction into a share per predictor.",
           "**Drop-one**: how much accuracy falls when a predictor is removed.",
           "**Attention** (networks only): where the network looks. It shows what the network used, not what matters or what causes anything.",
