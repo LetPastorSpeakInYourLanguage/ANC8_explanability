@@ -205,7 +205,7 @@
   },
   "analysis.grid": {
    "w": 581,
-   "h": 413
+   "h": 341
   },
   "analysis.learned": {
    "w": 1176,
@@ -229,7 +229,7 @@
   },
   "analysis.vs-chance": {
    "w": 581,
-   "h": 539
+   "h": 467
   },
   "analysis.where-works": {
    "w": 581,
@@ -455,13 +455,13 @@
      1021,
      424,
      419,
-     163
+     207
     ],
     "map.region-why": [
      1021,
-     587,
+     631,
      419,
-     313
+     269
     ],
     "mark:status": [
      0,
@@ -891,7 +891,7 @@
   },
   "map.region-why": {
    "w": 419,
-   "h": 345
+   "h": 331
   },
   "map.region-work": {
    "w": 419,
@@ -963,19 +963,19 @@
      250,
      193,
      1176,
-     454
+     388
     ],
     "models.by-rung": [
      250,
-     661,
+     595,
      634,
-     239
+     305
     ],
     "models.by-set": [
      898,
-     661,
+     595,
      528,
-     239
+     305
     ],
     "mark:status": [
      0,
@@ -987,11 +987,11 @@
   },
   "models.by-rung": {
    "w": 634,
-   "h": 603
+   "h": 509
   },
   "models.by-set": {
    "w": 528,
-   "h": 413
+   "h": 341
   },
   "models.calibration": {
    "w": 581,
@@ -1003,7 +1003,7 @@
   },
   "models.dev-held": {
    "w": 1176,
-   "h": 454
+   "h": 388
   },
   "models.lean": {
    "w": 581,
@@ -1019,7 +1019,7 @@
   },
   "models.tuning": {
    "w": 528,
-   "h": 177
+   "h": 155
   },
   "overview": {
    "w": 1440,
@@ -1221,7 +1221,7 @@
   },
   "planner.fixed": {
    "w": 1176,
-   "h": 483
+   "h": 486
   },
   "planner.gap": {
    "w": 581,
@@ -1235,10 +1235,6 @@
    "w": 430,
    "h": 989
   },
-  "planner.models": {
-   "w": 1176,
-   "h": 288
-  },
   "planner.target": {
    "w": 581,
    "h": 397
@@ -1249,7 +1245,7 @@
   },
   "planner.unsupported": {
    "w": 1176,
-   "h": 234
+   "h": 263
   },
   "planner.where": {
    "w": 732,
