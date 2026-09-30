@@ -13,8 +13,9 @@ import { PREDICT_API } from "@/lib/paths";
 import type { ApiResponse, CatalogModel, Field, Insights, Schema } from "@/lib/types";
 
 /**
- * Predict: choose what to predict, when, and with which model, then change the
- * answers and watch the probability respond.
+ * Predict: choose the model, the rung and when, then change the answers and watch
+ * the probability respond. Every model uses the 21 predictors; at the first visit,
+ * the 21 and whether that visit came in the first trimester.
  *
  * The additive models (explainable boosting, logistic regression) are scored in the
  * browser, so they respond at once and show exactly how much each answer adds. Every
@@ -34,15 +35,17 @@ type Scored = {
 
 const RUNG_OF = { anc1plus: "anc1", anc4plus: "anc4", anc8plus: "anc8" } as const;
 
+const ALGORITHMS = ["Logistic regression", "Random Forest", "XGBoost"] as const;
+const SHORT: Record<string, string> = { "Logistic regression": "Logistic regression", "Random Forest": "Random forest", XGBoost: "XGBoost" };
+
 function modelLabel(m: CatalogModel) {
-  return m.set === "Full pool" ? m.algorithm : `${m.algorithm} · ${m.set.toLowerCase()}`;
+  return SHORT[m.algorithm] ?? m.algorithm;
 }
 
 /** The Model analysis card that describes this model, where there is one. */
 function cardKey(m: CatalogModel) {
   const slug = m.algorithm.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  if (m.set === "Full pool") return slug;
-  return m.set === "21 predictors" ? `${slug}-21` : "";
+  return m.horizon === "before" ? slug : "";
 }
 
 async function scoreRemote(answers: Answers, models: CatalogModel[]): Promise<Record<string, Scored>> {
@@ -99,7 +102,7 @@ export default function Predict({
 
   const [outcome, setOutcome] = useState<CatalogModel["outcome"]>("anc8plus");
   const [horizon, setHorizon] = useState<CatalogModel["horizon"]>("before");
-  const [modelId, setModelId] = useState<string>("");
+  const [algorithm, setAlgorithm] = useState<string>("Logistic regression");
   const [answers, setAnswers] = useState<Answers>(start);
   const [showAll, setShowAll] = useState(false);
   const [current, setCurrent] = useState<Scored | null>(null);
@@ -110,25 +113,30 @@ export default function Predict({
 
   useEffect(() => setAnswers(start), [start]);
 
+  // One model per algorithm for this rung and time: before ANC, the 21 predictors; at
+  // the first visit, the 21 and the timing of that visit.
   const choices = useMemo(
     () =>
-      schema.models
-        .filter((m) => m.outcome === outcome && m.horizon === horizon)
-        .sort((a, b) => Number(b.recommended) - Number(a.recommended) || (b.heldout_AP ?? 0) - (a.heldout_AP ?? 0)),
+      ALGORITHMS.map((a) => schema.models.find((m) =>
+        m.outcome === outcome && m.horizon === horizon && m.algorithm === a
+        && (horizon === "before" || m.set.includes("early ANC")))).filter((m): m is CatalogModel => !!m),
     [schema, outcome, horizon],
   );
+  const hasEntry = (o: string) => schema.models.some((m) => m.outcome === o && m.horizon === "entry");
 
-  // Keep the chosen model when it still fits; otherwise the study's recommendation,
-  // or the best model this copy of the site can score.
+  // Keep the chosen algorithm when this copy of the site can score it; otherwise the
+  // first one it can.
   useEffect(() => {
-    if (choices.some((m) => m.id === modelId)) return;
-    const pick = choices.find((m) => m.recommended && usable(m)) ?? choices.find(usable) ?? choices[0];
-    setModelId(pick?.id ?? "");
+    const now = choices.find((m) => m.algorithm === algorithm);
+    if (now && usable(now)) return;
+    const pick = choices.find(usable) ?? choices[0];
+    if (pick) setAlgorithm(pick.algorithm);
     setCompare(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choices]);
 
-  const model = choices.find((m) => m.id === modelId);
+  const model = choices.find((m) => m.algorithm === algorithm);
+  const modelId = model?.id ?? "";
   const base = schema.prevalence[`${outcome}|${horizon}`];
   const outcomeLabel = schema.outcomes[outcome];
 
@@ -263,31 +271,36 @@ export default function Predict({
       >
         <div className="px-14 py-10 flex flex-wrap items-center gap-10 border-b border-border">
           <Segmented
+            label="Model"
+            options={ALGORITHMS.map((a) => {
+              const m = choices.find((c) => c.algorithm === a);
+              return {
+                key: a, label: SHORT[a], disabled: !m || !usable(m),
+                title: !m ? "No such model for this rung" : !usable(m) ? "Needs the prediction service"
+                  : `Held-out AP ${m.heldout_AP?.toFixed(3) ?? "–"}${m.browser ? " · scored in your browser" : ""}`,
+              };
+            })}
+            value={algorithm}
+            onChange={(a) => { setAlgorithm(a); setCompare(null); }}
+          />
+          <Segmented
             label="Outcome"
             options={(["anc1plus", "anc4plus", "anc8plus"] as const).map((o) => ({ key: o, label: schema.outcomes[o] }))}
             value={outcome}
-            onChange={(o) => { setOutcome(o); if (o === "anc1plus") setHorizon("before"); }}
+            onChange={(o) => { setOutcome(o); if (!hasEntry(o)) setHorizon("before"); }}
           />
           {outcome !== "anc1plus" && (
             <Segmented
               label="When"
-              options={[{ key: "before", label: "Before ANC" }, { key: "entry", label: "At first visit" }]}
+              options={[
+                { key: "before", label: "Before ANC" },
+                { key: "entry", label: "At first visit", disabled: !hasEntry(outcome),
+                  title: hasEntry(outcome) ? "The 21 and whether the first visit was in the first trimester" : "No first-visit model for this rung" },
+              ]}
               value={horizon}
               onChange={setHorizon}
             />
           )}
-          <Select
-            aria-label="Model"
-            value={modelId}
-            onChange={(e) => { setModelId(e.target.value); setCompare(null); }}
-            className="w-auto min-w-[220px] flex-1 max-w-[380px] h-22 text-10.5"
-          >
-            {choices.map((m) => (
-              <option key={m.id} value={m.id} disabled={!usable(m)}>
-                {m.recommended ? "★ " : ""}{modelLabel(m)} · AP {m.heldout_AP?.toFixed(3) ?? "–"}{m.browser ? " · instant" : ""}
-              </option>
-            ))}
-          </Select>
         </div>
         {model && (
           <div className="px-14 py-8 flex flex-wrap items-center gap-6 border-b border-border">
@@ -404,7 +417,7 @@ export default function Predict({
                 ticks={[0, 0.5, 1]}
                 reference={base != null ? { value: base, label: "All women" } : null}
                 active={modelId}
-                onSelect={(id) => { setModelId(id); }}
+                onSelect={(id) => { const m = choices.find((c) => c.id === id); if (m) setAlgorithm(m.algorithm); }}
                 format={(v) => pct(v, 0)}
                 labelWidth={130}
                 valueWidth={40}

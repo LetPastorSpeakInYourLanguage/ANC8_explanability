@@ -33,12 +33,11 @@ export const MODELS: HelpTopic[] = [
         title: "Choosing the model",
         shows: "The controls along the top.",
         read: [
-          "**Model**: every model in the library, grouped by kind. Within a group, the best at this rung comes first.",
-          "**Predictors**: which predictor set the model was trained on. **Full pool** is every candidate predictor; **21 set** the 21-predictor set; **Short set** the strongest few that clear the bar at this rung; **Parsimonious** a small set chosen to keep accuracy with fewer questions. Switching the set keeps the same kind of model in view.",
+          "**Model**: logistic regression, random forest and XGBoost, each on the 21 predictors. The best at this rung is marked.",
           "**ANC1+ | ANC4+ | ANC8+**: the rung.",
-          "**Compare**: a second model, on the same predictor set, to draw beside the first.",
+          "**Compare**: a second model to draw beside the first.",
           "Tags at the right: \"best at\" the rung if it is the top model, its kind, and its number of predictors.",
-          "If a model is not in the library for the chosen set and rung, a note says so and the best model is shown instead.",
+          "If a model is not available at the chosen rung, a note says so and the best model is shown instead.",
         ],
         terms: ["trees", "logistic", "network"],
       },
@@ -96,7 +95,7 @@ export const MODELS: HelpTopic[] = [
           "The first two lines describe the model and how it handles numbers and categories.",
           "The tags: how many settings were tried, the five cluster-based folds, the score used, and how long the search took.",
           "Each bar is the range a setting was allowed to take, with the winning value marked; for settings with a few choices, the chosen one is blue.",
-          "**What tuning bought**: library defaults (ring) against tuned (dot).",
+          "**What tuning bought**: the model's default settings (ring) against the grid's choice (dot).",
           "Below, each setting moved one step either way: a span near zero is a setting the model does not care about.",
           "Networks show their training settings instead.",
         ],
@@ -148,7 +147,7 @@ export const MODELS: HelpTopic[] = [
       {
         id: "grid",
         title: "Every model, every rung",
-        shows: "Held-out average precision for every model on the chosen predictor set, at the three rungs.",
+        shows: "Held-out average precision for every model on the 21 predictors, at the three rungs.",
         read: [
           "Each column is shaded on its own, since rungs differ in difficulty.",
           "Click a row to look at that model; click a column title to switch rung.",
@@ -181,7 +180,7 @@ export const MODELS: HelpTopic[] = [
         title: "See what one answer is worth",
         steps: [
           "Keep the recommended model (★) and the starting woman.",
-          "Change one answer, for example travel time to a health post.",
+          "Change one answer, for example travel time to a health facility.",
           "Read the change in points under her chance, and the new bar in **Why, exactly**.",
           "Press **Reset** to go back to the starting woman.",
         ],
@@ -317,10 +316,10 @@ export const MODELS: HelpTopic[] = [
       {
         id: "tested",
         title: "The screen, tested",
-        shows: "The screen's accuracy on 984 held-out women who started care, against chance and against the model that uses every predictor.",
+        shows: "The screen's accuracy on 984 held-out women who started care, against chance and against the 21-predictor model with the first-visit timing.",
         read: [
-          "Ring: chance. Dot: the twelve-question screen. Purple ring: all predictors.",
-          "The screen sits close to the full model: it does not need a survey.",
+          "Ring: chance. Dot: the twelve-question screen. Purple ring: the 21 predictors and the first-visit timing.",
+          "The screen sits close to the 21-predictor model: it does not need a survey.",
         ],
         terms: ["ap", "heldout"],
       },

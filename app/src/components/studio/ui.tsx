@@ -128,7 +128,7 @@ export function Segmented<K extends string>({
   label,
   size = "sm",
 }: {
-  options: { key: K; label: ReactNode; title?: string }[];
+  options: { key: K; label: ReactNode; title?: string; disabled?: boolean }[];
   value: K;
   onChange: (k: K) => void;
   label: string;
@@ -145,9 +145,10 @@ export function Segmented<K extends string>({
             role="radio"
             aria-checked={on}
             title={o.title}
+            disabled={o.disabled}
             onClick={() => onChange(o.key)}
             className={`${size === "sm" ? "h-22 px-8 text-9.5" : "h-24 px-10 text-10.5"} border-r border-border2 font-medium last:border-r-0 whitespace-nowrap ${
-              on ? "bg-accent text-white" : "bg-panel2 text-dim hover:text-text"
+              on ? "bg-accent text-white" : o.disabled ? "bg-panel2 text-faint opacity-50 cursor-not-allowed" : "bg-panel2 text-dim hover:text-text"
             }`}
           >
             {o.label}

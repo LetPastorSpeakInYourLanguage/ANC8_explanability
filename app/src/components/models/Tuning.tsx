@@ -56,13 +56,33 @@ function SpaceTable({ rows }: { rows: SpaceRow[] }) {
   );
 }
 
+function GridTable({ rows }: { rows: NonNullable<Card["tuning"]["grid"]> }) {
+  return (
+    <div className="px-14 py-8 flex flex-col">
+      {rows.map((r) => (
+        <div key={r.param} className="grid items-center gap-10 py-4 border-b border-border last:border-b-0 grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_64px]">
+          <span className="text-10.5 truncate" title={r.param}>{r.param.replace(/_/g, " ")}</span>
+          <span className="flex flex-wrap gap-3">
+            {r.values.map((v) => (
+              <Tag key={String(v)} tone={String(v) === String(r.chosen) ? "accent" : "neutral"}>{fmtVal(v)}</Tag>
+            ))}
+          </span>
+          <span className="text-right font-mono text-10.5 font-medium">{fmtVal(r.chosen)}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /** How the model was built: the search and what it bought, or a line on how it came to be. */
 export default function Tuning({ card, fam }: { card: Card; fam: Family }) {
   const t = card.tuning;
   return (
     <Panel help="analysis.tuning"
       title="How it was built"
-      how="Tuned models were searched with Optuna: each trial picks settings, fits five folds of the development women and scores average precision out of fold. Each bar is the range the search was allowed to try, with the winning value marked."
+      how={t.grid
+        ? "Each model was tuned over a grid of settings fixed in advance: every combination fits five folds of the development women and is scored by average precision out of fold. Each row lists the values a setting could take; the chosen one is marked."
+        : "Tuned models were searched with Optuna: each trial picks settings, fits five folds of the development women and scores average precision out of fold. Each bar is the range the search was allowed to try, with the winning value marked."}
     >
       <div className="px-14 py-10 flex flex-col gap-4 border-b border-border">
         <p className="text-11.5">{fam.what}</p>
@@ -71,12 +91,13 @@ export default function Tuning({ card, fam }: { card: Card; fam: Family }) {
       {t.tuned && (
         <>
           <div className="px-14 py-10 flex flex-wrap gap-6 border-b border-border">
-            {t.trials != null && <Tag>{t.trials} trials</Tag>}
+            {t.trials != null && <Tag>{t.trials} {t.grid ? "settings" : "trials"}</Tag>}
             <Tag>5 folds by cluster</Tag>
             <Tag>weighted average precision</Tag>
             {t.seconds != null && <Tag>{t.seconds >= 120 ? `${Math.round(t.seconds / 60)} min` : `${Math.round(t.seconds)} s`}</Tag>}
           </div>
           {t.space && <SpaceTable rows={t.space} />}
+          {t.grid && <GridTable rows={t.grid} />}
           {t.defaults_ap != null && t.tuned_ap != null && (
             <div className="border-t border-border">
               <DotRows

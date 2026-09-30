@@ -84,31 +84,9 @@ def _set(d, mask, col, value):
     d.loc[mask, col] = value
 
 
-def _healthpost(d):
-    m = d.s1101b.notna() & (d.s1101b > 30)
-    _set(d, m, "s1101b", 30.0)
-    _set(d, m, "travel_healthpost_log", np.log1p(30.0))
-    _set(d, m, "travel_healthpost_topcoded", 0.0)
-    return m
-
-
 def _hospital(d):
-    m = d.s1101 > 60
-    _set(d, m, "s1101", 60.0)
-    _set(d, m, "travel_hospital_log", np.log1p(60.0))
-    _set(d, m, "travel_hospital_topcoded", 0.0)
-    if "travel_time_min" in d:  # the clean pool keeps this one of the exact twins
-        _set(d, d.travel_time_min > 60, "travel_time_min", 60)
-    if "v115" in d:
-        _set(d, m & (d.v115 < 998) & (d.v115 > 60), "v115", 60)
-    return m
-
-
-def _barriers(d):
-    m = (d.v467c == 1) | (d.v467d == 1)
-    for c in ("v467c", "v467d"):
-        _set(d, d[c] == 1, c, 2)
-    d["access_barrier_count"] = sum(d[c].eq(1).astype(float) for c in ("v467b", "v467c", "v467d", "v467f"))
+    m = d.travel_time_min > 60
+    _set(d, m, "travel_time_min", 60)
     return m
 
 
@@ -120,13 +98,11 @@ def _insurance(d):
 
 
 def _information(d):
+    # The 21's media count is the number of weekly sources (radio, TV, newspaper): a
+    # woman who does not yet listen to the radio weekly (v158, the survey's own
+    # question) and starts to has one more.
     m = d.v158 < 2
-    _set(d, m, "v158", 2)
-    _set(d, m, "radio_weekly", 1.0)
-    # The 21-set's media count is the number of weekly sources (radio, TV, newspaper):
-    # a woman who starts listening weekly has one more, or her record contradicts itself.
-    if "traditional_media_weekly_count" in d:
-        d.loc[m, "traditional_media_weekly_count"] = d.loc[m, "traditional_media_weekly_count"] + 1
+    d.loc[m, "traditional_media_weekly_count"] = d.loc[m, "traditional_media_weekly_count"] + 1
     return m
 
 
@@ -137,26 +113,14 @@ def _intention(d):
 
 
 def _agency(d):
-    items = [c for c in ("v743a", "v743b", "v743d", "v743f") if c in d]
-    m = pd.Series(False, index=d.index)
-    for c in items:
-        alone = d[c].isin([4, 5, 6])  # husband, someone else or other alone
-        m |= alone
-        _set(d, alone, c, 2)  # jointly
-    hp = d.healthcare_decision_participation.astype(str) == "Does not participate"
-    m |= hp
-    _set(d, hp, "healthcare_decision_participation", "Participates")
-    d["decision_participation_count"] = sum(d[c].isin([1, 2]).astype(float) for c in items)
+    m = d.healthcare_decision_participation.astype(str) == "Does not participate"
+    _set(d, m, "healthcare_decision_participation", "Participates")
     return m
 
 
 LEVERS = [
-    {"key": "healthpost", "label": "Health post within 30 minutes", "concept": "healthpost",
-     "who": "women more than 30 minutes from a health post", "apply": _healthpost},
     {"key": "hospital", "label": "Health centre or hospital within an hour", "concept": "hospital",
      "who": "women more than an hour from a health centre or hospital", "apply": _hospital},
-    {"key": "barriers", "label": "Distance and cost no longer a big problem", "concept": "barriers",
-     "who": "women for whom distance or money is a big problem", "apply": _barriers},
     {"key": "insurance", "label": "Health insurance", "concept": "insurance",
      "who": "uninsured women", "apply": _insurance},
     {"key": "information", "label": "Weekly radio health messages", "concept": "information",
@@ -192,7 +156,7 @@ def early_visit(full: pd.DataFrame, n_boot: int) -> dict:
     from sklearn.pipeline import Pipeline
     from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-    numeric, categorical = (list(x) for x in lib.clean_pool())
+    numeric, categorical = list(lib.S21_NUMERIC), list(lib.S21_CATEGORICAL)
     e = lib.raw_frame("entry")
     w = (e.v005 / 1e6).to_numpy()
     dev = (e.partition == "development").to_numpy()
@@ -279,7 +243,7 @@ def main():
         frames[s] = d
 
     for (outcome, rung), key in itertools.product(RUNGS.items(), args.models):
-        blob = joblib_load(LIBRARY_MODELS / f"pool_{outcome}.joblib")
+        blob = joblib_load(LIBRARY_MODELS / f"s21_{outcome}.joblib")
         numeric, categorical = blob["numeric"], blob["categorical"]
         model = blob["models"][LEVER_MODELS[key]]
         P = np.column_stack([model.predict_proba(model_matrix(frames[s], numeric, categorical))[:, 1] for s in subsets])

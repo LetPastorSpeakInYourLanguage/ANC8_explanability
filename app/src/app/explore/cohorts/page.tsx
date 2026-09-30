@@ -14,7 +14,7 @@ import { REGION_NAMES } from "@/lib/regions";
 import { REACH_OF, type RegionsData } from "@/lib/regionsData";
 import { COHORTS, RUNGS, useStudio, type Cohort, type Rung } from "@/lib/studio";
 
-const HORIZON_SETS = ["tier set", "21", "full pool"];
+const HORIZON_SETS = ["21"];
 
 export default function CohortsPage() {
   const studio = useStudio();
@@ -284,7 +284,7 @@ export default function CohortsPage() {
         >
           {H?.cross ? (
             <DotRows
-              rows={["21", "full pool"].map((set) => {
+              rows={["21"].map((set) => {
                 const f = H.cross!.find((r) => r.outcome === hOut && r.set === set && r.trained_on.startsWith("full"));
                 const e = H.cross!.find((r) => r.outcome === hOut && r.set === set && r.trained_on.startsWith("ANC-entry"));
                 return {

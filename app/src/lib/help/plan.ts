@@ -318,7 +318,7 @@ export const PLAN: HelpTopic[] = [
           "Under each lever's name: what share of women it applies to here (for example, the share who are uninsured, for insurance).",
           "Under the slider, the lever's **weight** on each rung: the change the model expects if **every** eligible woman were reached, with a small bar and its 95% band. Most move a rung by under a point; the earlier first visit moves ANC8+ by far more.",
           "Sliders combine exactly, not by simple adding: two levers that reach the same women do not double-count.",
-          "Logistic regression on the full candidate pool scores the levers; everything on the page follows it.",
+          "Logistic regression on the 21 predictors scores the levers; everything on the page follows it.",
           "The circular arrow in the title clears all levers.",
           "**Show the levers the data do not support** adds the levers where the model expects at least one rung to fall; they are there for honesty, marked \"not supported\".",
         ],

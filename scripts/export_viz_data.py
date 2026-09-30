@@ -301,18 +301,17 @@ def explain_block(models: list[str]) -> dict | None:
              "shares": {m: float(r[m]) for m in models if m in r}}
             for r in g.to_dict("records")]
 
-    # Every predictor of the full pool at every rung, and the same summed to domains,
-    # for the Predictor selection and Ladder screens.
-    from anc8 import ladder, library as lib
+    # Every one of the 21 at every rung, and the same summed to domains, for the
+    # Ladder screen.
+    from anc8 import ladder
     imp = pd.read_csv(ROOT / "outputs" / "explain" / "importance.csv")
-    imp = imp[(imp.set == "pool") & imp.model.isin(models)]
-    in21 = set(sum((list(x) for x in lib.predictors("s21", "anc8plus")), []))
-    out["pool"] = {}
+    imp = imp[(imp.set == "s21") & imp.model.isin(models)]
+    out["rungs"] = {}
     for rung, g in imp.groupby("rung"):
         wide = g.pivot(index="predictor", columns="model", values="share").fillna(0)
         dom = wide.assign(domain=[ladder.domain_of(x) for x in wide.index]).groupby("domain").sum()
-        out["pool"][RUNG_OF[rung]] = {
-            "predictors": {x: {"domain": ladder.domain_of(x), "in21": x in in21,
+        out["rungs"][RUNG_OF[rung]] = {
+            "predictors": {x: {"domain": ladder.domain_of(x),
                                "shares": {m: float(wide.loc[x, m]) for m in wide.columns}} for x in wide.index},
             "domains": {d: {m: float(dom.loc[d, m]) for m in wide.columns} for d in dom.index},
         }

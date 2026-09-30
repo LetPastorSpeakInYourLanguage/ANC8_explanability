@@ -386,7 +386,7 @@ function RegisterMode() {
   const hi = women.filter((w) => 1 - P(w) >= 0.8).length;
   const sel = women.find((w) => w.id === picked) ?? ranked[0];
   const perf = s.rungs[rung].heldout;
-  const ref = s.rungs[rung].reference.find((r) => r.set === "full pool");
+  const ref = s.rungs[rung].reference.find((r) => r.set === "21");
   const hist = Array.from({ length: 10 }, (_, i) => ({
     bin: `${i * 10}–${i * 10 + 10}%`,
     n: women.filter((w) => Math.min(9, Math.floor((1 - P(w)) * 10)) === i).length,
@@ -429,7 +429,7 @@ function RegisterMode() {
           sub={`${pct(expected / Math.max(women.length, 1), 0)} of the register, on average`} tone="good" />
         <StatTile label="High risk of stopping" value={hi.toLocaleString()} sub="80% or more chance of stopping early" tone="bad" />
         <StatTile label="How well the screen sorts" value={perf.AUROC.toFixed(2)}
-          sub={`AUC on 984 held-out women; the full model: ${ref ? ref.AUROC.toFixed(2) : "–"}`} tone="accent" />
+          sub={`AUC on 984 held-out women; the 21-predictor model: ${ref ? ref.AUROC.toFixed(2) : "–"}`} tone="accent" />
       </div>
 
       <div className="grid gap-10 md:gap-14 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
@@ -509,7 +509,7 @@ function RegisterMode() {
 
       <Panel help="screener.tested"
         title="The screen, tested"
-        how="The screener was fitted on 4,017 development women who started ANC and tested on 984 held-out women it never saw, with survey weights. Its accuracy is set next to models that use the full list of predictors on the same women."
+        how="The screener was fitted on 4,017 development women who started ANC and tested on 984 held-out women it never saw, with survey weights. Its accuracy is set next to the model that uses the 21 predictors and the timing of the first visit, on the same women."
       >
         <DotRows
           rows={(["anc4", "anc8"] as const).map((r) => ({
@@ -518,14 +518,14 @@ function RegisterMode() {
             values: {
               chance: s.rungs[r].heldout.prevalence,
               screen: s.rungs[r].heldout.AP,
-              full: s.rungs[r].reference.find((x) => x.set === "full pool")?.AP,
+              full: s.rungs[r].reference.find((x) => x.set === "21")?.AP,
             },
             display: `AUC ${s.rungs[r].heldout.AUROC.toFixed(2)}`,
           }))}
           series={[
             { key: "chance", label: "Chance", color: "var(--faint)", hollow: true },
             { key: "screen", label: "12-question screen", color: "var(--accent)" },
-            { key: "full", label: "All 89 predictors", color: "var(--cross)", hollow: true },
+            { key: "full", label: "The 21 + first visit", color: "var(--cross)", hollow: true },
           ]}
           domain={[0, 1]}
           ticks={[0, 0.25, 0.5, 0.75, 1]}
@@ -535,7 +535,7 @@ function RegisterMode() {
         />
         <div className="px-14 pb-12">
           <Note tone="accent">
-            Average precision on held-out women. Twelve questions a midwife can ask give almost the accuracy of the full survey model, so
+            Average precision on held-out women. Twelve questions a midwife can ask give almost the accuracy of the 21-predictor survey model, so
             the screen does not need a survey. It describes women like her, not her: use it to decide who to call, not who to care for.
           </Note>
         </div>

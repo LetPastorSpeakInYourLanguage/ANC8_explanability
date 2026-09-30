@@ -43,7 +43,7 @@ export const BASICS: HelpTopic[] = [
         title: "Which screen answers my question?",
         steps: [
           "Where are women lost, and what should a region work on? **Map & regions**.",
-          "What if more women were insured, or lived nearer a health post? **Scenario planner**.",
+          "What if more women were insured, or lived within an hour of a health centre? **Scenario planner**.",
           "What would a war do to antenatal care in another region? **Conflict simulator**.",
           "What will next year's numbers look like at my facilities? **Your data**.",
           "Which women at their first visit should we follow up? **First-visit screener**.",
@@ -470,16 +470,6 @@ export const BASICS: HelpTopic[] = [
           "The steepest drop is where the most women leave.",
         ],
         shot: "overview.ladder",
-      },
-      {
-        id: "log",
-        title: "Log scales",
-        shows: "A few charts squeeze a very wide range into one picture, so that 6,648 and 2 both show.",
-        read: [
-          "Each step along a log scale multiplies rather than adds: 1, 10, 100, 1,000 sit equally far apart.",
-          "The studio says in the (i) when a chart uses one.",
-        ],
-        shot: "predictors.funnel",
       },
     ],
   },

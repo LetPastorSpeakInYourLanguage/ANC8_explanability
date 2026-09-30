@@ -757,14 +757,18 @@ def test_studio():
         gone = [f"{k}/{r}" for k, r in want if r not in cards.get(k, {})]
         check("every model, predictor set and rung has a card", not gone,
               f"{len(want) - len(gone)} of {len(want)}; missing {'; '.join(gone[:4])}")
-        summ = ROOT / "outputs" / "library" / "summary.csv"
-        if summ.exists():
-            lib_rows = pd.read_csv(summ)
-            lib_rows = lib_rows[lib_rows.model.isin(names)].copy()
-            gaps = [abs(cards[f"{r.set}.{slug(r.model)}"]["anc" + r.rung[3]]["ap"] - r.held_AP)
-                    for r in lib_rows.itertuples() if "anc" + r.rung[3] in cards.get(f"{r.set}.{slug(r.model)}", {})]
-            check("every card matches the library's held-out AP", len(gaps) == len(lib_rows) and max(gaps, default=0) < 1e-4,
-                  f"{len(gaps)} of {len(lib_rows)} cards, worst gap {max(gaps, default=0):.1e}")
+        core = ROOT / "outputs" / "core"
+        if (core / "results").exists():
+            gaps = []
+            for s_ in _lib.SETS:
+                for r in _lib.RUNGS:
+                    for m in names:
+                        k, rr = f"{s_}.{slug(m)}", "anc" + r[3]
+                        if _lib.cell_path(core, s_, r, m).exists() and rr in cards.get(k, {}):
+                            held = _lib.load_cell(core, s_, r, m)["meta"]["held_metrics"]["AP"]
+                            gaps.append(abs(cards[k][rr]["ap"] - held))
+            check("every card matches its model's held-out AP", len(gaps) == len(want) and max(gaps, default=0) < 1e-4,
+                  f"{len(gaps)} of {len(want)} cards, worst gap {max(gaps, default=0):.1e}")
         bad_g = [f"{k}/{r}" for k, by in cards.items() for r, c in by.items()
                  if abs(c["gains"][0]) > 1e-9 or abs(c["gains"][-1] - 1) > 1e-3
                  or any(b < a - 1e-9 for a, b in zip(c["gains"], c["gains"][1:]))]

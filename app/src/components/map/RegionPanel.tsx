@@ -107,7 +107,7 @@ export default function RegionPanel({
   if (!c) return null;
   const reachKey = REACH_OF[r] as "reach1" | "reach4" | "reach8";
 
-  // Why the region differs: an additive model's exact split (full cohort, full pool).
+  // Why the region differs: an additive model's exact split (full cohort, the 21 predictors).
   // The model follows the planner's switch (the `lm` setting): explainable boosting or
   // logistic regression.
   const driverModels = Object.keys(data.drivers_by_model ?? {});

@@ -489,7 +489,7 @@ def export_pool(outcome):
 
 
 
-def export_library(set_, outcome, lineup="four", root=Path("G:/My Drive/ANC8_training")):
+def export_library(set_, outcome, lineup="three", root=ROOT / "outputs" / "core"):
     """One predictor set's lineup models at one rung, from the library.
 
     The fitted objects are scripts/fit_library_models.py's (gated there against the
@@ -657,7 +657,7 @@ def main():
                     help="full-pool models of these outcomes")
     ap.add_argument("--library", action="store_true",
                     help="the model library's lineup, every predictor set and rung")
-    ap.add_argument("--lineup", default="four", choices=["four", "three"])
+    ap.add_argument("--lineup", default="three", choices=["four", "three"])
     ap.add_argument("--small", action="store_true",
                     help="the best small predictor sets of the predictor-value study")
     args = ap.parse_args()

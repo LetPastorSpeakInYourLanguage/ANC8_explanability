@@ -35,9 +35,6 @@
     "ladder": {
       "url": "/explore/ladder"
     },
-    "predictors": {
-      "url": "/explore/predictors?rung=anc8"
-    },
     "models": {
       "url": "/explore/models?rung=anc8"
     },

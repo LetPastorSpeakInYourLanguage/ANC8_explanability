@@ -147,37 +147,37 @@
      250,
      88,
      1176,
-     53
+     25
     ],
     "analysis.tiles": [
      250,
-     155,
+     127,
      1176,
      91
     ],
     "analysis.curves": [
      250,
-     260,
+     232,
      657,
      348
     ],
     "analysis.calibration": [
      921,
-     260,
+     232,
      505,
      278
     ],
     "analysis.threshold": [
      250,
-     621,
+     593,
      505,
-     279
+     307
     ],
     "analysis.tuning": [
      769,
-     621,
+     593,
      657,
-     279
+     307
     ],
     "mark:status": [
      0,
@@ -213,7 +213,7 @@
   },
   "analysis.picker": {
    "w": 1176,
-   "h": 53
+   "h": 25
   },
   "analysis.threshold": {
    "w": 505,
@@ -335,7 +335,7 @@
   },
   "cohorts.first-visit": {
    "w": 581,
-   "h": 193
+   "h": 127
   },
   "cohorts.ladder": {
    "w": 581,
@@ -355,7 +355,7 @@
   },
   "cohorts.train-on": {
    "w": 581,
-   "h": 193
+   "h": 127
   },
   "controls": {
    "w": 1440,
@@ -455,13 +455,13 @@
      1021,
      424,
      419,
-     207
+     225
     ],
     "map.region-why": [
      1021,
-     631,
+     649,
      419,
-     269
+     251
     ],
     "mark:status": [
      0,
@@ -839,7 +839,7 @@
      1021,
      605,
      419,
-     295
+     294
     ],
     "mark:status": [
      0,
@@ -891,7 +891,7 @@
   },
   "map.region-why": {
    "w": 419,
-   "h": 331
+   "h": 294
   },
   "map.region-work": {
    "w": 419,
@@ -969,31 +969,25 @@
      250,
      419,
      634,
-     317
-    ],
-    "models.by-set": [
-     898,
-     419,
-     528,
-     149
+     155
     ],
     "models.tuning": [
      898,
-     582,
+     419,
      528,
      155
     ],
     "models.settings": [
      250,
-     751,
+     588,
      581,
-     149
+     312
     ],
     "models.calibration": [
      845,
-     751,
+     588,
      581,
-     149
+     312
     ],
     "mark:status": [
      0,
@@ -1005,15 +999,11 @@
   },
   "models.by-rung": {
    "w": 634,
-   "h": 317
-  },
-  "models.by-set": {
-   "w": 528,
-   "h": 149
+   "h": 155
   },
   "models.calibration": {
    "w": 581,
-   "h": 421
+   "h": 333
   },
   "models.decision": {
    "w": 581,
@@ -1029,7 +1019,7 @@
   },
   "models.settings": {
    "w": 581,
-   "h": 421
+   "h": 333
   },
   "models.tiles": {
    "w": 1176,
@@ -1239,7 +1229,7 @@
   },
   "planner.fixed": {
    "w": 1176,
-   "h": 486
+   "h": 447
   },
   "planner.gap": {
    "w": 581,
@@ -1263,7 +1253,7 @@
   },
   "planner.unsupported": {
    "w": 1176,
-   "h": 263
+   "h": 204
   },
   "planner.where": {
    "w": 732,
@@ -1325,7 +1315,7 @@
      250,
      88,
      782,
-     513
+     794
     ],
     "predict.chance": [
      1046,
@@ -1337,11 +1327,11 @@
      1046,
      280,
      380,
-     231
+     320
     ],
     "predict.compare": [
      1046,
-     525,
+     614,
      380,
      76
     ],
@@ -1363,129 +1353,11 @@
   },
   "predict.questions": {
    "w": 782,
-   "h": 513
+   "h": 794
   },
   "predict.why": {
    "w": 380,
-   "h": 231
-  },
-  "predictors": {
-   "w": 1440,
-   "h": 900,
-   "marks": {
-    "mark:modes": [
-     165,
-     6,
-     227,
-     27
-    ],
-    "mark:finder": [
-     647,
-     7,
-     380,
-     24
-    ],
-    "mark:present": [
-     1282,
-     7,
-     75,
-     24
-    ],
-    "mark:theme": [
-     1369,
-     7,
-     61,
-     24
-    ],
-    "mark:scope": [
-     0,
-     38,
-     235,
-     156
-    ],
-    "mark:cohort": [
-     12,
-     126,
-     211,
-     24
-    ],
-    "mark:screens": [
-     0,
-     194,
-     235,
-     636
-    ],
-    "mark:header": [
-     236,
-     38,
-     1204,
-     36
-    ],
-    "predictors.tiles": [
-     250,
-     88,
-     1176,
-     91
-    ],
-    "predictors.funnel": [
-     250,
-     193,
-     1176,
-     329
-    ],
-    "predictors.how-many": [
-     250,
-     536,
-     1176,
-     364
-    ],
-    "mark:status": [
-     0,
-     876,
-     1440,
-     24
-    ]
-   }
-  },
-  "predictors.add-one": {
-   "w": 581,
-   "h": 520
-  },
-  "predictors.drop-one": {
-   "w": 581,
-   "h": 520
-  },
-  "predictors.frequency": {
-   "w": 581,
-   "h": 474
-  },
-  "predictors.funnel": {
-   "w": 1176,
-   "h": 329
-  },
-  "predictors.heldout": {
-   "w": 581,
-   "h": 474
-  },
-  "predictors.how-many": {
-   "w": 1176,
-   "h": 381
-  },
-  "predictors.matrix": {
-   "w": 1176,
-   "h": 826
-  },
-  "predictors.pool": {
-   "w": 581,
-   "h": 317
-  },
-  "predictors.tiles": {
-   "w": 1176,
-   "h": 91
-  },
-  "predictors.too-good": {
-   "w": 581,
-   "h": 317
+   "h": 320
   },
   "screener": {
    "w": 1440,
@@ -1555,25 +1427,25 @@
      250,
      252,
      1176,
-     91
+     105
     ],
     "screener.list": [
      250,
-     357,
+     371,
      657,
-     543
+     529
     ],
     "screener.why": [
      921,
-     357,
+     371,
      505,
      326
     ],
     "screener.spread": [
      921,
-     697,
+     711,
      505,
-     203
+     189
     ],
     "mark:status": [
      0,
@@ -1601,7 +1473,7 @@
   },
   "screener.tiles": {
    "w": 1176,
-   "h": 91
+   "h": 105
   },
   "screener.why": {
    "w": 505,

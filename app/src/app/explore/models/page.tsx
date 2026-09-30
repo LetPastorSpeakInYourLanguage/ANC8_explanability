@@ -57,7 +57,7 @@ export default function ModelsPage() {
   // the same 1,375 held-out women.
   const sets = lib.data?.meta.sets.map((x) => x.key) ?? [];
   const setAsked = studio.params.get("set") ?? "";
-  const set = SETS.includes(setAsked) ? setAsked : "pool";
+  const set = SETS.includes(setAsked) ? setAsked : "s21";
   const setCards = useJSON<ModelsSet>(setFile(set));
   const models = useMemo(() => {
     const out: Record<Outcome, ModelRow[]> = { anc1plus: [], anc4plus: [], anc8plus: [] };
@@ -93,7 +93,7 @@ export default function ModelsPage() {
       onChange={(k) => studio.set({ rung: k })}
     />
   );
-  const setPicker = (
+  const setPicker = sets.length < 2 ? null : (
     <Segmented
       label="Predictors"
       options={lib.data.meta.sets.map((x) => ({ key: x.key, label: SET_SHORT[x.key] ?? x.label }))}
@@ -118,26 +118,12 @@ export default function ModelsPage() {
     }))
     .sort((x, y) => (y.values[outcome] ?? -9) * (measure === "Brier" ? -1 : 1) - (x.values[outcome] ?? -9) * (measure === "Brier" ? -1 : 1));
 
-  // model x predictor set at this rung, from the library
-  const L = lib.data;
-  const fams = Object.values(L.families);
-  const slugs = [...new Set(fams.map((f) => f.slug))];
-  const cellOf = (slug: string, s: string) => L.summary[`${s}.${slug}`]?.[rung];
-  const bySet = slugs
-    .map((slug) => ({
-      key: slug,
-      label: fams.find((f) => f.slug === slug)!.name,
-      values: Object.fromEntries(sets.map((s) => [s, cellOf(slug, s)?.ap ?? null])),
-    }))
-    .sort((x, y) => (y.values[set] ?? -1) - (x.values[set] ?? -1));
-  const setCols = sets.map((s) => {
-    const n = slugs.map((slug) => cellOf(slug, s)?.n_predictors).find((v) => v != null);
-    return { key: s, label: `${SET_SHORT[s] ?? s}${n != null ? ` (${n})` : ""}` };
-  });
   const tunedRows = models[outcome].filter((m) => !m.network && m.dev != null && m.held.AP != null);
   const drop = tunedRows.length ? tunedRows.reduce((t, m) => t + (m.dev! - m.held.AP!), 0) / tunedRows.length : null;
 
-  // what tuning bought, and which settings matter: the lineup's models on the full pool
+  // what tuning bought, and which settings matter: the three models on the 21
+  const L = lib.data;
+  const fams = Object.values(L.families);
   const tuneBy = L.tuning?.[rung] ?? {};
   const tuning = Object.entries(tuneBy)
     .filter(([, t]) => t.defaults_ap != null && t.tuned_ap != null)
@@ -246,26 +232,6 @@ export default function ModelsPage() {
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">
-          <Panel help="models.by-set"
-            title={`Model by predictor set · ${RUNG_LABEL[rung]}`}
-            how="Held-out average precision for every model on each predictor set, all free of duplicate predictors. One shading for the whole grid, so any two cells compare. A small set that holds its colour is the cheaper tool. Click a column to show that set."
-          >
-            {bySet.length ? (
-              <MatrixHeat
-                theme={theme}
-                rows={bySet}
-                cols={setCols}
-                format={(v) => v.toFixed(3)}
-                activeCol={set}
-                onCol={(k) => studio.set({ set: k })}
-                labelWidth={200}
-                cellWidth={70}
-              />
-            ) : (
-              <PanelLoading rows={4} />
-            )}
-          </Panel>
-
           <Panel help="models.tuning"
             title={`Does tuning pay? · ${RUNG_LABEL[rung]}`}
             how="Rings: the model with its library defaults. Dots: after tuning (development accuracy). Most of the gain is small; the models are close before and after."
@@ -323,7 +289,7 @@ export default function ModelsPage() {
               />
               <div className="px-14 pb-12">
                 <Note tone="accent">
-                  Defaults {num(abl.defaults_ap)} → tuned {num(abl.tuned_ap)} ({signed((abl.tuned_ap ?? 0) - (abl.defaults_ap ?? 0))} average precision, development, full pool).
+                  Defaults {num(abl.defaults_ap)} → tuned {num(abl.tuned_ap)} ({signed((abl.tuned_ap ?? 0) - (abl.defaults_ap ?? 0))} average precision, development, the 21 predictors).
                 </Note>
               </div>
             </>

@@ -1,7 +1,7 @@
 """Refit the four library models as objects, for explanation, levers and serving.
 
-    python scripts/fit_library_models.py                       # from G:/My Drive/ANC8_training
-    python scripts/fit_library_models.py --root outputs/library
+    python scripts/fit_library_models.py                       # the study's models, outputs/core
+    python scripts/fit_library_models.py --root results_dir
 
 The library (scripts/train_library.py) keeps each model's predictions and tuned
 settings, not the fitted model. Explaining a model, applying a lever to it or
@@ -42,8 +42,8 @@ def log(m):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--root", type=Path, default=Path("G:/My Drive/ANC8_training"))
-    ap.add_argument("--lineup", default="four", choices=list(lib.LINEUPS))
+    ap.add_argument("--root", type=Path, default=ROOT / "outputs" / "core")
+    ap.add_argument("--lineup", default="three", choices=list(lib.LINEUPS))
     args = ap.parse_args()
     MODELS = lib.LINEUPS[args.lineup]
     OUT.mkdir(parents=True, exist_ok=True)

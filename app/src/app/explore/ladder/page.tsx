@@ -29,7 +29,7 @@ const BANDS = [
 
 const reach = (r: SubgroupRow, k: Rung) => (k === "anc1" ? r.reach1 : k === "anc4" ? r.reach4 : r.reach8);
 
-// A library model's name (the domain's share of what it uses, full pool), or drop-one.
+// A model's name (the domain's share of what it uses, on the 21), or drop-one.
 type Method = string;
 const DROP = "drop-one";
 
@@ -42,7 +42,7 @@ export default function LadderPage() {
   const explained = useJSON<Explained>("/data/explain.json");
   const [dim, setDim] = useState("Wealth");
   const METHODS = [
-    ...(explained.data?.models ?? []).map((m) => ({ key: m, label: MODEL_ABBR[m] ?? m, title: `The domain's share of what ${m} uses (full pool)` })),
+    ...(explained.data?.models ?? []).map((m) => ({ key: m, label: MODEL_ABBR[m] ?? m, title: `The domain's share of what ${m} uses (the 21 predictors)` })),
     { key: DROP, label: "Drop-one", title: "Share of the accuracy lost when the domain is removed" },
   ];
   const [picked, setMethod] = useState<Method>("");
@@ -79,7 +79,7 @@ export default function LadderPage() {
   const rungs = cohortRungs(cohort);
 
   const domainData = useMemo(() => {
-    const pool = explained.data?.pool;
+    const pool = explained.data?.rungs;
     const rows: Record<string, unknown>[] = method === DROP || !pool
       ? (ana.data?.ladder?.domain_rollup?.filter((r) => r.method === "drop-one") ?? [])
       : Object.keys(pool.anc8?.domains ?? {}).map((dmn) => ({

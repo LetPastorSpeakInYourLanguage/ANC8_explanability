@@ -33,7 +33,7 @@ export default function ModelAnalysisPage() {
   const studio = useStudio();
   const theme = useRenderTheme();
   // The index ranks every model; the full cards come one predictor set at a time.
-  const setParam = studio.params.get("set") ?? "pool";
+  const setParam = studio.params.get("set") ?? "s21";
   const index = useJSON<ModelsIndex>(MODELS_INDEX);
   const setData = useJSON<ModelsSet>(setFile(setParam));
 
@@ -50,7 +50,7 @@ export default function ModelAnalysisPage() {
     if (!d) return null;
     const sets = d.meta.sets.map((x) => x.key);
     const setAsked = studio.params.get("set") ?? "";
-    const set = sets.includes(setAsked) && SETS.includes(setAsked) ? setAsked : "pool";
+    const set = sets.includes(setAsked) && SETS.includes(setAsked) ? setAsked : "s21";
     const slug = (studio.params.get("model") ?? "").replace(/^[a-z0-9]+\./, "");
     const asked = slug ? `${set}.${slug}` : "";
     const best = bestAt(d, rung, set);
@@ -116,7 +116,9 @@ export default function ModelAnalysisPage() {
             </optgroup>
           ))}
         </Select>
-        <Segmented label="Predictors" options={d.meta.sets.map((x) => ({ key: x.key, label: SET_SHORT[x.key] ?? x.label }))} value={set} onChange={(k) => studio.set({ set: k })} />
+        {d.meta.sets.length > 1 && (
+          <Segmented label="Predictors" options={d.meta.sets.map((x) => ({ key: x.key, label: SET_SHORT[x.key] ?? x.label }))} value={set} onChange={(k) => studio.set({ set: k })} />
+        )}
         <Segmented label="Rung" options={RUNGS.map((r) => ({ key: r.key, label: r.label }))} value={rung} onChange={(k) => studio.set({ rung: k })} />
         <label className="flex items-center gap-6 text-10.5 text-dim">
           Compare
@@ -319,7 +321,6 @@ export default function ModelAnalysisPage() {
         )}
         <div className="border-t border-border px-14 py-10 flex flex-wrap gap-x-16 gap-y-4 text-10.5">
           <Link className="text-accent hover:underline" href={studio.href("/explore/ladder")}>The ANC ladder</Link>
-          <Link className="text-accent hover:underline" href={studio.href("/explore/predictors")}>Predictor selection</Link>
           <Link className="text-accent hover:underline" href={studio.href("/explore/cohorts")}>Cohorts</Link>
           <Link className="text-accent hover:underline" href={studio.href("/explore/models")}>Models compared</Link>
         </div>

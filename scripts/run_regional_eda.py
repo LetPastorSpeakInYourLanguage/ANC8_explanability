@@ -260,7 +260,7 @@ def drivers(models=tuple(DRIVER_MODELS)) -> pd.DataFrame:
     w = (df.v005 / 1e6).to_numpy()
     rows = []
     for (outcome, rung), key in itertools.product(RUNGS.items(), models):
-        blob = joblib.load(LIBRARY_MODELS / f"pool_{outcome}.joblib")
+        blob = joblib.load(LIBRARY_MODELS / f"s21_{outcome}.joblib")
         numeric, categorical = blob["numeric"], blob["categorical"]
         pipe = blob["models"][DRIVER_MODELS[key]]
         X = lib.design_matrix(df, numeric, categorical)

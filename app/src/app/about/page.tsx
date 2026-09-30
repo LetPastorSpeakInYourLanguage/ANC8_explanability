@@ -69,8 +69,9 @@ export default function AboutPage() {
   const nat = reg?.cohorts.full.national;
   const recent = reg?.cohorts.recent.national;
   const supported = scen?.levers.filter((l) => l.supported).length;
-  const seq = mod?.summary["pool.contact-sequence-encoder-decoder"]?.anc8?.ap;
-  const xgb = mod?.summary["pool.xgboost"]?.anc8?.ap;
+  const aps8 = ["logistic-regression", "random-forest", "xgboost"]
+    .map((s) => mod?.summary[`s21.${s}`]?.anc8?.ap).filter((v): v is number => v != null);
+  const spread8 = aps8.length === 3 ? Math.max(...aps8) - Math.min(...aps8) : undefined;
   const n = (v: number | undefined, f: (x: number) => string) => (v == null ? "…" : f(v));
 
   return (
@@ -89,14 +90,13 @@ export default function AboutPage() {
             text={<><b className="font-mono">{n(nat?.continue_4_to_8, (v) => p0(1 - v))}</b> of women who reach four contacts stop before eight.</>} />
           <Row to="/explore/cohorts" go="Cohorts"
             text={<>The 24-month cohort reproduces the EDHS report: ANC4+ <b className="font-mono">{n(recent?.reach4, p0)}</b>.</>} />
-          <Row to="/explore/predictors" go="Predictor selection" text="A handful of predictors carry most of the accuracy." />
           <Row to="/war" go="Conflict simulator"
             text={<>The Tigray war cut first contact by about <b className="font-mono">{n(war?.did_check.anc1.did, (v) => `${Math.round(v * 100)}`)}</b> points.</>} />
           <Row to="/planner" go="Scenario planner"
             text={<><b className="font-mono">{supported ?? "…"}</b> levers are supported by the data; the rest are shown but not backed.</>} />
           <Row to="/your-data?mode=register" go="First-visit screener" text="Twelve questions match the 21-predictor model." />
           <Row to="/models" go="Model analysis"
-            text={<>Networks tie the trees at ANC8+: <b className="font-mono">{n(seq, (v) => v.toFixed(2))}</b> against <b className="font-mono">{n(xgb, (v) => v.toFixed(2))}</b> average precision.</>} />
+            text={<>The three models on the 21 finish within <b className="font-mono">{n(spread8, (v) => v.toFixed(2))}</b> average precision of each other at ANC8+.</>} />
         </Panel>
 
         <div className="flex flex-col gap-10 md:gap-14 min-w-0">

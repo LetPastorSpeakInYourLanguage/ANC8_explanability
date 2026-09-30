@@ -41,6 +41,8 @@ export interface Tuning {
   trials?: number | null;
   seconds?: number | null;
   space?: SpaceRow[];
+  /** A prespecified grid: every value each setting could take, and the one chosen. */
+  grid?: { param: string; values: (string | number)[]; chosen: string | number }[];
   defaults_ap?: number;
   tuned_ap?: number;
   ablation?: { param: string; worst: number; best: number }[];
@@ -127,9 +129,9 @@ export const MODELS_INDEX = "/data/models/index.json";
 export interface Explained {
   models: string[];
   sets: Record<string, Partial<Record<Rung, { predictor: string; mean_rank: number; top5: number; shares: Record<string, number> }[]>>>;
-  /** The full candidate pool: every predictor, and every domain, under each model. */
-  pool?: Partial<Record<Rung, {
-    predictors: Record<string, { domain: string; in21: boolean; shares: Record<string, number> }>;
+  /** Every one of the 21, and every domain, under each model, per rung. */
+  rungs?: Partial<Record<Rung, {
+    predictors: Record<string, { domain: string; shares: Record<string, number> }>;
     domains: Record<string, Record<string, number>>;
   }>>;
 }
@@ -138,8 +140,8 @@ export interface Explained {
 export const MODEL_ABBR: Record<string, string> = {
   "Logistic regression": "Logistic", "Random Forest": "Forest", XGBoost: "XGBoost", "Explainable Boosting": "EBM",
 };
-export const SETS = ["pool", "s21", "short", "pars"];
-export const setFile = (set: string) => `/data/models/${SETS.includes(set) ? set : "pool"}.json`;
+export const SETS = ["s21"];
+export const setFile = (set: string) => `/data/models/${SETS.includes(set) ? set : "s21"}.json`;
 
 export const GROUPS = ["Linear", "Trees & boosting"];
 

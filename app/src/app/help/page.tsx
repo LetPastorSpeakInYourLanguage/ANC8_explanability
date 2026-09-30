@@ -23,7 +23,6 @@ const TASKS: { q: string; a: string; href: string }[] = [
   { q: "What will next year look like at my facilities?", a: "Your data", href: "/help/data" },
   { q: "Which women at their first visit should we follow up?", a: "First-visit screener", href: "/help/screener" },
   { q: "Why is one woman's chance high or low?", a: "Predict", href: "/help/predict" },
-  { q: "How many questions do we really need to ask?", a: "Predictor selection", href: "/help/predictors" },
   { q: "Is a model good enough to use?", a: "Model analysis", href: "/help/analysis" },
   { q: "Which model is best, honestly?", a: "Models compared", href: "/help/models" },
   { q: "What does average precision, or AUROC, mean?", a: "How models are judged", href: "/help/basics-models" },

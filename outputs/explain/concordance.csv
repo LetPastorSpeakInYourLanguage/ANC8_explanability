@@ -1,73 +1,10 @@
 set,rung,a,b,spearman
-pars,anc1plus,Explainable Boosting,Logistic regression,0.8
-pars,anc1plus,Explainable Boosting,Random Forest,0.8
-pars,anc1plus,Explainable Boosting,XGBoost,1.0
-pars,anc1plus,Logistic regression,Random Forest,1.0
-pars,anc1plus,Logistic regression,XGBoost,0.8
-pars,anc1plus,Random Forest,XGBoost,0.8
-pars,anc4plus,Explainable Boosting,Logistic regression,0.8809523809523809
-pars,anc4plus,Explainable Boosting,Random Forest,0.8333333333333334
-pars,anc4plus,Explainable Boosting,XGBoost,1.0
-pars,anc4plus,Logistic regression,Random Forest,0.7619047619047619
-pars,anc4plus,Logistic regression,XGBoost,0.8809523809523809
-pars,anc4plus,Random Forest,XGBoost,0.8333333333333334
-pars,anc8plus,Explainable Boosting,Logistic regression,0.9151515151515152
-pars,anc8plus,Explainable Boosting,Random Forest,0.8545454545454545
-pars,anc8plus,Explainable Boosting,XGBoost,0.8909090909090909
-pars,anc8plus,Logistic regression,Random Forest,0.6727272727272727
-pars,anc8plus,Logistic regression,XGBoost,0.7818181818181819
-pars,anc8plus,Random Forest,XGBoost,0.9515151515151515
-pool,anc1plus,Explainable Boosting,Logistic regression,0.6428699466955988
-pool,anc1plus,Explainable Boosting,Random Forest,0.3765932355299778
-pool,anc1plus,Explainable Boosting,XGBoost,0.6876780836031867
-pool,anc1plus,Logistic regression,Random Forest,0.4141799141468937
-pool,anc1plus,Logistic regression,XGBoost,0.5641003874566237
-pool,anc1plus,Random Forest,XGBoost,0.6834701394528304
-pool,anc4plus,Explainable Boosting,Logistic regression,0.7390631633567621
-pool,anc4plus,Explainable Boosting,Random Forest,0.7813378629318576
-pool,anc4plus,Explainable Boosting,XGBoost,0.6411649827073321
-pool,anc4plus,Logistic regression,Random Forest,0.6799981137861687
-pool,anc4plus,Logistic regression,XGBoost,0.5672167030907976
-pool,anc4plus,Random Forest,XGBoost,0.8476148246592796
-pool,anc8plus,Explainable Boosting,Logistic regression,0.5910373130808056
-pool,anc8plus,Explainable Boosting,Random Forest,0.5334597568713589
-pool,anc8plus,Explainable Boosting,XGBoost,0.5792363647687084
-pool,anc8plus,Logistic regression,Random Forest,0.330238789412804
-pool,anc8plus,Logistic regression,XGBoost,0.5234779656192163
-pool,anc8plus,Random Forest,XGBoost,0.7464879093507939
-s21,anc1plus,Explainable Boosting,Logistic regression,0.7233766233766233
-s21,anc1plus,Explainable Boosting,Random Forest,0.8376623376623377
-s21,anc1plus,Explainable Boosting,XGBoost,0.9272727272727272
-s21,anc1plus,Logistic regression,Random Forest,0.7623376623376623
-s21,anc1plus,Logistic regression,XGBoost,0.7493506493506493
-s21,anc1plus,Random Forest,XGBoost,0.9116883116883117
-s21,anc4plus,Explainable Boosting,Logistic regression,0.8220779220779221
-s21,anc4plus,Explainable Boosting,Random Forest,0.7831168831168831
-s21,anc4plus,Explainable Boosting,XGBoost,0.9506493506493506
-s21,anc4plus,Logistic regression,Random Forest,0.7610389610389611
-s21,anc4plus,Logistic regression,XGBoost,0.8090909090909091
-s21,anc4plus,Random Forest,XGBoost,0.7337662337662337
-s21,anc8plus,Explainable Boosting,Logistic regression,0.6909090909090909
-s21,anc8plus,Explainable Boosting,Random Forest,0.6090909090909091
-s21,anc8plus,Explainable Boosting,XGBoost,0.8532467532467533
-s21,anc8plus,Logistic regression,Random Forest,0.33376623376623377
-s21,anc8plus,Logistic regression,XGBoost,0.574025974025974
-s21,anc8plus,Random Forest,XGBoost,0.8194805194805195
-short,anc1plus,Explainable Boosting,Logistic regression,1.0
-short,anc1plus,Explainable Boosting,Random Forest,1.0
-short,anc1plus,Explainable Boosting,XGBoost,1.0
-short,anc1plus,Logistic regression,Random Forest,1.0
-short,anc1plus,Logistic regression,XGBoost,1.0
-short,anc1plus,Random Forest,XGBoost,1.0
-short,anc4plus,Explainable Boosting,Logistic regression,1.0
-short,anc4plus,Explainable Boosting,Random Forest,1.0
-short,anc4plus,Explainable Boosting,XGBoost,1.0
-short,anc4plus,Logistic regression,Random Forest,1.0
-short,anc4plus,Logistic regression,XGBoost,1.0
-short,anc4plus,Random Forest,XGBoost,1.0
-short,anc8plus,Explainable Boosting,Logistic regression,0.7619047619047619
-short,anc8plus,Explainable Boosting,Random Forest,0.9761904761904762
-short,anc8plus,Explainable Boosting,XGBoost,1.0
-short,anc8plus,Logistic regression,Random Forest,0.8333333333333334
-short,anc8plus,Logistic regression,XGBoost,0.7619047619047619
-short,anc8plus,Random Forest,XGBoost,0.9761904761904762
+s21,anc1plus,Logistic regression,Random Forest,0.8077922077922078
+s21,anc1plus,Logistic regression,XGBoost,0.7974025974025974
+s21,anc1plus,Random Forest,XGBoost,0.9025974025974026
+s21,anc4plus,Logistic regression,Random Forest,0.7948051948051948
+s21,anc4plus,Logistic regression,XGBoost,0.7415584415584415
+s21,anc4plus,Random Forest,XGBoost,0.7389610389610389
+s21,anc8plus,Logistic regression,Random Forest,0.39090909090909093
+s21,anc8plus,Logistic regression,XGBoost,0.7168831168831169
+s21,anc8plus,Random Forest,XGBoost,0.6025974025974026
