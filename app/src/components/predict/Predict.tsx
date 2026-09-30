@@ -48,6 +48,22 @@ function cardKey(m: CatalogModel) {
   return m.horizon === "before" ? slug : "";
 }
 
+const SERVICE_DOWN = "The prediction service is not reachable from this copy of the site. Logistic regression scores in your browser.";
+
+/** Is the prediction service there? Asked once: a site without Python (a local
+ *  preview, a static copy) answers with a page, not with the service's status. */
+async function serviceUp(): Promise<boolean> {
+  if (!PREDICT_API) return false;
+  try {
+    const res = await fetch(PREDICT_API, { method: "GET" });
+    if (!res.ok || !(res.headers.get("content-type") ?? "").includes("json")) return false;
+    const j = (await res.json()) as { status?: string };
+    return j.status === "ok";
+  } catch {
+    return false;
+  }
+}
+
 async function scoreRemote(answers: Answers, models: CatalogModel[]): Promise<Record<string, Scored>> {
   if (!PREDICT_API) throw new Error("no prediction service in this copy of the site");
   const byBundle: Record<string, string[]> = {};
@@ -57,6 +73,7 @@ async function scoreRemote(answers: Answers, models: CatalogModel[]): Promise<Re
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ answers, models: byBundle }),
   });
+  if (!res.ok || !(res.headers.get("content-type") ?? "").includes("json")) throw new Error(SERVICE_DOWN);
   const json = (await res.json()) as ApiResponse & { error?: string };
   if (json.error) throw new Error(json.error);
   const out: Record<string, Scored> = {};
@@ -86,7 +103,9 @@ export default function Predict({
   insights: Insights;
   initial: Answers;
 }) {
-  const canRemote = !!PREDICT_API;
+  // Until the service answers, only the browser's models are offered.
+  const [canRemote, setCanRemote] = useState(false);
+  useEffect(() => { serviceUp().then(setCanRemote); }, []);
   const usable = (m: CatalogModel) => (m.browser && !!browser) || canRemote;
   const fieldsByName = useMemo(
     () => Object.fromEntries(schema.fields.map((f) => [f.name, f])) as Record<string, Field>,
@@ -131,9 +150,8 @@ export default function Predict({
     if (now && usable(now)) return;
     const pick = choices.find(usable) ?? choices[0];
     if (pick) setAlgorithm(pick.algorithm);
-    setCompare(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [choices]);
+  }, [choices, canRemote]);
 
   const model = choices.find((m) => m.algorithm === algorithm);
   const modelId = model?.id ?? "";
@@ -181,7 +199,9 @@ export default function Predict({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model?.id, answers, browser]);
 
-  const runCompare = async () => {
+  const cmpSeq = useRef(0);
+  useEffect(() => {
+    const id = ++cmpSeq.current;
     const local: Record<string, Scored> = {};
     const remote: CatalogModel[] = [];
     for (const m of choices) {
@@ -189,14 +209,17 @@ export default function Predict({
       else if (canRemote) remote.push(m);
     }
     setCompare(local);
-    if (remote.length) {
+    if (!remote.length) return;
+    const t = setTimeout(async () => {
       try {
-        setCompare({ ...local, ...(await scoreRemote(answers, remote)) });
+        const r = await scoreRemote(answers, remote);
+        if (id === cmpSeq.current) setCompare({ ...local, ...r });
       } catch (e) {
-        setCompare({ ...local, _error: { probability: NaN, error: String(e) } });
+        if (id === cmpSeq.current) setCompare({ ...local, _error: { probability: NaN, error: e instanceof Error ? e.message : String(e) } });
       }
-    }
-  };
+    }, 600);
+    return () => clearTimeout(t);
+  }, [choices, answers, browser, canRemote]);
 
   // The questions the chosen model asks: the most influential first.
   const asked = useMemo(() => {
@@ -276,7 +299,7 @@ export default function Predict({
               const m = choices.find((c) => c.algorithm === a);
               return {
                 key: a, label: SHORT[a], disabled: !m || !usable(m),
-                title: !m ? "No such model for this rung" : !usable(m) ? "Needs the prediction service"
+                title: !m ? "No such model for this rung" : !usable(m) ? "Needs the prediction service, which this copy of the site cannot reach"
                   : `Held-out AP ${m.heldout_AP?.toFixed(3) ?? "–"}${m.browser ? " · scored in your browser" : ""}`,
               };
             })}
@@ -370,7 +393,7 @@ export default function Predict({
               </>
             ) : (
               <div className={`text-11 ${current?.error ? "text-warn" : "text-dim"}`}>
-                {current?.error ?? (busy || canRemote || model?.browser ? "Scoring…" : "This model needs the prediction service. Choose one marked instant.")}
+                {current?.error ?? (busy || canRemote || model?.browser ? "Scoring…" : SERVICE_DOWN)}
               </div>
             )}
           </div>
@@ -396,8 +419,7 @@ export default function Predict({
 
         <Panel help="predict.compare"
           title={`Every ${outcomeLabel} model`}
-          actions={<button type="button" className={btn} onClick={runCompare}>{compare ? "Refresh" : "Compare"}</button>}
-          how="Scores these answers with every model for this question, to see whether they agree. Click one to switch to it."
+          how="These answers scored by every model for this question, updated as they change, to see whether the models agree. Click one to switch to it."
         >
           {compare ? (
             <>
@@ -407,9 +429,10 @@ export default function Predict({
                   const good = r && Number.isFinite(r.probability);
                   return {
                     key: m.id,
-                    label: `${m.recommended ? "★ " : ""}${modelLabel(m)}`,
+                    label: modelLabel(m),
                     values: { p: good ? r.probability : null },
-                    display: good ? pct(r.probability, 0) : r?.error ? "error" : "–",
+                    display: good ? pct(r.probability, 0) : "–",
+                    sub: !good && !usable(m) ? "needs the prediction service" : undefined,
                   };
                 })}
                 series={[{ key: "p", label: "Chance", color: "var(--accent)" }]}
@@ -425,7 +448,7 @@ export default function Predict({
               {compare._error && <div className="px-14 pb-10"><Note>{compare._error.error}</Note></div>}
             </>
           ) : (
-            <p className="px-14 py-10 text-10.5 text-dim">{choices.length} models can score these answers.</p>
+            <p className="px-14 py-10 text-10.5 text-dim">Scoring…</p>
           )}
         </Panel>
       </aside>

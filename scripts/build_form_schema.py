@@ -188,6 +188,8 @@ def main():
                 for r in reg2.itertuples()}
     register.update({r.final_variable: {"domain": r.domain, "description": r.construct}
                      for r in reg1.itertuples()})
+    # Age at the birth replaces current age in the 21: it asks about the same woman.
+    register["age_at_birth"] = {"domain": register["v012"]["domain"], "description": "Mother's age at the birth"}
 
     held = {o: pd.read_csv(ENHANCED / o / "heldout_performance.csv") for o in OUTCOMES}
     t1 = pd.read_csv(ROOT / "outputs/publication_results/main_tables"

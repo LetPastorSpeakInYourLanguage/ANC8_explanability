@@ -127,8 +127,8 @@ LEVERS = [
      "who": "women who do not listen to radio weekly", "apply": _information},
     {"key": "intention", "label": "Every pregnancy wanted (family planning)", "concept": "intention",
      "who": "women whose pregnancy was mistimed or unwanted", "apply": _intention},
-    {"key": "agency", "label": "Women share household decisions", "concept": "agency",
-     "who": "women with no say in household or health decisions", "apply": _agency},
+    {"key": "agency", "label": "Women take part in decisions on their own healthcare", "concept": "agency",
+     "who": "women who take no part in decisions on their own healthcare", "apply": _agency},
 ]
 
 

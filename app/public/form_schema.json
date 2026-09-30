@@ -124,6 +124,15 @@
    "default": 28.0
   },
   {
+   "name": "age_at_birth",
+   "label": "Mother's age at the birth",
+   "help": "",
+   "unit": "",
+   "domain": "Maternal and sociodemographic",
+   "type": "number",
+   "default": 27.0
+  },
+  {
    "name": "partner_education",
    "label": "Partner education",
    "help": "",
@@ -563,15 +572,6 @@
    "domain": "Health service and access",
    "type": "number",
    "default": 40.0
-  },
-  {
-   "name": "age_at_birth",
-   "label": "age_at_birth",
-   "help": "",
-   "unit": "",
-   "domain": "Other",
-   "type": "number",
-   "default": 27.0
   }
  ],
  "models": [
