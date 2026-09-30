@@ -65,7 +65,7 @@ export default function FixedVsAdjustable({
     <Panel help="planner.fixed"
       title={`What can move and what cannot · ${region || "between regions"} · ${RUNG_LABEL[rung]}`}
       how={region
-        ? `Why ${region}'s predicted ${RUNG_LABEL[rung]} differs from Ethiopia's, split exactly across groups of circumstances by the explainable boosting model, in approximate percentage points. Left: circumstances a ministry cannot change directly, held fixed in every scenario. Right: circumstances programmes can move; their sliders are the planner's own, so the map and charts above change as you drag.`
+        ? `Why ${region}'s predicted ${RUNG_LABEL[rung]} differs from Ethiopia's, split exactly across groups of circumstances by the ${model === "logistic" ? "logistic regression" : "explainable boosting"} model, in approximate percentage points. Left: circumstances a ministry cannot change directly, held fixed in every scenario. Right: circumstances programmes can move; their sliders are the planner's own, so the map and charts above change as you drag.`
         : "How much each group of circumstances separates the regions from one another (the births-weighted average gap, in approximate percentage points). Pick a region on the map to see what holds that region back."}
     >
       <div className="px-14 py-10 border-b border-border">

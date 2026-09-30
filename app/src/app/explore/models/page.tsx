@@ -431,7 +431,7 @@ export default function ModelsPage() {
 
         <Panel help="models.lean"
           title={`What the models lean on · ${setLabel} · ${RUNG_LABEL[rung]}`}
-          how="Each predictor's share of what each model uses, on the held-out women: logistic regression and explainable boosting split their own predictions exactly; the tree models by SHAP. Rows are the predictors the models agree on most, best first. One shading for the whole grid."
+          how={`Each predictor's share of what each model uses, on the held-out women: ${leanModels.includes("Explainable Boosting") ? "logistic regression and explainable boosting split their own predictions" : "logistic regression splits its own predictions"} exactly; the tree models by SHAP. Rows are the predictors the models agree on most, best first. One shading for the whole grid.`}
         >
           {leanRows.length ? (
             <MatrixHeat

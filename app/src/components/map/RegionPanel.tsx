@@ -244,7 +244,7 @@ export default function RegionPanel({
           <Section
             help="map.region-why"
             title={`Why ${rungLabel} differs from Ethiopia`}
-            how="The model predicts each woman's chance as a sum of one term per factor (explainable boosting or logistic regression: the switch chooses). The region's average minus the national average splits exactly across factors: bars to the left pull this region below Ethiopia, bars to the right lift it. Factors a health system can change are marked. This is the model's arithmetic, not proof of cause."
+            how={`The model predicts each woman's chance as a sum of one term per factor (${driverModels.length > 1 ? "explainable boosting or logistic regression: the switch chooses" : "logistic regression"}). The region's average minus the national average splits exactly across factors: bars to the left pull this region below Ethiopia, bars to the right lift it. Factors a health system can change are marked. This is the model's arithmetic, not proof of cause.`}
             right={
               <span className="flex items-center gap-6">
                 {driverModels.length > 1 && (
