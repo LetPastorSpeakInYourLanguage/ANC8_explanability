@@ -24,7 +24,7 @@ const STEPS: { path: string; title: string; say: string }[] = [
   { path: "/explore/predictors?rung=anc8", title: "How many predictors",
     say: "From 6,648 survey columns to the few that carry the prediction: most of the accuracy arrives with the first two." },
   { path: "/explore/models?rung=anc8", title: "Every model, honestly",
-    say: "Development against held-out women for every model and both networks. The ranking is on women no model saw." },
+    say: "Development against held-out women for every model in the library. The ranking is on women no model saw." },
   { path: "/planner?lv=insurance:60,intention:50,early:40&rung=anc8", title: "What if",
     say: "Move the levers the data support and see each region respond, with each lever's weight. A budget is spent where it buys most women." },
   { path: "/war?hit=Amhara&rung=anc1", title: "If conflict returns",

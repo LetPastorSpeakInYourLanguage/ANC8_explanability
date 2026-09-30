@@ -75,13 +75,6 @@ export interface ExploreData {
   edhs_anc4: { national: number; regions: Record<string, number>; source: string };
   contacts?: Record<Cohort, Record<string, { share: number[]; n: number }>>;
   contact_cap?: number;
-  networks?: {
-    heldout: NetworkRow[];
-    development: (NetworkRow & { AP_sd: number; AUROC_sd: number })[];
-    paired: PairedRow[];
-    ladder_violations: Record<string, number>;
-    seeds: number[];
-  };
 }
 
 export const NETWORKS = ["Ladder transformer", "Contact-sequence encoder-decoder"];

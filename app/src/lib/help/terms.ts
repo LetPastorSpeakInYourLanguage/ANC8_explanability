@@ -16,8 +16,6 @@ export const TERMS: HelpTerm[] = [
     example: "At ANC8+, where about 1 woman in 5 reaches the rung, an AP of 0.40 means the model's top picks are about twice as likely to be right as random picks." },
   { id: "association", name: "Association",
     plain: "Two things that tend to go together in the data. It does not show that one causes the other: both may follow from a third thing the survey did or did not measure." },
-  { id: "attention", name: "Attention",
-    plain: "In a network, how much weight it gives to each answer when forming a prediction. It shows where the network looked, not what matters or what causes anything." },
   { id: "auroc", name: "AUROC", aka: ["AUC", "area under the ROC curve"],
     plain: "Pick one woman who reached the rung and one who did not: the chance the model scores the first higher. 0.50 is a coin toss, 1.00 always right.",
     example: "The studio's models sit between about 0.70 and 0.85." },

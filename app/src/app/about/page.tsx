@@ -35,7 +35,6 @@ const TERMS: [string, string][] = [
   ["PSU bootstrap", "Resampling whole survey clusters to get honest 95% intervals."],
   ["G-computation", "Re-scoring every woman as if a factor changed, then averaging. The planner's method."],
   ["SHAP", "A share of each prediction credited to each predictor."],
-  ["Attention", "Where a network looks. It shows what the network used, not what matters."],
 ];
 
 const DOCS: [string, string][] = [
