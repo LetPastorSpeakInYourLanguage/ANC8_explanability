@@ -3,12 +3,11 @@
   "n_development": 5518,
   "n_heldout": 1375,
   "resamples": 500,
-  "lineup": "four",
+  "lineup": "three",
   "models": [
    "Logistic regression",
    "Random Forest",
-   "XGBoost",
-   "Explainable Boosting"
+   "XGBoost"
   ],
   "sets": [
    {
@@ -33,68 +32,68 @@
   "anc1": {
    "best": "Stacked ensemble",
    "prevalence": 0.7615691189556617,
-   "n_models": 14
+   "n_models": 11
   },
   "anc4": {
    "best": "Stacked ensemble",
    "prevalence": 0.5176109040661865,
-   "n_models": 14
+   "n_models": 11
   },
   "anc8": {
    "best": "Stacked ensemble",
    "prevalence": 0.15980392199863247,
-   "n_models": 14
+   "n_models": 11
   }
  },
  "s21": {
   "anc1": {
    "best": "Logistic regression",
    "prevalence": 0.7615691189556617,
-   "n_models": 14
+   "n_models": 11
   },
   "anc4": {
    "best": "XGBoost",
    "prevalence": 0.5176109040661865,
-   "n_models": 14
+   "n_models": 11
   },
   "anc8": {
    "best": "Stacked ensemble",
    "prevalence": 0.15980392199863247,
-   "n_models": 14
+   "n_models": 11
   }
  },
  "short": {
   "anc1": {
    "best": "Logistic regression",
    "prevalence": 0.7615691189556617,
-   "n_models": 14
+   "n_models": 11
   },
   "anc4": {
    "best": "Logistic regression",
    "prevalence": 0.5176109040661865,
-   "n_models": 14
+   "n_models": 11
   },
   "anc8": {
-   "best": "Logistic regression",
+   "best": "Stacked ensemble",
    "prevalence": 0.15980392199863247,
-   "n_models": 14
+   "n_models": 11
   }
  },
  "pars": {
   "anc1": {
    "best": "Logistic regression",
    "prevalence": 0.7615691189556617,
-   "n_models": 14
+   "n_models": 11
   },
   "anc4": {
-   "best": "Explainable Boosting",
+   "best": "Stacked ensemble",
    "prevalence": 0.5176109040661865,
-   "n_models": 14
+   "n_models": 11
   },
   "anc8": {
-   "best": "Explainable Boosting",
+   "best": "Logistic regression",
    "prevalence": 0.15980392199863247,
-   "n_models": 14
+   "n_models": 11
   }
  }
 }
