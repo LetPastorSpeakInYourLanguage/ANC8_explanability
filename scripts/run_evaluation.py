@@ -226,36 +226,13 @@ def main():
     sel_params = dict(best[SELECTOR])
     sel_params["n_estimators"] = min(sel_params.get("n_estimators", 300), 300)
 
-    log(f"pre-screening candidates for parsimony (selector: {SELECTOR})")
-    import lightgbm as _lgb
-    _screen = tuning.fit_final(SELECTOR, sel_params, X_dev, y_dev, w_dev,
-                               numeric, categorical)
-    _imp = _screen.named_steps["model"].feature_importances_
-    _names = numeric + categorical
-    shortlist = [n for _, n in sorted(zip(_imp, _names), reverse=True)][:PRESCREEN_N]
-    log(f"  shortlist of {len(shortlist)} from {len(_names)} predictors")
-
-    log("parsimonious forward selection")
-    chosen, remaining = [], list(shortlist)
-    best_ap = 0.0
-    for step in range(MAX_PREDICTORS):
-        scores = []
-        for cand in remaining:
-            cols = chosen + [cand]
-            n_ = [c for c in cols if c in numeric]
-            c_ = [c for c in cols if c in categorical]
-            p = tuning.oof_predict(SELECTOR, sel_params, prep(dev, cols), y_dev, w_dev,
-                                   splits, n_, c_)
-            scores.append((average_precision_score(y_dev, p, sample_weight=w_dev), cand))
-        scores.sort(reverse=True)
-        gain = scores[0][0] - best_ap
-        if step >= 4 and gain < 0.002:
-            log(f"  stopping at {len(chosen)} predictors (gain {gain:.4f})")
-            break
-        best_ap, pick = scores[0]
-        chosen.append(pick)
-        remaining = [c for c in remaining if c != pick]
-        log(f"  +{pick:38s} AP={best_ap:.4f}")
+    log(f"parsimonious forward selection (selector: {SELECTOR})")
+    from anc8 import parsimony
+    chosen, path = parsimony.forward(
+        dev[numeric + categorical].assign(**{c: dev[c].astype(str) for c in categorical}),
+        y_dev, w_dev, splits, numeric, categorical, sel_params,
+        prescreen=PRESCREEN_N, max_steps=MAX_PREDICTORS, log=log)
+    best_ap = path[-1]["AP"] if path else 0.0
 
     pool = SELECTOR
 

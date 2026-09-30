@@ -315,6 +315,11 @@ def population(casc: pd.DataFrame) -> dict:
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--models", nargs="*", choices=list(DRIVER_MODELS), default=list(DRIVER_MODELS),
+                    help="the additive models the regional drivers are split by")
+    args = ap.parse_args()
     t0 = time.time()
     OUT.mkdir(parents=True, exist_ok=True)
     print("regional analysis", flush=True)
@@ -325,7 +330,7 @@ def main():
     sub.to_csv(OUT / "subgroups_by_region.csv", index=False)
     prof = profile()
     prof.to_csv(OUT / "profile_by_region.csv", index=False)
-    drv = drivers()
+    drv = drivers(tuple(args.models))
     drv.to_csv(OUT / "drivers_by_region.csv", index=False)
     concept_drivers(drv).to_csv(OUT / "drivers_concepts_by_region.csv", index=False)
     pop = population(casc)

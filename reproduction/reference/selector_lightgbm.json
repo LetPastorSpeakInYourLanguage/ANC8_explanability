@@ -1,0 +1,32 @@
+{
+  "anc1plus": {
+    "n_estimators": 750,
+    "learning_rate": 0.010927561355242721,
+    "num_leaves": 15,
+    "min_child_samples": 28,
+    "subsample": 0.7284304751788764,
+    "colsample_bytree": 0.5272867093995823,
+    "reg_lambda": 0.20889423518253225,
+    "reg_alpha": 0.10322007632896837
+  },
+  "anc4plus": {
+    "n_estimators": 700,
+    "learning_rate": 0.011249396844909363,
+    "num_leaves": 48,
+    "min_child_samples": 13,
+    "subsample": 0.8010557815438502,
+    "colsample_bytree": 0.8372459915330264,
+    "reg_lambda": 0.03450486420928078,
+    "reg_alpha": 0.20764116180805875
+  },
+  "anc8plus": {
+    "n_estimators": 900,
+    "learning_rate": 0.012746501831344233,
+    "num_leaves": 52,
+    "min_child_samples": 75,
+    "subsample": 0.7586827555677287,
+    "colsample_bytree": 0.8667532718580032,
+    "reg_lambda": 0.6820373504855411,
+    "reg_alpha": 2.8768520805499125
+  }
+}

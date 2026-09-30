@@ -163,17 +163,23 @@ def _digest(ids) -> str:
     return hashlib.md5("|".join(map(str, ids)).encode()).hexdigest()[:12]
 
 
-@lru_cache(maxsize=1)
-def partitions():
-    """Development and held-out women, checked against the study's locked design."""
-    df, _ = _frame()
+# The study's partition, as digests of the women's case ids (in order) and of the
+# fold assignment: any run, on any machine, must reproduce these exactly.
+DEV_DIGEST, HELD_DIGEST, FOLD_DIGEST = "abe41580c1bb", "39b5ecd77018", "78fee5ef2269"
+
+
+@lru_cache(maxsize=2)
+def partitions(base: bool = False):
+    """Development and held-out women, checked against the study's locked design.
+
+    base=True takes them from the analysis frame alone, before the duplicate
+    analysis the candidate pool depends on (for the 95-predictor pool)."""
+    df = cohorts.load("full") if base else _frame()[0]
     dev, held = cohorts.development(df), cohorts.heldout(df)
-    lock = pd.read_csv(HANDOFF / "full_cohort_locked_predictions.csv", usecols=["caseid"])
-    assert set(held.caseid) == set(lock.caseid.astype(str)), "held-out women differ from the locked set"
-    idx = pd.read_csv(ENHANCED / "anc8plus" / "development_index.csv", usecols=["caseid", "fold"])
     folds = design.make_psu_stratum_folds(dev).to_numpy()
-    assert (idx.caseid.astype(str).to_numpy() == dev.caseid.to_numpy()).all(), "development order differs"
-    assert (idx.fold.to_numpy() == folds).all(), "development folds differ from the locked folds"
+    assert _digest(held.caseid) == HELD_DIGEST, "held-out women differ from the study's"
+    assert _digest(dev.caseid) == DEV_DIGEST, "development women (or their order) differ from the study's"
+    assert _digest(folds) == FOLD_DIGEST, "development folds differ from the study's"
     return dev, held
 
 
@@ -198,7 +204,7 @@ class Data:
 
 
 def data(set_: str, rung: str) -> Data:
-    dev, held = partitions()
+    dev, held = partitions(base=set_ == "pool95")
     num, cat = (list(x) for x in predictors(set_, rung))
     return Data(design_matrix(dev, num, cat), design_matrix(held, num, cat),
                 dev[rung].astype(int).to_numpy(), held[rung].astype(int).to_numpy(),

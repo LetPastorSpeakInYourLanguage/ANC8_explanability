@@ -121,13 +121,14 @@ def main():
     ap.add_argument("--outcome", nargs="*", default=list(outcomes.LADDER), choices=outcomes.LADDER)
     ap.add_argument("--set", default="pool", choices=lib.SETS)
     ap.add_argument("--root", type=Path, default=LIBRARY_ROOT, help="the library's results folder")
+    ap.add_argument("--models", nargs="*", default=MODELS, choices=MODELS)
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     for outcome in args.outcome:
-        run(outcome, args.set, args.root)
+        run(outcome, args.set, args.root, args.models)
 
 
-def run(OUTCOME, set_, root):
+def run(OUTCOME, set_, root, models=MODELS):
     log(f"outcome: {outcomes.describe(OUTCOME)}, predictor set {set_}")
     d = lib.data(set_, OUTCOME)
     X, y, w, splits = d.X_dev, d.y_dev, d.w_dev, d.splits
@@ -139,7 +140,7 @@ def run(OUTCOME, set_, root):
                 roc_auc_score(y, p, sample_weight=w))
 
     rows = []
-    for model in MODELS:
+    for model in models:
         tuned = dict(lib.load_cell(root, set_, OUTCOME, model)["meta"]["params"])
 
         log(f"\n{model}")

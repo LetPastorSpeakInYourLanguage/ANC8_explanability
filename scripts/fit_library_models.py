@@ -33,7 +33,6 @@ sys.path.insert(0, str(ROOT / "src"))
 from anc8 import library as lib, tuning  # noqa: E402
 
 OUT = ROOT / "outputs" / "library" / "models"
-MODELS = lib.LINEUPS["four"]
 TOL = 1e-9
 
 
@@ -44,7 +43,9 @@ def log(m):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", type=Path, default=Path("G:/My Drive/ANC8_training"))
+    ap.add_argument("--lineup", default="four", choices=list(lib.LINEUPS))
     args = ap.parse_args()
+    MODELS = lib.LINEUPS[args.lineup]
     OUT.mkdir(parents=True, exist_ok=True)
 
     bad = []

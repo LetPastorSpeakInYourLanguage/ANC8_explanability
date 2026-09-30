@@ -41,14 +41,16 @@ def _first(*paths: Path) -> Path:
 
 FROZEN = _first(ROOT / "outputs" / "enhanced" / "ANC8_analysis_frozen_v2.pkl",
                 ROOT / "data" / "ANC8_analysis_frozen_v2.pkl")
-IR_FILE = _first(ROOT / "ETIR8AFL.dta", ROOT / "ETIR8AFL.DTA")
+IR_FILE = _first(ROOT / "ETIR8AFL.dta", ROOT / "ETIR8AFL.DTA",
+                 ROOT / "data" / "ETIR8AFL.DTA", ROOT / "data" / "ETIR8AFL.dta")
 TIMING_CACHE = _first(ROOT / "outputs" / "enhanced" / "birth_timing.parquet",
                       ROOT / "data" / "birth_timing.parquet")
 
 HANDOFF = ROOT / "outputs" / "notebook3_explainability_handoff"
 ENTRY_FILES = (HANDOFF / "anc_entry_development.pkl", HANDOFF / "anc_entry_heldout.pkl")
-# The release package ships the same cohort as one small table instead.
-ENTRY_TABLE = ROOT / "data" / "anc_entry.csv"
+# The release package ships the same cohort as one small table instead, and the
+# reproduction notebooks rebuild it from the survey file into outputs/enhanced/.
+ENTRY_TABLE = _first(ROOT / "outputs" / "enhanced" / "anc_entry.csv", ROOT / "data" / "anc_entry.csv")
 
 RECENT_MONTHS = 24
 COHORTS = ("full", "entry", "recent")

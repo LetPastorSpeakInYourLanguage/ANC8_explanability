@@ -587,6 +587,28 @@ def test_wording():
           not hits, "; ".join(hits[:12]) + (" ..." if len(hits) > 12 else "")
           if hits else f"{len(docs)} documents")
 
+    # The reproduction notebooks are read by other researchers: their prose and code
+    # comments follow the same rule.
+    rep = ROOT / "reproduction"
+    if rep.exists():
+        import nbformat
+        hits = []
+        for f in sorted(rep.rglob("*.md")) + sorted(rep.rglob("*.ipynb")):
+            if "executed" in f.parts:
+                continue
+            if f.suffix == ".md":
+                lines = f.read_text(encoding="utf-8").splitlines()
+            else:
+                nb = nbformat.read(f, as_version=4)
+                lines = [ln for c in nb.cells for ln in c.source.splitlines()
+                         if c.cell_type == "markdown" or ln.lstrip().startswith("#")]
+            for i, line in enumerate(lines, 1):
+                for pat, name in BANNED:
+                    if re.search(pat, line):
+                        hits.append(f"{f.relative_to(rep)}:{i} {name}")
+        check("no reproduction notebook uses the old framing or carries a clock time or date",
+              not hits, "; ".join(hits[:12]) + (" ..." if len(hits) > 12 else "") if hits else "reproduction/")
+
     # The studio's own screens carry the same rule: what a reader sees on screen must
     # frame the work the way the documents do.
     src = ROOT / "app" / "src"
