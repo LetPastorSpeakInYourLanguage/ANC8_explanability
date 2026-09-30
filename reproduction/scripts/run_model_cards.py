@@ -270,16 +270,14 @@ def ci(a):
 
 # ------------------------------------------------------------------ main
 def lineup_models(lineup: str) -> dict:
-    """{display name: library cell name} for a lineup: its models, their two
-    calibrated versions, and the lineup's own two ensembles."""
-    out = {}
-    for m in lib.LINEUPS[lineup]:
-        out[m] = m
-        for c in lib.CALIBRATIONS:
-            out[lib.calibrated_name(m, c)] = lib.calibrated_name(m, c)
-    out["Stacked ensemble"] = lib.ensemble_name("stack", lineup)
-    out["Cumulative-link ensemble"] = lib.ensemble_name("cumlink", lineup)
-    return out
+    """{display name: library cell name} for a lineup: its models, as tuned.
+
+    The library also holds each model's isotonic and Platt recalibrations and two
+    ensembles. None earns a place in the studio: Platt never changes the ranking,
+    isotonic costs average precision at every rung, the stacked ensemble's edge
+    over the best single model is inside its interval, and the cumulative-link
+    ensemble comes last. They stay in the library as a record."""
+    return {m: m for m in lib.LINEUPS[lineup]}
 
 
 def cells_for(library: Path, set_: str, rung: str, lineup: str) -> dict:

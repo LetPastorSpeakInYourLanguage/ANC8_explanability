@@ -30,70 +30,70 @@
  },
  "pool": {
   "anc1": {
-   "best": "Stacked ensemble",
+   "best": "Logistic regression",
    "prevalence": 0.7615691189556617,
-   "n_models": 11
+   "n_models": 3
   },
   "anc4": {
-   "best": "Stacked ensemble",
+   "best": "XGBoost",
    "prevalence": 0.5176109040661865,
-   "n_models": 11
+   "n_models": 3
   },
   "anc8": {
-   "best": "Stacked ensemble",
+   "best": "XGBoost",
    "prevalence": 0.15980392199863247,
-   "n_models": 11
+   "n_models": 3
   }
  },
  "s21": {
   "anc1": {
    "best": "Logistic regression",
    "prevalence": 0.7615691189556617,
-   "n_models": 11
+   "n_models": 3
   },
   "anc4": {
    "best": "XGBoost",
    "prevalence": 0.5176109040661865,
-   "n_models": 11
+   "n_models": 3
   },
   "anc8": {
-   "best": "Stacked ensemble",
+   "best": "Logistic regression",
    "prevalence": 0.15980392199863247,
-   "n_models": 11
+   "n_models": 3
   }
  },
  "short": {
   "anc1": {
    "best": "Logistic regression",
    "prevalence": 0.7615691189556617,
-   "n_models": 11
+   "n_models": 3
   },
   "anc4": {
    "best": "Logistic regression",
    "prevalence": 0.5176109040661865,
-   "n_models": 11
+   "n_models": 3
   },
   "anc8": {
-   "best": "Stacked ensemble",
+   "best": "Logistic regression",
    "prevalence": 0.15980392199863247,
-   "n_models": 11
+   "n_models": 3
   }
  },
  "pars": {
   "anc1": {
    "best": "Logistic regression",
    "prevalence": 0.7615691189556617,
-   "n_models": 11
+   "n_models": 3
   },
   "anc4": {
-   "best": "Stacked ensemble",
+   "best": "Logistic regression",
    "prevalence": 0.5176109040661865,
-   "n_models": 11
+   "n_models": 3
   },
   "anc8": {
    "best": "Logistic regression",
    "prevalence": 0.15980392199863247,
-   "n_models": 11
+   "n_models": 3
   }
  }
 }

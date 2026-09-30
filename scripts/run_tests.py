@@ -745,15 +745,14 @@ def test_studio():
             cards.update(json.loads((mp.parent / f"{st['key']}.json").read_text(encoding="utf-8"))["cards"])
         check("the models index summarises exactly the cards in the set files",
               set(mj["summary"]) == set(cards) and all(set(mj["summary"][k]) == set(cards[k]) for k in cards))
-        # The library is complete for the build's lineup: every model, its calibrated
-        # versions and the two ensembles, on every predictor set at every rung.
+        # The library is complete for the build's lineup: every model on every
+        # predictor set at every rung.
         sys.path.insert(0, str(ROOT / "src"))
         from anc8 import library as _lib
         import re as _re
         slug = lambda m: _re.sub(r"[^a-z0-9]+", "-", m.lower()).strip("-")
         lineup = mj["meta"].get("models") or _lib.LINEUPS["four"]
-        names = ([m for m in lineup] + [_lib.calibrated_name(m, c) for m in lineup for c in _lib.CALIBRATIONS]
-                 + ["Stacked ensemble", "Cumulative-link ensemble"])
+        names = list(lineup)
         want = [(f"{s}.{slug(m)}", "anc" + r[3]) for s in _lib.SETS for r in _lib.RUNGS for m in names]
         gone = [f"{k}/{r}" for k, r in want if r not in cards.get(k, {})]
         check("every model, predictor set and rung has a card", not gone,
@@ -761,11 +760,7 @@ def test_studio():
         summ = ROOT / "outputs" / "library" / "summary.csv"
         if summ.exists():
             lib_rows = pd.read_csv(summ)
-            lineup_key = mj["meta"].get("lineup", "four")
-            # this lineup's cells; its ensembles are stored as "<lineup>/<name>"
-            base = [n for n in names if n not in ("Stacked ensemble", "Cumulative-link ensemble")]
-            lib_rows = lib_rows[lib_rows.model.isin(base) | lib_rows.model.str.startswith(f"{lineup_key}/")].copy()
-            lib_rows["model"] = lib_rows.model.str.replace(f"{lineup_key}/", "", regex=False)
+            lib_rows = lib_rows[lib_rows.model.isin(names)].copy()
             gaps = [abs(cards[f"{r.set}.{slug(r.model)}"]["anc" + r.rung[3]]["ap"] - r.held_AP)
                     for r in lib_rows.itertuples() if "anc" + r.rung[3] in cards.get(f"{r.set}.{slug(r.model)}", {})]
             check("every card matches the library's held-out AP", len(gaps) == len(lib_rows) and max(gaps, default=0) < 1e-4,

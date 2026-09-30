@@ -141,7 +141,7 @@ export const MODEL_ABBR: Record<string, string> = {
 export const SETS = ["pool", "s21", "short", "pars"];
 export const setFile = (set: string) => `/data/models/${SETS.includes(set) ? set : "pool"}.json`;
 
-export const GROUPS = ["Linear", "Trees & boosting", "Neural", "Ensembles & calibrated"];
+export const GROUPS = ["Linear", "Trees & boosting"];
 
 /** Short labels for the predictor-set switch. */
 export const SET_SHORT: Record<string, string> = { pool: "Full pool", s21: "21 set", short: "Short set", pars: "Parsimonious" };

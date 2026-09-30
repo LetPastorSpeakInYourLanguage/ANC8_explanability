@@ -205,11 +205,11 @@
   },
   "analysis.grid": {
    "w": 581,
-   "h": 341
+   "h": 149
   },
   "analysis.learned": {
    "w": 1176,
-   "h": 216
+   "h": 433
   },
   "analysis.picker": {
    "w": 1176,
@@ -229,7 +229,7 @@
   },
   "analysis.vs-chance": {
    "w": 581,
-   "h": 467
+   "h": 275
   },
   "analysis.where-works": {
    "w": 581,
@@ -963,19 +963,37 @@
      250,
      193,
      1176,
-     388
+     212
     ],
     "models.by-rung": [
      250,
-     595,
+     419,
      634,
-     305
+     317
     ],
     "models.by-set": [
      898,
-     595,
+     419,
      528,
-     305
+     149
+    ],
+    "models.tuning": [
+     898,
+     582,
+     528,
+     155
+    ],
+    "models.settings": [
+     250,
+     751,
+     581,
+     149
+    ],
+    "models.calibration": [
+     845,
+     751,
+     581,
+     149
     ],
     "mark:status": [
      0,
@@ -987,11 +1005,11 @@
   },
   "models.by-rung": {
    "w": 634,
-   "h": 509
+   "h": 317
   },
   "models.by-set": {
    "w": 528,
-   "h": 341
+   "h": 149
   },
   "models.calibration": {
    "w": 581,
@@ -1003,7 +1021,7 @@
   },
   "models.dev-held": {
    "w": 1176,
-   "h": 388
+   "h": 212
   },
   "models.lean": {
    "w": 581,

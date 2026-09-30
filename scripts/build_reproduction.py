@@ -7,9 +7,8 @@ reproduction/ is the study's hand-over for other researchers who hold the EDHS
 2024-25 Individual Recode. Its notebooks, run in order, rebuild every result of
 the model library from ETIR8AFL.DTA: the cohort and outcomes, the 21 predictors,
 the candidate pool, the split, the duplicates, the four predictor sets, the tuned
-logistic regression, random forest and XGBoost on every set and rung, their
-calibrated versions and ensembles, the evaluation, the explanations and the
-planner's levers. A parallel track does the same for explainable boosting.
+logistic regression, random forest and XGBoost on every set and rung, the
+evaluation, the explanations and the planner's levers. A parallel track does the same for explainable boosting.
 
 Nothing in it is hand-written twice: the package is synced from src/anc8, the
 stage scripts from scripts/, the cell code of the first notebook is the study's
@@ -141,11 +140,10 @@ track adds **explainable boosting** as a fourth model.
 | 07 | logistic regression, tuned on every set and rung | 20 min |
 | 08 | random forest, tuned on every set and rung | 2 h |
 | 09 | XGBoost, tuned on every set and rung | 1 h |
-| 10 | calibrated versions and the two ensembles | 1 h |
-| 11 | evaluation on the held-out women | 30 min |
-| 12 | explanations: what each model leans on | 10 min |
-| 13 | the planner's levers and the regions' drivers | 10 min |
-| E1-E3 | explainable boosting: tuning, explanations, levers (optional) | 2 h |
+| 10 | evaluation on the held-out women | 30 min |
+| 11 | explanations: what each model leans on | 10 min |
+| 12 | the planner's levers and the regions' drivers | 10 min |
+| E1-E3 | explainable boosting: tuning, explanations, levers (optional) | 1 h |
 
 Times are rough. Notebook 06 is the long one; it can take the study's predictor sets instead
 of re-deriving them (see its first cell).
@@ -174,7 +172,7 @@ Executed copies, with every table, figure and check, land in `executed/`.
 
 ```
 data/            put ETIR8AFL.DTA here
-notebooks/       00-13, the core track
+notebooks/       00-12, the core track
 notebooks_ebm/   E1-E3, explainable boosting
 src/anc8/        the analysis package every notebook uses
 scripts/         the stage scripts some notebooks run
@@ -421,7 +419,7 @@ print("birth timing for", len(timing), "women")
 '''), md('''
 ## The women who started antenatal care, and when
 
-One lever of notebook 13, an earlier first visit, needs to know when care began. The survey
+One lever of notebook 12, an earlier first visit, needs to know when care began. The survey
 records the timing of the first contact in weeks (`m13a_1` from 100) or months (from 200). A
 first contact at 12 weeks or earlier, or in the first three months, is **early**; later is
 not; "don't know" (998) and women with no contact stay unresolved and are left out. These
@@ -710,52 +708,9 @@ repro.report()
 ''')]
 
 
-def nb10(lineup="three"):
-    models = '["Logistic regression", "Random Forest", "XGBoost"]'
-    return [md('''
-# 10 · Calibrated versions and the two ensembles
-
-**Calibration.** A model's scores rank women well but may be too confident or too cautious as
-chances. Each model gets two recalibrated versions: **isotonic** (a flexible step map) and
-**Platt** (a logistic map, which keeps the ranking). To avoid scoring a calibrator on the data it
-was fitted to, calibration is **nested**: inside each development fold, the model is fitted on
-part of the fold's training women and the calibrator on the rest; the held-out women get the
-calibrator fitted on the model's out-of-fold predictions.
-
-**Stacked ensemble.** A logistic regression that blends the models' out-of-fold predictions.
-
-**Cumulative-link ensemble.** The outcome is a threshold on a count of contacts. The best model
-(by development AP) is refitted at several contact thresholds (1, 2, 3, 4, 5, 6, 8, 10), the
-curves are forced to fall as the threshold rises, and they are pooled with more weight near
-the target, then mapped back to a chance with an isotonic fit on the development women.
-
-The ensembles here are built from the three core models. The explainable boosting track builds
-the same two from all four.
-'''), code(SETUP + f'''
-MODELS = {models}
-'''), code('''
-for s in lib.SETS:
-    for r in lib.RUNGS:
-        for m in MODELS:
-            for method in lib.CALIBRATIONS:
-                job = lib.Job("calib", s, r, lib.calibrated_name(m, method), m)
-                if not lib.is_done(P.results, job):
-                    lib.run(job, P.results)
-for job in lib.lineup_jobs("three"):
-    if not lib.is_done(P.results, job):
-        lib.run(job, P.results)
-'''), code('''
-cal = [lib.calibrated_name(m, c) for m in MODELS for c in lib.CALIBRATIONS]
-repro.compare_cells(P.results, cal)
-res = repro.compare_cells(P.results, [lib.ensemble_name("stack", "three"), lib.ensemble_name("cumlink", "three")])
-print(res[["set", "rung", "model", "held_AP"]].round(3).to_string(index=False))
-repro.report()
-''')]
-
-
 def nb11():
     return [md('''
-# 11 · Evaluation on the held-out women
+# 10 · Evaluation on the held-out women
 
 Everything here is measured on the 1,375 held-out women, with their survey weights, and every
 interval comes from resampling **whole clusters within their strata** (500 times), so it
@@ -771,12 +726,18 @@ paired interval, and the net benefit across risk thresholds (decision curve).
 Two further checks: every model is refitted from its saved settings and must reproduce its
 saved predictions exactly, and the tuning is examined: what the search gained over the model's
 default settings, and which settings mattered.
+
+The study also tried recalibrating each model (isotonic and Platt) and combining them (a
+stacked and a cumulative-link ensemble). None improved on the tuned models: Platt scaling never
+changes the ranking, isotonic scaling lowered average precision at every rung, the stacked
+ensemble's edge was inside its interval, and the cumulative-link ensemble came last. The study
+reports the tuned models alone, and these notebooks build only those.
 '''), code(SETUP + '''
 MODELS = ["Logistic regression", "Random Forest", "XGBoost"]
 '''), code('''
 repro.run_script("fit_library_models.py", "--root", P.results, "--lineup", "three")
 repro.run_script("run_hyperparameter_ablation.py", "--root", P.results, "--models", *MODELS)
-repro.run_script("run_explainability.py")   # the cards show what each model leans on (notebook 12)
+repro.run_script("run_explainability.py")   # the cards show what each model leans on (notebook 11)
 repro.run_script("run_model_cards.py", "--library", P.results, "--lineup", "three", *(["--quick"] if QUICK else []))
 '''), md('''
 ## How many predictors: the four sets against each other
@@ -823,7 +784,7 @@ repro.report()
 
 def nb12():
     return [md('''
-# 12 · What each model leans on
+# 11 · What each model leans on
 
 Each fitted model is explained on the held-out women, with their survey weights:
 
@@ -840,7 +801,7 @@ models put it in their top five; the concordance table is the rank correlation b
 
 **Writes:** `outputs/explain/importance.csv`, `effects.json`, `agreement.csv`, `concordance.csv`
 '''), code(SETUP), code('''
-# notebook 11 already computed them for the model cards
+# notebook 10 already computed them for the model cards
 if not (P.outputs / "explain" / "importance.csv").exists():
     repro.run_script("run_explainability.py")
 '''), code('''
@@ -865,7 +826,7 @@ repro.report()
 
 def nb13():
     return [md('''
-# 13 · The planner's levers, and why regions differ
+# 12 · The planner's levers, and why regions differ
 
 **Levers.** A lever is something a health system can change, written as an edit to each
 woman's record: a health post within 30 minutes, a hospital within an hour, distance and cost
@@ -903,7 +864,7 @@ repro.report()
 # ------------------------------------------------------------------ explainable boosting track
 def ebm_nbs():
     e1 = [md('''
-# E1 · Explainable boosting: tuning, calibration and the four-model ensembles
+# E1 · Explainable boosting: tuning on every set and rung
 
 **Explainable boosting** (EBM) is gradient boosting kept additive: it learns one curve per
 predictor, and, when the tuning allows, a few curves for pairs of predictors. Its prediction is
@@ -912,8 +873,7 @@ regression's does, but the curves can bend (a distance that matters up to an hou
 stops mattering, say). This track adds it as the library's fourth model.
 
 Everything is done exactly as for the three core models: the same folds, weights, objective and
-held-out women; the same nested calibration; and the two ensembles, now built from all four.
-Run the core track (00-10) first.
+held-out women, and the same 12 fits, one per predictor set and rung. Run the core track first.
 '''), code(SETUP + '''
 MODEL = "Explainable Boosting"
 FOLD_JOBS = 5
@@ -933,31 +893,22 @@ for s in lib.SETS:
         job = lib.Job("tune", s, r, MODEL, MODEL)
         if not lib.is_done(P.results, job):
             lib.run(job, P.results, fold_jobs=FOLD_JOBS)
-        for method in lib.CALIBRATIONS:
-            cj = lib.Job("calib", s, r, lib.calibrated_name(MODEL, method), MODEL)
-            if not lib.is_done(P.results, cj):
-                lib.run(cj, P.results)
-for job in lib.lineup_jobs("four"):
-    if not lib.is_done(P.results, job):
-        lib.run(job, P.results)
 repro.run_script("fit_library_models.py", "--root", P.results, "--lineup", "four")
 '''), code('''
-repro.compare_cells(P.results, [MODEL] + [lib.calibrated_name(MODEL, c) for c in lib.CALIBRATIONS])
-res = repro.compare_cells(P.results, [lib.ensemble_name("stack", "four"), lib.ensemble_name("cumlink", "four")])
 print(repro.compare_cells(P.results, [MODEL]).pivot_table(index="set", columns="rung", values="held_AP").round(3).to_string())
 repro.report()
 ''')]
     e2 = [md('''
 # E2 · What explainable boosting leans on
 
-The explanations of notebook 12, now with explainable boosting beside the three core models.
+The explanations of notebook 11, now with explainable boosting beside the three core models.
 Its shares come from its own curves, exactly; a pair term's contribution is split equally
 between its two predictors. The **shape functions** below are the curves themselves: what the
 model adds to a woman's log-odds at each value of a predictor, which is what makes the model
 readable.
 '''), code(SETUP), code('''
 repro.run_script("run_explainability.py")
-# the model cards again, now with all four models, their calibrated versions and the four-model ensembles
+# the model cards again, now with all four models
 repro.run_script("run_model_cards.py", "--library", P.results, "--lineup", "four", *(["--quick"] if QUICK else []))
 '''), code('''
 agree = pd.read_csv(P.outputs / "explain" / "agreement.csv")
@@ -986,7 +937,7 @@ repro.report()
     e3 = [md('''
 # E3 · Levers and drivers with explainable boosting, beside logistic regression
 
-The planner's levers and the regional drivers of notebook 13, computed with explainable
+The planner's levers and the regional drivers of notebook 12, computed with explainable
 boosting as well as logistic regression. Both are additive, so both split a region's gap
 exactly; the difference is that explainable boosting's curves can bend. The table at the end
 shows each lever's weight under both models and the gap: where they agree, the answer does not
@@ -1076,10 +1027,7 @@ def write_reference(out: Path, lineup: str):
     json.dump(sel, open(ref / "selector_lightgbm.json", "w"), indent=2)
 
     summ = pd.read_csv(ROOT / "outputs" / "library" / "summary.csv")
-    keep = set(lineup_models) | {lib.calibrated_name(m, c) for m in lineup_models for c in lib.CALIBRATIONS}
-    keep |= {lib.ensemble_name(k, ln) for k in ("stack", "cumlink") for ln in lib.LINEUPS
-             if set(lib.LINEUPS[ln]) <= set(lineup_models)}
-    summ[summ.model.isin(keep)][["set", "rung", "model", "n_predictors", "dev_AP", "held_AP", "held_AUROC"]] \
+    summ[summ.model.isin(lineup_models)][["set", "rung", "model", "n_predictors", "dev_AP", "held_AP", "held_AUROC"]] \
         .to_csv(ref / "expected_results.csv", index=False)
 
 
@@ -1120,8 +1068,7 @@ def main():
             "thread everywhere, because its row and column sampling depends on the thread count, and a result that "
             "followed the machine could not be reproduced.",
             "Numbers: median fill. Categories: the most frequent level fills a missing value, then integer codes."),
-        "10_calibration_and_ensembles": nb10(), "11_evaluation": nb11(), "12_explainability": nb12(),
-        "13_levers_and_drivers": nb13(),
+        "10_evaluation": nb11(), "11_explainability": nb12(), "12_levers_and_drivers": nb13(),
     }
     for name, cells in nbs.items():
         if args.no_ebm:
@@ -1173,9 +1120,9 @@ command line: `python scripts/run_notebooks.py --ebm` (executed copies go to `ex
 
 ## The two tracks
 
-- `notebooks/` (00-13): the core library, **logistic regression, random forest and XGBoost**,
+- `notebooks/` (00-12): the core library, **logistic regression, random forest and XGBoost**,
   each on four predictor sets (the full pool of 86, the 21, the short set, the parsimonious set)
-  at three rungs, with calibrated versions and two ensembles.
+  at three rungs.
 - `notebooks_ebm/` (E1-E3): **explainable boosting** as a fourth model, with its exact
   explanations and its version of the planner's levers, set side by side with logistic
   regression's.
@@ -1214,7 +1161,6 @@ THREE_ONLY = [
     ("| E1-E3 | explainable boosting: tuning, explanations, levers (optional) | 2 h |\n", ""),
     ("python scripts/run_notebooks.py --ebm      # and the explainable boosting track\n", ""),
     ("notebooks_ebm/   E1-E3, explainable boosting\n", ""),
-    (" The explainable boosting track builds\nthe same two from all four.", ""),
     (', "XGBoost", "Explainable Boosting"] if m in agree]', ', "XGBoost"] if m in agree]'),
 ]
 

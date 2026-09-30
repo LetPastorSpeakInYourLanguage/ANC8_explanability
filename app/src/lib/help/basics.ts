@@ -586,7 +586,6 @@ export const BASICS: HelpTopic[] = [
         read: [
           "**Logistic regression**: the classic, simple model. Each answer adds a fixed amount.",
           "**Tree models** (random forest and XGBoost): many small yes/no rules combined. Often the most accurate on survey tables.",
-          "Each also comes recalibrated (isotonic and Platt), and two ensembles combine them.",
           "**Tuning** tries many settings for a model on the development women and keeps the best.",
         ],
         terms: ["logistic", "trees", "tuning"],

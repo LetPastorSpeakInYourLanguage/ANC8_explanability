@@ -11,9 +11,9 @@ command line: `python scripts/run_notebooks.py` (executed copies go to `executed
 
 ## The two tracks
 
-- `notebooks/` (00-13): the core library, **logistic regression, random forest and XGBoost**,
+- `notebooks/` (00-12): the core library, **logistic regression, random forest and XGBoost**,
   each on four predictor sets (the full pool of 86, the 21, the short set, the parsimonious set)
-  at three rungs, with calibrated versions and two ensembles.
+  at three rungs.
 
 ## How the notebooks check themselves
 
